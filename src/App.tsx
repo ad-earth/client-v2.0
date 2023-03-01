@@ -1,5 +1,8 @@
 import React from 'react';
 import './App.css';
+
+import Loader from './components/common/Loader';
+
 import { RouterProvider } from 'react-router-dom';
 import Router from './shared/utils/Router';
 
@@ -17,6 +20,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <div className="App">
+          <Loader />
           <RouterProvider router={Router} />
           <ReactQueryDevtools />
         </div>
