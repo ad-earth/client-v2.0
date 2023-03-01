@@ -1,0 +1,16 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "react"],
+  "extends": ["prettier", "airbnb-typescript", "react-app"],
+  "rules": {
+    "no-var": "error",
+    "no-multiple-empty-lines": "error",
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "eqeqeq": "error",
+    "no-unused-vars": "error",
+    "@typescript-eslint/comma-dangle": "off"
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  }
+}
