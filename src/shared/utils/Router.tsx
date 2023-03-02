@@ -4,9 +4,9 @@ import {
   createRoutesFromElements,
   Outlet,
 } from 'react-router-dom';
+import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import LogInPage from '../../pages/LogInPage';
-
 import MainPage from '../../pages/MainPage';
 
 const Router = createBrowserRouter(
@@ -26,6 +26,7 @@ function Layout() {
     <>
       <Header />
       <Outlet />
+      <Footer />
     </>
   );
 }
