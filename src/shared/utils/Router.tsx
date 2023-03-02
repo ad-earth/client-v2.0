@@ -2,9 +2,11 @@ import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
+  Outlet,
 } from 'react-router-dom';
+import Header from '../../components/Header';
+import LogInPage from '../../pages/LogInPage';
 
-import Layout from '../../components/common/Layout';
 import MainPage from '../../pages/MainPage';
 import Mypage from '../../pages/Mypage';
 import MyOrder from '../../components/MyOrder';
@@ -18,8 +20,9 @@ const Router = createBrowserRouter(
     <>
       <Route path="/" element={<Layout />}>
         <Route index element={<MainPage />} />
+        <Route path="login" element={<LogInPage />} />
         <Route element={<Mypage />}>
-          <Route path="/mypage">
+          <Route path="mypage">
             <Route index element={<MyOrder />} />
             <Route path=":id" element={<MyOrderDetail />} />
             <Route path="cancel-call/:id" element={<MyCancelDetail />} />
@@ -36,3 +39,12 @@ const Router = createBrowserRouter(
   )
 );
 export default Router;
+
+function Layout() {
+  return (
+    <>
+      <Header />
+      <Outlet />
+    </>
+  );
+}
