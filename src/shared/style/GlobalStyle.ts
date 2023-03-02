@@ -17,6 +17,7 @@ time, input,select,textarea {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
+	box-sizing: border-box;
 }
 
 *::before, *::after {
