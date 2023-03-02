@@ -15,3 +15,7 @@ export const getList = (category: string, sort: string, page: number) =>
   axiosInstance.get(
     `/main/products/${category}?sort=${sort}&page=${page}&maxpost=20`
   );
+
+//로그인페이지
+export const postLogin = (u_Id: string, u_Pw: string) =>
+  axiosInstance.post('/users/login', { u_Id, u_Pw });
