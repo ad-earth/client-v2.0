@@ -3,7 +3,7 @@
   "plugins": ["@typescript-eslint", "react"],
   "extends": ["prettier", "airbnb-typescript", "react-app"],
   "rules": {
-    "indent": "off",
+    "@typescript-eslint/indent": "off",
     "no-var": "error",
     "no-multiple-empty-lines": "error",
     "no-console": ["error", { "allow": ["warn", "error"] }],
