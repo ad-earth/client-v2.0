@@ -5,7 +5,7 @@ import { useViewport } from './useViewport';
 const SCROLL_DELTA = 87;
 const HEADER_HEIGHT = 87;
 
-export const useScrHeaderVisible = () => {
+const useScrHeader = () => {
   const viewport = useViewport();
   const [previousScroll, setPreviousScroll] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -42,3 +42,5 @@ export const useScrHeaderVisible = () => {
     isHeaderVisible: isVisible,
   };
 };
+
+export default useScrHeader;

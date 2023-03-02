@@ -12,7 +12,8 @@ interface Type {
 export const Container = styled.header<Type>`
   width: 100%;
   display: flex;
-  border-bottom: 1px solid ${theme.fc02};
+  border-bottom: ${props =>
+    props.isHeaderVisible ? 'transparent' : `1px solid ${theme.fc02}`};
   background-color: ${props => props.isHeaderVisible && `${theme.bg16}`};
   position: ${props => props.isHeaderVisible && 'fixed'};
   top: ${props => props.isHeaderVisible && '0'};

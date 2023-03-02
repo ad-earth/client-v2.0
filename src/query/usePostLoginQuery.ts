@@ -7,7 +7,7 @@ const PostLogin = async (data: LoginType) => {
   return res.data;
 };
 
-export const useLoginForm = (data: LoginType) => {
+const usePostLoginQuery = (data: LoginType) => {
   return useMutation(() => PostLogin(data), {
     onSuccess: result => {
       if (result.userInfo) {
@@ -21,3 +21,5 @@ export const useLoginForm = (data: LoginType) => {
     },
   });
 };
+
+export default usePostLoginQuery;

@@ -2,11 +2,12 @@ import * as t from '../style/header.style';
 import headLogo from '../assets/headLogo.png';
 import whiteLogo from '../assets/whiteLogo.png';
 import SearchBar from './SearchBar';
-import { useViewport } from '../hooks/useViewport';
-import useDropDown from '../hooks/useDropDown';
 import MenuDrop from './common/MenuDrop';
-import { useScrHeaderVisible } from '../hooks/useScrollHeader';
+import useDropDown from '../hooks/useDropDown';
+import useScrHeader from '../hooks/useScrollHeader';
+import { useViewport } from '../hooks/useViewport';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 let cateData: {
   id: number;
@@ -23,15 +24,24 @@ let cateData: {
   { id: 8, cate: '문구', path: '/list/문구' },
 ];
 
-const token = localStorage.getItem('token');
-
 const Header = () => {
   const viewport = useViewport();
   const navigate = useNavigate();
-  const { isHeaderVisible } = useScrHeaderVisible();
+  const { isHeaderVisible } = useScrHeader();
   const { isDropped, dropRef, handleRemove } = useDropDown();
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLogin(true);
+    } else setIsLogin(false);
+  }, [isLogin]);
+  const routeToMain = () => {
+    navigate('/');
+  };
   const handleLogout = () => {
     localStorage.clear();
+    setIsLogin(false);
   };
   const routeToLogin = () => {
     navigate('/login');
@@ -44,6 +54,7 @@ const Header = () => {
           <img
             src={!isHeaderVisible ? `${headLogo}` : `${whiteLogo}`}
             alt="headLogo"
+            onClick={routeToMain}
           />
           <p onClick={handleRemove} ref={dropRef}>
             장보기
@@ -52,7 +63,7 @@ const Header = () => {
         </t.LeftSection>
         <t.RightSection>
           {!isHeaderVisible ? <SearchBar /> : null}
-          {token ? (
+          {isLogin ? (
             <>
               <p onClick={handleLogout}>로그아웃</p>
               {!isHeaderVisible ? (

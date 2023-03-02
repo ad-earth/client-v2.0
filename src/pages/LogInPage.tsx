@@ -4,7 +4,7 @@ import loginLogo from '../assets/logInLogo.jpeg';
 import Input from '../components/common/Input';
 import Button from '../components/common/Button';
 import theme from '../shared/style/theme';
-import { useLoginForm } from '../query/useLogin';
+import usePostLoginQuery from '../query/usePostLoginQuery';
 import { useNavigate } from 'react-router-dom';
 
 export type LoginType = {
@@ -25,7 +25,7 @@ export default function LogInPage() {
     setForm({ ...form, [name]: value });
   };
 
-  const { mutate, isSuccess } = useLoginForm(form);
+  const { mutate, isSuccess } = usePostLoginQuery(form);
 
   useEffect(() => {
     if (isSuccess) {
