@@ -3,12 +3,14 @@
   "plugins": ["@typescript-eslint", "react"],
   "extends": ["prettier", "airbnb-typescript", "react-app"],
   "rules": {
+    "@typescript-eslint/indent": "off",
     "no-var": "error",
     "no-multiple-empty-lines": "error",
     "no-console": ["error", { "allow": ["warn", "error"] }],
     "eqeqeq": "error",
     "no-unused-vars": "error",
-    "@typescript-eslint/comma-dangle": "off"
+    "@typescript-eslint/comma-dangle": "off",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": false }]
   },
   "parserOptions": {
     "project": "./tsconfig.json"
