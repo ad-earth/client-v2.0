@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const useViewport = () => {
+const useViewport = () => {
   const [viewport, setViewport] = useState<number>(visualViewport.width);
 
   useEffect(() => {
@@ -13,3 +13,5 @@ export const useViewport = () => {
 
   return viewport;
 };
+
+export default useViewport;

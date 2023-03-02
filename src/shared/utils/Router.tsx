@@ -4,10 +4,12 @@ import {
   createRoutesFromElements,
   Outlet,
 } from 'react-router-dom';
-import Header from '../../components/Header';
-import LogInPage from '../../pages/LogInPage';
 
+import Layout from '../../components/common/Layout';
+import Header from '../../components/Header';
 import MainPage from '../../pages/MainPage';
+import ListPage from '../../pages/ListPage';
+import LogInPage from '../../pages/LogInPage';
 import Mypage from '../../pages/Mypage';
 import MyOrder from '../../components/MyOrder';
 import MyOrderDetail from '../../components/MyOrderDetail';
@@ -20,6 +22,7 @@ const Router = createBrowserRouter(
     <>
       <Route path="/" element={<Layout />}>
         <Route index element={<MainPage />} />
+        <Route path="/list/:category" element={<ListPage />} />
         <Route path="login" element={<LogInPage />} />
         <Route element={<Mypage />}>
           <Route path="mypage">
