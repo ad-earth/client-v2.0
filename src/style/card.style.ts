@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import theme from '../shared/style/theme';
-import { ReactComponent as Heart } from '../assets/icons/heart.svg';
-import { ReactComponent as Message } from '../assets/icons/message-circle.svg';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 export const Container = styled.div`
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   padding: 0 10px;
   box-sizing: border-box;
   font-size: inherit;
@@ -54,20 +54,23 @@ export const Price = styled.p`
   }
 `;
 
-export const MessageIcon = styled(Message)`
-  color: ${theme.bg09};
-  width: 20px;
-  cursor: pointer;
-`;
+export const BubbleIcon = styled(ChatBubbleOutlineIcon)({
+  '&.MuiSvgIcon-root': {
+    fontSize: `${theme.fs18}`,
+    color: `${theme.fc05}`,
+    cursor: 'pointer',
+  },
+});
+
+export const HeartLineIcon = styled(FavoriteBorderIcon)({
+  '&.MuiSvgIcon-root': {
+    fontSize: `${theme.fs18}`,
+    color: `${theme.fc05}`,
+    cursor: 'pointer',
+  },
+});
 
 export const Count = styled.span`
   font-size: ${theme.fs13};
   color: ${theme.bg09};
-`;
-
-export const HeartIcon = styled(Heart)`
-  fill: ${theme.bg16};
-  color: ${theme.bg16};
-  width: 20px;
-  cursor: pointer;
 `;

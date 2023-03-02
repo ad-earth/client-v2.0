@@ -6,7 +6,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../style/carousel.css';
-import { useViewport } from '../hooks/useViewport';
+import useViewport from '../hooks/useViewport';
 import { banner } from '../shared/utils/imgUrls';
 
 const MainBanner = () => {
