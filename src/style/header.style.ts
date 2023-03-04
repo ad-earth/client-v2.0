@@ -73,16 +73,6 @@ export const RightSection = styled.div`
 export const UserIcon = styled(PersonOutlineOutlinedIcon)({
   '&.MuiSvgIcon-root': {
     fontSize: `${theme.fs30}`,
-    color: `${theme.fc15}`,
-    marginTop: '5px',
-    marginRight: '5px',
-    cursor: 'pointer',
-  },
-});
-export const WhiteUserIcon = styled(PersonOutlineOutlinedIcon)({
-  '&.MuiSvgIcon-root': {
-    fontSize: `${theme.fs30}`,
-    color: `${theme.fc01}`,
     marginTop: '5px',
     marginRight: '5px',
     cursor: 'pointer',
@@ -91,15 +81,6 @@ export const WhiteUserIcon = styled(PersonOutlineOutlinedIcon)({
 export const ShopIcon = styled(ShoppingBagOutlinedIcon)({
   '&.MuiSvgIcon-root': {
     fontSize: `${theme.fs30}`,
-    color: `${theme.fc15}`,
-    marginRight: '5px',
-    cursor: 'pointer',
-  },
-});
-export const WhiteShopIcon = styled(ShoppingBagOutlinedIcon)({
-  '&.MuiSvgIcon-root': {
-    fontSize: `${theme.fs30}`,
-    color: `${theme.fc01}`,
     marginRight: '5px',
     cursor: 'pointer',
   },
