@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
 import * as t from '../style/loginPage.style';
+import theme from '../shared/style/theme';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import loginLogo from '../assets/logInLogo.jpeg';
 import Input from '../components/common/Input';
 import Button from '../components/common/Button';
-import theme from '../shared/style/theme';
 import usePostLoginQuery from '../query/usePostLoginQuery';
-import { useNavigate } from 'react-router-dom';
 
 export type LoginType = {
   u_Id: string;
@@ -13,8 +13,8 @@ export type LoginType = {
 };
 
 export default function LogInPage() {
-  const [form, setForm] = useState<LoginType>({ u_Id: '', u_Pw: '' });
   const navigate = useNavigate();
+  const [form, setForm] = useState<LoginType>({ u_Id: '', u_Pw: '' });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
