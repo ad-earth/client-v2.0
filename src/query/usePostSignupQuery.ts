@@ -1,6 +1,7 @@
-import { AxiosError, AxiosResponse } from 'axios';
-import { postSignup } from '../shared/api/apis';
 import { useMutation } from 'react-query';
+import { postSignup } from '../shared/api/apis';
+import { ErrorType } from './../shared/types/types';
+import { AxiosError, AxiosResponse } from 'axios';
 
 export interface SignUpDataType {
   u_Id: string;
@@ -13,10 +14,6 @@ export interface SignUpDataType {
   u_Phone: string;
   u_Img: string;
 }
-
-type ErrType = {
-  errorMessage: string;
-};
 
 const PostSignup = async (data: SignUpDataType) => {
   const res = await postSignup(
@@ -34,7 +31,7 @@ const PostSignup = async (data: SignUpDataType) => {
 };
 
 const usePostSignupQuery = (data: SignUpDataType) => {
-  return useMutation<AxiosResponse, AxiosError<ErrType>, any, unknown>(
+  return useMutation<AxiosResponse, AxiosError<ErrorType>, any, unknown>(
     () => PostSignup(data),
     {}
   );

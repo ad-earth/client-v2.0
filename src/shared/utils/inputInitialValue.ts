@@ -1,11 +1,11 @@
+const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 interface State {
   val: string;
   msg?: string;
   isCheck?: boolean;
 }
 
-interface StateType {
-  img: State;
+interface SignupStateType {
   id: State;
   pwd: State;
   pwdCheck: State;
@@ -14,12 +14,13 @@ interface StateType {
   phone: State;
 }
 
-export const inputInitialValue: StateType = {
-  img: {
-    val: '',
-    msg: '',
-    isCheck: false,
-  },
+interface InfoStateType {
+  name: State;
+  gender: State;
+  phone: State;
+}
+
+export const signupInitial: SignupStateType = {
   id: {
     val: '',
     msg: '',
@@ -46,6 +47,23 @@ export const inputInitialValue: StateType = {
   },
   phone: {
     val: '',
+    msg: '',
+    isCheck: false,
+  },
+};
+
+export const InfoInitial: InfoStateType = {
+  name: {
+    val: `${userInfo?.u_Name ? userInfo?.u_Name : ''}`,
+    isCheck: false,
+  },
+  gender: {
+    val: `${userInfo?.u_Gender ? userInfo?.u_Gender : ''}`,
+    msg: '',
+    isCheck: false,
+  },
+  phone: {
+    val: `${userInfo?.u_Phone ? userInfo?.u_Phone : ''}`,
     msg: '',
     isCheck: false,
   },
