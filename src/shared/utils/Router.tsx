@@ -5,7 +5,6 @@ import {
   Outlet,
 } from 'react-router-dom';
 
-import Layout from '../../components/common/Layout';
 import Header from '../../components/Header';
 import MainPage from '../../pages/MainPage';
 import ListPage from '../../pages/ListPage';

@@ -1,6 +1,6 @@
 import * as t from '../style/myUserHeadInfo.style';
 import { useState } from 'react';
-import { useViewport } from '../hooks/useViewport';
+import useViewport from '../hooks/useViewport';
 import GlobalModal from './common/GlobalModal';
 import MyUserInfoModal from './MyUserInfoModal';
 

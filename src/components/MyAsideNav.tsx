@@ -1,6 +1,6 @@
 import * as t from '../style/myAsideNav.style';
 import { useState } from 'react';
-import { useViewport } from '../hooks/useViewport';
+import useViewport from '../hooks/useViewport';
 import GlobalModal from './common/GlobalModal';
 import UserInfoModal from './MyUserInfoModal';
 import MyWithdrawalModal from './MyWithdrawalModal';

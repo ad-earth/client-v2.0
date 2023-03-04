@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import throttle from 'lodash/throttle';
-import { useViewport } from './useViewport';
+import useViewport from './useViewport';
 
 const SCROLL_DELTA = 87;
 const HEADER_HEIGHT = 87;
