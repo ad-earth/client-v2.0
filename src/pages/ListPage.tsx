@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from 'react';
-import ListCards from '../components/ListCards';
+import { useParams } from 'react-router-dom';
+import CardList from '../components/common/CardList';
 import ListCategory from '../components/ListCategory';
 import useGetListQuery from '../query/useGetListQuery';
 
 const ListPage = () => {
-  const [category, setCategory] = useState<string>('전체');
+  const { category } = useParams();
   const [sort, setSort] = useState<string>('recent');
   const [page, setPage] = useState<number>(1);
 
@@ -21,8 +22,8 @@ const ListPage = () => {
 
   return (
     <>
-      <ListCategory setCategory={setCategory} setSort={setSort} />
-      <ListCards
+      <ListCategory setSort={setSort} />
+      <CardList
         products={products}
         pageCnt={pageCnt}
         likeList={likeList}
