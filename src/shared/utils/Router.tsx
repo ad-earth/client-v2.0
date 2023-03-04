@@ -14,6 +14,7 @@ import MyOrderDetail from '../../components/MyOrderDetail';
 import MyCancelDetail from '../../components/MyCancelDetail';
 import MyWish from '../../components/MyWish';
 import NotFoundPage from '../../pages/NotFoundPage';
+import SignUpPage from '../../pages/SignUpPage';
 
 const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +22,7 @@ const Router = createBrowserRouter(
       <Route path="/" element={<Layout />}>
         <Route index element={<MainPage />} />
         <Route path="login" element={<LogInPage />} />
+        <Route path="signup" element={<SignUpPage />} />
         <Route element={<Mypage />}>
           <Route path="mypage">
             <Route index element={<MyOrder />} />
