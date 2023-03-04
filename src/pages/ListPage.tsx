@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import CardList from '../components/common/CardList';
+import ListCards from '../components/ListCards';
 import ListCategory from '../components/ListCategory';
 import useGetListQuery from '../query/useGetListQuery';
 
@@ -23,7 +23,7 @@ const ListPage = () => {
   return (
     <>
       <ListCategory setSort={setSort} />
-      <CardList
+      <ListCards
         products={products}
         pageCnt={pageCnt}
         likeList={likeList}

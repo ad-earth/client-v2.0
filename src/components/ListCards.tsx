@@ -52,7 +52,9 @@ const ListCards = ({
         <p>등록된 상품이 없습니다.</p>
       ) : (
         <t.Wrapper>
-          <Card list={products} likeList={likeList} />
+          {products?.map(el => (
+            <Card key={el.p_No} isAd={false} product={el} likeList={likeList} />
+          ))}
         </t.Wrapper>
       )}
       <Pagination pageCnt={pageCnt} page={page} setPage={setPage} />

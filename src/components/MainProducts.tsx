@@ -14,7 +14,9 @@ const MainProducts = ({ list, children }: PropsType) => {
         </t.Image>
       </t.TitleWrapper>
       <t.CardWrapper>
-        <Card list={list} />
+        {list?.map(el => (
+          <Card key={el.p_No} product={el} isAd={false} />
+        ))}
       </t.CardWrapper>
     </t.Container>
   );
