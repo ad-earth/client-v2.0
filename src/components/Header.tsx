@@ -2,7 +2,7 @@ import * as t from '../style/header.style';
 import headLogo from '../assets/headLogo.png';
 import whiteLogo from '../assets/whiteLogo.png';
 import SearchBar from './SearchBar';
-import { useViewport } from '../hooks/useViewport';
+import useViewport from '../hooks/useViewport';
 import useDropDown from '../hooks/useDropDown';
 import MenuDrop from './common/MenuDrop';
 import { useScrHeaderVisible } from '../hooks/useScrollHeader';

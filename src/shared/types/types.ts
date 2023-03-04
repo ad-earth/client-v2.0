@@ -3,11 +3,15 @@ export type MainResponseType = {
   New: ProductType[];
 };
 
-export type ListResponseType = {
+export interface ListResponseType {
   cnt: number;
   products: ProductType[];
   userLike: number[];
-};
+}
+
+export interface AdResponseType extends ListResponseType {
+  adProducts: ProductType[];
+}
 
 export type ErrorType = { errorMessage: string };
 

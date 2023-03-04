@@ -5,7 +5,6 @@ import {
   Outlet,
 } from 'react-router-dom';
 
-import Layout from '../../components/common/Layout';
 import Header from '../../components/Header';
 import MainPage from '../../pages/MainPage';
 import ListPage from '../../pages/ListPage';
@@ -16,6 +15,7 @@ import MyOrderDetail from '../../components/MyOrderDetail';
 import MyCancelDetail from '../../components/MyCancelDetail';
 import MyWish from '../../components/MyWish';
 import NotFoundPage from '../../pages/NotFoundPage';
+import SearchPage from '../../pages/SearchPage';
 
 const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +23,7 @@ const Router = createBrowserRouter(
       <Route path="/" element={<Layout />}>
         <Route index element={<MainPage />} />
         <Route path="/list/:category" element={<ListPage />} />
+        <Route path="/search/:keyword" element={<SearchPage />} />
         <Route path="login" element={<LogInPage />} />
         <Route element={<Mypage />}>
           <Route path="mypage">

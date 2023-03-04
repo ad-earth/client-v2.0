@@ -4,7 +4,6 @@ import { BadgeType } from '../components/common/Badge';
 
 export const Container = styled.div`
   display: flex;
-  margin: 10px 2px;
   width: auto;
   box-sizing: border-box;
   font-size: inherit;
