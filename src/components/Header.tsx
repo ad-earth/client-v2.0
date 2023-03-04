@@ -43,8 +43,14 @@ const Header = () => {
     localStorage.clear();
     setIsLogin(false);
   };
+  const routeToMy = () => {
+    navigate('/mypage');
+  };
   const routeToLogin = () => {
     navigate('/login');
+  };
+  const routeToSignUp = () => {
+    navigate('/signup');
   };
 
   return (
@@ -66,26 +72,15 @@ const Header = () => {
           {isLogin ? (
             <>
               <p onClick={handleLogout}>로그아웃</p>
-              {!isHeaderVisible ? (
-                <>
-                  <t.UserIcon />
-                  <t.CountBadge badgeContent={1}>
-                    <t.ShopIcon />
-                  </t.CountBadge>
-                </>
-              ) : (
-                <>
-                  <t.WhiteUserIcon />
-                  <t.CountBadge badgeContent={1}>
-                    <t.WhiteShopIcon />
-                  </t.CountBadge>
-                </>
-              )}
+              <t.UserIcon onClick={routeToMy} />
+              <t.CountBadge badgeContent={1}>
+                <t.ShopIcon />
+              </t.CountBadge>
             </>
           ) : (
             <>
               <p onClick={routeToLogin}>로그인</p>
-              <p>회원가입</p>
+              <p onClick={routeToSignUp}>회원가입</p>
             </>
           )}
           {viewport <= 990 && <t.EtcIcon />}
