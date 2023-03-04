@@ -4,7 +4,7 @@ import loginLogo from '../assets/logInLogo.jpeg';
 import Input from '../components/common/Input';
 import Button from '../components/common/Button';
 import theme from '../shared/style/theme';
-import { useLoginForm } from '../query/useLogin';
+import usePostLoginQuery from '../query/usePostLoginQuery';
 import { useNavigate } from 'react-router-dom';
 
 export type LoginType = {
@@ -25,7 +25,7 @@ export default function LogInPage() {
     setForm({ ...form, [name]: value });
   };
 
-  const { mutate, isSuccess } = useLoginForm(form);
+  const { mutate, isSuccess } = usePostLoginQuery(form);
 
   useEffect(() => {
     if (isSuccess) {
@@ -75,19 +75,20 @@ export default function LogInPage() {
           <p>회원가입</p>
           <p>아이디/비밀번호 찾기</p>
         </t.EtcContents>
-        <Button
-          radius="30px"
-          fontSize={theme.fs14}
-          color={theme.fc14}
-          bgColor={theme.bg01}
-          border={`0.5px solid ${theme.ls03}`}
-          hBorder={`0.5px solid ${theme.ls03}`}
-          hBgColor={theme.bg08}
-          margin="30px auto"
-          text="광고주 솔루션 바로가기"
-          onClick={routeToAdmin}
-        />
+        <Button {...btnProps} onClick={routeToAdmin} />
       </t.EtcWrap>
     </t.Container>
   );
 }
+
+const btnProps = {
+  text: '광고주 솔루션 바로가기',
+  radius: '30px',
+  fontSize: `${theme.fs14}`,
+  color: `${theme.fc14}`,
+  bgColor: `${theme.bg01}`,
+  hBgColor: `${theme.bg08}`,
+  border: `0.5px solid ${theme.ls03}`,
+  hBorder: `0.5px solid ${theme.ls03}`,
+  margin: '30px auto',
+};

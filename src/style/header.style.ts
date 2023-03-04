@@ -12,7 +12,8 @@ interface Type {
 export const Container = styled.header<Type>`
   width: 100%;
   display: flex;
-  border-bottom: 1px solid ${theme.fc02};
+  border-bottom: ${props =>
+    props.isHeaderVisible ? 'transparent' : `1px solid ${theme.fc02}`};
   background-color: ${props => props.isHeaderVisible && `${theme.bg16}`};
   position: ${props => props.isHeaderVisible && 'fixed'};
   top: ${props => props.isHeaderVisible && '0'};
@@ -72,16 +73,6 @@ export const RightSection = styled.div`
 export const UserIcon = styled(PersonOutlineOutlinedIcon)({
   '&.MuiSvgIcon-root': {
     fontSize: `${theme.fs30}`,
-    color: `${theme.fc15}`,
-    marginTop: '5px',
-    marginRight: '5px',
-    cursor: 'pointer',
-  },
-});
-export const WhiteUserIcon = styled(PersonOutlineOutlinedIcon)({
-  '&.MuiSvgIcon-root': {
-    fontSize: `${theme.fs30}`,
-    color: `${theme.fc01}`,
     marginTop: '5px',
     marginRight: '5px',
     cursor: 'pointer',
@@ -90,15 +81,6 @@ export const WhiteUserIcon = styled(PersonOutlineOutlinedIcon)({
 export const ShopIcon = styled(ShoppingBagOutlinedIcon)({
   '&.MuiSvgIcon-root': {
     fontSize: `${theme.fs30}`,
-    color: `${theme.fc15}`,
-    marginRight: '5px',
-    cursor: 'pointer',
-  },
-});
-export const WhiteShopIcon = styled(ShoppingBagOutlinedIcon)({
-  '&.MuiSvgIcon-root': {
-    fontSize: `${theme.fs30}`,
-    color: `${theme.fc01}`,
     marginRight: '5px',
     cursor: 'pointer',
   },

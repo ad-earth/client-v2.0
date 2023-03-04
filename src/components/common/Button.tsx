@@ -16,6 +16,7 @@ export interface BtnType {
   hBgColor?: string;
   text?: string;
   children?: React.ReactNode;
+  disabled?: boolean;
   onClick?: () => void;
 }
 
