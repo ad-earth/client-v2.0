@@ -1,15 +1,10 @@
-import { inputInitialValue } from './inputInitialValue';
+import { signupInitial, InfoInitial } from './inputInitialValue';
 import { IdCheck, PwdCheck, PhoneCheck } from './regExp';
 
 type ActionType = { type: string; payload?: string; msg?: string };
 
-export function inputReducer(
-  state: typeof inputInitialValue,
-  action: ActionType
-) {
+export function inputReducer(state: typeof signupInitial, action: ActionType) {
   switch (action.type) {
-    case 'img':
-      return;
     case 'id':
       if (action.payload === 'err') {
         return {
@@ -148,7 +143,79 @@ export function inputReducer(
             };
       }
     case 'reset':
-      return inputInitialValue;
+      return signupInitial;
+    default:
+      throw new Error(`${action.type}`);
+  }
+}
+
+export function infoReducer(state: typeof InfoInitial, action: ActionType) {
+  switch (action.type) {
+    case 'name':
+      return action.payload.length > 0
+        ? {
+            ...state,
+            [action.type]: {
+              val: action.payload,
+              isCheck: true,
+            },
+          }
+        : {
+            ...state,
+            [action.type]: {
+              val: action.payload,
+              msg: '성함을 입력해주세요.',
+              isCheck: false,
+            },
+          };
+    case 'gender':
+      return action.payload.length > 0
+        ? {
+            ...state,
+            [action.type]: {
+              val: action.payload,
+              isCheck: true,
+            },
+          }
+        : {
+            ...state,
+            [action.type]: {
+              val: action.payload,
+              msg: '성별을 선택해주세요.',
+              isCheck: false,
+            },
+          };
+    case 'phone':
+      if (action.payload === 'err') {
+        return {
+          ...state,
+          [action.type]: {
+            val: state.phone.val,
+            msg: '중복된 연락처입니다.',
+            isCheck: false,
+          },
+        };
+      } else {
+        return PhoneCheck(action.payload)
+          ? {
+              ...state,
+              [action.type]: {
+                val: action.payload,
+                msg: '올바른 연락처 입니다.',
+                isCheck: true,
+              },
+            }
+          : {
+              ...state,
+              [action.type]: {
+                val: action.payload,
+                msg: '연락처를 다시 확인해주세요.',
+                isCheck: false,
+              },
+            };
+      }
+    case 'reset':
+      return InfoInitial;
     default:
       throw new Error(`${action.type}`);
   }

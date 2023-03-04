@@ -11,11 +11,11 @@ import usePostSignupQuery, {
   SignUpDataType,
 } from '../query/usePostSignupQuery';
 import { inputReducer } from '../shared/utils/inputReducer';
-import { inputInitialValue } from '../shared/utils/inputInitialValue';
+import { signupInitial } from '../shared/utils/inputInitialValue';
 
-const SignUpPage = () => {
+export default function SignUpPage() {
   const navigate = useNavigate();
-  const [state, setDispatch] = useReducer(inputReducer, inputInitialValue);
+  const [state, setDispatch] = useReducer(inputReducer, signupInitial);
   const { id, pwd, pwdCheck, name, gender, phone } = state;
   const [formData, setFormData] = useState<SignUpDataType>();
   const [imgUrl, setImgUrl] = useState('');
@@ -173,6 +173,4 @@ const SignUpPage = () => {
       </form>
     </t.Container>
   );
-};
-
-export default SignUpPage;
+}

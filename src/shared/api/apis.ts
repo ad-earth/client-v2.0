@@ -47,3 +47,22 @@ export const postSignup = (
     u_Phone,
     u_Img,
   });
+// 유저 정보 수정
+export const putUserInfoChange = (
+  u_Name: string,
+  u_Address1: string,
+  u_Address2: string,
+  u_Address3: string,
+  u_Gender: string,
+  u_Phone: string,
+  u_Img: string
+) =>
+  axiosInstance.put('/users', {
+    u_Name,
+    u_Address1,
+    u_Address2,
+    u_Address3,
+    u_Gender,
+    u_Phone,
+    u_Img,
+  });

@@ -9,7 +9,6 @@ import Header from '../../components/Header';
 import LogInPage from '../../pages/LogInPage';
 import MainPage from '../../pages/MainPage';
 import ListPage from '../../pages/ListPage';
-import LogInPage from '../../pages/LogInPage';
 import Mypage from '../../pages/Mypage';
 import MyOrder from '../../components/MyOrder';
 import MyOrderDetail from '../../components/MyOrderDetail';
