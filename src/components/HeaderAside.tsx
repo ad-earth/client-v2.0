@@ -25,7 +25,7 @@ export default function HeaderAside() {
 
   const handleLogOut = () => {
     localStorage.clear();
-    window.location.replace('/');
+    window.location.reload();
   };
   return (
     <>
