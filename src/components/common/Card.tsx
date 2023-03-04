@@ -1,15 +1,32 @@
 import * as t from '../../style/card.style';
 
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ProductType } from '../../shared/types/types';
 import Badge from './Badge';
+import Heart from './Heart';
 
-const Card = ({ list }: PropsType) => {
+const Card = ({ product, isAd, likeList }: PropsType) => {
+  const navigate = useNavigate();
+  const [imageIdx, setImageIdx] = useState<number>(0);
+
+  const handleClick = (productNo: number) => navigate(`/detail/${productNo}`);
+
   return (
     <>
-      {list?.map(product => (
-        <t.Container>
-          <t.Thumbnail src={product.p_Thumbnail[0]} />
+      <t.Container key={product.p_No}>
+        <div onClick={() => handleClick(product.p_No)}>
+          <t.ImgWrapper>
+            <t.Thumbnail
+              isAd={isAd}
+              onMouseEnter={() =>
+                product.p_Thumbnail.length > 1 ? setImageIdx(1) : setImageIdx(0)
+              }
+              onMouseLeave={() => setImageIdx(0)}
+              src={product.p_Thumbnail[imageIdx]}
+            />
+            {isAd && <Badge type={'AD'} />}
+          </t.ImgWrapper>
           <section>
             {product.p_Option.map(opt =>
               opt[1] ? <t.Color key={opt[1]} code={opt[1]} /> : null
@@ -34,26 +51,31 @@ const Card = ({ list }: PropsType) => {
             {product.p_Sale && <Badge type={'SALE'} />}
             {product.p_Soldout && <Badge type={'SOLDOUT'} />}
           </section>
-          {product.p_Review && (
-            <>
-              <t.MessageIcon />
-              <t.Count>1</t.Count>
-            </>
+        </div>
+        <section>
+          {product.p_Review >= 0 && (
+            <section>
+              <t.BubbleIcon />
+              <t.Count>{product.p_Review}</t.Count>
+            </section>
           )}
-          {product.p_Like && (
-            <>
-              <t.HeartIcon />
-              <t.Count>1</t.Count>
-            </>
+          {product.p_Like >= 0 && (
+            <Heart
+              likeCnt={product.p_Like}
+              productNo={product.p_No}
+              likeList={likeList}
+            />
           )}
-        </t.Container>
-      ))}
+        </section>
+      </t.Container>
     </>
   );
 };
 
 type PropsType = {
-  list: ProductType[];
+  isAd: boolean;
+  product: ProductType;
+  likeList?: number[];
 };
 
 export default Card;

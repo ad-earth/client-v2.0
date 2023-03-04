@@ -3,6 +3,18 @@ export type MainResponseType = {
   New: ProductType[];
 };
 
+export interface ListResponseType {
+  cnt: number;
+  products: ProductType[];
+  userLike: number[];
+}
+
+export interface AdResponseType extends ListResponseType {
+  adProducts: ProductType[];
+}
+
+export type ErrorType = { errorMessage: string };
+
 export interface ProductType {
   p_No: number;
   p_Category: string;
@@ -18,4 +30,5 @@ export interface ProductType {
   p_New: boolean;
   p_Like?: number;
   p_Review?: number;
+  p_Desc?: string;
 }

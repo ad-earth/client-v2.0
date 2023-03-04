@@ -1,6 +1,6 @@
 import React from 'react';
-import './App.css';
 
+import { Toaster } from 'react-hot-toast';
 import Loader from './components/common/Loader';
 
 import { RouterProvider } from 'react-router-dom';
@@ -20,6 +20,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <div className="App">
+          <Toaster />
           <Loader />
           <RouterProvider router={Router} />
           <ReactQueryDevtools />

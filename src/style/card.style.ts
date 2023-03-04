@@ -1,26 +1,36 @@
 import styled from 'styled-components';
 import theme from '../shared/style/theme';
-import { ReactComponent as Heart } from '../assets/icons/heart.svg';
-import { ReactComponent as Message } from '../assets/icons/message-circle.svg';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 export const Container = styled.div`
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   padding: 0 10px;
   box-sizing: border-box;
   font-size: inherit;
   section {
     display: flex;
+    align-items: center;
     gap: 4px;
+    padding: 5px 0 5px 0;
   }
 `;
 
-export const Thumbnail = styled.img`
+export const ImgWrapper = styled.div`
+  position: relative;
+  div {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+`;
+
+export const Thumbnail = styled.img<{ isAd: boolean }>`
   width: 100%;
   margin: 0 auto;
   cursor: pointer;
-  background-color: grey;
-  background-size: cover;
+  border: ${props => props.isAd && `1px solid ${theme.fc11}`};
 `;
 
 export const Color = styled.div<{ code: string }>`
@@ -34,7 +44,6 @@ export const Color = styled.div<{ code: string }>`
 `;
 
 export const Name = styled.p`
-  margin: 10px 0;
   font-size: ${theme.fs14};
   color: ${theme.fc11};
   text-align: left;
@@ -45,6 +54,7 @@ export const Price = styled.p`
   font-size: ${theme.fs13};
   color: ${theme.fc15};
   display: flex;
+  padding: 5px 0 5px 0;
   span {
     font-size: ${theme.fs13};
     color: ${theme.fc05};
@@ -54,20 +64,23 @@ export const Price = styled.p`
   }
 `;
 
-export const MessageIcon = styled(Message)`
-  color: ${theme.bg09};
-  width: 20px;
-  cursor: pointer;
-`;
+export const BubbleIcon = styled(ChatBubbleOutlineIcon)({
+  '&.MuiSvgIcon-root': {
+    fontSize: `${theme.fs18}`,
+    color: `${theme.fc05}`,
+    cursor: 'pointer',
+  },
+});
+
+export const HeartLineIcon = styled(FavoriteBorderIcon)({
+  '&.MuiSvgIcon-root': {
+    fontSize: `${theme.fs18}`,
+    color: `${theme.fc05}`,
+    cursor: 'pointer',
+  },
+});
 
 export const Count = styled.span`
   font-size: ${theme.fs13};
   color: ${theme.bg09};
-`;
-
-export const HeartIcon = styled(Heart)`
-  fill: ${theme.bg16};
-  color: ${theme.bg16};
-  width: 20px;
-  cursor: pointer;
 `;
