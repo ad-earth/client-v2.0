@@ -48,9 +48,13 @@ const ListCards = ({
           </Select>
         </FormControl>
       </t.SelectWrap>
-      <t.Wrapper>
-        <Card list={products} likeList={likeList} />
-      </t.Wrapper>
+      {products?.length === 0 ? (
+        <p>등록된 상품이 없습니다.</p>
+      ) : (
+        <t.Wrapper>
+          <Card list={products} likeList={likeList} />
+        </t.Wrapper>
+      )}
       <Pagination pageCnt={pageCnt} page={page} setPage={setPage} />
     </t.Container>
   );

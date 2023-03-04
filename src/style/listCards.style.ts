@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../shared/style/theme';
 
 export const Container = styled.div`
   max-width: 1200px;
@@ -8,6 +9,10 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  p {
+    font-size: ${theme.fs15};
+    color: ${theme.fc09};
+  }
 `;
 
 export const SelectWrap = styled.div`
