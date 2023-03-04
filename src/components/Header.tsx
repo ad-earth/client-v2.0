@@ -2,14 +2,10 @@ import * as t from '../style/header.style';
 import headLogo from '../assets/headLogo.png';
 import whiteLogo from '../assets/whiteLogo.png';
 import SearchBar from './SearchBar';
-
 import useViewport from '../hooks/useViewport';
-
-
 import MenuDrop from './common/MenuDrop';
 import useDropDown from '../hooks/useDropDown';
 import useScrHeader from '../hooks/useScrollHeader';
-import { useViewport } from '../hooks/useViewport';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
