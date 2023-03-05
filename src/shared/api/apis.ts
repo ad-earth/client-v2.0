@@ -66,3 +66,17 @@ export const putUserInfoChange = (
     u_Phone,
     u_Img,
   });
+//아이디 찾기
+export const getId = (u_Name: string, u_Phone: string) =>
+  axiosInstance.get('/users/find-id', {
+    params: { u_Name, u_Phone },
+  });
+//비밀번호 찾기 1차
+export const getPwd = (u_Id: string, u_Name: string, u_Phone: string) =>
+  axiosInstance.get('/users/find-password', {
+    params: { u_Id, u_Name, u_Phone },
+  });
+//비밀번호 찾기 2차
+export const putNewPwd = (u_Idx: number, u_Pw: string) => {
+  axiosInstance.put('/users/reset-password', { u_Idx, u_Pw });
+};

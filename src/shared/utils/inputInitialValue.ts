@@ -3,6 +3,7 @@ interface State {
   val: string;
   msg?: string;
   isCheck?: boolean;
+  genderCheck?: number;
 }
 
 interface SignupStateType {
@@ -18,6 +19,11 @@ interface InfoStateType {
   name: State;
   gender: State;
   phone: State;
+}
+
+interface PwdStateType {
+  pwd: State;
+  pwdCheck: State;
 }
 
 export const signupInitial: SignupStateType = {
@@ -61,9 +67,23 @@ export const InfoInitial: InfoStateType = {
     val: `${userInfo?.u_Gender ? userInfo?.u_Gender : ''}`,
     msg: '',
     isCheck: false,
+    genderCheck: userInfo?.u_Gender === '남성' ? 1 : 2,
   },
   phone: {
     val: `${userInfo?.u_Phone ? userInfo?.u_Phone : ''}`,
+    msg: '',
+    isCheck: false,
+  },
+};
+
+export const NewPwdInitial: PwdStateType = {
+  pwd: {
+    val: '',
+    msg: '',
+    isCheck: false,
+  },
+  pwdCheck: {
+    val: '',
     msg: '',
     isCheck: false,
   },
