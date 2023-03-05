@@ -51,8 +51,10 @@ export default function SignUpPage() {
   ]);
 
   const { mutate } = usePostSignupQuery(formData);
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+  };
+  const handleSignup = () => {
     mutate(formData, {
       onSuccess: () => {
         alert(
@@ -169,6 +171,7 @@ export default function SignUpPage() {
               extraAddress
             )
           }
+          onClick={handleSignup}
         />
       </form>
     </t.Container>

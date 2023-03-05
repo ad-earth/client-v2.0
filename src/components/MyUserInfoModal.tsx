@@ -36,12 +36,13 @@ export default function MyUserInfoModal() {
     });
   }, [name.val, gender.val, phone.val, zipcode, address, extraAddress, imgUrl]);
   const { mutate } = usePutUserInfoQuery(formData);
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+  };
+  const handlePutUserInfo = () => {
     mutate(formData, {
       onSuccess: () => {
         alert(`${formData.u_Name}님의 정보를 수정하였습니다!`);
-        setDispatch({ type: 'reset' });
         const editUserData = {
           u_Idx: userInfo.u_Idx,
           u_Id: userInfo.u_Id,
@@ -87,7 +88,7 @@ export default function MyUserInfoModal() {
             id="남성"
             name="gender"
             value="남성"
-            checked={gender.val === gender.val}
+            checked={gender.genderCheck === 1}
             onChange={onChange}
           />
           <label htmlFor="남성">남자</label>
@@ -96,7 +97,7 @@ export default function MyUserInfoModal() {
             id="여성"
             name="gender"
             value="여성"
-            checked={gender.val === gender.val}
+            checked={gender.genderCheck === 2}
             onChange={onChange}
           />
           <label htmlFor="여성">여자</label>
@@ -127,15 +128,16 @@ export default function MyUserInfoModal() {
           fontSize={theme.fs14}
           disabled={
             !(
-              name.isCheck &&
-              gender.isCheck &&
-              phone.isCheck &&
+              name &&
+              gender &&
+              phone &&
               imgUrl &&
               zipcode &&
               address &&
               extraAddress
             )
           }
+          onClick={handlePutUserInfo}
         />
       </form>
     </t.Container>
