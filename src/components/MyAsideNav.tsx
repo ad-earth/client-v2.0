@@ -44,7 +44,9 @@ const Desktop = () => {
     <GlobalModal
       onClose={() => setIsModalOpen({ ...isModalOpen, userInfo: false })}
     >
-      <UserInfoModal />
+      <UserInfoModal
+        onClose={() => setIsModalOpen({ ...isModalOpen, userInfo: false })}
+      />
     </GlobalModal>
   );
 

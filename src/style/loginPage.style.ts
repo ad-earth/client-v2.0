@@ -4,7 +4,7 @@ import theme from '../shared/style/theme';
 export const Container = styled.div`
   width: 1200px;
   height: 600px;
-  margin: 90px auto;
+  margin: 100px auto;
   display: flex;
   flex-direction: column;
   justify-content: center;

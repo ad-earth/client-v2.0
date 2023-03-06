@@ -12,7 +12,10 @@ import usePutUserInfoQuery, {
   UserInfoDataType,
 } from '../query/usePutMyUserInfoQuery';
 
-export default function MyUserInfoModal() {
+type PropsType = {
+  onClose: () => void;
+};
+export default function MyUserInfoModal({ onClose }: PropsType) {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   const [state, setDispatch] = useReducer(infoReducer, InfoInitial);
   const { name, gender, phone } = state;
@@ -68,7 +71,7 @@ export default function MyUserInfoModal() {
     <t.Container>
       <t.InfoHead>
         정보수정
-        <t.Close />
+        <t.Close onClick={onClose} />
       </t.InfoHead>
       <form onSubmit={handleSubmit}>
         <Profile imgUrl={imgUrl} setImgUrl={setImgUrl} />

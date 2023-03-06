@@ -3,14 +3,18 @@ import { useState } from 'react';
 import LoginSearchId from './LoginSearchId';
 import LoginSearchPwd from './LoginSearchPwd';
 
-const LoginSearchModal = () => {
+type PropsType = {
+  onClose: () => void;
+};
+
+const LoginSearchModal = ({ onClose }: PropsType) => {
   const [isChecked, setIsChecked] = useState(true);
 
   return (
     <t.Container>
       <t.SearchHead>
         {isChecked ? '아이디 찾기' : '비밀번호 찾기'}
-        <t.Close />
+        <t.Close onClick={onClose} />
       </t.SearchHead>
       <t.SearchBody>
         <t.SearchNav>
