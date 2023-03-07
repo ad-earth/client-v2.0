@@ -21,6 +21,14 @@ export const getList = (category: string, sort: string, page: number) =>
 export const getAdList = (keyword: string, page: number) =>
   axiosInstance.get(`/main/search?keyword=${keyword}&page=${page}&maxpost=20`);
 
+// 상세 페이지
+// 상세 정보 조회
+export const getDetail = (productNo: number, keyword?: string) =>
+  axiosInstance.get(`/products/${productNo}?keyword=${keyword}`);
+// 구매평 조회
+export const getReviews = (productNo: number, page: number) =>
+  axiosInstance.get(`/reviews/${productNo}?page=${page}&maxpost=10`);
+
 // 로그인 페이지
 export const postLogin = (u_Id: string, u_Pw: string) =>
   axiosInstance.post('/users/login', { u_Id, u_Pw });
