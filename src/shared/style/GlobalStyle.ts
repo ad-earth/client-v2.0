@@ -38,6 +38,11 @@ img {
 a {
     text-decoration: none;
 }
+
+button{
+	border:none;
+	cursor: pointer;
+}
 `;
 
 export default GlobalStyle;
