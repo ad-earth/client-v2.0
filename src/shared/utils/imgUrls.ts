@@ -24,3 +24,4 @@ export const banner = [
 export const jigushopGrocery = `${bucket}/CLIENTIMG/post1.png`;
 export const instagram = `${bucket}/CLIENTIMG/post2.png`;
 export const plasticBag = `${bucket}/CLIENTIMG/post3.jpeg`;
+export const delivery = `${bucket}/CLIENTIMG/shippinginfo.jpeg`;
