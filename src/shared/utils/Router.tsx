@@ -19,6 +19,7 @@ import SignUpPage from '../../pages/SignUpPage';
 import SearchPage from '../../pages/SearchPage';
 import CartPage from '../../pages/CartPage';
 import PaymentPage from '../../pages/PaymentPage';
+import CompletePage from '../../pages/CompletePage';
 
 const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -43,6 +44,7 @@ const Router = createBrowserRouter(
         </Route>
         <Route path="cart" element={<CartPage />} />
         <Route path="payment" element={<PaymentPage />} />
+        <Route path="complete" element={<CompletePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </>
