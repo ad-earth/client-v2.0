@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import theme from '../shared/style/theme';
-import Avatar from '@mui/material/Avatar';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+// import theme from '../shared/style/theme';
+// import Avatar from '@mui/material/Avatar';
+// import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 export const Container = styled.div`
   height: 100%;
@@ -23,7 +23,7 @@ export const Aside = styled.div`
   z-index: 10000;
   overflow: hidden;
   box-sizing: border-box;
-  background-color: ${theme.bg01};
+  background-color: ${({ theme }) => theme.bg01};
 `;
 export const Top = styled.div`
   display: flex;
@@ -31,34 +31,30 @@ export const Top = styled.div`
   justify-content: space-between;
   padding: 20px;
   box-sizing: border-box;
-  fontsize: ${theme.fs12};
-  color: ${theme.fc15};
+  color: ${({ theme }) => theme.fc15};
   p {
+    font-size: ${({ theme }) => theme.fs16};
     margin-top: 10px;
-    font-weight: 500s;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .etcIcon {
+    font-size: ${({ theme }) => theme.fs30};
+    color: ${({ theme }) => theme.fc15};
     cursor: pointer;
   }
 `;
-export const UserImg = styled(Avatar)({
-  '&.MuiAvatar-root': {
-    width: 40,
-    height: 40,
-    marginBottom: 10,
-    cursor: 'pointer',
-  },
-});
-export const EtcIcon = styled(MoreVertIcon)({
-  '&.MuiSvgIcon-root': {
-    fontSize: `${theme.fs30}`,
-    color: `${theme.fc15}`,
-    cursor: 'pointer',
-  },
-});
+export const UserImg = styled.img`
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  cursor: pointer;
+`;
 export const bottom = styled.div`
   padding: 20px;
   li {
-    fontsize: ${theme.fs12};
-    color: ${theme.fc15};
+    fontsize: ${({ theme }) => theme.fs12};
+    color: ${({ theme }) => theme.fc15};
     margin-bottom: 20px;
     cursor: 'pointer';
   }

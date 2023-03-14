@@ -2,6 +2,7 @@ import * as t from '../style/loginSearchModal.style';
 import { useState } from 'react';
 import LoginSearchId from './LoginSearchId';
 import LoginSearchPwd from './LoginSearchPwd';
+import { IoCloseOutline } from 'react-icons/io5';
 
 type PropsType = {
   onClose: () => void;
@@ -14,7 +15,7 @@ export default function LoginSearchModal({ onClose }: PropsType) {
     <t.Container>
       <t.SearchHead>
         {isChecked ? '아이디 찾기' : '비밀번호 찾기'}
-        <t.Close onClick={onClose} />
+        <IoCloseOutline className="close" onClick={onClose} />
       </t.SearchHead>
       <t.SearchBody>
         <t.SearchNav>

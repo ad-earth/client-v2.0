@@ -1,6 +1,7 @@
 import * as t from '../style/searchBar.style';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 export default function SearchBar() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export default function SearchBar() {
         onChange={e => setKeyword(e.target.value)}
         onKeyDown={e => e.key === 'Enter' && handleSubmit()}
       />
-      <t.SearchIcon />
+      <AiOutlineSearch />
     </t.InputDiv>
   );
 }

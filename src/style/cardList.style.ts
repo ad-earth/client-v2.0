@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import theme from '../shared/style/theme';
 
 export const Container = styled.div`
   max-width: 1200px;
@@ -10,8 +9,8 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   p {
-    font-size: ${theme.fs15};
-    color: ${theme.fc09};
+    font-size: ${({ theme }) => theme.fs15};
+    color: ${({ theme }) => theme.fc09};
   }
 `;
 

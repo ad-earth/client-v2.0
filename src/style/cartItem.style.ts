@@ -1,12 +1,11 @@
 import styled from 'styled-components';
-import theme from '../shared/style/theme';
 
 export const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
   padding: 20px 0;
-  border-bottom: 1px solid ${theme.rgba04};
+  border-bottom: 1px solid ${({ theme }) => theme.rgba04};
   @media (max-width: 990px) {
     width: 95%;
     display: flex;
@@ -17,8 +16,8 @@ export const Container = styled.div`
 export const CheckBox = styled.input`
   width: 16px;
   height: 16px;
-  accent-color: ${theme.bg16};
-  border: 1px solid ${theme.rgba10};
+  accent-color: ${({ theme }) => theme.bg16};
+  border: 1px solid ${({ theme }) => theme.rgba10};
   margin-right: 20px;
 `;
 export const ProdInfo = styled.div`
@@ -38,8 +37,8 @@ export const ProdInfo = styled.div`
 `;
 export const InfoWrap = styled.div`
   width: 100%;
-  font-size: ${theme.fs15};
-  color: ${theme.fc09};
+  font-size: ${({ theme }) => theme.fs15};
+  color: ${({ theme }) => theme.fc09};
   p {
     margin-bottom: 15px;
   }
@@ -47,10 +46,10 @@ export const InfoWrap = styled.div`
 export const Option = styled.p`
   width: 80%;
   margin: 2px 0;
-  color: ${theme.fc09};
-  font-size: ${theme.fs13};
+  color: ${({ theme }) => theme.fc09};
+  font-size: ${({ theme }) => theme.fs13};
   padding: 8px 12px 8px 10px;
-  background-color: ${theme.rgba12};
+  background-color: ${({ theme }) => theme.rgba12};
   @media (max-width: 990px) {
     width: 100%;
   }
@@ -60,14 +59,14 @@ export const DetailInfo = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: ${theme.fc09};
+  color: ${({ theme }) => theme.fc09};
   span {
     margin: 10px 0;
-    font-size: ${theme.fs15};
+    font-size: ${({ theme }) => theme.fs15};
   }
   p {
     margin: 6px 0;
-    font-size: ${theme.fs20};
+    font-size: ${({ theme }) => theme.fs20};
     font-weight: bold;
   }
   &.mid {
@@ -87,11 +86,11 @@ export const SmallInfo = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  color: ${theme.fc09};
+  color: ${({ theme }) => theme.fc09};
   margin-bottom: 5px;
   &.top {
     font-weight: 600;
-    border-bottom: 1px solid ${theme.rgba04};
+    border-bottom: 1px solid ${({ theme }) => theme.rgba04};
     margin-bottom: 10px;
     padding-bottom: 10px;
   }

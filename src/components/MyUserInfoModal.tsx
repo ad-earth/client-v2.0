@@ -11,6 +11,7 @@ import { InfoInitial } from '../shared/utils/inputInitialValue';
 import usePutUserInfoQuery, {
   UserInfoDataType,
 } from '../query/usePutMyUserInfoQuery';
+import { IoCloseOutline } from 'react-icons/io5';
 
 type PropsType = {
   onClose: () => void;
@@ -71,7 +72,7 @@ export default function MyUserInfoModal({ onClose }: PropsType) {
     <t.Container>
       <t.InfoHead>
         정보수정
-        <t.Close onClick={onClose} />
+        <IoCloseOutline className="close" onClick={onClose} />
       </t.InfoHead>
       <form onSubmit={handleSubmit}>
         <Profile imgUrl={imgUrl} setImgUrl={setImgUrl} />

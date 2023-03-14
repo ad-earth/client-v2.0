@@ -6,6 +6,7 @@ import MyUserInfoModal from './MyUserInfoModal';
 import useDropDown from '../hooks/useDropDown';
 import { SideMenuDrop } from './common/MenuDrop';
 import { cateData, CateType } from './Header';
+import { CgMoreVerticalAlt } from 'react-icons/cg';
 
 export default function HeaderAside() {
   const { isDropped, dropRef, handleRemove } = useDropDown();
@@ -19,14 +20,12 @@ export default function HeaderAside() {
     </GlobalModal>
   );
 
-  const routeToLogin = () => {
-    window.location.replace('/login');
-  };
-
+  const routeToLogin = () => window.location.replace('/login');
   const handleLogOut = () => {
     localStorage.clear();
     window.location.reload();
   };
+
   return (
     <>
       {userModal}
@@ -42,10 +41,10 @@ export default function HeaderAside() {
                       alt="userImg"
                       onClick={() => setIsModalOpen(!isModalOpen)}
                     />
-                    <span>
-                      <strong>{userInfo?.u_Name && userInfo.u_Name}</strong>
+                    <p>
+                      <strong>{userInfo?.u_Name && userInfo.u_Name}</strong>{' '}
                       {userInfo?.u_Id && `[${userInfo.u_Id}]`}
-                    </span>
+                    </p>
                   </>
                 ) : (
                   <p onClick={routeToLogin}>로그인 후 이용해주세요!</p>
@@ -53,7 +52,10 @@ export default function HeaderAside() {
               </div>
               {token && (
                 <>
-                  <t.EtcIcon onClick={handleRemove} />
+                  <CgMoreVerticalAlt
+                    className="etcIcon"
+                    onClick={handleRemove}
+                  />
                   <SideMenuDrop isDropped={isDropped} {...dropStyle}>
                     <ul>
                       {dropList.map(item => (
