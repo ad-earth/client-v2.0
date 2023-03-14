@@ -4,7 +4,7 @@ import Button from '../components/common/Button';
 import CartItem from '../components/CartItem';
 import useViewport from '../hooks/useViewport';
 
-const CartPage = () => {
+export default function CartPage() {
   const viewport = useViewport();
   return (
     <t.Container>
@@ -52,9 +52,7 @@ const CartPage = () => {
       </t.ListWrap>
     </t.Container>
   );
-};
-
-export default CartPage;
+}
 
 const btnStyle = [
   {

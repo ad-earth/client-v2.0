@@ -7,7 +7,7 @@ import useGetLoginSearchIdQuery, {
   SearchIdType,
 } from '../query/useGetLoginSearchIdQuery';
 
-const LoginSearchId = () => {
+export default function LoginSearchId() {
   const [form, setForm] = useState<SearchIdType>({ u_Name: '', u_Phone: '' });
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -68,9 +68,7 @@ const LoginSearchId = () => {
       )}
     </>
   );
-};
-
-export default LoginSearchId;
+}
 
 const inputStyle = [
   {

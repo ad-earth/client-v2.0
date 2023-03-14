@@ -7,7 +7,7 @@ type PropsType = {
   onClose: () => void;
 };
 
-const LoginSearchModal = ({ onClose }: PropsType) => {
+export default function LoginSearchModal({ onClose }: PropsType) {
   const [isChecked, setIsChecked] = useState(true);
 
   return (
@@ -39,6 +39,4 @@ const LoginSearchModal = ({ onClose }: PropsType) => {
       </t.SearchBody>
     </t.Container>
   );
-};
-
-export default LoginSearchModal;
+}

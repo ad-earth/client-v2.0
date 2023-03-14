@@ -1,7 +1,7 @@
 import * as t from '../style/footer.style';
 import whiteLogo from '../assets/whiteLogo.png';
 
-const Footer = () => {
+export default function Footer() {
   return (
     <t.Container>
       <t.Footer>
@@ -27,5 +27,4 @@ const Footer = () => {
       </t.Footer>
     </t.Container>
   );
-};
-export default Footer;
+}

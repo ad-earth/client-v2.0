@@ -13,7 +13,7 @@ import usePutLoginNewPwdQuery, {
   NewPwdType,
 } from '../query/usePutLoginNewPwdQuery';
 
-const LoginSearchPwd = () => {
+export default function LoginSearchPwd() {
   // 비밀번호 찾기
   const [form, setForm] = useState<SearchPwdType>({
     u_Id: '',
@@ -136,9 +136,7 @@ const LoginSearchPwd = () => {
       )}
     </>
   );
-};
-
-export default LoginSearchPwd;
+}
 
 const inputStyle = [
   {
