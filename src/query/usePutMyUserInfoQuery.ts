@@ -1,11 +1,9 @@
 import { useMutation } from 'react-query';
-import { postSignup } from '../shared/api/apis';
+import { putUserInfoChange } from '../shared/api/apis';
 import { ErrorType } from './../shared/types/types';
 import { AxiosError, AxiosResponse } from 'axios';
 
-export interface SignUpDataType {
-  u_Id: string;
-  u_Pw: string;
+export interface UserInfoDataType {
   u_Name: string;
   u_Address1: string;
   u_Address2: string;
@@ -15,10 +13,8 @@ export interface SignUpDataType {
   u_Img: string;
 }
 
-const PostSignup = async (data: SignUpDataType) => {
-  const res = await postSignup(
-    data.u_Id,
-    data.u_Pw,
+const PutUserInfoChange = async (data: UserInfoDataType) => {
+  const res = await putUserInfoChange(
     data.u_Name,
     data.u_Address1,
     data.u_Address2,
@@ -30,11 +26,11 @@ const PostSignup = async (data: SignUpDataType) => {
   return res.data;
 };
 
-const usePostSignupQuery = (data: SignUpDataType) => {
+const usePutUserInfoQuery = (data: UserInfoDataType) => {
   return useMutation<AxiosResponse, AxiosError<ErrorType>, any, unknown>(
-    () => PostSignup(data),
+    () => PutUserInfoChange(data),
     {}
   );
 };
 
-export default usePostSignupQuery;
+export default usePutUserInfoQuery;
