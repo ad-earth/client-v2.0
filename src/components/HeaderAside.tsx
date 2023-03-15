@@ -7,6 +7,7 @@ import useDropDown from '../hooks/useDropDown';
 import { SideMenuDrop } from './common/MenuDrop';
 import { cateData, CateType } from './Header';
 import { CgMoreVerticalAlt } from 'react-icons/cg';
+import ProfileImage from './common/ProfileImage';
 
 export default function HeaderAside() {
   const { isDropped, dropRef, handleRemove } = useDropDown();
@@ -35,17 +36,12 @@ export default function HeaderAside() {
             <t.Top ref={dropRef}>
               <div>
                 {token ? (
-                  <>
-                    <t.UserImg
-                      src={userInfo?.u_Img && userInfo?.u_Img}
-                      alt="userImg"
-                      onClick={() => setIsModalOpen(!isModalOpen)}
-                    />
-                    <p>
-                      <strong>{userInfo?.u_Name && userInfo.u_Name}</strong>{' '}
-                      {userInfo?.u_Id && `[${userInfo.u_Id}]`}
-                    </p>
-                  </>
+                  <ProfileImage
+                    image={userInfo?.u_Img && userInfo?.u_Img}
+                    name={userInfo?.u_Name && userInfo.u_Name}
+                    id={userInfo?.u_Id && userInfo.u_Id}
+                    onClick={() => setIsModalOpen(!isModalOpen)}
+                  />
                 ) : (
                   <p onClick={routeToLogin}>로그인 후 이용해주세요!</p>
                 )}

@@ -1,7 +1,4 @@
 import styled from 'styled-components';
-// import theme from '../shared/style/theme';
-// import Avatar from '@mui/material/Avatar';
-// import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 export const Container = styled.div`
   height: 100%;
@@ -43,12 +40,6 @@ export const Top = styled.div`
     color: ${({ theme }) => theme.fc15};
     cursor: pointer;
   }
-`;
-export const UserImg = styled.img`
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  cursor: pointer;
 `;
 export const bottom = styled.div`
   padding: 20px;
