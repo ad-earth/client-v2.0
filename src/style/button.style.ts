@@ -20,8 +20,8 @@ export const Btn = styled.button<BtnType>`
       props.hBorder ? props.hBorder : '1px solid transparent'};
     background-color: ${props =>
       props.hBgColor ? props.hBgColor : theme.bg16};
-    transition: 0.5s;
     color: ${props => (props.hColor ? props.hColor : theme.fc01)};
+    transition: 0.5s;
     cursor: pointer;
   }
 `;

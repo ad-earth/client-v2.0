@@ -13,6 +13,17 @@ export interface AdResponseType extends ListResponseType {
   adProducts: ProductType[];
 }
 
+export interface DetailResponseType {
+  k_No: number;
+  userLike: boolean;
+  product: ProductDetailType;
+}
+
+export interface ReviewsResponseType {
+  p_review: number;
+  reviews: ReviewsType;
+}
+
 export type ErrorType = { errorMessage: string };
 
 export interface ProductType {
@@ -24,7 +35,7 @@ export interface ProductType {
   p_Cost: number;
   p_Sale: boolean;
   p_Discount: number;
-  p_Option: [string, string, string, number, number][];
+  p_Option: OptionType[];
   p_Soldout: boolean;
   p_Best: boolean;
   p_New: boolean;
@@ -32,3 +43,18 @@ export interface ProductType {
   p_Review?: number;
   p_Desc?: string;
 }
+
+export interface ProductDetailType extends ProductType {
+  p_Cnt: number;
+  p_Content: string;
+}
+
+export type OptionType = [string, string, string, number, number];
+export interface ReviewType {
+  createdAt: string;
+  r_Content: string;
+  r_No: number;
+  r_Score: number;
+  u_Id: string;
+}
+export type ReviewsType = ReviewType[];

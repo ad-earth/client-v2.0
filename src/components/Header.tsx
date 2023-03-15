@@ -11,6 +11,7 @@ import useScrHeader from '../hooks/useScrollHeader';
 import GlobalModal from './common/GlobalModal';
 import HeaderAside from './HeaderAside';
 
+
 export type CateType = {
   id: number;
   cate: string;

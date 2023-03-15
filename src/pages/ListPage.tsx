@@ -22,7 +22,7 @@ const ListPage = () => {
 
   return (
     <>
-      <ListCategory setSort={setSort} />
+      <ListCategory category={category} setSort={setSort} />
       <ListCards
         products={products}
         pageCnt={pageCnt}
