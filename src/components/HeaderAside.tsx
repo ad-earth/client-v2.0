@@ -15,7 +15,7 @@ export default function HeaderAside() {
 
   const userModal = isModalOpen && (
     <GlobalModal onClose={() => setIsModalOpen(false)}>
-      <MyUserInfoModal />
+      <MyUserInfoModal onClose={() => setIsModalOpen(false)} />
     </GlobalModal>
   );
 

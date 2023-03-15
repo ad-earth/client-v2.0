@@ -17,7 +17,7 @@ export type CateType = {
   path: string;
 };
 
-const Header = () => {
+export default function Header() {
   const viewport = useViewport();
   const navigate = useNavigate();
   const { isHeaderVisible } = useScrHeader();
@@ -40,6 +40,9 @@ const Header = () => {
   };
   const routeToMy = () => {
     navigate('/mypage');
+  };
+  const routeToCart = () => {
+    navigate('/cart');
   };
   const routeToLogin = () => {
     navigate('/login');
@@ -77,7 +80,7 @@ const Header = () => {
                 <p onClick={handleLogout}>로그아웃</p>
                 <t.UserIcon onClick={routeToMy} />
                 <t.CountBadge badgeContent={1}>
-                  <t.ShopIcon />
+                  <t.ShopIcon onClick={routeToCart} />
                 </t.CountBadge>
               </>
             ) : (
@@ -94,9 +97,7 @@ const Header = () => {
       </t.Container>
     </>
   );
-};
-
-export default Header;
+}
 
 export const cateData: CateType[] = [
   { id: 1, cate: '전체', path: '/list/전체' },

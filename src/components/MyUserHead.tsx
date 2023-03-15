@@ -17,7 +17,7 @@ export default function MyUserHeadInfo() {
   /** 정보수정 모달 */
   const userModal = isModalOpen && (
     <GlobalModal onClose={() => setIsModalOpen(false)}>
-      <MyUserInfoModal />
+      <MyUserInfoModal onClose={() => setIsModalOpen(false)} />
     </GlobalModal>
   );
   return (

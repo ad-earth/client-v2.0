@@ -44,7 +44,7 @@ export default function LogInPage() {
 
   const searchModal = isModalOpen && (
     <GlobalModal onClose={() => setIsModalOpen(false)}>
-      <LoginSearchModal />
+      <LoginSearchModal onClose={() => setIsModalOpen(false)} />
     </GlobalModal>
   );
 
