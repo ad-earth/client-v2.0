@@ -3,9 +3,9 @@ import * as t from '../style/listCategory.style';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const ListCategory = ({ setSort }: PropsType) => {
+const ListCategory = ({ category, setSort }: PropsType) => {
   const navigate = useNavigate();
-  const [current, setCurrent] = useState<string>('전체');
+  const [current, setCurrent] = useState<string>(category);
 
   const handleClick = (e: React.FormEvent<HTMLButtonElement>) => {
     let selectedCategory = e.currentTarget.value;
@@ -36,6 +36,7 @@ const ListCategory = ({ setSort }: PropsType) => {
 };
 
 type PropsType = {
+  category: string;
   setSort: Dispatch<SetStateAction<string>>;
 };
 

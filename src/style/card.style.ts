@@ -67,7 +67,7 @@ export const Price = styled.p`
 export const BubbleIcon = styled(ChatBubbleOutlineIcon)({
   '&.MuiSvgIcon-root': {
     fontSize: `${theme.fs18}`,
-    color: `${theme.fc05}`,
+    color: `${theme.fc09}`,
     cursor: 'pointer',
   },
 });
@@ -82,5 +82,5 @@ export const HeartLineIcon = styled(FavoriteBorderIcon)({
 
 export const Count = styled.span`
   font-size: ${theme.fs13};
-  color: ${theme.bg09};
+  color: ${theme.fc09};
 `;

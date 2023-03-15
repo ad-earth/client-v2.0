@@ -5,6 +5,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 export const Container = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 4px;
   cursor: pointer;
 `;
@@ -12,7 +14,7 @@ export const Container = styled.div`
 export const HeartLineIcon = styled(FavoriteBorderIcon)({
   '&.MuiSvgIcon-root': {
     fontSize: `${theme.fs18}`,
-    color: `${theme.fc05}`,
+    color: `${theme.fc09}`,
   },
 });
 
@@ -25,5 +27,5 @@ export const HeartIcon = styled(FavoriteIcon)({
 
 export const Count = styled.span`
   font-size: ${theme.fs13};
-  color: ${theme.bg09};
+  color: ${theme.fc09};
 `;
