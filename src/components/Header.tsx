@@ -10,7 +10,9 @@ import useDropDown from '../hooks/useDropDown';
 import useScrHeader from '../hooks/useScrollHeader';
 import GlobalModal from './common/GlobalModal';
 import HeaderAside from './HeaderAside';
-
+import { HiOutlineUser } from 'react-icons/hi';
+import { CgDetailsMore } from 'react-icons/cg';
+import { MdOutlineShoppingBag } from 'react-icons/md';
 
 export type CateType = {
   id: number;
@@ -36,21 +38,11 @@ export default function Header() {
     localStorage.clear();
     setIsLogin(false);
   };
-  const routeToMain = () => {
-    navigate('/');
-  };
-  const routeToMy = () => {
-    navigate('/mypage');
-  };
-  const routeToCart = () => {
-    navigate('/cart');
-  };
-  const routeToLogin = () => {
-    navigate('/login');
-  };
-  const routeToSignUp = () => {
-    navigate('/signup');
-  };
+  const routeToMain = () => navigate('/');
+  const routeToMy = () => navigate('/mypage');
+  const routeToCart = () => navigate('/cart');
+  const routeToLogin = () => navigate('/login');
+  const routeToSignUp = () => navigate('/signup');
 
   const asideNav = isModalOpen && (
     <GlobalModal onClose={() => setIsModalOpen(false)}>
@@ -79,10 +71,14 @@ export default function Header() {
             {isLogin ? (
               <>
                 <p onClick={handleLogout}>로그아웃</p>
-                <t.UserIcon onClick={routeToMy} />
-                <t.CountBadge badgeContent={1}>
-                  <t.ShopIcon onClick={routeToCart} />
-                </t.CountBadge>
+                <HiOutlineUser className="userIcon" onClick={routeToMy} />
+                <t.CartStatus>
+                  <MdOutlineShoppingBag
+                    className="cartIcon"
+                    onClick={routeToCart}
+                  />
+                  <t.Badge>1</t.Badge>
+                </t.CartStatus>
               </>
             ) : (
               <>
@@ -91,7 +87,10 @@ export default function Header() {
               </>
             )}
             {viewport <= 990 && (
-              <t.EtcIcon onClick={() => setIsModalOpen(!isModalOpen)} />
+              <CgDetailsMore
+                className="etcIcon"
+                onClick={() => setIsModalOpen(!isModalOpen)}
+              />
             )}
           </t.RightSection>
         </t.Nav>

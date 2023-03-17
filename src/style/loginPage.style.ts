@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import theme from '../shared/style/theme';
 
 export const Container = styled.div`
   width: 1200px;
@@ -37,8 +36,8 @@ export const EtcContents = styled.div`
   flex-direction: row;
   justify-content: space-between;
   p {
-    font-size: ${theme.fs15};
-    color: ${theme.fc09};
+    font-size: ${({ theme }) => theme.fs15};
+    color: ${({ theme }) => theme.fc09};
     cursor: pointer;
   }
 `;

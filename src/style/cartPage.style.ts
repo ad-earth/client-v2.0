@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import theme from '../shared/style/theme';
 
 export const Container = styled.div`
   width: 1200px;
@@ -12,7 +11,7 @@ export const Container = styled.div`
   @media (max-width: 990px) {
     width: 100%;
     margin-top: 20px;
-  }
+  }({theme})=>
 `;
 export const CartHead = styled.div`
   width: 100%;
@@ -21,8 +20,8 @@ export const CartHead = styled.div`
   flex-direction: row;
   align-items: center;
   p {
-    color: ${theme.fc09};
-    font-size: ${theme.fs24};
+    color: ${({ theme }) => theme.fc09};
+    font-size: ${({ theme }) => theme.fs24};
     margin-right: 10px;
   }
   @media (max-width: 990px) {
@@ -32,9 +31,9 @@ export const CartHead = styled.div`
 export const CountBadge = styled.div`
   width: 20px;
   height: 20px;
-  color: ${theme.fc01};
-  font-size: ${theme.fs11};
-  background-color: ${theme.fc09};
+  color: ${({ theme }) => theme.fc01};
+  font-size: ${({ theme }) => theme.fs11};
+  background-color: ${({ theme }) => theme.fc09};
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -45,7 +44,7 @@ export const ListWrap = styled.div`
   display: flex;
   flex-direction: column;
   a {
-    color: ${theme.fc15};
+    color: ${({ theme }) => theme.fc15};
     margin: 30px auto;
   }
 `;
@@ -54,10 +53,10 @@ export const ListHead = styled.div`
   flex-direction: row;
   align-items: center;
   padding: 10px 0;
-  color: ${theme.rgba10};
-  font-size: ${theme.fs14};
-  border-top: 1px solid ${theme.rgba07};
-  border-bottom: 1px solid ${theme.rgba07};
+  color: ${({ theme }) => theme.rgba10};
+  font-size: ${({ theme }) => theme.fs14};
+  border-top: 1px solid ${({ theme }) => theme.rgba07};
+  border-bottom: 1px solid ${({ theme }) => theme.rgba07};
   @media (max-width: 990px) {
     width: 95%;
     margin: 0 auto;
@@ -66,8 +65,8 @@ export const ListHead = styled.div`
 export const CheckBox = styled.input`
   width: 16px;
   height: 16px;
-  accent-color: ${theme.bg16};
-  border: 1px solid ${theme.rgba10};
+  accent-color: ${({ theme }) => theme.bg16};
+  border: 1px solid ${({ theme }) => theme.rgba10};
   margin-right: 20px;
 `;
 export const ListInfo = styled.p`
@@ -106,8 +105,8 @@ export const Receipt = styled.div`
   display: flex;
   flex-direction: column;
   margin: 20px 0;
-  border-bottom: 2px solid ${theme.rgba04};
-  border-top: 2px solid ${theme.rgba04};
+  border-bottom: 2px solid ${({ theme }) => theme.rgba04};
+  border-top: 2px solid ${({ theme }) => theme.rgba04};
   @media (max-width: 990px) {
     width: 95%;
     display: flex;
@@ -117,11 +116,11 @@ export const Receipt = styled.div`
 export const ReceiptHead = styled.div`
   width: 100%;
   padding: 10px 0;
-  color: ${theme.fc09};
-  font-size: ${theme.fs14};
-  border-bottom: 1px solid ${theme.rgba04};
+  color: ${({ theme }) => theme.fc09};
+  font-size: ${({ theme }) => theme.fs14};
+  border-bottom: 1px solid ${({ theme }) => theme.rgba04};
   span {
-    color: ${theme.fc15};
+    color: ${({ theme }) => theme.fc15};
     font-weight: 500;
   }
 `;
@@ -135,18 +134,18 @@ export const Price = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: ${theme.fc09};
-  font-size: ${theme.fs24};
+  color: ${({ theme }) => theme.fc09};
+  font-size: ${({ theme }) => theme.fs24};
   font-weight: 600;
   padding: 40px 20px;
   span {
-    font-size: ${theme.fs13};
+    font-size: ${({ theme }) => theme.fs13};
     font-weight: 400;
     margin-top: 10px;
-    color: ${theme.fc06};
+    color: ${({ theme }) => theme.fc06};
   }
   &.total {
-    color: ${theme.fc15};
+    color: ${({ theme }) => theme.fc15};
   }
   @media (max-width: 990px) {
     padding: 40px 10px;

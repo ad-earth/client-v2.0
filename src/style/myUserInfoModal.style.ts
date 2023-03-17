@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import theme from '../shared/style/theme';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 export const Container = styled.div`
   width: 400px;
@@ -16,8 +14,8 @@ export const Container = styled.div`
   p {
     text-align: left;
     margin: 30px 0 10px 0;
-    font-size: ${theme.fs14};
-    color: ${theme.fc14};
+    font-size: ${({ theme }) => theme.fs14};
+    color: ${({ theme }) => theme.fc14};
   }
 `;
 export const InfoHead = styled.div`
@@ -26,21 +24,19 @@ export const InfoHead = styled.div`
   position: relative;
   padding: 14px 20px;
   text-align: center;
-  border-bottom: 1px solid ${theme.ls02};
-  font-size: ${theme.fs20};
+  border-bottom: 1px solid ${({ theme }) => theme.ls02};
+  font-size: ${({ theme }) => theme.fs20};
   font-weight: 700;
-  color: ${theme.fc14};
+  color: ${({ theme }) => theme.fc14};
+  .close {
+    font-size: ${({ theme }) => theme.fs24};
+    color: ${({ theme }) => theme.fc02};
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+  }
 `;
-export const Close = styled(CloseRoundedIcon)({
-  '&.MuiSvgIcon-root': {
-    fontSize: `${theme.fs24}`,
-    color: `${theme.fc02}`,
-    position: 'absolute',
-    top: 15,
-    right: 15,
-    cursor: 'pointer',
-  },
-});
 export const RadioWrap = styled.div`
   display: flex;
   flex-direction: row;
@@ -48,15 +44,15 @@ export const RadioWrap = styled.div`
   label {
     text-align: left;
     margin: 0 20px 0 5px;
-    font-size: ${theme.fs15};
-    color: ${theme.fc09};
+    font-size: ${({ theme }) => theme.fs15};
+    color: ${({ theme }) => theme.fc09};
   }
 `;
 export const Radio = styled.input`
   width: 20px;
   height: 20px;
   margin: 5px 0;
-  accent-color: ${theme.bg16};
-  border: 1px solid ${theme.ls10};
+  accent-color: ${({ theme }) => theme.bg16};
+  border: 1px solid ${({ theme }) => theme.ls10};
   border-radius: 50%;
 `;
