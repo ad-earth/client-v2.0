@@ -1,6 +1,6 @@
+import type { AxiosError, AxiosResponse } from 'axios';
 import { useQuery } from 'react-query';
-import { ErrorType } from '../shared/types/types';
-import { AxiosResponse, AxiosError } from 'axios';
+import type { TError } from '../shared/types/types';
 import { getPwd } from './../shared/api/apis';
 
 export type SearchPwdType = {
@@ -14,7 +14,7 @@ type PwdResponseType = {
 };
 
 export const useGetLoginSearchPwdQuery = (data: SearchPwdType) => {
-  return useQuery<AxiosResponse<PwdResponseType>, AxiosError<ErrorType>>(
+  return useQuery<AxiosResponse<PwdResponseType>, AxiosError<TError>>(
     'findPwd',
     () => getPwd(data.u_Id, data.u_Name, data.u_Phone),
     {

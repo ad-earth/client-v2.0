@@ -1,11 +1,10 @@
-import theme from '../shared/style/theme';
 import React, { useState } from 'react';
-import Input from './common/Input';
+import type { SearchIdType } from '../query/useGetLoginSearchIdQuery';
+import useGetLoginSearchIdQuery from '../query/useGetLoginSearchIdQuery';
+import theme from '../shared/style/theme';
 import Button from './common/Button';
 import ErrMsg from './common/ErrorMsg';
-import useGetLoginSearchIdQuery, {
-  SearchIdType,
-} from '../query/useGetLoginSearchIdQuery';
+import Input from './common/Input';
 
 export default function LoginSearchId() {
   const [form, setForm] = useState<SearchIdType>({ u_Name: '', u_Phone: '' });

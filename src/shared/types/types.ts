@@ -60,3 +60,23 @@ export interface IReview {
   u_Id: string;
 }
 export type TReviews = IReview[];
+
+export type TOptionSet = [string, string, string, number, number, number];
+export interface ICartList {
+  p_No: number;
+  p_Category: string;
+  p_Thumbnail: string[];
+  a_Brand: string;
+  p_Name: string;
+  p_Cost: number;
+  p_Sale: boolean;
+  p_Discount: number;
+  p_Option: TOptionSet[];
+  k_No: number;
+  p_Price: number;
+  p_Cnt: number;
+}
+export interface ICartResponse {
+  cartList: ICartList[];
+  o_Price: number;
+}

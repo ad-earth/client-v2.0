@@ -1,13 +1,12 @@
-import * as t from '../style/detailPage.style';
-
 import React, { useEffect, useMemo } from 'react';
-import DetailImgs from '../components/DetailImgs';
-import useGetDetailQuery from '../query/useGetDetailQuery';
-import DetailInfo from '../components/DetailInfo';
 import { useParams } from 'react-router-dom';
 import DetailContents from '../components/DetailContents';
+import DetailImgs from '../components/DetailImgs';
+import DetailInfo from '../components/DetailInfo';
+import useGetDetailQuery from '../query/useGetDetailQuery';
+import * as t from '../style/detailPage.style';
 
-const DetailPage = () => {
+function DetailPage() {
   const { productNo } = useParams();
 
   useEffect(() => {
@@ -35,6 +34,6 @@ const DetailPage = () => {
       />
     </>
   );
-};
+}
 
 export default DetailPage;

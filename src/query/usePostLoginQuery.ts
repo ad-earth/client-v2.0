@@ -1,6 +1,6 @@
-import { postLogin } from '../shared/api/apis';
 import { useMutation } from 'react-query';
-import { LoginType } from '../pages/LogInPage';
+import type { LoginType } from '../pages/LogInPage';
+import { postLogin } from '../shared/api/apis';
 
 const PostLogin = async (data: LoginType) => {
   const res = await postLogin(data.u_Id, data.u_Pw);
@@ -13,11 +13,8 @@ const usePostLoginQuery = (data: LoginType) => {
       if (result.userInfo) {
         localStorage.setItem('token', result.userInfo.token);
         localStorage.setItem('userInfo', JSON.stringify(result.userInfo));
+        localStorage.setItem('cartStatus', JSON.stringify(result.cartStatus));
       }
-      // if (data.cartList) {
-      //   console.log('data.cartList: ', data.cartList);
-      //   return data.cartList;
-      // }
     },
   });
 };

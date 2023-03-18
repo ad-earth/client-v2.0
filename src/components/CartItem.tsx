@@ -1,16 +1,29 @@
-import * as t from '../style/cartItem.style';
-import theme from '../shared/style/theme';
-import Button from './common/Button';
-import useViewport from '../hooks/useViewport';
 import { useState } from 'react';
-import GlobalModal from './common/GlobalModal';
+import useViewport from '../hooks/useViewport';
+// import type { IProps } from '../pages/CartPage';
+import theme from '../shared/style/theme';
+import * as t from '../style/cartItem.style';
 import CartOptionModal from './CartOptionModal';
+import Button from './common/Button';
+import GlobalModal from './common/GlobalModal';
 
-const CartItem = () => {
+function CartItem() {
+  //   {
+  //   cartList: {
+  //     // p_No,
+  //     p_Thumbnail,
+  //     a_Brand,
+  //     p_Name,
+  //     // p_Cost,
+  //     // p_Sale,
+  //     // p_Discount,
+  //     p_Option,
+  //     p_Price,
+  //     p_Cnt,
+  //   },
+  // }: IProps
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const viewport = useViewport();
-  let thumb =
-    'https://adearth-bucket.s3.ap-northeast-2.amazonaws.com/THUMBNAIL/kitchen44-1.jpeg';
 
   const optionModal = isModalOpen && (
     <GlobalModal onClose={() => setIsModalOpen(false)}>
@@ -23,28 +36,32 @@ const CartItem = () => {
       <t.Container>
         <t.ProdInfo>
           <t.CheckBox type="checkbox" />
-          <img src={thumb} />
+          {/* <img src={p_Thumbnail && p_Thumbnail[0]} alt="thumbnail" />
           <t.InfoWrap>
-            <p>[지구샵] 오리지널고체치약 150정입</p>
-            <t.Option>[필수] 중 / 옐로우 - 1개</t.Option>
-          </t.InfoWrap>
+            <p>
+              [{a_Brand && a_Brand}] {p_Name && p_Name}
+            </p>
+            <t.Option>
+              [필수] {p_Option && p_Option} - {p_Option && p_Option.length}개
+            </t.Option>
+          </t.InfoWrap> */}
         </t.ProdInfo>
         {viewport >= 990 ? (
           <>
-            <t.DetailInfo className="mid">
-              <span>1</span>
+            {/* <t.DetailInfo className="mid">
+              <span>{p_Cnt && p_Cnt}</span>
               <Button
                 {...BtnStyle[0]}
                 onClick={() => setIsModalOpen(!isModalOpen)}
               />
             </t.DetailInfo>
             <t.DetailInfo className="mid">
-              <p>16,400원</p>
+              <p>{p_Price && p_Price}원</p>
               <Button {...BtnStyle[1]} />
             </t.DetailInfo>
             <t.DetailInfo className="small">
               <span>배송비 무료</span>
-            </t.DetailInfo>
+            </t.DetailInfo> */}
           </>
         ) : (
           <t.SmallInfoWrap>
@@ -53,7 +70,7 @@ const CartItem = () => {
               <p>3,000원</p>
             </t.SmallInfo>
             <t.SmallInfo>
-              <p>상품금액 (총 1개)</p>
+              {/* <p>상품금액 (총 {p_Cnt && p_Cnt}개)</p> */}
               <p>3,000원</p>
             </t.SmallInfo>
             <t.SmallInfo>
@@ -76,7 +93,7 @@ const CartItem = () => {
       </t.Container>
     </>
   );
-};
+}
 
 export default CartItem;
 

@@ -100,3 +100,6 @@ export const getPwd = (u_Id: string, u_Name: string, u_Phone: string) =>
 export const putNewPwd = (u_Idx: number, u_Pw: string) => {
   axiosInstance.put('/users/reset-password', { u_Idx, u_Pw });
 };
+
+//장바구니 조회
+export const getCart = () => axiosInstance.get('/carts');

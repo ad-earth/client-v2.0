@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
+import type { BadgeType } from '../components/common/Badge';
 import theme from '../shared/style/theme';
-import { BadgeType } from '../components/common/Badge';
 
 export const Container = styled.div`
   display: flex;
