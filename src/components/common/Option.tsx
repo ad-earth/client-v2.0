@@ -1,17 +1,24 @@
+import { useEffect, useMemo, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import {
+  addOption,
+  deleteOption,
+  updateOption,
+} from '../../redux/reducer/optionSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import type { IProductDetail, TOption } from '../../shared/types/types';
 import * as t from '../../style/option.style';
 
-import React, { useEffect, useMemo, useReducer, useState } from 'react';
-import { OptionType, ProductDetailType } from '../../shared/types/types';
-import reducer, {
-  initailState,
-  OPTION_ACTION_TYPE,
-} from '../../shared/utils/optionReducer';
-import { toast } from 'react-hot-toast';
+type TProps = {
+  product: IProductDetail;
+};
+type TUserOption = (string | number)[];
 
-const Option = ({ product }: PropsType) => {
+function Option({ product }: TProps) {
   const [isDrop, setIsDrop] = useState<boolean>(false);
-  const [options, dispatch] = useReducer(reducer, initailState);
   const [totalQty, setTotalQty] = useState<number>(0);
+  const dispatch = useAppDispatch();
+  const options = useAppSelector(state => state.optionSlice);
 
   const { isOption, totalPrice } = useMemo(
     () => ({
@@ -19,9 +26,10 @@ const Option = ({ product }: PropsType) => {
         product?.p_Option.length > 0
           ? product?.p_Option[0][0] !== null || product?.p_Option[0][2] !== null
           : false,
-      totalPrice: options
-        .map(o => (product?.p_Cost + Number(o[3])) * Number(o[4]))
-        .reduce((acc, cur) => acc + cur, 0),
+      totalPrice: options.reduce(
+        (acc, cur) => acc + (product?.p_Cost + Number(cur[3])) * Number(cur[4]),
+        0
+      ),
     }),
     [product, options]
   );
@@ -31,57 +39,43 @@ const Option = ({ product }: PropsType) => {
     else setTotalQty(() => 0);
   }, [isOption]);
 
-  const handleAddOption = (option: OptionType) => {
+  const handleAddOption = (option: TOption) => {
     const userOption = option.slice(0, -1);
     userOption.push(1);
     userOption.push(product?.p_Cost + option[3]);
 
-    let sameOption = options.filter(o =>
+    const sameOption = options.filter(o =>
       o[0] ? o[0] === option[0] : o[2] === option[2]
     );
-
     if (sameOption.length) toast.error('이미 선택한 옵션입니다.');
     else {
-      dispatch({
-        type: OPTION_ACTION_TYPE.ADD,
-        option: userOption,
-      });
+      dispatch(addOption(userOption));
+      setIsDrop(false);
       setTotalQty(prev => prev + 1);
     }
-    setIsDrop(false);
   };
 
-  const handleDeleteOption = (option: UserOptionType) => {
-    dispatch({
-      type: OPTION_ACTION_TYPE.DELETE,
-      option: option,
-    });
+  const handleDeleteOption = (option: TUserOption) => {
+    dispatch(deleteOption(option));
     setTotalQty(prev => prev - Number(option[4]));
   };
 
-  const handleAddOptQty = (option: UserOptionType) => {
-    let currentQty = Number(option[4]);
+  const handleAddOptQty = (option: TUserOption) => {
+    const currentQty = Number(option[4]);
     const userOption = [...option];
     userOption.splice(4, 1, currentQty + 1);
-
-    dispatch({
-      type: OPTION_ACTION_TYPE.UPDATE,
-      option: userOption,
-    });
+    dispatch(updateOption(userOption));
     setTotalQty(prev => prev + 1);
   };
 
-  const handleSubstractOptQty = (option: UserOptionType) => {
-    let currentQty = Number(option[4]);
+  const handleSubstractOptQty = (option: TUserOption) => {
+    const currentQty = Number(option[4]);
     const userOption = [...option];
     if (currentQty !== 1) userOption.splice(4, 1, currentQty - 1);
     else userOption.splice(4, 1, 1);
+    dispatch(updateOption(userOption));
 
-    dispatch({
-      type: OPTION_ACTION_TYPE.UPDATE,
-      option: userOption,
-    });
-    if (Number(option[4]) !== 1) setTotalQty(prev => prev - 1);
+    if (totalQty !== 1) setTotalQty(prev => prev - 1);
   };
 
   const handleSubstractQty = () => {
@@ -151,9 +145,9 @@ const Option = ({ product }: PropsType) => {
             <p>수량</p>
           </t.Wrapper>
           <t.BtnWrapper>
-            <t.Button onClick={() => handleSubstractQty()}>-</t.Button>
+            <t.Button onClick={handleSubstractQty}>-</t.Button>
             <t.Qty>{totalQty}</t.Qty>
-            <t.Button className="plus" onClick={() => handleAddQty()}>
+            <t.Button className="plus" onClick={handleAddQty}>
               +
             </t.Button>
           </t.BtnWrapper>
@@ -165,11 +159,6 @@ const Option = ({ product }: PropsType) => {
       </t.Wrapper>
     </t.Container>
   );
-};
-
-type PropsType = {
-  product: ProductDetailType;
-};
-type UserOptionType = (string | number)[];
+}
 
 export default Option;

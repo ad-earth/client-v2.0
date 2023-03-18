@@ -1,7 +1,7 @@
-import * as t from '../style/footer.style';
 import whiteLogo from '../assets/whiteLogo.png';
+import * as t from '../style/footer.style';
 
-export default function Footer() {
+function Footer() {
   return (
     <t.Container>
       <t.Footer>
@@ -28,3 +28,6 @@ export default function Footer() {
     </t.Container>
   );
 }
+
+export default Footer;
+

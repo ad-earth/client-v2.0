@@ -1,26 +1,23 @@
 import {
-  Route,
   createBrowserRouter,
   createRoutesFromElements,
   Outlet,
+  Route,
 } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import LogInPage from '../../pages/LogInPage';
-import SignUpPage from '../../pages/SignUpPage';
-import MainPage from '../../pages/MainPage';
-import ListPage from '../../pages/ListPage';
-import SearchPage from '../../pages/SearchPage';
-import DetailPage from '../../pages/DetailPage';
-import Mypage from '../../pages/Mypage';
+import MyCancelDetail from '../../components/MyCancelDetail';
 import MyOrder from '../../components/MyOrder';
 import MyOrderDetail from '../../components/MyOrderDetail';
-import MyCancelDetail from '../../components/MyCancelDetail';
 import MyWish from '../../components/MyWish';
+import DetailPage from '../../pages/DetailPage';
+import ListPage from '../../pages/ListPage';
+import LogInPage from '../../pages/LogInPage';
+import MainPage from '../../pages/MainPage';
+import Mypage from '../../pages/Mypage';
 import NotFoundPage from '../../pages/NotFoundPage';
-import CartPage from '../../pages/CartPage';
-import PaymentPage from '../../pages/PaymentPage';
-import CompletePage from '../../pages/CompletePage';
+import SearchPage from '../../pages/SearchPage';
+import SignUpPage from '../../pages/SignUpPage';
 
 const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,9 +41,6 @@ const Router = createBrowserRouter(
             <Route path=":id" element={<MyOrderDetail />} />
           </Route>
         </Route>
-        <Route path="cart" element={<CartPage />} />
-        <Route path="payment" element={<PaymentPage />} />
-        <Route path="complete" element={<CompletePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </>

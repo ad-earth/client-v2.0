@@ -1,10 +1,10 @@
-import * as t from '../style/detailContents.style';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import useGetReviewsQuery from '../query/useGetReviewsQuery';
 import { delivery } from '../shared/utils/imgUrls';
+import * as t from '../style/detailContents.style';
 import DetailReviews from './DetailReviews';
 
-const DetailContents = ({ productNo, content }: PropsType) => {
+function DetailContents({ productNo, content }: PropsType) {
   const [menuSwitch, setMenuSwitch] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const query = useGetReviewsQuery(productNo, page);
@@ -49,7 +49,7 @@ const DetailContents = ({ productNo, content }: PropsType) => {
       </t.ContentsWrapper>
     </t.Container>
   );
-};
+}
 
 type PropsType = {
   productNo: number;

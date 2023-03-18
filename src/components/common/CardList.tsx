@@ -1,15 +1,17 @@
-import * as t from '../../style/cardList.style';
 
-import React, { Dispatch, SetStateAction, useState } from 'react';
-import theme from '../../shared/style/theme';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import type { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
+import React, { useState } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import theme from '../../shared/style/theme';
+import type { IProduct } from '../../shared/types/types';
+import * as t from '../../style/cardList.style';
 import Card from './Card';
-import { ProductType } from '../../shared/types/types';
 import Pagination from './Pagination';
 
-const CardList = ({
+function CardList({
   pageCnt,
   ads,
   products,
@@ -18,7 +20,7 @@ const CardList = ({
   sort,
   setSort,
   setPage,
-}: PropsType) => {
+}: PropsType) {
   const [select, setSelect] = useState<boolean>(false);
 
   const handleChange = (e: SelectChangeEvent<string>) => {
@@ -72,12 +74,12 @@ const CardList = ({
       <Pagination pageCnt={pageCnt} page={page} setPage={setPage} />
     </t.Container>
   );
-};
+}
 
 type PropsType = {
   pageCnt: number;
-  ads?: ProductType[];
-  products: ProductType[];
+  ads?: IProduct[];
+  products: IProduct[];
   likeList: number[];
   page: number;
   sort?: string;

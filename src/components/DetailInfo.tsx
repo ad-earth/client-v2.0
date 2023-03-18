@@ -1,13 +1,21 @@
-import * as t from '../style/detailInfo.style';
+import { useMemo } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import usePutCartQuery from '../query/usePutCartQuery';
+import { useAppSelector } from '../redux/store';
 import theme from '../shared/style/theme';
-import React, { useMemo } from 'react';
-import { ProductDetailType } from '../shared/types/types';
+import type { IProductDetail } from '../shared/types/types';
+import * as t from '../style/detailInfo.style';
 import Badge from './common/Badge';
-import Option from './common/Option';
 import Button from './common/Button';
 import Heart from './common/Heart';
+import Option from './common/Option';
 
-const DetailInfo = ({ product }: PropsType) => {
+type TProps = {
+  product: IProductDetail;
+};
+
+function DetailInfo({ product }: TProps) {
+  const { productNo } = useParams();
   const { price, discount } = useMemo(
     () => ({
       price: product?.p_Cost,
@@ -15,6 +23,22 @@ const DetailInfo = ({ product }: PropsType) => {
     }),
     [product]
   );
+  const keyword: any = null; //TODO: 키워드 적용 필요
+  const option = useAppSelector(state => state.optionSlice);
+
+  const data = {
+    type: 'd_Type',
+    productNo: Number(productNo),
+    option: option,
+    keyword: keyword,
+  };
+  const { mutate } = usePutCartQuery(data);
+  const navigate = useNavigate();
+  const handleBuy = () => {
+    mutate(data, {
+      onSuccess: () => navigate('/payment'),
+    });
+  };
 
   return (
     <t.MainContainer>
@@ -47,7 +71,9 @@ const DetailInfo = ({ product }: PropsType) => {
       </p>
       <Option product={product} />
       <t.Wrapper>
-        <Button radius={'30px'}>구매하기</Button>
+        <Button onClick={() => handleBuy()} radius={'30px'}>
+          구매하기
+        </Button>
         <Button {...props}>장바구니</Button>
         <Button {...props}>
           <Heart likeCnt={product?.p_Like} productNo={product?.p_No} />
@@ -55,11 +81,9 @@ const DetailInfo = ({ product }: PropsType) => {
       </t.Wrapper>
     </t.MainContainer>
   );
-};
+}
 
-type PropsType = {
-  product: ProductDetailType;
-};
+export default DetailInfo;
 
 const props = {
   radius: '30px',
@@ -70,5 +94,3 @@ const props = {
   hColor: `${theme.fc09}`,
   hBorder: `0.5px solid ${theme.ls11}`,
 };
-
-export default DetailInfo;

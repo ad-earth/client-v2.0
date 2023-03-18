@@ -1,5 +1,4 @@
 import * as t from '../../style/input.style';
-import { forwardRef, ForwardRefRenderFunction } from 'react';
 
 export interface InputType {
   outline?: string;
@@ -19,19 +18,15 @@ export interface InputType {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input: ForwardRefRenderFunction<HTMLInputElement, InputType> = (
-  { ...props },
-  ref
-) => {
+function Input({ ...props }: InputType) {
   return (
     <t.MyInput
       type={props.type}
       placeholder={props.holderName}
-      ref={ref}
       defaultValue={props.defaultValue}
       {...props}
     ></t.MyInput>
   );
-};
+}
 
-export default forwardRef(Input);
+export default Input;
