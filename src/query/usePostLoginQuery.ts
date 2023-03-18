@@ -13,11 +13,8 @@ const usePostLoginQuery = (data: LoginType) => {
       if (result.userInfo) {
         localStorage.setItem('token', result.userInfo.token);
         localStorage.setItem('userInfo', JSON.stringify(result.userInfo));
+        localStorage.setItem('cartStatus', JSON.stringify(result.cartStatus));
       }
-      // if (data.cartList) {
-      //   console.log('data.cartList: ', data.cartList);
-      //   return data.cartList;
-      // }
     },
   });
 };

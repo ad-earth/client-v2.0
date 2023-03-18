@@ -26,14 +26,24 @@ export default function Header() {
   const { isHeaderVisible } = useScrHeader();
   const { isDropped, dropRef, handleRemove } = useDropDown();
   const [isLogin, setIsLogin] = useState<boolean>(false);
+  // const [isCart, setIsCart] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
+  // const cartStatus = JSON.parse(localStorage.getItem('cartStatus'));
+  const cartStatus = localStorage.getItem('cartStatus');
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       setIsLogin(true);
     } else setIsLogin(false);
   }, [isLogin]);
+
+  //   useEffect(()=>{
+  // const cartStatus = localStorage.getItem('cartStatus');
+  // if(cartStatus){
+  //   setIsCart(true)
+  // }else setIsCart(false);
+  //   },[isCart])
+
   const handleLogout = () => {
     localStorage.clear();
     setIsLogin(false);
@@ -77,7 +87,7 @@ export default function Header() {
                     className="cartIcon"
                     onClick={routeToCart}
                   />
-                  <t.Badge>1</t.Badge>
+                  <t.Badge>{cartStatus ? cartStatus : 0}</t.Badge>
                 </t.CartStatus>
               </>
             ) : (
