@@ -1,6 +1,6 @@
 import styled from 'styled-components';
+import type { BtnType } from '../components/common/Button';
 import theme from '../shared/style/theme';
-import { BtnType } from '../components/common/Button';
 
 export const Btn = styled.button<BtnType>`
   display: flex;

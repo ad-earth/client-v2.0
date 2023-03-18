@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MenuDropType } from '../components/common/MenuDrop';
+import type { MenuDropType } from '../components/common/MenuDrop';
 
 export const MenuContainer = styled.div<MenuDropType>`
   width: ${props => (props.width ? props.width : '120px')};
