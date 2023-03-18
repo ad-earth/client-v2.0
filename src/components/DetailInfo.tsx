@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import usePutCartQuery from '../query/usePutCartQuery';
 import { useAppSelector } from '../redux/store';
@@ -16,10 +17,14 @@ type TProps = {
 
 function DetailInfo({ product }: TProps) {
   const { productNo } = useParams();
-  const { price, discount } = useMemo(
+  const { price, discount, isOption } = useMemo(
     () => ({
       price: product?.p_Cost,
       discount: product?.p_Cost * (1 - product?.p_Discount / 100),
+      isOption:
+        product?.p_Option.length > 0
+          ? product?.p_Option[0][0] !== null || product?.p_Option[0][2] !== null
+          : false,
     }),
     [product]
   );
@@ -35,9 +40,13 @@ function DetailInfo({ product }: TProps) {
   const { mutate } = usePutCartQuery(data);
   const navigate = useNavigate();
   const handleBuy = () => {
-    mutate(data, {
-      onSuccess: () => navigate('/payment'),
-    });
+    if (product && isOption && option.length === 0)
+      toast.error('상품을 먼저 선택해주세요.');
+    else {
+      mutate(data, {
+        onSuccess: () => navigate('/payment'),
+      });
+    }
   };
 
   return (
