@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import theme from '../shared/style/theme';
 
 export const Container = styled.div`
   width: 100%;
@@ -9,7 +8,7 @@ export const Footer = styled.div`
   flex-direction: column;
   margin: auto;
   box-sizing: border-box;
-  background-color: ${theme.bg16};
+  background-color: ${({ theme }) => theme.bg16};
 `;
 export const Wrap = styled.div`
   width: 1200px;
@@ -42,30 +41,30 @@ export const Service = styled.div`
   text-align: left;
   a {
     font-weight: 700;
-    color: ${theme.fc01};
-    font-size: ${theme.fs18};
+    color: ${({ theme }) => theme.fc01};
+    font-size: ${({ theme }) => theme.fs18};
     margin-bottom: 20px;
   }
   span {
     font-weight: 400;
-    color: ${theme.fc01};
-    font-size: ${theme.fs16};
-    line-height: ${theme.fs24};
+    color: ${({ theme }) => theme.fc01};
+    font-size: ${({ theme }) => theme.fs16};
+    line-height: ${({ theme }) => theme.fs24};
   }
   @media (min-width: 991px) and (max-width: 1200px) {
     width: 100%;
-    font-size: ${theme.fs15};
+    font-size: ${({ theme }) => theme.fs15};
   }
   @media (max-width: 990px) {
     width: 100%;
     padding-left: 20px;
     padding-right: 20px;
-    font-size: ${theme.fs11};
+    font-size: ${({ theme }) => theme.fs11};
     span {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      font-size: ${theme.fs10};
+      font-size: ${({ theme }) => theme.fs10};
     }
   }
 `;

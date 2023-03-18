@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import theme from '../shared/style/theme';
 
 export const Container = styled.div`
   width: 1200px;
   height: 600px;
-  margin: 90px auto;
+  margin: 100px auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,8 +36,8 @@ export const EtcContents = styled.div`
   flex-direction: row;
   justify-content: space-between;
   p {
-    font-size: ${theme.fs15};
-    color: ${theme.fc09};
+    font-size: ${({ theme }) => theme.fs15};
+    color: ${({ theme }) => theme.fc09};
     cursor: pointer;
   }
 `;

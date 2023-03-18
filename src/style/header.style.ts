@@ -1,9 +1,4 @@
 import styled from 'styled-components';
-import theme from '../shared/style/theme';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
-import DehazeRoundedIcon from '@mui/icons-material/DehazeRounded';
-import Badge from '@mui/material/Badge';
 
 interface Type {
   isHeaderVisible?: boolean;
@@ -13,8 +8,8 @@ export const Container = styled.header<Type>`
   width: 100%;
   display: flex;
   border-bottom: ${props =>
-    props.isHeaderVisible ? 'transparent' : `1px solid ${theme.fc02}`};
-  background-color: ${props => props.isHeaderVisible && `${theme.bg16}`};
+    props.isHeaderVisible ? 'transparent' : `1px solid ${props.theme.fc02}`};
+  background-color: ${props => props.isHeaderVisible && `${props.theme.bg16}`};
   position: ${props => props.isHeaderVisible && 'fixed'};
   top: ${props => props.isHeaderVisible && '0'};
   right: ${props => props.isHeaderVisible && '0'};
@@ -29,17 +24,18 @@ export const Nav = styled.div<Type>`
   display: flex;
   flex-direction: row;
   color: ${props =>
-    props.isHeaderVisible ? `${theme.fc01}` : `${theme.fc15}`};
+    props.isHeaderVisible ? props.theme.fc01 : props.theme.fc15};
   box-sizing: border-box;
   img {
     width: 150px;
     object-fit: contain;
+    margin-right: 10px;
     :hover {
       cursor: pointer;
     }
   }
   p {
-    margin: 10px 10px 0 10px;
+    margin: 10px 5px 0 0;
     :hover {
       cursor: pointer;
     }
@@ -69,41 +65,36 @@ export const RightSection = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+  gap: 5px;
+  .userIcon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+  .etcIcon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
 `;
-export const UserIcon = styled(PersonOutlineOutlinedIcon)({
-  '&.MuiSvgIcon-root': {
-    fontSize: `${theme.fs30}`,
-    marginTop: '5px',
-    marginRight: '5px',
-    cursor: 'pointer',
-  },
-});
-export const ShopIcon = styled(ShoppingBagOutlinedIcon)({
-  '&.MuiSvgIcon-root': {
-    fontSize: `${theme.fs30}`,
-    marginRight: '5px',
-    cursor: 'pointer',
-  },
-});
-export const CountBadge = styled(Badge)({
-  '& .MuiBadge-badge': {
-    fontSize: 10,
-    minWidth: '15px',
-    height: '15px',
-    top: 28,
-    padding: 0,
-    marginRight: '10px',
-    color: `${theme.fc01}`,
-    backgroundColor: `${theme.fc09}`,
-  },
-});
-export const EtcIcon = styled(DehazeRoundedIcon)({
-  '&.MuiSvgIcon-root': {
-    fontSize: `${theme.fs30}`,
-    color: `${theme.fc15}`,
-    marginTop: '5px',
-    marginRight: '5px',
-    marginLeft: '5px',
-    cursor: 'pointer',
-  },
-});
+export const CartStatus = styled.div`
+  position: relative;
+  .cartIcon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+`;
+export const Badge = styled.span`
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.bg10};
+  color: ${({ theme }) => theme.fc01};
+  font-size: ${({ theme }) => theme.fs10};
+  text-align: center;
+  position: absolute;
+  right: -2px;
+  top: 20px;
+`;
