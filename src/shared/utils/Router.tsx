@@ -7,16 +7,17 @@ import {
 import MyLayout from '../../components/common/MyLayout';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import MyCancelDetail from '../../components/MyCancelDetail';
-import MyOrder from '../../components/MyOrder';
-import MyOrderDetail from '../../components/MyOrderDetail';
-import MyWish from '../../components/MyWish';
+
 import CartPage from '../../pages/CartPage';
 import CompletePage from '../../pages/CompletePage';
 import DetailPage from '../../pages/DetailPage';
 import ListPage from '../../pages/ListPage';
 import LogInPage from '../../pages/LogInPage';
 import MainPage from '../../pages/MainPage';
+import MyCancelPage from '../../pages/MyCancelPage';
+import MyOrderDetailPage from '../../pages/MyOrderDetailPage';
+import MyOrderPage from '../../pages/MyOrderPage';
+import MyWishPage from '../../pages/MyWishPage';
 import NotFoundPage from '../../pages/NotFoundPage';
 import PaymentPage from '../../pages/PaymentPage';
 import SearchPage from '../../pages/SearchPage';
@@ -34,14 +35,14 @@ const Router = createBrowserRouter(
         <Route path="signup" element={<SignUpPage />} />
         <Route element={<MyLayout />}>
           <Route path="mypage">
-            <Route index element={<MyOrder />} />
-            <Route path=":id" element={<MyOrderDetail />} />
-            <Route path="cancel-call/:id" element={<MyCancelDetail />} />
+            <Route index element={<MyOrderPage />} />
+            <Route path=":id" element={<MyOrderDetailPage />} />
+            <Route path="cancel-call/:id" element={<MyCancelPage />} />
           </Route>
-          <Route path="wish" element={<MyWish />} />
+          <Route path="wish" element={<MyWishPage />} />
           <Route path="cancel">
-            <Route index element={<MyOrder />} />
-            <Route path=":id" element={<MyOrderDetail />} />
+            <Route index element={<MyOrderPage />} />
+            <Route path=":id" element={<MyOrderDetailPage />} />
           </Route>
         </Route>
         <Route path="cart" element={<CartPage />} />
