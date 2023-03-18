@@ -1,7 +1,7 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useQuery } from 'react-query';
 import { getId } from '../shared/api/apis';
-import type { ErrorType } from '../shared/types/types';
+import type { TError } from '../shared/types/types';
 
 export type SearchIdType = {
   u_Name: string;
@@ -13,7 +13,7 @@ type IdResponseType = {
 };
 
 const useGetLoginSearchIdQuery = (data: SearchIdType) => {
-  return useQuery<AxiosResponse<IdResponseType>, AxiosError<ErrorType>>(
+  return useQuery<AxiosResponse<IdResponseType>, AxiosError<TError>>(
     'findId',
     () => getId(data.u_Name, data.u_Phone),
     {

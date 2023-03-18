@@ -1,11 +1,10 @@
-import * as t from '../../style/loader.style';
-
 import React from 'react';
-import theme from '../../shared/style/theme';
 import { useIsFetching, useIsMutating } from 'react-query';
 import { FadeLoader } from 'react-spinners';
+import theme from '../../shared/style/theme';
+import * as t from '../../style/loader.style';
 
-const Loader = () => {
+function Loader() {
   const isFetching = useIsFetching();
   const isMutating = useIsMutating();
   const display = isFetching || isMutating ? 'inherit' : 'none';
@@ -20,6 +19,6 @@ const Loader = () => {
       ></FadeLoader>
     </t.Display>
   );
-};
+}
 
 export default Loader;

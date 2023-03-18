@@ -28,6 +28,18 @@ export const getDetail = (productNo: number, keyword?: string) =>
 // 구매평 조회
 export const getReviews = (productNo: number, page: number) =>
   axiosInstance.get(`/reviews/${productNo}?page=${page}&maxpost=10`);
+// 구매하기 & 장바구니
+export const putCart = (
+  type: string,
+  p_No: number,
+  p_Option: (string | number)[][],
+  k_No?: string
+) =>
+  axiosInstance.put(`/carts/${type}`, {
+    k_No,
+    p_No,
+    p_Option,
+  });
 
 // 로그인 페이지
 export const postLogin = (u_Id: string, u_Pw: string) =>
