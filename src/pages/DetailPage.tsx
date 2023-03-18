@@ -15,9 +15,10 @@ function DetailPage() {
 
   const query = useGetDetailQuery(parseInt(productNo), null);
 
-  const { product } = useMemo(
+  const { product, keyNo } = useMemo(
     () => ({
       product: query.data?.data.product,
+      keyNo: query.data?.data.k_No,
     }),
     [query]
   );
@@ -26,7 +27,7 @@ function DetailPage() {
     <>
       <t.InfoContainer>
         <DetailImgs product={product} />
-        <DetailInfo product={product} />
+        <DetailInfo product={product} keyNo={keyNo} />
       </t.InfoContainer>
       <DetailContents
         productNo={parseInt(productNo)}

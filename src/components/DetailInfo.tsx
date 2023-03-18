@@ -13,9 +13,10 @@ import Option from './common/Option';
 
 type TProps = {
   product: IProductDetail;
+  keyNo: number;
 };
 
-function DetailInfo({ product }: TProps) {
+function DetailInfo({ product, keyNo }: TProps) {
   const { productNo } = useParams();
   const { price, discount, isOption } = useMemo(
     () => ({
@@ -28,23 +29,39 @@ function DetailInfo({ product }: TProps) {
     }),
     [product]
   );
-  const keyword: any = null; //TODO: 키워드 적용 필요
   const option = useAppSelector(state => state.optionSlice);
 
-  const data = {
+  const payData = {
     type: 'd_Type',
     productNo: Number(productNo),
     option: option,
-    keyword: keyword,
+    keyword: keyNo,
   };
-  const { mutate } = usePutCartQuery(data);
+  const { mutate: payMutate } = usePutCartQuery(payData);
   const navigate = useNavigate();
   const handleBuy = () => {
     if (product && isOption && option.length === 0)
       toast.error('상품을 먼저 선택해주세요.');
     else {
-      mutate(data, {
-        onSuccess: () => navigate('/payment'),
+      payMutate(payData, {
+        onSuccess: () => navigate(`/payment/${productNo}`),
+      });
+    }
+  };
+
+  const cartData = {
+    type: 'c_Type',
+    productNo: Number(productNo),
+    option: option,
+    keyword: keyNo,
+  };
+  const { mutate: cartMutate } = usePutCartQuery(cartData);
+  const handleCart = () => {
+    if (product && isOption && option.length === 0)
+      toast.error('상품을 먼저 선택해주세요.');
+    else {
+      cartMutate(cartData, {
+        onSuccess: () => navigate('/cart'),
       });
     }
   };
@@ -94,7 +111,9 @@ function DetailInfo({ product }: TProps) {
             <Button onClick={() => handleBuy()} radius={'30px'}>
               구매하기
             </Button>
-            <Button {...props}>장바구니</Button>
+            <Button onClick={() => handleCart()} {...props}>
+              장바구니
+            </Button>
           </>
         )}
         <Button {...props}>
