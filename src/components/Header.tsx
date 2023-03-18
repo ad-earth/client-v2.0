@@ -1,13 +1,13 @@
-import * as t from '../style/header.style';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import headLogo from '../assets/headLogo.png';
 import whiteLogo from '../assets/whiteLogo.png';
-import SearchBar from './SearchBar';
-import MenuDrop from './common/MenuDrop';
 import useDropDown from '../hooks/useDropDown';
 import useScrHeader from '../hooks/useScrollHeader';
 import useViewport from '../hooks/useViewport';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import * as t from '../style/header.style';
+import MenuDrop from './common/MenuDrop';
+import SearchBar from './SearchBar';
 
 let cateData: {
   id: number;
@@ -24,7 +24,7 @@ let cateData: {
   { id: 8, cate: '문구', path: '/list/문구' },
 ];
 
-const Header = () => {
+function Header() {
   const viewport = useViewport();
   const navigate = useNavigate();
   const { isHeaderVisible } = useScrHeader();
@@ -88,6 +88,6 @@ const Header = () => {
       </t.Nav>
     </t.Container>
   );
-};
+}
 
 export default Header;

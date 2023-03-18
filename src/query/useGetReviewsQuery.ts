@@ -1,10 +1,10 @@
+import type { AxiosResponse } from 'axios';
 import { useQuery } from 'react-query';
-import { AxiosResponse } from 'axios';
-import { ReviewsResponseType } from '../shared/types/types';
 import { getReviews } from '../shared/api/apis';
+import type { IReviewsResponse } from '../shared/types/types';
 
 const useGetReviewsQuery = (productNo: number, page: number) => {
-  return useQuery<AxiosResponse<ReviewsResponseType>, Error>(
+  return useQuery<AxiosResponse<IReviewsResponse>, Error>(
     'review',
     () => getReviews(productNo, page),
     {

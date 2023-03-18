@@ -1,5 +1,5 @@
 import { inputInitialValue } from './inputInitialValue';
-import { IdCheck, PwdCheck, PhoneCheck } from './regExp';
+import { IdCheck, PhoneCheck, PwdCheck } from './regExp';
 
 type ActionType = { type: string; payload?: string; msg?: string };
 

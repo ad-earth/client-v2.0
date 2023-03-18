@@ -1,9 +1,9 @@
+import type { Dispatch, SetStateAction } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as t from '../style/listCategory.style';
 
-import React, { Dispatch, SetStateAction, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-const ListCategory = ({ category, setSort }: PropsType) => {
+function ListCategory({ category, setSort }: PropsType) {
   const navigate = useNavigate();
   const [current, setCurrent] = useState<string>(category);
 
@@ -33,7 +33,7 @@ const ListCategory = ({ category, setSort }: PropsType) => {
       <t.Line />
     </t.Category>
   );
-};
+}
 
 type PropsType = {
   category: string;

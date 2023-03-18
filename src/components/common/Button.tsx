@@ -20,8 +20,8 @@ export interface BtnType {
   onClick?: () => void;
 }
 
-const Button = (props: BtnType) => {
+function Button(props: BtnType) {
   return <t.Btn {...props}>{props.text ? props.text : props.children}</t.Btn>;
-};
+}
 
 export default Button;

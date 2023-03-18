@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import * as t from '../style/loginPage.style';
-import loginLogo from '../assets/logInLogo.jpeg';
-import Input from '../components/common/Input';
-import Button from '../components/common/Button';
-import theme from '../shared/style/theme';
-import usePostLoginQuery from '../query/usePostLoginQuery';
 import { useNavigate } from 'react-router-dom';
+import loginLogo from '../assets/logInLogo.jpeg';
+import Button from '../components/common/Button';
+import Input from '../components/common/Input';
+import usePostLoginQuery from '../query/usePostLoginQuery';
+import theme from '../shared/style/theme';
+import * as t from '../style/loginPage.style';
 
 export type LoginType = {
   u_Id: string;
