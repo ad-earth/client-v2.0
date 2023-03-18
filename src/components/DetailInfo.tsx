@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import usePutCartQuery from '../query/usePutCartQuery';
 import { useAppSelector } from '../redux/store';
@@ -23,21 +23,22 @@ function DetailInfo({ product }: TProps) {
     }),
     [product]
   );
-
+  const keyword: any = null; //TODO: 키워드 적용 필요
   const option = useAppSelector(state => state.optionSlice);
 
-  const { mutate, isSuccess } = usePutCartQuery(
-    'd_Type',
-    Number(productNo),
-    option,
-    null
-  );
-  const handleBuy = () => mutate;
-
+  const data = {
+    type: 'd_Type',
+    productNo: Number(productNo),
+    option: option,
+    keyword: keyword,
+  };
+  const { mutate } = usePutCartQuery(data);
   const navigate = useNavigate();
-  useEffect(() => {
-    navigate('/payment');
-  }, [isSuccess]);
+  const handleBuy = () => {
+    mutate(data, {
+      onSuccess: () => navigate('/payment'),
+    });
+  };
 
   return (
     <t.MainContainer>
@@ -70,7 +71,7 @@ function DetailInfo({ product }: TProps) {
       </p>
       <Option product={product} />
       <t.Wrapper>
-        <Button onClick={handleBuy} radius={'30px'}>
+        <Button onClick={() => handleBuy()} radius={'30px'}>
           구매하기
         </Button>
         <Button {...props}>장바구니</Button>
@@ -82,6 +83,8 @@ function DetailInfo({ product }: TProps) {
   );
 }
 
+export default DetailInfo;
+
 const props = {
   radius: '30px',
   border: `0.5px solid ${theme.ls03}`,
@@ -91,5 +94,3 @@ const props = {
   hColor: `${theme.fc09}`,
   hBorder: `0.5px solid ${theme.ls11}`,
 };
-
-export default DetailInfo;

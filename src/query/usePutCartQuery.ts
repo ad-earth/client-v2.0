@@ -3,12 +3,14 @@ import { useMutation } from 'react-query';
 import { putCart } from '../shared/api/apis';
 import type { TError } from '../shared/types/types';
 
-const usePutCartQuery = (
-  type: string,
-  productNo: number,
-  option: (string | number)[][],
-  keyword?: string
-) => {
+type TData = {
+  type: string;
+  productNo: number;
+  option: (string | number)[][];
+  keyword?: string;
+};
+
+const usePutCartQuery = ({ type, productNo, option, keyword }: TData) => {
   return useMutation<AxiosResponse, AxiosError<TError>, any, unknown>(() =>
     putCart(type, productNo, option, keyword)
   );
