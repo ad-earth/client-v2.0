@@ -80,10 +80,23 @@ function DetailInfo({ product }: TProps) {
       </p>
       <Option product={product} />
       <t.Wrapper>
-        <Button onClick={() => handleBuy()} radius={'30px'}>
-          구매하기
-        </Button>
-        <Button {...props}>장바구니</Button>
+        {product?.p_Soldout ? (
+          <Button
+            {...propsSoldout}
+            onClick={() => {
+              toast.error('이 상품은 현재 구매가 불가합니다.');
+            }}
+          >
+            품절된 상품입니다.
+          </Button>
+        ) : (
+          <>
+            <Button onClick={() => handleBuy()} radius={'30px'}>
+              구매하기
+            </Button>
+            <Button {...props}>장바구니</Button>
+          </>
+        )}
         <Button {...props}>
           <Heart likeCnt={product?.p_Like} productNo={product?.p_No} />
         </Button>
@@ -93,6 +106,13 @@ function DetailInfo({ product }: TProps) {
 }
 
 export default DetailInfo;
+
+const propsSoldout = {
+  width: '200%',
+  radius: '30px',
+  bgColor: `${theme.bg09}`,
+  hBgColor: `${theme.bg09}`,
+};
 
 const props = {
   radius: '30px',
