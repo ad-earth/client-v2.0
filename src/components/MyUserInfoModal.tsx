@@ -1,8 +1,6 @@
 import { useEffect, useReducer, useState } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
-import type {
-  UserInfoDataType,
-} from '../query/usePutMyUserInfoQuery';
+import type { UserInfoDataType } from '../query/usePutMyUserInfoQuery';
 import usePutUserInfoQuery from '../query/usePutMyUserInfoQuery';
 import theme from '../shared/style/theme';
 import { InfoInitial } from '../shared/utils/inputInitialValue';

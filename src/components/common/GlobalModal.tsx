@@ -1,5 +1,5 @@
-import * as t from '../../style/globalModal.style';
 import ReactDom from 'react-dom';
+import * as t from '../../style/globalModal.style';
 
 interface PropsType {
   children: React.ReactNode;
