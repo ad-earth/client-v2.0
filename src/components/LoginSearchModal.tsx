@@ -1,8 +1,8 @@
-import * as t from '../style/loginSearchModal.style';
 import { useState } from 'react';
+import { IoCloseOutline } from 'react-icons/io5';
+import * as t from '../style/loginSearchModal.style';
 import LoginSearchId from './LoginSearchId';
 import LoginSearchPwd from './LoginSearchPwd';
-import { IoCloseOutline } from 'react-icons/io5';
 
 type PropsType = {
   onClose: () => void;

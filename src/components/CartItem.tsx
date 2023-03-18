@@ -1,12 +1,12 @@
-import * as t from '../style/cartItem.style';
-import theme from '../shared/style/theme';
-import Button from './common/Button';
-import useViewport from '../hooks/useViewport';
 import { useState } from 'react';
-import GlobalModal from './common/GlobalModal';
+import useViewport from '../hooks/useViewport';
+import theme from '../shared/style/theme';
+import * as t from '../style/cartItem.style';
 import CartOptionModal from './CartOptionModal';
+import Button from './common/Button';
+import GlobalModal from './common/GlobalModal';
 
-const CartItem = () => {
+function CartItem() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const viewport = useViewport();
   let thumb =
@@ -76,7 +76,7 @@ const CartItem = () => {
       </t.Container>
     </>
   );
-};
+}
 
 export default CartItem;
 

@@ -1,14 +1,13 @@
-import * as t from '../style/mainLinks.style';
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  jigushopGrocery,
   instagram,
+  jigushopGrocery,
   plasticBag,
 } from '../shared/utils/imgUrls';
+import * as t from '../style/mainLinks.style';
 
-const MainLinks = () => {
+function MainLinks() {
   const navigate = useNavigate();
 
   return (
@@ -32,6 +31,6 @@ const MainLinks = () => {
       </t.MainContainer>
     </t.Background>
   );
-};
+}
 
 export default MainLinks;

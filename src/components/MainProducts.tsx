@@ -1,10 +1,9 @@
-import * as t from '../style/mainProducts.style';
-
 import React from 'react';
-import { ProductType } from '../shared/types/types';
+import type { ProductType } from '../shared/types/types';
+import * as t from '../style/mainProducts.style';
 import Card from './common/Card';
 
-const MainProducts = ({ list, children }: PropsType) => {
+function MainProducts({ list, children }: PropsType) {
   return (
     <t.Container>
       <t.TitleWrapper>
@@ -20,7 +19,7 @@ const MainProducts = ({ list, children }: PropsType) => {
       </t.CardWrapper>
     </t.Container>
   );
-};
+}
 
 type PropsType = {
   list: ProductType[];

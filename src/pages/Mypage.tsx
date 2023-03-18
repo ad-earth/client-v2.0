@@ -1,8 +1,8 @@
-import * as t from '../style/mypage.style';
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import MyAsideNav from '../components/MyAsideNav';
 import MyUserHead from '../components/MyUserHead';
+import * as t from '../style/mypage.style';
 
 export default function Mypage() {
   const getToken = localStorage.getItem('token');

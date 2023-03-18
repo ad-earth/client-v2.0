@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import throttle from 'lodash/throttle';
+import { useEffect, useState } from 'react';
 import useViewport from './useViewport';
 
 const SCROLL_DELTA = 87;

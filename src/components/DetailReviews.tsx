@@ -1,9 +1,10 @@
+import type { Dispatch, SetStateAction } from 'react';
+import React from 'react';
+import type { ReviewsType } from '../shared/types/types';
 import * as t from '../style/detailReviews.style';
-import React, { Dispatch, SetStateAction } from 'react';
-import { ReviewsType } from '../shared/types/types';
 import Pagination from './common/Pagination';
 
-const DetailReviews = ({ reviewQty, reviewList, page, setPage }: PropsType) => {
+function DetailReviews({ reviewQty, reviewList, page, setPage }: PropsType) {
   return (
     <t.MainContainer>
       <t.List>
@@ -45,7 +46,7 @@ const DetailReviews = ({ reviewQty, reviewList, page, setPage }: PropsType) => {
       </t.List>
     </t.MainContainer>
   );
-};
+}
 
 type PropsType = {
   reviewQty: number;

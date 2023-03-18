@@ -1,12 +1,11 @@
-import * as t from '../style/detailImgs.style';
-
 import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { ProductDetailType } from '../shared/types/types';
+import type { ProductDetailType } from '../shared/types/types';
+import * as t from '../style/detailImgs.style';
 
-const DetailImgs = ({ product }: PropsType) => {
+function DetailImgs({ product }: PropsType) {
   return (
     <t.MainContainer>
       <Slider {...carouselSetting}>
@@ -21,7 +20,7 @@ const DetailImgs = ({ product }: PropsType) => {
       </Slider>
     </t.MainContainer>
   );
-};
+}
 
 type PropsType = {
   product: ProductDetailType;

@@ -1,18 +1,18 @@
-import * as t from '../style/header.style';
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { CgDetailsMore } from 'react-icons/cg';
+import { HiOutlineUser } from 'react-icons/hi';
+import { MdOutlineShoppingBag } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 import headLogo from '../assets/headLogo.png';
 import whiteLogo from '../assets/whiteLogo.png';
-import SearchBar from './SearchBar';
-import useViewport from '../hooks/useViewport';
-import MenuDrop from './common/MenuDrop';
 import useDropDown from '../hooks/useDropDown';
 import useScrHeader from '../hooks/useScrollHeader';
+import useViewport from '../hooks/useViewport';
+import * as t from '../style/header.style';
 import GlobalModal from './common/GlobalModal';
+import MenuDrop from './common/MenuDrop';
 import HeaderAside from './HeaderAside';
-import { HiOutlineUser } from 'react-icons/hi';
-import { CgDetailsMore } from 'react-icons/cg';
-import { MdOutlineShoppingBag } from 'react-icons/md';
+import SearchBar from './SearchBar';
 
 export type CateType = {
   id: number;

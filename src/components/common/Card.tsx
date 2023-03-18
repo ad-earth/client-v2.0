@@ -1,12 +1,11 @@
-import * as t from '../../style/card.style';
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ProductType } from '../../shared/types/types';
+import type { ProductType } from '../../shared/types/types';
+import * as t from '../../style/card.style';
 import Badge from './Badge';
 import Heart from './Heart';
 
-const Card = ({ product, isAd, likeList }: PropsType) => {
+function Card({ product, isAd, likeList }: PropsType) {
   const navigate = useNavigate();
   const [imageIdx, setImageIdx] = useState<number>(0);
 
@@ -70,7 +69,7 @@ const Card = ({ product, isAd, likeList }: PropsType) => {
       </t.Container>
     </>
   );
-};
+}
 
 type PropsType = {
   isAd: boolean;

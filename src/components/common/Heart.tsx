@@ -1,9 +1,8 @@
-import * as t from '../../style/heart.style';
-
 import React, { useEffect, useState } from 'react';
 import usePostLikeQuery from '../../query/usePostLikeQuery';
+import * as t from '../../style/heart.style';
 
-const Heart = ({ likeCnt, productNo, likeList }: PropsType) => {
+function Heart({ likeCnt, productNo, likeList }: PropsType) {
   const { mutate } = usePostLikeQuery(productNo);
   const [isLike, setIsLike] = useState<boolean>(false);
 
@@ -22,7 +21,7 @@ const Heart = ({ likeCnt, productNo, likeList }: PropsType) => {
       <t.Count>{likeCnt}</t.Count>
     </t.Container>
   );
-};
+}
 
 type PropsType = {
   productNo: number;

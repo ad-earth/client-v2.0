@@ -1,17 +1,16 @@
-import * as t from '../style/myUserInfoModal.style';
 import { useEffect, useReducer, useState } from 'react';
+import { IoCloseOutline } from 'react-icons/io5';
+import type { UserInfoDataType } from '../query/usePutMyUserInfoQuery';
+import usePutUserInfoQuery from '../query/usePutMyUserInfoQuery';
+import theme from '../shared/style/theme';
+import { InfoInitial } from '../shared/utils/inputInitialValue';
+import { infoReducer } from '../shared/utils/inputReducer';
+import * as t from '../style/myUserInfoModal.style';
 import Address from './common/Address';
-import Profile from './common/Profile';
+import Button from './common/Button';
 import ErrMsg from './common/ErrorMsg';
 import Input from './common/Input';
-import Button from './common/Button';
-import theme from '../shared/style/theme';
-import { infoReducer } from '../shared/utils/inputReducer';
-import { InfoInitial } from '../shared/utils/inputInitialValue';
-import usePutUserInfoQuery, {
-  UserInfoDataType,
-} from '../query/usePutMyUserInfoQuery';
-import { IoCloseOutline } from 'react-icons/io5';
+import Profile from './common/Profile';
 
 type PropsType = {
   onClose: () => void;

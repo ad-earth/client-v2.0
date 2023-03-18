@@ -1,18 +1,18 @@
+import type { Dispatch, SetStateAction } from 'react';
+import React from 'react';
+import type { ProductType } from '../shared/types/types';
 import * as t from '../style/listCards.style';
-
-import React, { Dispatch, SetStateAction } from 'react';
-import { ProductType } from '../shared/types/types';
 import Card from './common/Card';
 import Pagination from './common/Pagination';
 
-const SearchCards = ({
+function SearchCards({
   pageCnt,
   ads,
   products,
   likeList,
   page,
   setPage,
-}: PropsType) => {
+}: PropsType) {
   return (
     <t.Container>
       {ads?.length === 0 && products?.length === 0 ? (
@@ -30,7 +30,7 @@ const SearchCards = ({
       <Pagination pageCnt={pageCnt} page={page} setPage={setPage} />
     </t.Container>
   );
-};
+}
 
 type PropsType = {
   pageCnt: number;

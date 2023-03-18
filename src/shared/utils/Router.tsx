@@ -1,26 +1,26 @@
 import {
-  Route,
   createBrowserRouter,
   createRoutesFromElements,
   Outlet,
+  Route,
 } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import LogInPage from '../../pages/LogInPage';
-import SignUpPage from '../../pages/SignUpPage';
-import MainPage from '../../pages/MainPage';
-import ListPage from '../../pages/ListPage';
-import SearchPage from '../../pages/SearchPage';
-import DetailPage from '../../pages/DetailPage';
-import Mypage from '../../pages/Mypage';
+import MyCancelDetail from '../../components/MyCancelDetail';
 import MyOrder from '../../components/MyOrder';
 import MyOrderDetail from '../../components/MyOrderDetail';
-import MyCancelDetail from '../../components/MyCancelDetail';
 import MyWish from '../../components/MyWish';
-import NotFoundPage from '../../pages/NotFoundPage';
 import CartPage from '../../pages/CartPage';
-import PaymentPage from '../../pages/PaymentPage';
 import CompletePage from '../../pages/CompletePage';
+import DetailPage from '../../pages/DetailPage';
+import ListPage from '../../pages/ListPage';
+import LogInPage from '../../pages/LogInPage';
+import MainPage from '../../pages/MainPage';
+import Mypage from '../../pages/Mypage';
+import NotFoundPage from '../../pages/NotFoundPage';
+import PaymentPage from '../../pages/PaymentPage';
+import SearchPage from '../../pages/SearchPage';
+import SignUpPage from '../../pages/SignUpPage';
 
 const Router = createBrowserRouter(
   createRoutesFromElements(

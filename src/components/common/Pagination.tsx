@@ -1,9 +1,9 @@
+import { PaginationItem } from '@mui/material';
+import type { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import * as t from '../../style/pagination.style';
 
-import React, { Dispatch, SetStateAction } from 'react';
-import { PaginationItem } from '@mui/material';
-
-const Pagination = ({ pageCnt, page, setPage }: PropsType) => {
+function Pagination({ pageCnt, page, setPage }: PropsType) {
   const pageCount = Math.ceil(pageCnt / 20);
 
   const handleChange = (e: React.ChangeEvent<unknown>, value: number) =>
@@ -18,7 +18,7 @@ const Pagination = ({ pageCnt, page, setPage }: PropsType) => {
       renderItem={item => <PaginationItem {...item} />}
     />
   );
-};
+}
 
 type PropsType = {
   pageCnt: number;

@@ -1,7 +1,7 @@
+import type { AxiosError, AxiosResponse } from 'axios';
 import { useQuery } from 'react-query';
-import { ErrorType } from '../shared/types/types';
-import { AxiosResponse, AxiosError } from 'axios';
 import { getId } from '../shared/api/apis';
+import type { ErrorType } from '../shared/types/types';
 
 export type SearchIdType = {
   u_Name: string;

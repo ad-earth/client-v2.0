@@ -1,13 +1,14 @@
-import * as t from '../style/headerAside.style';
-import theme from '../shared/style/theme';
 import { useState } from 'react';
-import GlobalModal from './common/GlobalModal';
-import MyUserInfoModal from './MyUserInfoModal';
-import useDropDown from '../hooks/useDropDown';
-import { SideMenuDrop } from './common/MenuDrop';
-import { cateData, CateType } from './Header';
 import { CgMoreVerticalAlt } from 'react-icons/cg';
+import useDropDown from '../hooks/useDropDown';
+import theme from '../shared/style/theme';
+import * as t from '../style/headerAside.style';
+import GlobalModal from './common/GlobalModal';
+import { SideMenuDrop } from './common/MenuDrop';
 import ProfileImage from './common/ProfileImage';
+import type { CateType } from './Header';
+import { cateData } from './Header';
+import MyUserInfoModal from './MyUserInfoModal';
 
 export default function HeaderAside() {
   const { isDropped, dropRef, handleRemove } = useDropDown();

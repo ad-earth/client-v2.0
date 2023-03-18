@@ -1,17 +1,16 @@
-import * as t from '../style/signUpPage.style';
-import theme from '../shared/style/theme';
-import Button from '../components/common/Button';
-import Profile from '../components/common/Profile';
-import Address from '../components/common/Address';
-import Input from '../components/common/Input';
-import ErrMsg from '../components/common/ErrorMsg';
 import React, { useEffect, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import usePostSignupQuery, {
-  SignUpDataType,
-} from '../query/usePostSignupQuery';
-import { inputReducer } from '../shared/utils/inputReducer';
+import Address from '../components/common/Address';
+import Button from '../components/common/Button';
+import ErrMsg from '../components/common/ErrorMsg';
+import Input from '../components/common/Input';
+import Profile from '../components/common/Profile';
+import type { SignUpDataType } from '../query/usePostSignupQuery';
+import usePostSignupQuery from '../query/usePostSignupQuery';
+import theme from '../shared/style/theme';
 import { signupInitial } from '../shared/utils/inputInitialValue';
+import { inputReducer } from '../shared/utils/inputReducer';
+import * as t from '../style/signUpPage.style';
 
 export default function SignUpPage() {
   const navigate = useNavigate();

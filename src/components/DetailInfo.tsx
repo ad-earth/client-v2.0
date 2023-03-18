@@ -1,13 +1,13 @@
-import * as t from '../style/detailInfo.style';
-import theme from '../shared/style/theme';
 import React, { useMemo } from 'react';
-import { ProductDetailType } from '../shared/types/types';
+import theme from '../shared/style/theme';
+import type { ProductDetailType } from '../shared/types/types';
+import * as t from '../style/detailInfo.style';
 import Badge from './common/Badge';
-import Option from './common/Option';
 import Button from './common/Button';
 import Heart from './common/Heart';
+import Option from './common/Option';
 
-const DetailInfo = ({ product }: PropsType) => {
+function DetailInfo({ product }: PropsType) {
   const { price, discount } = useMemo(
     () => ({
       price: product?.p_Cost,
@@ -55,7 +55,7 @@ const DetailInfo = ({ product }: PropsType) => {
       </t.Wrapper>
     </t.MainContainer>
   );
-};
+}
 
 type PropsType = {
   product: ProductDetailType;

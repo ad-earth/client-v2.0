@@ -1,17 +1,14 @@
-import theme from '../shared/style/theme';
 import React, { useEffect, useReducer, useState } from 'react';
+import type { SearchPwdType } from '../query/useGetLoginSearchPwdQuery';
+import { useGetLoginSearchPwdQuery } from '../query/useGetLoginSearchPwdQuery';
+import type { NewPwdType } from '../query/usePutLoginNewPwdQuery';
+import usePutLoginNewPwdQuery from '../query/usePutLoginNewPwdQuery';
+import theme from '../shared/style/theme';
+import { NewPwdInitial } from '../shared/utils/inputInitialValue';
+import { PwdReducer } from '../shared/utils/inputReducer';
 import Button from './common/Button';
 import ErrMsg from './common/ErrorMsg';
 import Input from './common/Input';
-import { PwdReducer } from '../shared/utils/inputReducer';
-import { NewPwdInitial } from '../shared/utils/inputInitialValue';
-import {
-  SearchPwdType,
-  useGetLoginSearchPwdQuery,
-} from '../query/useGetLoginSearchPwdQuery';
-import usePutLoginNewPwdQuery, {
-  NewPwdType,
-} from '../query/usePutLoginNewPwdQuery';
 
 export default function LoginSearchPwd() {
   // 비밀번호 찾기

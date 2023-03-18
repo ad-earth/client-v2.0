@@ -1,8 +1,8 @@
-import * as t from '../style/cartPage.style';
-import theme from '../shared/style/theme';
-import Button from '../components/common/Button';
 import CartItem from '../components/CartItem';
+import Button from '../components/common/Button';
 import useViewport from '../hooks/useViewport';
+import theme from '../shared/style/theme';
+import * as t from '../style/cartPage.style';
 
 export default function CartPage() {
   const viewport = useViewport();

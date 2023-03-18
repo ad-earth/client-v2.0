@@ -1,14 +1,13 @@
-import * as t from '../../style/option.style';
-
 import React, { useEffect, useMemo, useReducer, useState } from 'react';
-import { OptionType, ProductDetailType } from '../../shared/types/types';
+import { toast } from 'react-hot-toast';
+import type { OptionType, ProductDetailType } from '../../shared/types/types';
 import reducer, {
   initailState,
   OPTION_ACTION_TYPE,
 } from '../../shared/utils/optionReducer';
-import { toast } from 'react-hot-toast';
+import * as t from '../../style/option.style';
 
-const Option = ({ product }: PropsType) => {
+function Option({ product }: PropsType) {
   const [isDrop, setIsDrop] = useState<boolean>(false);
   const [options, dispatch] = useReducer(reducer, initailState);
   const [totalQty, setTotalQty] = useState<number>(0);
@@ -165,7 +164,7 @@ const Option = ({ product }: PropsType) => {
       </t.Wrapper>
     </t.Container>
   );
-};
+}
 
 type PropsType = {
   product: ProductDetailType;
