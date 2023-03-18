@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import theme from '../shared/style/theme';
 
 export const Container = styled.div`
   width: 100%;
@@ -14,8 +13,8 @@ export const Container = styled.div`
   p {
     text-align: left;
     margin: 30px 0 10px 0;
-    font-size: ${theme.fs14};
-    color: ${theme.fc14};
+    font-size: ${({ theme }) => theme.fs14};
+    color: ${({ theme }) => theme.fc14};
   }
 `;
 export const RadioWrap = styled.div`
@@ -25,15 +24,15 @@ export const RadioWrap = styled.div`
   label {
     text-align: left;
     margin: 0 20px 0 5px;
-    font-size: ${theme.fs15};
-    color: ${theme.fc09};
+    font-size: ${({ theme }) => theme.fs15};
+    color: ${({ theme }) => theme.fc09};
   }
 `;
 export const Radio = styled.input`
   width: 20px;
   height: 20px;
   margin: 5px 0;
-  accent-color: ${theme.bg16};
-  border: 1px solid ${theme.ls10};
+  accent-color: ${({ theme }) => theme.bg16};
+  border: 1px solid ${({ theme }) => theme.ls10};
   border-radius: 50%;
 `;

@@ -17,7 +17,7 @@ export interface BtnType {
   text?: string;
   children?: React.ReactNode;
   disabled?: boolean;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 function Button(props: BtnType) {

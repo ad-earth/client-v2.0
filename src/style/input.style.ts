@@ -1,6 +1,6 @@
 import styled from 'styled-components';
+import type { InputType } from '../components/common/Input';
 import theme from '../shared/style/theme';
-import { InputType } from '../components/common/Input';
 
 export const MyInput = styled.input<InputType>`
   outline: ${props => (props.outline ? props.outline : 'none')};

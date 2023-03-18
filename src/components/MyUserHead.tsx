@@ -1,6 +1,6 @@
-import * as t from '../style/myUserHeadInfo.style';
 import { useState } from 'react';
 import useViewport from '../hooks/useViewport';
+import * as t from '../style/myUserHeadInfo.style';
 import GlobalModal from './common/GlobalModal';
 import MyUserInfoModal from './MyUserInfoModal';
 
@@ -17,7 +17,7 @@ export default function MyUserHeadInfo() {
   /** 정보수정 모달 */
   const userModal = isModalOpen && (
     <GlobalModal onClose={() => setIsModalOpen(false)}>
-      <MyUserInfoModal />
+      <MyUserInfoModal onClose={() => setIsModalOpen(false)} />
     </GlobalModal>
   );
   return (

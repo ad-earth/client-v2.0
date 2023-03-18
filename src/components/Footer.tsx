@@ -28,4 +28,5 @@ function Footer() {
     </t.Container>
   );
 }
+
 export default Footer;

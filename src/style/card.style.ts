@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import theme from '../shared/style/theme';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import styled from 'styled-components';
+import theme from '../shared/style/theme';
 
 export const Container = styled.div`
   width: 100%;

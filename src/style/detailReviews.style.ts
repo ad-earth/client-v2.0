@@ -1,6 +1,6 @@
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import styled from 'styled-components';
 import theme from '../shared/style/theme';
-import StarRoundedIcon from '@mui/icons-material/StarRounded';
 
 export const MainContainer = styled.div`
   width: 1200px;

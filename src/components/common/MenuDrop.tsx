@@ -7,26 +7,32 @@ export interface MenuDropType {
   radius?: string;
   fcColor?: string;
   bgColor?: string;
-  cateData: {
+  cateData?: {
     id: number;
     cate: string;
     path: string;
   }[];
   isDropped?: boolean;
+  onClick?: () => void;
+  children?: React.ReactNode;
 }
 
-const MenuDrop = (props: MenuDropType) => {
+function MenuDrop(props: MenuDropType) {
   return (
     <t.MenuContainer {...props}>
       <ul>
-        {props.cateData.map((data, i: number) => (
-          <a href={data.path} key={i}>
+        {props.cateData.map(data => (
+          <a href={data.path} key={data.id}>
             <li>{data.cate}</li>
           </a>
         ))}
       </ul>
     </t.MenuContainer>
   );
-};
+}
 
 export default MenuDrop;
+
+export function SideMenuDrop(props: MenuDropType) {
+  return <t.MenuContainer {...props}>{props.children}</t.MenuContainer>;
+}

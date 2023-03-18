@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import Avatar from '@mui/material/Avatar';
+import styled from 'styled-components';
 
 export const HeadContent = styled.div`
   margin-bottom: 70px;

@@ -1,6 +1,6 @@
-import * as t from '../style/myAsideNav.style';
 import { useState } from 'react';
 import useViewport from '../hooks/useViewport';
+import * as t from '../style/myAsideNav.style';
 import GlobalModal from './common/GlobalModal';
 import UserInfoModal from './MyUserInfoModal';
 import MyWithdrawalModal from './MyWithdrawalModal';
@@ -25,7 +25,7 @@ export default function MyAsideNav() {
 }
 
 //** 데스크탑 버전 */
-const Desktop = () => {
+function Desktop() {
   const [isModalOpen, setIsModalOpen] = useState<ModalStateType>({
     withdrawal: false,
     userInfo: false,
@@ -44,7 +44,9 @@ const Desktop = () => {
     <GlobalModal
       onClose={() => setIsModalOpen({ ...isModalOpen, userInfo: false })}
     >
-      <UserInfoModal />
+      <UserInfoModal
+        onClose={() => setIsModalOpen({ ...isModalOpen, userInfo: false })}
+      />
     </GlobalModal>
   );
 
@@ -74,9 +76,9 @@ const Desktop = () => {
       </t.DesktopNavContent>
     </>
   );
-};
+}
 //** 모바일 버전 */
-const Mobile = () => {
+function Mobile() {
   return (
     <>
       {MobileList.map(list => (
@@ -92,7 +94,7 @@ const Mobile = () => {
       ))}
     </>
   );
-};
+}
 
 const desktopList: ListType[] = [
   { id: 1, name: '주문 조회', path: 'mypage' },

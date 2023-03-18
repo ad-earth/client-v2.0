@@ -1,9 +1,10 @@
-import * as t from '../../style/address.style';
-import theme from '../../shared/style/theme';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
-import Input from './Input';
+import theme from '../../shared/style/theme';
+import * as t from '../../style/address.style';
 import Button from './Button';
+import Input from './Input';
 
 export interface PropsType {
   zipcode: string;
@@ -14,14 +15,15 @@ export interface PropsType {
   setExtraAddress: Dispatch<SetStateAction<string>>;
 }
 
-const Address = ({
+function Address({
   zipcode,
   address,
   extraAddress,
   setZipcode,
   setAddress,
   setExtraAddress,
-}: PropsType) => {
+}: PropsType) {
+  const [isUser, setIsUser] = useState<boolean>(false);
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   const open = useDaumPostcodePopup();
   const handleComplete = (data: any) => {
@@ -43,7 +45,8 @@ const Address = ({
     setAddress(fullAddress);
   };
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     open({ onComplete: handleComplete });
   };
 
@@ -57,16 +60,13 @@ const Address = ({
   };
 
   useEffect(() => {
-    if (userInfo?.u_Address1) {
-      setZipcode(userInfo.u_Address1);
+    if (!isUser && userInfo) {
+      setZipcode(userInfo?.u_Address1);
+      setAddress(userInfo?.u_Address2);
+      setExtraAddress(userInfo?.u_Address3);
     }
-    if (userInfo?.u_Address2) {
-      setAddress(userInfo.u_Address2);
-    }
-    if (userInfo?.u_Address3) {
-      setExtraAddress(userInfo.u_Address3);
-    }
-  }, [userInfo]);
+    setIsUser(true);
+  }, [!isUser]);
 
   return (
     <t.Container>
@@ -94,7 +94,7 @@ const Address = ({
       />
     </t.Container>
   );
-};
+}
 
 export default Address;
 

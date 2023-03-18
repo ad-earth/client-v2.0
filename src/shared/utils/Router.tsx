@@ -10,12 +10,15 @@ import MyCancelDetail from '../../components/MyCancelDetail';
 import MyOrder from '../../components/MyOrder';
 import MyOrderDetail from '../../components/MyOrderDetail';
 import MyWish from '../../components/MyWish';
+import CartPage from '../../pages/CartPage';
+import CompletePage from '../../pages/CompletePage';
 import DetailPage from '../../pages/DetailPage';
 import ListPage from '../../pages/ListPage';
 import LogInPage from '../../pages/LogInPage';
 import MainPage from '../../pages/MainPage';
 import Mypage from '../../pages/Mypage';
 import NotFoundPage from '../../pages/NotFoundPage';
+import PaymentPage from '../../pages/PaymentPage';
 import SearchPage from '../../pages/SearchPage';
 import SignUpPage from '../../pages/SignUpPage';
 
@@ -41,6 +44,9 @@ const Router = createBrowserRouter(
             <Route path=":id" element={<MyOrderDetail />} />
           </Route>
         </Route>
+        <Route path="cart" element={<CartPage />} />
+        <Route path="payment" element={<PaymentPage />} />
+        <Route path="complete" element={<CompletePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </>

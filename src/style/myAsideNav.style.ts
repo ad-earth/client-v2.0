@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const DesktopNavContent = styled.ul``;
 export const NavItem = styled.li`

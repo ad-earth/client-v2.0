@@ -1,11 +1,10 @@
-import * as t from '../style/searchPage.style';
-
 import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import useGetAdListQuery from '../query/useGetAdListQuery';
 import SearchCards from '../components/SearchCards';
+import useGetAdListQuery from '../query/useGetAdListQuery';
+import * as t from '../style/searchPage.style';
 
-const SearchPage = () => {
+function SearchPage() {
   const { keyword } = useParams();
   const [page, setPage] = useState<number>(1);
 
@@ -34,6 +33,6 @@ const SearchPage = () => {
       />
     </>
   );
-};
+}
 
 export default SearchPage;
