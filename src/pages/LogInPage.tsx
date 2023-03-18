@@ -12,7 +12,7 @@ export type LoginType = {
   u_Pw: string;
 };
 
-export default function LogInPage() {
+function LogInPage() {
   const [form, setForm] = useState<LoginType>({ u_Id: '', u_Pw: '' });
   const navigate = useNavigate();
 
@@ -80,6 +80,8 @@ export default function LogInPage() {
     </t.Container>
   );
 }
+
+export default LogInPage;
 
 const btnProps = {
   text: '광고주 솔루션 바로가기',

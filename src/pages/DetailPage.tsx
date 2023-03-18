@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import DetailContents from '../components/DetailContents';
 import DetailImgs from '../components/DetailImgs';

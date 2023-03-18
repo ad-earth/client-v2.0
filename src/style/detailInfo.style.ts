@@ -38,6 +38,7 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
+  margin-top: 20px;
   &.bottom-line {
     padding-bottom: 20px;
     border-bottom: 0.5px solid ${theme.ls08};

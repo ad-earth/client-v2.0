@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { IProduct } from '../../shared/types/types';
 import * as t from '../../style/card.style';
