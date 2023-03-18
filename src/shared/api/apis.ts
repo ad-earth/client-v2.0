@@ -103,3 +103,7 @@ export const putNewPwd = (u_Idx: number, u_Pw: string) => {
 
 //장바구니 조회
 export const getCart = () => axiosInstance.get('/carts');
+
+//결제정보 조회
+export const getPayment = (type: string, p_No: number) =>
+  axiosInstance.get(`/payment/${type}?${p_No}`);

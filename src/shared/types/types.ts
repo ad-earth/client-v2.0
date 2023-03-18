@@ -61,7 +61,6 @@ export interface IReview {
 }
 export type TReviews = IReview[];
 
-export type TOptionSet = [string, string, string, number, number, number];
 export interface ICartList {
   p_No: number;
   p_Category: string;
@@ -71,7 +70,7 @@ export interface ICartList {
   p_Cost: number;
   p_Sale: boolean;
   p_Discount: number;
-  p_Option: TOptionSet[];
+  p_Option: TUserOption[];
   k_No: number;
   p_Price: number;
   p_Cnt: number;
