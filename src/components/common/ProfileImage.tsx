@@ -1,5 +1,5 @@
-import * as t from '../../style/profileImage.style';
 import defaultImage from '../../assets/defaultImage.png';
+import * as t from '../../style/profileImage.style';
 
 interface IProp {
   image: string;

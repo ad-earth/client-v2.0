@@ -7,12 +7,12 @@ type TData = {
   type: string;
   productNo: number;
   option: (string | number)[][];
-  keyword?: string;
+  key?: number;
 };
 
-const usePutCartQuery = ({ type, productNo, option, keyword }: TData) => {
+const usePutCartQuery = ({ type, productNo, option, key }: TData) => {
   return useMutation<AxiosResponse, AxiosError<TError>, any, unknown>(() =>
-    putCart(type, productNo, option, keyword)
+    putCart(type, productNo, option, key)
   );
 };
 export default usePutCartQuery;

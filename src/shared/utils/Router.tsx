@@ -45,7 +45,7 @@ const Router = createBrowserRouter(
           </Route>
         </Route>
         <Route path="cart" element={<CartPage />} />
-        <Route path="payment" element={<PaymentPage />} />
+        <Route path="payment/:productNo" element={<PaymentPage />} />
         <Route path="complete" element={<CompletePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

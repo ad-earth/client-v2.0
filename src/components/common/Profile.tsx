@@ -1,20 +1,15 @@
-import * as t from '../../style/profile.style';
-import React, {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import { imageUploader } from '../../shared/api/imageUploader';
+import type { Dispatch, SetStateAction } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AiOutlineCamera } from 'react-icons/ai';
+import { imageUploader } from '../../shared/api/imageUploader';
+import * as t from '../../style/profile.style';
 import ProfileImage from './ProfileImage';
 interface IProp {
   imgUrl: string;
   setImgUrl: Dispatch<SetStateAction<string>>;
 }
 
-const Profile = ({ imgUrl, setImgUrl }: IProp) => {
+function Profile({ imgUrl, setImgUrl }: IProp) {
   const [isUser, setIsUser] = useState<boolean>(false);
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
@@ -53,6 +48,6 @@ const Profile = ({ imgUrl, setImgUrl }: IProp) => {
       </t.Wrap>
     </t.Container>
   );
-};
+}
 
 export default Profile;

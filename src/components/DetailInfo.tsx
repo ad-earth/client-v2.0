@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import usePutCartQuery from '../query/usePutCartQuery';
 import { useAppSelector } from '../redux/store';
@@ -12,32 +13,57 @@ import Option from './common/Option';
 
 type TProps = {
   product: IProductDetail;
+  keyNo: number;
 };
 
-function DetailInfo({ product }: TProps) {
+function DetailInfo({ product, keyNo }: TProps) {
   const { productNo } = useParams();
-  const { price, discount } = useMemo(
+  const { price, discount, isOption } = useMemo(
     () => ({
       price: product?.p_Cost,
       discount: product?.p_Cost * (1 - product?.p_Discount / 100),
+      isOption:
+        product?.p_Option.length > 0
+          ? product?.p_Option[0][0] !== null || product?.p_Option[0][2] !== null
+          : false,
     }),
     [product]
   );
-  const keyword: any = null; //TODO: 키워드 적용 필요
   const option = useAppSelector(state => state.optionSlice);
 
-  const data = {
+  const payData = {
     type: 'd_Type',
     productNo: Number(productNo),
     option: option,
-    keyword: keyword,
+    keyword: keyNo,
   };
-  const { mutate } = usePutCartQuery(data);
+  const { mutate: payMutate } = usePutCartQuery(payData);
   const navigate = useNavigate();
   const handleBuy = () => {
-    mutate(data, {
-      onSuccess: () => navigate('/payment'),
-    });
+    if (product && isOption && option.length === 0)
+      toast.error('상품을 먼저 선택해주세요.');
+    else {
+      payMutate(payData, {
+        onSuccess: () => navigate(`/payment/${productNo}`),
+      });
+    }
+  };
+
+  const cartData = {
+    type: 'c_Type',
+    productNo: Number(productNo),
+    option: option,
+    keyword: keyNo,
+  };
+  const { mutate: cartMutate } = usePutCartQuery(cartData);
+  const handleCart = () => {
+    if (product && isOption && option.length === 0)
+      toast.error('상품을 먼저 선택해주세요.');
+    else {
+      cartMutate(cartData, {
+        onSuccess: () => navigate('/cart'),
+      });
+    }
   };
 
   return (
@@ -71,10 +97,25 @@ function DetailInfo({ product }: TProps) {
       </p>
       <Option product={product} />
       <t.Wrapper>
-        <Button onClick={() => handleBuy()} radius={'30px'}>
-          구매하기
-        </Button>
-        <Button {...props}>장바구니</Button>
+        {product?.p_Soldout ? (
+          <Button
+            {...propsSoldout}
+            onClick={() => {
+              toast.error('이 상품은 현재 구매가 불가합니다.');
+            }}
+          >
+            품절된 상품입니다.
+          </Button>
+        ) : (
+          <>
+            <Button onClick={() => handleBuy()} radius={'30px'}>
+              구매하기
+            </Button>
+            <Button onClick={() => handleCart()} {...props}>
+              장바구니
+            </Button>
+          </>
+        )}
         <Button {...props}>
           <Heart likeCnt={product?.p_Like} productNo={product?.p_No} />
         </Button>
@@ -84,6 +125,13 @@ function DetailInfo({ product }: TProps) {
 }
 
 export default DetailInfo;
+
+const propsSoldout = {
+  width: '200%',
+  radius: '30px',
+  bgColor: `${theme.bg09}`,
+  hBgColor: `${theme.bg09}`,
+};
 
 const props = {
   radius: '30px',

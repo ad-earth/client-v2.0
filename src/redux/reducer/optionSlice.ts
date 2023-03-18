@@ -24,8 +24,13 @@ const optionSlice = createSlice({
       );
       return newState;
     },
+
+    resetOptions: (state, action: PayloadAction<(string | number)[][]>) => {
+      return (state = action.payload);
+    },
   },
 });
 
-export const { addOption, deleteOption, updateOption } = optionSlice.actions;
+export const { addOption, deleteOption, updateOption, resetOptions } =
+  optionSlice.actions;
 export default optionSlice.reducer;
