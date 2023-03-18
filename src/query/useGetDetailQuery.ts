@@ -1,7 +1,7 @@
+import type { AxiosResponse } from 'axios';
 import { useQuery } from 'react-query';
-import { AxiosResponse } from 'axios';
-import { DetailResponseType } from '../shared/types/types';
 import { getDetail } from '../shared/api/apis';
+import type { DetailResponseType } from '../shared/types/types';
 
 const useGetDetailQuery = (productNo: number, keyword?: string) => {
   return useQuery<AxiosResponse<DetailResponseType>, Error>(

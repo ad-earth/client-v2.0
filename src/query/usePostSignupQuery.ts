@@ -1,7 +1,7 @@
+import type { AxiosError, AxiosResponse } from 'axios';
 import { useMutation } from 'react-query';
 import { postSignup } from '../shared/api/apis';
-import { ErrorType } from './../shared/types/types';
-import { AxiosError, AxiosResponse } from 'axios';
+import type { ErrorType } from './../shared/types/types';
 
 export interface SignUpDataType {
   u_Id: string;

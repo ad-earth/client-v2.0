@@ -1,18 +1,18 @@
-import * as t from '../style/header.style';
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { CgDetailsMore } from 'react-icons/cg';
+import { HiOutlineUser } from 'react-icons/hi';
+import { MdOutlineShoppingBag } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 import headLogo from '../assets/headLogo.png';
 import whiteLogo from '../assets/whiteLogo.png';
-import SearchBar from './SearchBar';
-import useViewport from '../hooks/useViewport';
-import MenuDrop from './common/MenuDrop';
 import useDropDown from '../hooks/useDropDown';
 import useScrHeader from '../hooks/useScrollHeader';
+import useViewport from '../hooks/useViewport';
+import * as t from '../style/header.style';
 import GlobalModal from './common/GlobalModal';
+import MenuDrop from './common/MenuDrop';
 import HeaderAside from './HeaderAside';
-import { HiOutlineUser } from 'react-icons/hi';
-import { CgDetailsMore } from 'react-icons/cg';
-import { MdOutlineShoppingBag } from 'react-icons/md';
+import SearchBar from './SearchBar';
 
 export type CateType = {
   id: number;
@@ -26,23 +26,15 @@ export default function Header() {
   const { isHeaderVisible } = useScrHeader();
   const { isDropped, dropRef, handleRemove } = useDropDown();
   const [isLogin, setIsLogin] = useState<boolean>(false);
-  // const [isCart, setIsCart] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  // const cartStatus = JSON.parse(localStorage.getItem('cartStatus'));
   const cartStatus = localStorage.getItem('cartStatus');
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       setIsLogin(true);
     } else setIsLogin(false);
   }, [isLogin]);
-
-  //   useEffect(()=>{
-  // const cartStatus = localStorage.getItem('cartStatus');
-  // if(cartStatus){
-  //   setIsCart(true)
-  // }else setIsCart(false);
-  //   },[isCart])
 
   const handleLogout = () => {
     localStorage.clear();

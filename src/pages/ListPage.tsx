@@ -4,7 +4,7 @@ import ListCards from '../components/ListCards';
 import ListCategory from '../components/ListCategory';
 import useGetListQuery from '../query/useGetListQuery';
 
-const ListPage = () => {
+function ListPage() {
   const { category } = useParams();
   const [sort, setSort] = useState<string>('recent');
   const [page, setPage] = useState<number>(1);
@@ -34,6 +34,6 @@ const ListPage = () => {
       />
     </>
   );
-};
+}
 
 export default ListPage;

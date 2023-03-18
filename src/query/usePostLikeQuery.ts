@@ -1,7 +1,7 @@
-import { AxiosError, AxiosResponse } from 'axios';
+import type { AxiosError, AxiosResponse } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
-import { ErrorType } from '../shared/types/types';
 import { postLike } from '../shared/api/apis';
+import type { ErrorType } from '../shared/types/types';
 
 const usePostLikeQuery = (productNo: number) => {
   const queryClient = useQueryClient();

@@ -1,6 +1,6 @@
+import type { AxiosError, AxiosResponse } from 'axios';
 import { useQuery } from 'react-query';
-import { ErrorType } from '../shared/types/types';
-import { AxiosResponse, AxiosError } from 'axios';
+import type { ErrorType } from '../shared/types/types';
 import { getPwd } from './../shared/api/apis';
 
 export type SearchPwdType = {

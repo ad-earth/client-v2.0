@@ -1,13 +1,13 @@
-import * as t from '../style/loginPage.style';
-import theme from '../shared/style/theme';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import loginLogo from '../assets/logInLogo.jpeg';
-import Input from '../components/common/Input';
 import Button from '../components/common/Button';
-import usePostLoginQuery from '../query/usePostLoginQuery';
 import GlobalModal from '../components/common/GlobalModal';
+import Input from '../components/common/Input';
 import LoginSearchModal from '../components/LoginSearchModal';
+import usePostLoginQuery from '../query/usePostLoginQuery';
+import theme from '../shared/style/theme';
+import * as t from '../style/loginPage.style';
 
 export type LoginType = {
   u_Id: string;

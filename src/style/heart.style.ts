@@ -1,7 +1,7 @@
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import styled from 'styled-components';
 import theme from '../shared/style/theme';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 
 export const Container = styled.div`
   display: flex;

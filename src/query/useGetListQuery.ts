@@ -1,7 +1,7 @@
+import type { AxiosResponse } from 'axios';
 import { useQuery } from 'react-query';
-import { AxiosResponse } from 'axios';
-import { ListResponseType } from '../shared/types/types';
 import { getList } from '../shared/api/apis';
+import type { ListResponseType } from '../shared/types/types';
 
 const useGetListQuery = (category: string, sort: string, page: number) => {
   return useQuery<AxiosResponse<ListResponseType>, Error>(

@@ -1,6 +1,6 @@
-import { postLogin } from '../shared/api/apis';
 import { useMutation } from 'react-query';
-import { LoginType } from '../pages/LogInPage';
+import type { LoginType } from '../pages/LogInPage';
+import { postLogin } from '../shared/api/apis';
 
 const PostLogin = async (data: LoginType) => {
   const res = await postLogin(data.u_Id, data.u_Pw);
