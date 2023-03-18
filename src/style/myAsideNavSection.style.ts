@@ -1,12 +1,23 @@
-import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 
-export const DesktopNavContent = styled.ul``;
+export const Aside = styled.aside`
+  width: 16%;
+  padding: 0 12px;
+  box-sizing: border-box;
+  @media (max-width: 990px) {
+    width: 100%;
+    padding: 0;
+  }
+`;
+
+export const DesktopNavSection = styled.ul``;
+
 export const NavItem = styled.li`
   width: 100%;
   margin-bottom: 12px;
 `;
-export const MobileNavContent = styled.div`
+export const MobileNavSection = styled.div`
   margin-bottom: 20px;
   border-bottom: 1px solid ${({ theme }) => theme.ls03};
   width: calc(100% / 3);

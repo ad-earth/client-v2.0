@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import useViewport from '../hooks/useViewport';
-import * as t from '../style/myAsideNav.style';
+import * as t from '../style/myAsideNavSection.style';
 import GlobalModal from './common/GlobalModal';
-import UserInfoModal from './MyUserInfoModal';
+// import MyUserInfoModal from './MyUserInfoModal';
 import MyWithdrawalModal from './MyWithdrawalModal';
 
 interface ListType {
@@ -19,7 +19,7 @@ interface ModalStateType {
   userInfo: boolean;
 }
 
-export default function MyAsideNav() {
+export default function MyAsideNavSection() {
   const viewport = useViewport();
   return viewport > 990 ? <Desktop /> : <Mobile />;
 }
@@ -44,9 +44,7 @@ function Desktop() {
     <GlobalModal
       onClose={() => setIsModalOpen({ ...isModalOpen, userInfo: false })}
     >
-      <UserInfoModal
-        onClose={() => setIsModalOpen({ ...isModalOpen, userInfo: false })}
-      />
+      {/* <MyUserInfoModal /> */}
     </GlobalModal>
   );
 
@@ -58,10 +56,10 @@ function Desktop() {
       setIsModalOpen({ ...isModalOpen, userInfo: true });
   };
   return (
-    <>
+    <t.Aside>
       {withdrawal}
       {userInfo}
-      <t.DesktopNavContent>
+      <t.DesktopNavSection>
         {desktopList.map(list => (
           <t.NavItem key={list.id}>
             <t.Link
@@ -73,16 +71,16 @@ function Desktop() {
             </t.Link>
           </t.NavItem>
         ))}
-      </t.DesktopNavContent>
-    </>
+      </t.DesktopNavSection>
+    </t.Aside>
   );
 }
 //** 모바일 버전 */
 function Mobile() {
   return (
-    <>
+    <t.Aside>
       {MobileList.map(list => (
-        <t.MobileNavContent key={list.id}>
+        <t.MobileNavSection key={list.id}>
           <t.Link
             to={list.path}
             onClick={e => list.path === 'modal' && e.preventDefault()}
@@ -90,9 +88,9 @@ function Mobile() {
           >
             {list.name}
           </t.Link>
-        </t.MobileNavContent>
+        </t.MobileNavSection>
       ))}
-    </>
+    </t.Aside>
   );
 }
 
