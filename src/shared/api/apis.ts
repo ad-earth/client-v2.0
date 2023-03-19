@@ -106,4 +106,4 @@ export const getCart = () => axiosInstance.get('/carts');
 
 //결제정보 조회
 export const getPayment = (type: string, p_No: number) =>
-  axiosInstance.get(`/payment/${type}?${p_No}`);
+  axiosInstance.get(`/payment/${type}?p_No=${p_No}`);

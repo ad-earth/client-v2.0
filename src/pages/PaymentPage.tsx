@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
 import PayDrop from '../components/common/PayDrop';
 import PaymentInput from '../components/PaymentInput';
+import useGetPaymentQuery from '../query/userGetPaymentQuery';
 import theme from '../shared/style/theme';
 import * as t from '../style/paymentPage.style';
 
@@ -11,6 +13,17 @@ export default function PaymentPage() {
   const [isOpenDelivery, setIsOpenDelivery] = useState<boolean>(false);
   const handleNewUser = () => setNewUser(true);
   const handleOpen = () => setIsOpenDelivery(true);
+  const {
+    state: { type, productNo },
+  } = useLocation();
+  const query = useGetPaymentQuery(type, productNo);
+  const { data } = useMemo(
+    () => ({
+      data: query.data?.data,
+    }),
+    [query]
+  );
+  console.log(data);
   return (
     <t.Container>
       <t.Payment>
