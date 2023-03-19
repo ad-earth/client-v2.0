@@ -82,7 +82,7 @@ export interface ICartResponse {
 }
 
 //마이페이지
-export interface IMyProductType extends IProduct {
+export interface IMyProduct extends IProduct {
   o_Status: string;
   p_Cnt: number;
   p_Price: number;
@@ -91,19 +91,19 @@ export interface IMyProductType extends IProduct {
   k_No: null;
 }
 
-export interface IListType {
+export interface IList {
   o_Date: string;
   o_No: number;
   o_Price: number;
-  products: IMyProductType[];
+  products: IMyProduct[];
 }
-export interface IAPIResOrderType {
+export interface IAPIResOrder {
   cnt: number;
-  orderList: IListType[];
+  orderList: IList[];
 }
-interface IAPIResCancelType {
+interface IAPIResCancel {
   cnt: number;
-  cancelList: IListType[];
+  cancelList: IList[];
 }
 //마이페이지 - 주문조회,취소조회
-export type TMyAPIResOrder = IAPIResOrderType | IAPIResCancelType;
+export type TMyAPIResOrder = IAPIResOrder | IAPIResCancel;

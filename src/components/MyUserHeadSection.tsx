@@ -4,7 +4,7 @@ import * as t from '../style/myUserHeadSection.style';
 import GlobalModal from './common/GlobalModal';
 // import MyUserInfoModal from './MyUserInfoModal';
 
-interface UserType {
+interface IUser {
   u_Img: string;
   u_Name: string;
 }
@@ -12,7 +12,7 @@ interface UserType {
 export default function MyUserHeadSection() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const viewport = useViewport();
-  const userInfo: UserType = JSON.parse(localStorage.getItem('userInfo'));
+  const userInfo: IUser = JSON.parse(localStorage.getItem('userInfo'));
 
   /** 정보수정 모달 */
   const userModal = isModalOpen && (

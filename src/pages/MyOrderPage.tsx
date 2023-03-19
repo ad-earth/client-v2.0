@@ -6,13 +6,12 @@ import useIntersectHandler from '../hooks/useIntersectHandler';
 import useViewport from '../hooks/useViewport';
 import useGetOrderQuery from '../query/useGetOrderQuery';
 import theme from '../shared/style/theme';
-import type { ListType, MyAPIResOrder } from '../shared/types/types';
+import type { IList, TMyAPIResOrder } from '../shared/types/types';
 import * as t from '../style/myOrderPage.style';
 // import GlobalModal from './common/GlobalModal';
 // import MyReviewModal from './MyReviewModal';
-// import SmallProductCard from './common/ProductCard';
 
-const getList = (data: MyAPIResOrder): ListType[] => {
+const getList = (data: TMyAPIResOrder): IList[] => {
   if ('orderList' in data) return data.orderList;
   else return data.cancelList;
 };
@@ -54,8 +53,7 @@ export default function MyOrderPage() {
     // </GlobalModal>
     <></>
   );
-  const cancelBtnClick = (item: ListType) =>
-    navigate(`cancel-call/${item.o_No}`);
+  const cancelBtnClick = (item: IList) => navigate(`cancel-call/${item.o_No}`);
 
   if (isLoading) return <p>Loading...</p>;
   if (orderData.length === 0)

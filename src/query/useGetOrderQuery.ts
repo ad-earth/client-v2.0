@@ -1,10 +1,10 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useInfiniteQuery } from 'react-query';
 import { getCancel, getOrder } from '../shared/api/apis';
-import type { MyAPIResOrder } from '../shared/types/types';
+import type { TMyAPIResOrder } from '../shared/types/types';
 
 export default function useGetOrderQuery(path: string) {
-  const order = useInfiniteQuery<AxiosResponse<MyAPIResOrder>, AxiosError>(
+  const order = useInfiniteQuery<AxiosResponse<TMyAPIResOrder>, AxiosError>(
     [`${path}`],
     ({ pageParam = 1 }) => getOrder(pageParam),
     {
@@ -18,7 +18,7 @@ export default function useGetOrderQuery(path: string) {
       refetchOnWindowFocus: false,
     }
   );
-  const cancel = useInfiniteQuery<AxiosResponse<MyAPIResOrder>, AxiosError>(
+  const cancel = useInfiniteQuery<AxiosResponse<TMyAPIResOrder>, AxiosError>(
     ['canceList'],
     ({ pageParam = 1 }) => getCancel(pageParam),
     {

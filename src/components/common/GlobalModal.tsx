@@ -1,14 +1,14 @@
 import ReactDom from 'react-dom';
 import * as t from '../../style/globalModal.style';
 
-interface PropsType {
+type TProps = {
   children: React.ReactNode;
-}
-interface ModalType extends PropsType {
+};
+interface IModal extends TProps {
   onClose: () => void;
 }
 
-export default function GlobalModal(props: ModalType) {
+export default function GlobalModal(props: IModal) {
   return (
     <ModalPortal>
       <t.ModalContainer className="ModalContainer">
@@ -25,7 +25,7 @@ export default function GlobalModal(props: ModalType) {
   );
 }
 
-const ModalPortal = ({ children }: PropsType) => {
+const ModalPortal = ({ children }: TProps) => {
   const el = document.getElementById('modal-root') as HTMLElement;
 
   return ReactDom.createPortal(children, el);
