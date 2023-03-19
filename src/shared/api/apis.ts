@@ -88,3 +88,9 @@ export const getPwd = (u_Id: string, u_Name: string, u_Phone: string) =>
 export const putNewPwd = (u_Idx: number, u_Pw: string) => {
   axiosInstance.put('/users/reset-password', { u_Idx, u_Pw });
 };
+
+//마이페이지
+export const getOrder = (query: number) =>
+  axiosInstance.get(`/orders?page=${query}&maxpost=10`);
+export const getCancel = (query: number) =>
+  axiosInstance.get(`/cancel-list?page=${query}&maxpost=10`);

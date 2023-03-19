@@ -36,7 +36,7 @@ export interface ProductType {
   p_Sale: boolean;
   p_Discount: number;
   p_Option: OptionType[];
-  p_Soldout: boolean;
+  p_Soldout?: boolean;
   p_Best: boolean;
   p_New: boolean;
   p_Like?: number;
@@ -58,3 +58,30 @@ export interface ReviewType {
   u_Id: string;
 }
 export type ReviewsType = ReviewType[];
+
+//마이페이지
+export interface MyProductType extends ProductType {
+  o_Status: string;
+  p_Cnt: number;
+  p_Price: number;
+  r_Status: boolean;
+  p_Status: boolean;
+  k_No: null;
+}
+
+export interface ListType {
+  o_Date: string;
+  o_No: number;
+  o_Price: number;
+  products: MyProductType[];
+}
+export interface APIResOrderType {
+  cnt: number;
+  orderList: ListType[];
+}
+interface APIResCancelType {
+  cnt: number;
+  cancelList: ListType[];
+}
+//마이페이지 - 주문조회,취소조회
+export type MyAPIResOrder = APIResOrderType | APIResCancelType;
