@@ -1,4 +1,6 @@
-const theme = {
+import type { ThemeType } from 'styled-components';
+
+const theme: ThemeType = {
   // font-size
   fs10: '10px',
   fs11: '11px',

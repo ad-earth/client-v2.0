@@ -107,3 +107,8 @@ export const getCart = () => axiosInstance.get('/carts');
 //결제정보 조회
 export const getPayment = (type: string, p_No: number) =>
   axiosInstance.get(`/payment/${type}?p_No=${p_No}`);
+//마이페이지
+export const getOrder = (query: number) =>
+  axiosInstance.get(`/orders?page=${query}&maxpost=10`);
+export const getCancel = (query: number) =>
+  axiosInstance.get(`/cancel-list?page=${query}&maxpost=10`);
