@@ -4,6 +4,8 @@ import { getCart } from './../shared/api/apis';
 import type { ICartResponse } from './../shared/types/types';
 
 const useGetCartQuery = () => {
-  return useQuery<AxiosResponse<ICartResponse>, Error>('main', () => getCart());
+  return useQuery<AxiosResponse<ICartResponse>, Error>('carts', () =>
+    getCart()
+  );
 };
 export default useGetCartQuery;
