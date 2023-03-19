@@ -32,7 +32,7 @@ function DetailInfo({ product, keyNo }: TProps) {
   );
   const [open, setOpen] = useState<boolean>(false);
   const option = useAppSelector(state => state.optionSlice);
-  console.log(option);
+
   const payData = {
     type: 'd',
     productNo: Number(productNo),
@@ -67,9 +67,9 @@ function DetailInfo({ product, keyNo }: TProps) {
     else {
       cartMutate(cartData, {
         onSuccess: () => {
-          const acc = sessionStorage.getItem('cart');
+          const acc = localStorage.getItem('cartStatus');
           const cur = Number(acc) + 1;
-          sessionStorage.setItem('cart', String(cur));
+          localStorage.setItem('cart', String(cur));
           setOpen(true);
         },
       });
