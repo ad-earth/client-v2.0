@@ -1,7 +1,7 @@
 import Avatar from '@mui/material/Avatar';
 import styled from 'styled-components';
 
-export const HeadContent = styled.div`
+export const Base = styled.div`
   margin-bottom: 70px;
   padding: 50px 45px 40px;
   @media (max-width: 990px) {
@@ -11,7 +11,7 @@ export const HeadContent = styled.div`
   }
 `;
 
-export const HeadBox = styled.div`
+export const Section = styled.section`
   display: flex;
   align-items: center;
 `;

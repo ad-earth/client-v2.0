@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const MypageWrap = styled.div`
+export const Main = styled.main`
   max-width: 1200px;
   margin: 80px auto 100px;
   position: relative;
@@ -13,7 +13,7 @@ export const MypageWrap = styled.div`
     margin: 0 auto 100px;
   }
 `;
-export const Section = styled.div`
+export const MyPageSection = styled.section`
   width: 84%;
   box-sizing: border-box;
   padding: 0 15px;
@@ -21,14 +21,5 @@ export const Section = styled.div`
   @media (max-width: 990px) {
     width: 100%;
     border-top: 1px solid ${({ theme }) => theme.ls03};
-  }
-`;
-export const Nav = styled.nav`
-  width: 16%;
-  padding: 0 12px;
-  box-sizing: border-box;
-  @media (max-width: 990px) {
-    width: 100%;
-    padding: 0;
   }
 `;

@@ -1,32 +1,32 @@
 import { useState } from 'react';
 import useViewport from '../hooks/useViewport';
-import * as t from '../style/myAsideNav.style';
+import * as t from '../style/myAsideNavSection.style';
 import GlobalModal from './common/GlobalModal';
-import UserInfoModal from './MyUserInfoModal';
+// import MyUserInfoModal from './MyUserInfoModal';
 import MyWithdrawalModal from './MyWithdrawalModal';
 
-interface ListType {
+interface IList {
   name: string;
   path: string;
   id: number;
 }
-interface NavClickType {
-  list: ListType;
+interface INavClick {
+  list: IList;
   e: React.MouseEvent<HTMLAnchorElement, MouseEvent>;
 }
-interface ModalStateType {
+interface IModalState {
   withdrawal: boolean;
   userInfo: boolean;
 }
 
-export default function MyAsideNav() {
+export default function MyAsideNavSection() {
   const viewport = useViewport();
   return viewport > 990 ? <Desktop /> : <Mobile />;
 }
 
 //** 데스크탑 버전 */
 function Desktop() {
-  const [isModalOpen, setIsModalOpen] = useState<ModalStateType>({
+  const [isModalOpen, setIsModalOpen] = useState<IModalState>({
     withdrawal: false,
     userInfo: false,
   });
@@ -44,13 +44,11 @@ function Desktop() {
     <GlobalModal
       onClose={() => setIsModalOpen({ ...isModalOpen, userInfo: false })}
     >
-      <UserInfoModal
-        onClose={() => setIsModalOpen({ ...isModalOpen, userInfo: false })}
-      />
+      {/* <MyUserInfoModal /> */}
     </GlobalModal>
   );
 
-  const navClickEvent = ({ list, e }: NavClickType) => {
+  const navClickEvent = ({ list, e }: INavClick) => {
     list.path === 'modal' && e.preventDefault();
     list.name === '회원탈퇴' &&
       setIsModalOpen({ ...isModalOpen, withdrawal: true });
@@ -58,10 +56,10 @@ function Desktop() {
       setIsModalOpen({ ...isModalOpen, userInfo: true });
   };
   return (
-    <>
+    <t.Aside>
       {withdrawal}
       {userInfo}
-      <t.DesktopNavContent>
+      <t.DesktopNavSection>
         {desktopList.map(list => (
           <t.NavItem key={list.id}>
             <t.Link
@@ -73,16 +71,16 @@ function Desktop() {
             </t.Link>
           </t.NavItem>
         ))}
-      </t.DesktopNavContent>
-    </>
+      </t.DesktopNavSection>
+    </t.Aside>
   );
 }
 //** 모바일 버전 */
 function Mobile() {
   return (
-    <>
+    <t.Aside>
       {MobileList.map(list => (
-        <t.MobileNavContent key={list.id}>
+        <t.MobileNavSection key={list.id}>
           <t.Link
             to={list.path}
             onClick={e => list.path === 'modal' && e.preventDefault()}
@@ -90,13 +88,13 @@ function Mobile() {
           >
             {list.name}
           </t.Link>
-        </t.MobileNavContent>
+        </t.MobileNavSection>
       ))}
-    </>
+    </t.Aside>
   );
 }
 
-const desktopList: ListType[] = [
+const desktopList: IList[] = [
   { id: 1, name: '주문 조회', path: 'mypage' },
   { id: 2, name: '위시 리스트', path: 'wish' },
   { id: 3, name: '취소 조회', path: 'cancel' },
@@ -104,7 +102,7 @@ const desktopList: ListType[] = [
   { id: 5, name: '회원탈퇴', path: 'modal' },
 ];
 
-const MobileList: ListType[] = [
+const MobileList: IList[] = [
   { id: 1, name: '주문 조회', path: 'mypage' },
   { id: 2, name: '위시 리스트', path: 'wish' },
   { id: 3, name: '취소 조회', path: 'cancel' },
