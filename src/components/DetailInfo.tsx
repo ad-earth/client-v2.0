@@ -32,7 +32,7 @@ function DetailInfo({ product, keyNo }: TProps) {
   );
   const [open, setOpen] = useState<boolean>(false);
   const option = useAppSelector(state => state.optionSlice);
-
+  console.log(option);
   const payData = {
     type: 'd',
     productNo: Number(productNo),
