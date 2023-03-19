@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import usePutCartQuery from '../query/usePutCartQuery';
@@ -10,6 +10,7 @@ import Badge from './common/Badge';
 import Button from './common/Button';
 import Heart from './common/Heart';
 import Option from './common/Option';
+import DetailModal from './DetailModal';
 
 type TProps = {
   product: IProductDetail;
@@ -29,10 +30,11 @@ function DetailInfo({ product, keyNo }: TProps) {
     }),
     [product]
   );
+  const [open, setOpen] = useState<boolean>(false);
   const option = useAppSelector(state => state.optionSlice);
 
   const payData = {
-    type: 'd_Type',
+    type: 'd',
     productNo: Number(productNo),
     option: option,
     keyword: keyNo,
@@ -44,13 +46,16 @@ function DetailInfo({ product, keyNo }: TProps) {
       toast.error('상품을 먼저 선택해주세요.');
     else {
       payMutate(payData, {
-        onSuccess: () => navigate(`/payment/${productNo}`),
+        onSuccess: () =>
+          navigate('/payment', {
+            state: { type: 'd', productNo: `${productNo}` },
+          }),
       });
     }
   };
 
   const cartData = {
-    type: 'c_Type',
+    type: 'c',
     productNo: Number(productNo),
     option: option,
     keyword: keyNo,
@@ -61,13 +66,19 @@ function DetailInfo({ product, keyNo }: TProps) {
       toast.error('상품을 먼저 선택해주세요.');
     else {
       cartMutate(cartData, {
-        onSuccess: () => navigate('/cart'),
+        onSuccess: () => {
+          const acc = sessionStorage.getItem('cart');
+          const cur = Number(acc) + 1;
+          sessionStorage.setItem('cart', String(cur));
+          setOpen(true);
+        },
       });
     }
   };
 
   return (
     <t.MainContainer>
+      <DetailModal open={open} />
       <t.Wrapper>
         <p>
           [{product?.a_Brand}] {product?.p_Name}
@@ -96,7 +107,7 @@ function DetailInfo({ product, keyNo }: TProps) {
         <span>배송비</span> 전 품목 무료배송
       </p>
       <Option product={product} />
-      <t.Wrapper>
+      <t.Wrapper className="button-wrap">
         {product?.p_Soldout ? (
           <Button
             {...propsSoldout}
@@ -108,10 +119,10 @@ function DetailInfo({ product, keyNo }: TProps) {
           </Button>
         ) : (
           <>
-            <Button onClick={() => handleBuy()} radius={'30px'}>
+            <Button onClick={handleBuy} radius={'30px'}>
               구매하기
             </Button>
-            <Button onClick={() => handleCart()} {...props}>
+            <Button onClick={handleCart} {...props}>
               장바구니
             </Button>
           </>
@@ -132,7 +143,6 @@ const propsSoldout = {
   bgColor: `${theme.bg09}`,
   hBgColor: `${theme.bg09}`,
 };
-
 const props = {
   radius: '30px',
   border: `0.5px solid ${theme.ls03}`,
