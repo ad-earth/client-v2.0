@@ -33,7 +33,7 @@ export const putCart = (
   type: string,
   p_No: number,
   p_Option: (string | number)[][],
-  k_No?: string
+  k_No?: number
 ) =>
   axiosInstance.put(`/carts/${type}`, {
     k_No,

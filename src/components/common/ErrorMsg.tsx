@@ -5,13 +5,13 @@ interface PropsType {
   msg?: string;
 }
 
-const ErrMsg = (props: PropsType) => {
+function ErrMsg(props: PropsType) {
   return (
     <Container>
       <Message>{props.msg}</Message>
     </Container>
   );
-};
+}
 
 const Container = styled.div`
   text-align: left;

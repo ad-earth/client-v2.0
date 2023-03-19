@@ -4,25 +4,7 @@ import Button from '../components/common/Button';
 import useViewport from '../hooks/useViewport';
 import useGetCartQuery from '../query/useGetCartQuery';
 import theme from '../shared/style/theme';
-// import type { TOptionSet } from '../shared/types/types';
 import * as t from '../style/cartPage.style';
-
-// export interface IProps {
-//   cartList: {
-//     p_No: number;
-//     p_Category: string;
-//     p_Thumbnail: string[];
-//     a_Brand: string;
-//     p_Name: string;
-//     p_Cost: number;
-//     p_Sale: boolean;
-//     p_Discount: number;
-//     p_Option: TOptionSet[];
-//     k_No: number;
-//     p_Price: number;
-//     p_Cnt: number;
-//   };
-// }
 
 export default function CartPage() {
   const viewport = useViewport();
@@ -51,7 +33,7 @@ export default function CartPage() {
           <t.ListInfo className="mid">주문금액</t.ListInfo>
           <t.ListInfo className="small">배송정보</t.ListInfo>
         </t.ListHead>
-        <CartItem />
+        {cartList && cartList.map(item => <CartItem cartList={item} />)}
         <t.BtnWrap>
           <Button {...btnStyle[0]} text="선택상품 삭제" />
           <Button {...btnStyle[0]} text="품절상품 삭제" />

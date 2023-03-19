@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import * as t from '../../style/payDrop.style';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import * as t from '../../style/payDrop.style';
 
 type TList = {
   text: string;

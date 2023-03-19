@@ -17,7 +17,7 @@ export interface MenuDropType {
   children?: React.ReactNode;
 }
 
-const MenuDrop = (props: MenuDropType) => {
+function MenuDrop(props: MenuDropType) {
   return (
     <t.MenuContainer {...props}>
       <ul>
@@ -29,10 +29,10 @@ const MenuDrop = (props: MenuDropType) => {
       </ul>
     </t.MenuContainer>
   );
-};
+}
 
 export default MenuDrop;
 
-export const SideMenuDrop = (props: MenuDropType) => {
+export function SideMenuDrop(props: MenuDropType) {
   return <t.MenuContainer {...props}>{props.children}</t.MenuContainer>;
-};
+}

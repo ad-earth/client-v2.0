@@ -43,7 +43,7 @@ export const InfoWrap = styled.div`
     margin-bottom: 15px;
   }
 `;
-export const Option = styled.p`
+export const Option = styled.div`
   width: 80%;
   margin: 2px 0;
   color: ${({ theme }) => theme.fc09};

@@ -3,6 +3,7 @@ import { toast } from 'react-hot-toast';
 import {
   addOption,
   deleteOption,
+  resetOptions,
   updateOption,
 } from '../../redux/reducer/optionSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
@@ -33,6 +34,10 @@ function Option({ product }: TProps) {
     }),
     [product, options]
   );
+
+  useEffect(() => {
+    dispatch(resetOptions([]));
+  }, []);
 
   useEffect(() => {
     if (!isOption) setTotalQty(() => 1);
@@ -155,7 +160,12 @@ function Option({ product }: TProps) {
       )}
       <t.Wrapper className="price">
         총 상품 금액({totalQty}개)
-        <span>{totalPrice.toLocaleString('ko-kr')}원</span>
+        <span>
+          {isOption
+            ? totalPrice.toLocaleString('ko-kr')
+            : (product?.p_Cost * totalQty).toLocaleString('ko-kr')}
+          원
+        </span>
       </t.Wrapper>
     </t.Container>
   );
