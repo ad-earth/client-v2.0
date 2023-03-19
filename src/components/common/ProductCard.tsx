@@ -1,6 +1,6 @@
 import * as t from '../../style/productCard.style';
 
-interface PropsType {
+export interface PropsType {
   p_Thumbnail: string[];
   a_Brand: string;
   p_Name: string;

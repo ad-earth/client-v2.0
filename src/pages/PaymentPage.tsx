@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
 import PayDrop from '../components/common/PayDrop';
+import type { PropsType } from '../components/common/ProductCard';
+import ProductCard from '../components/common/ProductCard';
 import PaymentInput from '../components/PaymentInput';
 import useGetPaymentQuery from '../query/userGetPaymentQuery';
 import theme from '../shared/style/theme';
@@ -17,13 +19,13 @@ export default function PaymentPage() {
     state: { type, productNo },
   } = useLocation();
   const query = useGetPaymentQuery(type, productNo);
-  const { data } = useMemo(
+  const { products } = useMemo(
     () => ({
-      data: query.data?.data,
+      products: query.data?.data.products,
     }),
     [query]
   );
-  console.log(data);
+
   return (
     <t.Container>
       <t.Payment>
@@ -32,7 +34,15 @@ export default function PaymentPage() {
           <section>
             <article>
               <h2>주문 상품 정보</h2>
-              <t.Temp />
+              {products &&
+                products.map((item: PropsType) => (
+                  <ProductCard
+                    p_Thumbnail={item.p_Thumbnail}
+                    a_Brand={item.a_Brand}
+                    p_Name={item.p_Name}
+                    p_Option={item.p_Option}
+                  />
+                ))}
             </article>
             <article>
               <h2>주문자 정보</h2>
