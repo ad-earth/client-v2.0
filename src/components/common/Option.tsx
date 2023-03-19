@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import {
   addOption,
   deleteOption,
-  resetOptions,
+  setOptions,
   updateOption,
 } from '../../redux/reducer/optionSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
@@ -20,7 +20,6 @@ function Option({ product }: TProps) {
   const [totalQty, setTotalQty] = useState<number>(0);
   const dispatch = useAppDispatch();
   const options = useAppSelector(state => state.optionSlice);
-
   const { isOption, totalPrice } = useMemo(
     () => ({
       isOption:
@@ -36,12 +35,14 @@ function Option({ product }: TProps) {
   );
 
   useEffect(() => {
-    dispatch(resetOptions([]));
+    dispatch(setOptions([]));
   }, []);
 
   useEffect(() => {
-    if (!isOption) setTotalQty(() => 1);
-    else setTotalQty(() => 0);
+    if (!isOption) {
+      setTotalQty(() => 1);
+      sessionStorage.setItem('total', '1');
+    } else setTotalQty(() => 0);
   }, [isOption]);
 
   const handleAddOption = (option: TOption) => {
@@ -85,9 +86,15 @@ function Option({ product }: TProps) {
 
   const handleSubstractQty = () => {
     setTotalQty(prev => prev - 1);
+    dispatch(
+      setOptions([[null, null, null, 0, totalQty, product?.p_Cost * totalQty]])
+    );
   };
   const handleAddQty = () => {
     setTotalQty(prev => prev + 1);
+    dispatch(
+      setOptions([[null, null, null, 0, totalQty, product?.p_Cost * totalQty]])
+    );
   };
 
   return (
