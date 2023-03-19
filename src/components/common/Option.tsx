@@ -35,14 +35,14 @@ function Option({ product }: TProps) {
   );
 
   useEffect(() => {
-    dispatch(setOptions([]));
-  }, []);
-
-  useEffect(() => {
     if (!isOption) {
       setTotalQty(() => 1);
+      dispatch(setOptions([[null, null, null, 0, 1, product?.p_Cost]]));
       sessionStorage.setItem('total', '1');
-    } else setTotalQty(() => 0);
+    } else {
+      setTotalQty(() => 0);
+      dispatch(setOptions([]));
+    }
   }, [isOption]);
 
   const handleAddOption = (option: TOption) => {
