@@ -103,3 +103,9 @@ export const putNewPwd = (u_Idx: number, u_Pw: string) => {
 
 //장바구니 조회
 export const getCart = () => axiosInstance.get('/carts');
+
+//마이페이지
+export const getOrder = (query: number) =>
+  axiosInstance.get(`/orders?page=${query}&maxpost=10`);
+export const getCancel = (query: number) =>
+  axiosInstance.get(`/cancel-list?page=${query}&maxpost=10`);

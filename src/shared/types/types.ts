@@ -36,7 +36,7 @@ export interface IProduct {
   p_Sale: boolean;
   p_Discount: number;
   p_Option: TOption[];
-  p_Soldout: boolean;
+  p_Soldout?: boolean;
   p_Best: boolean;
   p_New: boolean;
   p_Like?: number;
@@ -80,3 +80,30 @@ export interface ICartResponse {
   cartList: ICartList[];
   o_Price: number;
 }
+
+//마이페이지
+export interface IMyProduct extends IProduct {
+  o_Status: string;
+  p_Cnt: number;
+  p_Price: number;
+  r_Status: boolean;
+  p_Status: boolean;
+  k_No: null;
+}
+
+export interface IList {
+  o_Date: string;
+  o_No: number;
+  o_Price: number;
+  products: IMyProduct[];
+}
+export interface IAPIResOrder {
+  cnt: number;
+  orderList: IList[];
+}
+interface IAPIResCancel {
+  cnt: number;
+  cancelList: IList[];
+}
+//마이페이지 - 주문조회,취소조회
+export type TMyAPIResOrder = IAPIResOrder | IAPIResCancel;

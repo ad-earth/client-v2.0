@@ -12,10 +12,10 @@ import ErrMsg from './common/ErrorMsg';
 import Input from './common/Input';
 import Profile from './common/Profile';
 
-type PropsType = {
+type TProps = {
   onClose: () => void;
 };
-export default function MyUserInfoModal({ onClose }: PropsType) {
+export default function MyUserInfoModal({ onClose }: TProps) {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   const [state, setDispatch] = useReducer(infoReducer, InfoInitial);
   const { name, gender, phone } = state;
