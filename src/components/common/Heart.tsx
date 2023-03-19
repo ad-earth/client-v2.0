@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import usePostLikeQuery from '../../query/usePostLikeQuery';
 import * as t from '../../style/heart.style';
 
-function Heart({ likeCnt, productNo, likeList }: PropsType) {
+type TProps = {
+  productNo: number;
+  likeCnt: number;
+  likeList?: number[];
+};
+
+function Heart({ likeCnt, productNo, likeList }: TProps) {
   const { mutate } = usePostLikeQuery(productNo);
   const [isLike, setIsLike] = useState<boolean>(false);
 
   useEffect(() => {
     setIsLike(likeList?.includes(productNo));
-  }, [likeList]);
+  }, [likeList, productNo]);
 
   const handleClick = () =>
     mutate(productNo, {
@@ -22,11 +28,5 @@ function Heart({ likeCnt, productNo, likeList }: PropsType) {
     </t.Container>
   );
 }
-
-type PropsType = {
-  productNo: number;
-  likeCnt: number;
-  likeList?: number[];
-};
 
 export default Heart;

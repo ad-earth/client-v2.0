@@ -1,16 +1,45 @@
+import { useMemo } from 'react';
 import CartItem from '../components/CartItem';
 import Button from '../components/common/Button';
 import useViewport from '../hooks/useViewport';
+import useGetCartQuery from '../query/useGetCartQuery';
 import theme from '../shared/style/theme';
+// import type { TOptionSet } from '../shared/types/types';
 import * as t from '../style/cartPage.style';
+
+// export interface IProps {
+//   cartList: {
+//     p_No: number;
+//     p_Category: string;
+//     p_Thumbnail: string[];
+//     a_Brand: string;
+//     p_Name: string;
+//     p_Cost: number;
+//     p_Sale: boolean;
+//     p_Discount: number;
+//     p_Option: TOptionSet[];
+//     k_No: number;
+//     p_Price: number;
+//     p_Cnt: number;
+//   };
+// }
 
 export default function CartPage() {
   const viewport = useViewport();
+  const query = useGetCartQuery();
+
+  const { cartList } = useMemo(
+    () => ({
+      cartList: query.data?.data.cartList,
+    }),
+    [query]
+  );
+
   return (
     <t.Container>
       <t.CartHead>
         <p>장바구니</p>
-        <t.CountBadge>1</t.CountBadge>
+        <t.CountBadge>{cartList?.length}</t.CountBadge>
       </t.CartHead>
       <t.ListWrap>
         <t.ListHead>
@@ -22,8 +51,6 @@ export default function CartPage() {
           <t.ListInfo className="mid">주문금액</t.ListInfo>
           <t.ListInfo className="small">배송정보</t.ListInfo>
         </t.ListHead>
-        <CartItem />
-        <CartItem />
         <CartItem />
         <t.BtnWrap>
           <Button {...btnStyle[0]} text="선택상품 삭제" />
@@ -47,7 +74,7 @@ export default function CartPage() {
             </t.Price>
           </t.ReceiptPrice>
         </t.Receipt>
-        <Button {...btnStyle[1]} />
+        <Button {...btnStyle[1]} text="주문하기" />
         <a href="/">계속 쇼핑하기</a>
       </t.ListWrap>
     </t.Container>
@@ -68,7 +95,6 @@ const btnStyle = [
     margin: '30px auto',
   },
   {
-    text: '주문하기',
     width: '30%',
     fontSize: theme.fc16,
     radius: '30px',

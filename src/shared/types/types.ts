@@ -1,32 +1,32 @@
-export type MainResponseType = {
-  Best: ProductType[];
-  New: ProductType[];
+export type TMainResponse = {
+  Best: IProduct[];
+  New: IProduct[];
 };
 
-export interface ListResponseType {
+export interface IListResponse {
   cnt: number;
-  products: ProductType[];
+  products: IProduct[];
   userLike: number[];
 }
 
-export interface AdResponseType extends ListResponseType {
-  adProducts: ProductType[];
+export interface IAdResponse extends IListResponse {
+  adProducts: IProduct[];
 }
 
-export interface DetailResponseType {
+export interface IDetailResponse {
   k_No: number;
   userLike: boolean;
-  product: ProductDetailType;
+  product: IProductDetail;
 }
 
-export interface ReviewsResponseType {
+export interface IReviewsResponse {
   p_review: number;
-  reviews: ReviewsType;
+  reviews: TReviews;
 }
 
-export type ErrorType = { errorMessage: string };
+export type TError = { errorMessage: string };
 
-export interface ProductType {
+export interface IProduct {
   p_No: number;
   p_Category: string;
   p_Thumbnail: string[];
@@ -35,7 +35,7 @@ export interface ProductType {
   p_Cost: number;
   p_Sale: boolean;
   p_Discount: number;
-  p_Option: OptionType[];
+  p_Option: TOption[];
   p_Soldout?: boolean;
   p_Best: boolean;
   p_New: boolean;
@@ -44,23 +44,45 @@ export interface ProductType {
   p_Desc?: string;
 }
 
-export interface ProductDetailType extends ProductType {
+export interface IProductDetail extends IProduct {
   p_Cnt: number;
   p_Content: string;
 }
 
-export type OptionType = [string, string, string, number, number];
-export interface ReviewType {
+export type TOption = [string, string, string, number, number];
+export type TUserOption = [string, string, string, number, number, number];
+
+export interface IReview {
   createdAt: string;
   r_Content: string;
   r_No: number;
   r_Score: number;
   u_Id: string;
 }
-export type ReviewsType = ReviewType[];
+export type TReviews = IReview[];
+
+export type TOptionSet = [string, string, string, number, number, number];
+export interface ICartList {
+  p_No: number;
+  p_Category: string;
+  p_Thumbnail: string[];
+  a_Brand: string;
+  p_Name: string;
+  p_Cost: number;
+  p_Sale: boolean;
+  p_Discount: number;
+  p_Option: TOptionSet[];
+  k_No: number;
+  p_Price: number;
+  p_Cnt: number;
+}
+export interface ICartResponse {
+  cartList: ICartList[];
+  o_Price: number;
+}
 
 //마이페이지
-export interface MyProductType extends ProductType {
+export interface IMyProductType extends IProduct {
   o_Status: string;
   p_Cnt: number;
   p_Price: number;
@@ -69,19 +91,19 @@ export interface MyProductType extends ProductType {
   k_No: null;
 }
 
-export interface ListType {
+export interface IListType {
   o_Date: string;
   o_No: number;
   o_Price: number;
-  products: MyProductType[];
+  products: IMyProductType[];
 }
-export interface APIResOrderType {
+export interface IAPIResOrderType {
   cnt: number;
-  orderList: ListType[];
+  orderList: IListType[];
 }
-interface APIResCancelType {
+interface IAPIResCancelType {
   cnt: number;
-  cancelList: ListType[];
+  cancelList: IListType[];
 }
 //마이페이지 - 주문조회,취소조회
-export type MyAPIResOrder = APIResOrderType | APIResCancelType;
+export type TMyAPIResOrder = IAPIResOrderType | IAPIResCancelType;

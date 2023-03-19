@@ -1,7 +1,7 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useMutation } from 'react-query';
 import { putUserInfoChange } from '../shared/api/apis';
-import type { ErrorType } from './../shared/types/types';
+import type { TError } from './../shared/types/types';
 
 export interface UserInfoDataType {
   u_Name: string;
@@ -27,7 +27,7 @@ const PutUserInfoChange = async (data: UserInfoDataType) => {
 };
 
 const usePutUserInfoQuery = (data: UserInfoDataType) => {
-  return useMutation<AxiosResponse, AxiosError<ErrorType>, any, unknown>(
+  return useMutation<AxiosResponse, AxiosError<TError>, any, unknown>(
     () => PutUserInfoChange(data),
     {}
   );

@@ -2,10 +2,10 @@ import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import Select from '@mui/material/Select';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import theme from '../../shared/style/theme';
-import type { ProductType } from '../../shared/types/types';
+import type { IProduct } from '../../shared/types/types';
 import * as t from '../../style/cardList.style';
 import Card from './Card';
 import Pagination from './Pagination';
@@ -77,8 +77,8 @@ function CardList({
 
 type PropsType = {
   pageCnt: number;
-  ads?: ProductType[];
-  products: ProductType[];
+  ads?: IProduct[];
+  products: IProduct[];
   likeList: number[];
   page: number;
   sort?: string;

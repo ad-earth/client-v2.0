@@ -1,4 +1,3 @@
-import React from 'react';
 import * as t from '../../style/badge.style';
 
 function Badge({ type }: BadgeType) {

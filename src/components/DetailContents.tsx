@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import useGetReviewsQuery from '../query/useGetReviewsQuery';
 import { delivery } from '../shared/utils/imgUrls';
 import * as t from '../style/detailContents.style';

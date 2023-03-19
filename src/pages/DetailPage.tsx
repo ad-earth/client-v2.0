@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import DetailContents from '../components/DetailContents';
 import DetailImgs from '../components/DetailImgs';
@@ -15,9 +15,10 @@ function DetailPage() {
 
   const query = useGetDetailQuery(parseInt(productNo), null);
 
-  const { product } = useMemo(
+  const { product, keyNo } = useMemo(
     () => ({
       product: query.data?.data.product,
+      keyNo: query.data?.data.k_No,
     }),
     [query]
   );
@@ -26,7 +27,7 @@ function DetailPage() {
     <>
       <t.InfoContainer>
         <DetailImgs product={product} />
-        <DetailInfo product={product} />
+        <DetailInfo product={product} keyNo={keyNo} />
       </t.InfoContainer>
       <DetailContents
         productNo={parseInt(productNo)}

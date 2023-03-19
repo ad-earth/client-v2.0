@@ -28,6 +28,18 @@ export const getDetail = (productNo: number, keyword?: string) =>
 // 구매평 조회
 export const getReviews = (productNo: number, page: number) =>
   axiosInstance.get(`/reviews/${productNo}?page=${page}&maxpost=10`);
+// 구매하기 & 장바구니
+export const putCart = (
+  type: string,
+  p_No: number,
+  p_Option: (string | number)[][],
+  k_No?: number
+) =>
+  axiosInstance.put(`/carts/${type}`, {
+    k_No,
+    p_No,
+    p_Option,
+  });
 
 // 로그인 페이지
 export const postLogin = (u_Id: string, u_Pw: string) =>
@@ -88,6 +100,9 @@ export const getPwd = (u_Id: string, u_Name: string, u_Phone: string) =>
 export const putNewPwd = (u_Idx: number, u_Pw: string) => {
   axiosInstance.put('/users/reset-password', { u_Idx, u_Pw });
 };
+
+//장바구니 조회
+export const getCart = () => axiosInstance.get('/carts');
 
 //마이페이지
 export const getOrder = (query: number) =>

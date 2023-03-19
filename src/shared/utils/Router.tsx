@@ -7,7 +7,6 @@ import {
 import MyLayout from '../../components/common/MyLayout';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-
 import CartPage from '../../pages/CartPage';
 import CompletePage from '../../pages/CompletePage';
 import DetailPage from '../../pages/DetailPage';
@@ -46,7 +45,7 @@ const Router = createBrowserRouter(
           </Route>
         </Route>
         <Route path="cart" element={<CartPage />} />
-        <Route path="payment" element={<PaymentPage />} />
+        <Route path="payment/:productNo" element={<PaymentPage />} />
         <Route path="complete" element={<CompletePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

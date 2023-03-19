@@ -1,8 +1,7 @@
-import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import type { ProductDetailType } from '../shared/types/types';
+import type { IProductDetail } from '../shared/types/types';
 import * as t from '../style/detailImgs.style';
 
 function DetailImgs({ product }: PropsType) {
@@ -23,7 +22,7 @@ function DetailImgs({ product }: PropsType) {
 }
 
 type PropsType = {
-  product: ProductDetailType;
+  product: IProductDetail;
 };
 
 const carouselSetting = {
