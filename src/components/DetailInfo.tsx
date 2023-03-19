@@ -67,9 +67,9 @@ function DetailInfo({ product, keyNo }: TProps) {
     else {
       cartMutate(cartData, {
         onSuccess: () => {
-          const acc = sessionStorage.getItem('cart');
+          const acc = localStorage.getItem('cartStatus');
           const cur = Number(acc) + 1;
-          sessionStorage.setItem('cart', String(cur));
+          localStorage.setItem('cartStatus', String(cur));
           setOpen(true);
         },
       });
