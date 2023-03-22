@@ -25,6 +25,7 @@ function Input({ ...props }: InputType) {
       placeholder={props.holderName}
       defaultValue={props.defaultValue}
       {...props}
+      autoComplete="off"
     ></t.MyInput>
   );
 }
