@@ -1,5 +1,9 @@
-import { useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useViewport from '../hooks/useViewport';
+import type { TCartList } from '../redux/reducer/cartSlice';
+import { setCheckedList } from '../redux/reducer/cartSlice';
+import { useAppDispatch } from '../redux/store';
 import theme from '../shared/style/theme';
 import type { ICartList } from '../shared/types/types';
 import * as t from '../style/cartItem.style';
@@ -7,82 +11,154 @@ import CartOptionModal from './CartOptionModal';
 import Button from './common/Button';
 import GlobalModal from './common/GlobalModal';
 
-function CartItem({ cartList }: { cartList: ICartList }) {
+interface IProps {
+  cartList: ICartList[];
+  allChecked: boolean;
+}
+
+function CartItem(props: IProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [checkedItem, setCheckedItem] = useState<TCartList[]>([]);
   const viewport = useViewport();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const optionModal = isModalOpen && (
     <GlobalModal onClose={() => setIsModalOpen(false)}>
       <CartOptionModal />
     </GlobalModal>
   );
+
+  // 개별 상품 선택 | 해제
+  const handleCheck = useCallback(
+    (checked: boolean, id: string, value: string) => {
+      if (checked) {
+        setCheckedItem([
+          ...checkedItem,
+          {
+            p_No: Number(id),
+            p_Price: Number(value),
+          },
+        ]);
+      } else {
+        const delCheckedItem = checkedItem.filter(
+          item => item.p_No !== Number(id)
+        );
+        setCheckedItem(delCheckedItem);
+      }
+    },
+    [checkedItem]
+  );
+
+  // 전체 선택 | 해제
+  const allCheckedItem = useMemo(() => {
+    if (props.allChecked) {
+      const allcheckedList = props.cartList?.map(el => ({
+        p_No: el.p_No,
+        p_Price: el.p_Price,
+      }));
+      setCheckedItem(allcheckedList);
+      return <t.CheckBox type="checkbox" defaultChecked={true} />;
+    } else {
+      setCheckedItem([]);
+      return <t.CheckBox type="checkbox" defaultChecked={false} />;
+    }
+  }, [props.allChecked]);
+
+  // 선택상품 배열 저장
+  useEffect(() => {
+    if (checkedItem) {
+      dispatch(setCheckedList(checkedItem));
+    }
+  }, [checkedItem]);
+
   return (
     <>
       {optionModal}
-      <t.Container>
-        <t.ProdInfo>
-          <t.CheckBox type="checkbox" />
-          <img
-            src={cartList.p_Thumbnail && cartList.p_Thumbnail[0]}
-            alt="thumbnail"
-          />
-          <t.InfoWrap>
-            <p>
-              [{cartList.a_Brand && cartList.a_Brand}]{' '}
-              {cartList.p_Name && cartList.p_Name}
-            </p>
-            {cartList.p_Option.map(item => (
-              <t.Option>
-                [필수] {item[0] ? item[0] : item[2]} - {item[4]}개
-              </t.Option>
-            ))}
-          </t.InfoWrap>
-        </t.ProdInfo>
-        {viewport >= 990 ? (
-          <>
-            <t.DetailInfo className="mid">
-              <span>{cartList.p_Cnt && cartList.p_Cnt}</span>
-              <Button
-                {...BtnStyle[0]}
-                onClick={() => setIsModalOpen(!isModalOpen)}
+      {props.cartList &&
+        props.cartList.map(item => (
+          <t.Container key={item.p_No}>
+            <t.ProdInfo>
+              {props.allChecked ? (
+                <>{allCheckedItem}</>
+              ) : (
+                <t.CheckBox
+                  type="checkbox"
+                  id={String(item.p_No)}
+                  value={item.p_Price}
+                  onChange={e =>
+                    handleCheck(
+                      e.currentTarget.checked,
+                      e.currentTarget.id,
+                      e.currentTarget.value
+                    )
+                  }
+                />
+              )}
+              <img
+                src={item.p_Thumbnail[0]}
+                alt="thumbnail"
+                onClick={() => navigate(`/detail/${item.p_No}`)}
               />
-            </t.DetailInfo>
-            <t.DetailInfo className="mid">
-              <p>{cartList.p_Price && cartList.p_Price}원</p>
-              <Button {...BtnStyle[1]} />
-            </t.DetailInfo>
-            <t.DetailInfo className="small">
-              <span>배송비 무료</span>
-            </t.DetailInfo>
-          </>
-        ) : (
-          <t.SmallInfoWrap>
-            <t.SmallInfo className="top">
-              <p>주문금액</p>
-              <p>{cartList.p_Price && cartList.p_Price}원</p>
-            </t.SmallInfo>
-            <t.SmallInfo>
-              <p>상품금액 (총 {cartList.p_Cnt && cartList.p_Cnt}개)</p>
-              <p>{cartList.p_Price && cartList.p_Price}원</p>
-            </t.SmallInfo>
-            <t.SmallInfo>
-              <p>배송비</p>
-              <p>무료</p>
-            </t.SmallInfo>
-            <t.SmallInfo>
-              <p>배송수단</p>
-              <p>택배</p>
-            </t.SmallInfo>
-            <t.BtnWrap>
-              <Button
-                {...BtnStyle[0]}
-                onClick={() => setIsModalOpen(!isModalOpen)}
-              />
-              <Button {...BtnStyle[1]} />
-            </t.BtnWrap>
-          </t.SmallInfoWrap>
-        )}
-      </t.Container>
+              <t.InfoWrap>
+                <p onClick={() => navigate(`/detail/${item.p_No}`)}>
+                  [{item.a_Brand}] {item.p_Name}
+                </p>
+                {item.p_Option.map(
+                  (option: (string | number)[], idx: number) => (
+                    <t.Option key={idx}>
+                      [필수] {option[0] ? option[0] : option[2]} - {option[4]}개
+                    </t.Option>
+                  )
+                )}
+              </t.InfoWrap>
+            </t.ProdInfo>
+            {viewport >= 990 ? (
+              <>
+                <t.DetailInfo className="mid">
+                  <span>{item.p_Cnt}</span>
+                  <Button
+                    {...BtnStyle[0]}
+                    onClick={() => setIsModalOpen(!isModalOpen)}
+                  />
+                </t.DetailInfo>
+                <t.DetailInfo className="mid">
+                  <p>{item.p_Price}원</p>
+                  <Button {...BtnStyle[1]} />
+                </t.DetailInfo>
+                <t.DetailInfo className="small">
+                  <span>배송비 무료</span>
+                </t.DetailInfo>
+              </>
+            ) : (
+              <t.SmallInfoWrap>
+                <t.SmallInfo className="top">
+                  <p>주문금액</p>
+                  <p>{item.p_Price}원</p>
+                </t.SmallInfo>
+                <t.SmallInfo>
+                  <p>상품금액 (총 {item.p_Cnt}개)</p>
+                  <p>{item.p_Price}원</p>
+                </t.SmallInfo>
+                <t.SmallInfo>
+                  <p>배송비</p>
+                  <p>무료</p>
+                </t.SmallInfo>
+                <t.SmallInfo>
+                  <p>배송수단</p>
+                  <p>택배</p>
+                </t.SmallInfo>
+                <t.BtnWrap>
+                  <Button
+                    {...BtnStyle[0]}
+                    onClick={() => setIsModalOpen(!isModalOpen)}
+                  />
+                  <Button {...BtnStyle[1]} />
+                </t.BtnWrap>
+              </t.SmallInfoWrap>
+            )}
+          </t.Container>
+        ))}
     </>
   );
 }

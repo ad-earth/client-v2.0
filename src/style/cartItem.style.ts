@@ -29,6 +29,7 @@ export const ProdInfo = styled.div`
     height: 80px;
     object-fit: contain;
     margin-right: 20px;
+    cursor: pointer;
   }
   @media (max-width: 990px) {
     width: 100%;
@@ -41,6 +42,7 @@ export const InfoWrap = styled.div`
   color: ${({ theme }) => theme.fc09};
   p {
     margin-bottom: 15px;
+    cursor: pointer;
   }
 `;
 export const Option = styled.div`
