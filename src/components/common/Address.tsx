@@ -13,6 +13,7 @@ export interface PropsType {
   setZipcode: Dispatch<SetStateAction<string>>;
   setAddress: Dispatch<SetStateAction<string>>;
   setExtraAddress: Dispatch<SetStateAction<string>>;
+  isNewAddress?: boolean;
 }
 
 function Address({
@@ -22,6 +23,7 @@ function Address({
   setZipcode,
   setAddress,
   setExtraAddress,
+  isNewAddress,
 }: PropsType) {
   const [isUser, setIsUser] = useState<boolean>(false);
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -60,7 +62,7 @@ function Address({
   };
 
   useEffect(() => {
-    if (!isUser && userInfo) {
+    if (!isUser && !isNewAddress && userInfo) {
       setZipcode(userInfo?.u_Address1);
       setAddress(userInfo?.u_Address2);
       setExtraAddress(userInfo?.u_Address3);

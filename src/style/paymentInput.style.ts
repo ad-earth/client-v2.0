@@ -3,21 +3,36 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+`;
+export const Content = styled.div`
+  width: 100%;
+  display: flex;
   flex-direction: column;
 `;
-export const Tap = styled.div`
+export const Tab = styled.div`
   width: 100%;
   display: flex;
   gap: 20px;
-  p {
+`;
+export const Title = styled.p`
+  color: ${({ theme }) => theme.fc14};
+  font-size: ${({ theme }) => theme.fs16};
+  line-height: ${({ theme }) => theme.fs24};
+  cursor: pointer;
+  padding-bottom: 5px;
+  :hover {
+    transition: all 150ms ease-out;
+    color: ${({ theme }) => theme.fc10};
+  }
+  &.isActive {
+    color: ${({ theme }) => theme.fc15};
+    border-bottom: 2px solid ${({ theme }) => theme.ls04};
+  }
+  &.isNotActive {
     color: ${({ theme }) => theme.fc14};
-    font-size: ${({ theme }) => theme.fs16};
-    line-height: ${({ theme }) => theme.fs24};
-    cursor: pointer;
-    :hover {
-      transition: all 150ms ease-out;
-      color: ${({ theme }) => theme.fc10};
-    }
   }
 `;
 export const ShipList = styled.div`
@@ -25,7 +40,7 @@ export const ShipList = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 20px;
-  padding: 0 5px 20px 5px;
+  padding: 20px 5px 20px 5px;
   border-bottom: 1px solid ${({ theme }) => theme.ls10};
   input {
     width: 20px;
@@ -52,10 +67,23 @@ export const InfoWrap = styled.div`
   flex-direction: column;
   flex-grow: 2;
 `;
-export const InputArea = styled.div`
+export const InputArea = styled.form`
   width: 100%;
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  padding-bottom: 15px;
+  padding: 15px 0;
+`;
+export const TextArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0;
+`;
+export const Text = styled.p`
+  color: ${({ theme }) => theme.fc14};
+  font-size: ${({ theme }) => theme.fs16};
+  line-height: ${({ theme }) => theme.fs24};
+`;
+export const TextGray = styled(Text)`
+  color: ${({ theme }) => theme.fc08};
 `;
