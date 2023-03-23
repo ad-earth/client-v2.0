@@ -1,3 +1,5 @@
+import type { TAddressInfo } from '../../query/usePostPaymentQuery';
+import type { IProductPayment } from '../types/types';
 import axiosInstance from './instance';
 
 // 공통
@@ -44,7 +46,7 @@ export const putCart = (
 // 로그인 페이지
 export const postLogin = (u_Id: string, u_Pw: string) =>
   axiosInstance.post('/users/login', { u_Id, u_Pw });
-//회원가입페이지
+// 회원가입페이지
 export const postSignup = (
   u_Id: string,
   u_Pw: string,
@@ -86,27 +88,47 @@ export const putUserInfoChange = (
     u_Phone,
     u_Img,
   });
-//아이디 찾기
+// 아이디 찾기
 export const getId = (u_Name: string, u_Phone: string) =>
   axiosInstance.get('/users/find-id', {
     params: { u_Name, u_Phone },
   });
-//비밀번호 찾기 1차
+// 비밀번호 찾기 1차
 export const getPwd = (u_Id: string, u_Name: string, u_Phone: string) =>
   axiosInstance.get('/users/find-password', {
     params: { u_Id, u_Name, u_Phone },
   });
-//비밀번호 찾기 2차
+// 비밀번호 찾기 2차
 export const putNewPwd = (u_Idx: number, u_Pw: string) => {
   axiosInstance.put('/users/reset-password', { u_Idx, u_Pw });
 };
 
-//장바구니 조회
+// 장바구니 조회
 export const getCart = () => axiosInstance.get('/carts');
+// 장바구니 삭제
+export const deleteCart = (type: string, p_Nos: string) =>
+  axiosInstance.delete(`/carts/${type}?p_No=${p_Nos}`);
 
-//결제정보 조회
+// 결제정보 조회
 export const getPayment = (type: string, p_No: number) =>
   axiosInstance.get(`/payment/${type}?p_No=${p_No}`);
+// 결제페이지 주문하기
+export const postPayment = (
+  type: string,
+  address: TAddressInfo,
+  products: IProductPayment[],
+  o_Price: number
+) => {
+  axiosInstance.post(`/payment/${type}`, {
+    address,
+    products,
+    o_Price,
+  });
+};
+// 결제페이지 주소 삭제
+export const deleteAddress = (d_No: number) =>
+  axiosInstance.delete(`/shipping-list/${d_No}`);
+
 //마이페이지
 export const getOrder = (query: number) =>
   axiosInstance.get(`/orders?page=${query}&maxpost=10`);

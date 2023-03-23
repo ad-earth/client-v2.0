@@ -106,3 +106,21 @@ interface IAPIResCancel {
 }
 //마이페이지 - 주문조회,취소조회
 export type TMyAPIResOrder = IAPIResOrder | IAPIResCancel;
+
+// 임시로 사용하는 공통 프로덕트 타입
+export interface IProductTemp {
+  p_No: number;
+  p_Thumbnail: string[];
+  p_Category: string;
+  a_Brand: string;
+  p_Name: string;
+  p_Cost: number;
+  p_Sale: boolean;
+  p_Discount: number;
+  p_Price: number;
+  p_Cnt: number;
+}
+export interface IProductPayment extends IProductTemp {
+  k_No: number;
+  p_Option: TUserOption[];
+}

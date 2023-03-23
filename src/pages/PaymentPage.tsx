@@ -42,7 +42,6 @@ export default function PaymentPage() {
       })
     );
   }, [userInfo]);
-  const priceWon = price?.toLocaleString();
 
   return (
     <t.Container>
@@ -73,7 +72,7 @@ export default function PaymentPage() {
               <h2>주문 요약</h2>
               <t.Content>
                 <t.TextGray>상품가격</t.TextGray>
-                <t.Text>{price && priceWon}원</t.Text>
+                <t.Text>{price && price.toLocaleString()}원</t.Text>
               </t.Content>
               <t.Content>
                 <t.TextGray>배송비</t.TextGray>
@@ -82,7 +81,7 @@ export default function PaymentPage() {
               <hr />
               <t.Content>
                 <t.TextGray>총 주문 금액</t.TextGray>
-                <t.Text>{price && priceWon}원</t.Text>
+                <t.Text>{price && price.toLocaleString()}원</t.Text>
               </t.Content>
             </article>
             <article>

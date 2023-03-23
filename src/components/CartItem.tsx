@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useViewport from '../hooks/useViewport';
 import type { TCartList } from '../redux/reducer/cartSlice';
-import { setCheckedList } from '../redux/reducer/cartSlice';
+import { setCheckedList, setProductNo } from '../redux/reducer/cartSlice';
 import { useAppDispatch } from '../redux/store';
 import theme from '../shared/style/theme';
-import type { ICartList } from '../shared/types/types';
+import type { ICartList, TUserOption } from '../shared/types/types';
 import * as t from '../style/cartItem.style';
 import CartOptionModal from './CartOptionModal';
 import Button from './common/Button';
@@ -25,9 +25,17 @@ function CartItem(props: IProps) {
 
   const optionModal = isModalOpen && (
     <GlobalModal onClose={() => setIsModalOpen(false)}>
-      <CartOptionModal />
+      <CartOptionModal onClose={() => setIsModalOpen(false)} />
     </GlobalModal>
   );
+
+  // 옵션모달 오픈 & 디스패치
+  const handleOption = (num: number, opt: TUserOption[], qty: number) => {
+    dispatch(setProductNo(num));
+    localStorage.setItem('option', JSON.stringify(opt));
+    localStorage.setItem('qty', String(qty));
+    setIsModalOpen(!isModalOpen);
+  };
 
   // 개별 상품 선택 | 해제
   const handleCheck = useCallback(
@@ -118,13 +126,16 @@ function CartItem(props: IProps) {
                 <t.DetailInfo className="mid">
                   <span>{item.p_Cnt}</span>
                   <Button
+                    text="옵션/수량 변경"
                     {...BtnStyle[0]}
-                    onClick={() => setIsModalOpen(!isModalOpen)}
+                    onClick={() =>
+                      handleOption(item.p_No, item.p_Option, item.p_Cnt)
+                    }
                   />
                 </t.DetailInfo>
                 <t.DetailInfo className="mid">
-                  <p>{item.p_Price}원</p>
-                  <Button {...BtnStyle[1]} />
+                  <p>{item.p_Price.toLocaleString()}원</p>
+                  <Button text="바로구매" {...BtnStyle[1]} />
                 </t.DetailInfo>
                 <t.DetailInfo className="small">
                   <span>배송비 무료</span>
@@ -134,11 +145,11 @@ function CartItem(props: IProps) {
               <t.SmallInfoWrap>
                 <t.SmallInfo className="top">
                   <p>주문금액</p>
-                  <p>{item.p_Price}원</p>
+                  <p>{item.p_Price.toLocaleString()}원</p>
                 </t.SmallInfo>
                 <t.SmallInfo>
                   <p>상품금액 (총 {item.p_Cnt}개)</p>
-                  <p>{item.p_Price}원</p>
+                  <p>{item.p_Price.toLocaleString()}원</p>
                 </t.SmallInfo>
                 <t.SmallInfo>
                   <p>배송비</p>
@@ -150,10 +161,13 @@ function CartItem(props: IProps) {
                 </t.SmallInfo>
                 <t.BtnWrap>
                   <Button
+                    text="옵션/수량 변경"
                     {...BtnStyle[0]}
-                    onClick={() => setIsModalOpen(!isModalOpen)}
+                    onClick={() =>
+                      handleOption(item.p_No, item.p_Option, item.p_Cnt)
+                    }
                   />
-                  <Button {...BtnStyle[1]} />
+                  <Button text="바로구매" {...BtnStyle[1]} />
                 </t.BtnWrap>
               </t.SmallInfoWrap>
             )}
@@ -167,7 +181,6 @@ export default CartItem;
 
 const BtnStyle = [
   {
-    text: '옵션/수량 변경',
     width: '106px',
     fontWeight: 'normal',
     radius: '30px',
@@ -179,7 +192,6 @@ const BtnStyle = [
     hBorder: `0.5px solid ${theme.ls11}`,
   },
   {
-    text: '바로구매',
     width: '106px',
     fontWeight: 'normal',
     radius: '30px',

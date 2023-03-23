@@ -12,10 +12,11 @@ import * as t from '../../style/option.style';
 
 type TProps = {
   product: IProductDetail;
+  isCartModal?: boolean;
 };
 type TUserOption = (string | number)[];
 
-function Option({ product }: TProps) {
+function Option({ product, isCartModal }: TProps) {
   const [isDrop, setIsDrop] = useState<boolean>(false);
   const [totalQty, setTotalQty] = useState<number>(0);
   const dispatch = useAppDispatch();
@@ -99,7 +100,7 @@ function Option({ product }: TProps) {
 
   return (
     <t.Container>
-      <p className="bold">옵션</p>
+      {isCartModal ? <></> : <p className="bold">옵션</p>}
       {isOption && (
         <t.DropDown
           isDrop={isDrop}
