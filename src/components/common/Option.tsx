@@ -22,6 +22,7 @@ function Option({ product, isCart, qty }: TProps) {
   const [totalQty, setTotalQty] = useState<number>(0);
   const dispatch = useAppDispatch();
   const options = useAppSelector(state => state.optionSlice);
+
   const { isOption, totalPrice } = useMemo(
     () => ({
       isOption:

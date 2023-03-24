@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import MainBanner from '../components/MainBanner';
 import MainLinks from '../components/MainLinks';
 import MainProducts from '../components/MainProducts';

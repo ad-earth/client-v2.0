@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ListCards from '../components/ListCards';
 import ListCategory from '../components/ListCategory';
