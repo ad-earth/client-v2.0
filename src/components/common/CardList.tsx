@@ -5,10 +5,21 @@ import Select from '@mui/material/Select';
 import { useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import theme from '../../shared/style/theme';
-import type { IProduct } from '../../shared/types/types';
+import type { IProductCard } from '../../shared/types/types';
 import * as t from '../../style/cardList.style';
 import Card from './Card';
 import Pagination from './Pagination';
+
+type PropsType = {
+  pageCnt: number;
+  ads?: IProductCard[];
+  products: IProductCard[];
+  likeList: number[];
+  page: number;
+  sort?: string;
+  setSort?: Dispatch<SetStateAction<string>>;
+  setPage: Dispatch<SetStateAction<number>>;
+};
 
 function CardList({
   pageCnt,
@@ -74,16 +85,5 @@ function CardList({
     </t.Container>
   );
 }
-
-type PropsType = {
-  pageCnt: number;
-  ads?: IProduct[];
-  products: IProduct[];
-  likeList: number[];
-  page: number;
-  sort?: string;
-  setSort?: Dispatch<SetStateAction<string>>;
-  setPage: Dispatch<SetStateAction<number>>;
-};
 
 export default CardList;

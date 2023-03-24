@@ -1,8 +1,17 @@
 import type { Dispatch, SetStateAction } from 'react';
-import type { IProduct } from '../shared/types/types';
+import type { IProductCard } from '../shared/types/types';
 import * as t from '../style/listCards.style';
 import Card from './common/Card';
 import Pagination from './common/Pagination';
+
+type PropsType = {
+  pageCnt: number;
+  ads: IProductCard[];
+  products: IProductCard[];
+  likeList: number[];
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
+};
 
 function SearchCards({
   pageCnt,
@@ -30,14 +39,5 @@ function SearchCards({
     </t.Container>
   );
 }
-
-type PropsType = {
-  pageCnt: number;
-  ads: IProduct[];
-  products: IProduct[];
-  likeList: number[];
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>;
-};
 
 export default SearchCards;

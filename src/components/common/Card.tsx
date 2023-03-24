@@ -1,9 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { IProduct } from '../../shared/types/types';
+import type { IProductCard } from '../../shared/types/types';
 import * as t from '../../style/card.style';
 import Badge from './Badge';
 import Heart from './Heart';
+
+type PropsType = {
+  isAd: boolean;
+  product: IProductCard;
+  likeList?: number[];
+};
 
 function Card({ product, isAd, likeList }: PropsType) {
   const navigate = useNavigate();
@@ -27,7 +33,7 @@ function Card({ product, isAd, likeList }: PropsType) {
             {isAd && <Badge type={'AD'} />}
           </t.ImgWrapper>
           <section>
-            {product.p_Option.map(opt =>
+            {product.p_Option?.map(opt =>
               opt[1] ? <t.Color key={opt[1]} code={opt[1]} /> : null
             )}
           </section>
@@ -70,11 +76,5 @@ function Card({ product, isAd, likeList }: PropsType) {
     </>
   );
 }
-
-type PropsType = {
-  isAd: boolean;
-  product: IProduct;
-  likeList?: number[];
-};
 
 export default Card;
