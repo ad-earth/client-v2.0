@@ -13,10 +13,12 @@ import * as t from '../../style/option.style';
 type TProps = {
   product: IProductDetail;
   isCartModal?: boolean;
+  isCart: boolean;
+  qty?: number;
 };
 type TUserOption = (string | number)[];
 
-function Option({ product, isCartModal }: TProps) {
+function Option({ product, isCartModal, isCart, qty }: TProps) {
   const [isDrop, setIsDrop] = useState<boolean>(false);
   const [totalQty, setTotalQty] = useState<number>(0);
   const dispatch = useAppDispatch();
@@ -36,15 +38,16 @@ function Option({ product, isCartModal }: TProps) {
   );
 
   useEffect(() => {
-    if (!isOption) {
+    if (isCart) setTotalQty(qty);
+    if (!isCart && !isOption) {
       setTotalQty(() => 1);
       dispatch(setOptions([[null, null, null, 0, 1, product?.p_Cost]]));
       sessionStorage.setItem('total', '1');
-    } else {
+    } else if (!isCart && isOption) {
       setTotalQty(() => 0);
       dispatch(setOptions([]));
     }
-  }, [isOption]);
+  }, [isCart, isOption]);
 
   const handleAddOption = (option: TOption) => {
     const userOption = option.slice(0, -1);

@@ -106,7 +106,7 @@ function DetailInfo({ product, keyNo }: TProps) {
       <p className="small">
         <span>배송비</span> 전 품목 무료배송
       </p>
-      <Option product={product} />
+      <Option product={product} isCart={false} />
       <t.Wrapper className="button-wrap">
         {product?.p_Soldout ? (
           <Button
