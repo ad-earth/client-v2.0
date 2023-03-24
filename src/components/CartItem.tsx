@@ -1,8 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useViewport from '../hooks/useViewport';
+import usePutCartQuery from '../query/usePutCartQuery';
 import type { TCartList } from '../redux/reducer/cartSlice';
-import { setCheckedList, setProductNo } from '../redux/reducer/cartSlice';
+import {
+  setCheckedList,
+  setKeywordNo,
+  setProductNo,
+} from '../redux/reducer/cartSlice';
 import { useAppDispatch } from '../redux/store';
 import theme from '../shared/style/theme';
 import type { ICartList, TUserOption } from '../shared/types/types';
@@ -20,8 +25,8 @@ function CartItem(props: IProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [checkedItem, setCheckedItem] = useState<TCartList[]>([]);
   const viewport = useViewport();
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const optionModal = isModalOpen && (
     <GlobalModal onClose={() => setIsModalOpen(false)}>
@@ -30,8 +35,14 @@ function CartItem(props: IProps) {
   );
 
   // 옵션모달 오픈 & 디스패치
-  const handleOption = (num: number, opt: TUserOption[], qty: number) => {
-    dispatch(setProductNo(num));
+  const handleOption = (
+    productNo: number,
+    opt: TUserOption[],
+    qty: number,
+    keywordNo: number
+  ) => {
+    dispatch(setProductNo(productNo));
+    dispatch(setKeywordNo(keywordNo));
     localStorage.setItem('option', JSON.stringify(opt));
     localStorage.setItem('qty', String(qty));
     setIsModalOpen(!isModalOpen);
@@ -39,19 +50,17 @@ function CartItem(props: IProps) {
 
   // 개별 상품 선택 | 해제
   const handleCheck = useCallback(
-    (checked: boolean, id: string, value: string) => {
+    (checked: boolean, id: number, value: number) => {
       if (checked) {
         setCheckedItem([
           ...checkedItem,
           {
-            p_No: Number(id),
-            p_Price: Number(value),
+            p_No: id,
+            p_Price: value,
           },
         ]);
       } else {
-        const delCheckedItem = checkedItem.filter(
-          item => item.p_No !== Number(id)
-        );
+        const delCheckedItem = checkedItem.filter(item => item.p_No !== id);
         setCheckedItem(delCheckedItem);
       }
     },
@@ -80,6 +89,26 @@ function CartItem(props: IProps) {
     }
   }, [checkedItem]);
 
+  const { mutate: payMutate } = usePutCartQuery();
+  const handleBuy = (
+    prodNo: number,
+    option: (string | number)[][],
+    keyNo: number
+  ) => {
+    const payData = {
+      type: 'c',
+      productNo: prodNo,
+      option: option,
+      keyword: keyNo,
+    };
+    payMutate(payData, {
+      onSuccess: () =>
+        navigate('/payment', {
+          state: { type: 'c', productNo: `${prodNo}` },
+        }),
+    });
+  };
+
   return (
     <>
       {optionModal}
@@ -92,13 +121,11 @@ function CartItem(props: IProps) {
               ) : (
                 <t.CheckBox
                   type="checkbox"
-                  id={String(item.p_No)}
-                  value={item.p_Price}
                   onChange={e =>
                     handleCheck(
                       e.currentTarget.checked,
-                      e.currentTarget.id,
-                      e.currentTarget.value
+                      item.p_No,
+                      item.p_Price
                     )
                   }
                 />
@@ -129,13 +156,24 @@ function CartItem(props: IProps) {
                     text="옵션/수량 변경"
                     {...BtnStyle[0]}
                     onClick={() =>
-                      handleOption(item.p_No, item.p_Option, item.p_Cnt)
+                      handleOption(
+                        item.p_No,
+                        item.p_Option,
+                        item.p_Cnt,
+                        item.k_No
+                      )
                     }
                   />
                 </t.DetailInfo>
                 <t.DetailInfo className="mid">
                   <p>{item.p_Price.toLocaleString()}원</p>
-                  <Button text="바로구매" {...BtnStyle[1]} />
+                  <Button
+                    text="바로구매"
+                    {...BtnStyle[1]}
+                    onClick={() =>
+                      handleBuy(item.p_No, item.p_Option, item.k_No)
+                    }
+                  />
                 </t.DetailInfo>
                 <t.DetailInfo className="small">
                   <span>배송비 무료</span>
@@ -164,10 +202,21 @@ function CartItem(props: IProps) {
                     text="옵션/수량 변경"
                     {...BtnStyle[0]}
                     onClick={() =>
-                      handleOption(item.p_No, item.p_Option, item.p_Cnt)
+                      handleOption(
+                        item.p_No,
+                        item.p_Option,
+                        item.p_Cnt,
+                        item.k_No
+                      )
                     }
                   />
-                  <Button text="바로구매" {...BtnStyle[1]} />
+                  <Button
+                    text="바로구매"
+                    {...BtnStyle[1]}
+                    onClick={() =>
+                      handleBuy(item.p_No, item.p_Option, item.k_No)
+                    }
+                  />
                 </t.BtnWrap>
               </t.SmallInfoWrap>
             )}

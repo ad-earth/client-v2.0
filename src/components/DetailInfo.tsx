@@ -31,18 +31,18 @@ function DetailInfo({ product, keyNo }: TProps) {
     [product]
   );
   const [open, setOpen] = useState<boolean>(false);
-  const option = useAppSelector(state => state.optionSlice);
+  const options = useAppSelector(state => state.optionSlice);
 
   const payData = {
     type: 'd',
     productNo: Number(productNo),
-    option: option,
+    option: options,
     keyword: keyNo,
   };
-  const { mutate: payMutate } = usePutCartQuery(payData);
+  const { mutate: payMutate } = usePutCartQuery();
   const navigate = useNavigate();
   const handleBuy = () => {
-    if (product && isOption && option.length === 0)
+    if (product && isOption && options.length === 0)
       toast.error('상품을 먼저 선택해주세요.');
     else {
       payMutate(payData, {
@@ -57,12 +57,12 @@ function DetailInfo({ product, keyNo }: TProps) {
   const cartData = {
     type: 'c',
     productNo: Number(productNo),
-    option: option,
+    option: options,
     keyword: keyNo,
   };
-  const { mutate: cartMutate } = usePutCartQuery(cartData);
+  const { mutate: cartMutate } = usePutCartQuery();
   const handleCart = () => {
-    if (product && isOption && option.length === 0)
+    if (product && isOption && options.length === 0)
       toast.error('상품을 먼저 선택해주세요.');
     else {
       cartMutate(cartData, {

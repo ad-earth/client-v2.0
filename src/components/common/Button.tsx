@@ -17,7 +17,6 @@ export interface BtnType {
   text?: string;
   children?: React.ReactNode;
   disabled?: boolean;
-  value?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 

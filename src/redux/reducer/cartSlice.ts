@@ -9,6 +9,7 @@ export type TCartList = {
 type TCart = {
   checkedList: TCartList[];
   productNo: number;
+  keywordNo: number;
 };
 
 const initialState: TCart = {
@@ -19,6 +20,7 @@ const initialState: TCart = {
     },
   ],
   productNo: 0,
+  keywordNo: null,
 };
 
 const cartSlice = createSlice({
@@ -31,8 +33,11 @@ const cartSlice = createSlice({
     setProductNo: (state, action: PayloadAction<number>) => {
       state.productNo = action.payload;
     },
+    setKeywordNo: (state, action: PayloadAction<number>) => {
+      state.keywordNo = action.payload;
+    },
   },
 });
 
-export const { setCheckedList, setProductNo } = cartSlice.actions;
+export const { setCheckedList, setProductNo, setKeywordNo } = cartSlice.actions;
 export default cartSlice.reducer;

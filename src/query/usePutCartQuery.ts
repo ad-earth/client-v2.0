@@ -1,5 +1,5 @@
 import type { AxiosError, AxiosResponse } from 'axios';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { putCart } from '../shared/api/apis';
 import type { TError } from '../shared/types/types';
 
@@ -10,9 +10,14 @@ type TData = {
   key?: number;
 };
 
-const usePutCartQuery = ({ type, productNo, option, key }: TData) => {
-  return useMutation<AxiosResponse, AxiosError<TError>, any, unknown>(() =>
-    putCart(type, productNo, option, key)
+const usePutCartQuery = () => {
+  const queryClient = useQueryClient();
+  return useMutation<AxiosResponse, AxiosError<TError>, any, unknown>(
+    ({ type, productNo, option, key }: TData) =>
+      putCart(type, productNo, option, key),
+    {
+      onSuccess: () => queryClient.invalidateQueries(['carts']),
+    }
   );
 };
 export default usePutCartQuery;

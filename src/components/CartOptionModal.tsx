@@ -1,7 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
+import toast from 'react-hot-toast';
 import { IoCloseOutline } from 'react-icons/io5';
 import useGetDetailQuery from '../query/useGetDetailQuery';
-import { useAppSelector } from '../redux/store';
+import usePutCartQuery from '../query/usePutCartQuery';
+import { setOptions } from '../redux/reducer/optionSlice';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 import theme from '../shared/style/theme';
 import * as t from '../style/cartOptionModal.style';
 import Button from './common/Button';
@@ -11,9 +14,17 @@ type TProps = {
   onClose: () => void;
 };
 
-const isCartModal = true;
 export default function CartOptionModal({ onClose }: TProps) {
+  const dispatch = useAppDispatch();
   const productNo = useAppSelector(state => state.cartSlice.productNo);
+  const keywordNo = useAppSelector(state => state.cartSlice.keywordNo);
+  const optionFromSlice = useAppSelector(state => state.optionSlice);
+  const options = JSON.parse(localStorage.getItem('option'));
+  const qty = localStorage.getItem('qty');
+
+  useEffect(() => {
+    dispatch(setOptions(options));
+  }, []);
 
   const query = useGetDetailQuery(productNo, null);
   const { product } = useMemo(
@@ -23,7 +34,28 @@ export default function CartOptionModal({ onClose }: TProps) {
     [query]
   );
 
-  console.log('product: ', product);
+  const cartData = {
+    type: 'c',
+    productNo: productNo,
+    option: optionFromSlice,
+    keyword: keywordNo,
+  };
+  const { mutate: cartMutate } = usePutCartQuery();
+  const handleCart = () => {
+    if (product && optionFromSlice.length === 0)
+      toast.error('상품을 먼저 선택해주세요.');
+    else {
+      cartMutate(cartData, {
+        onSuccess: () => {
+          const acc = localStorage.getItem('cartStatus');
+          const cur = Number(acc) + 1;
+          localStorage.setItem('cartStatus', String(cur));
+          onClose();
+        },
+      });
+    }
+  };
+
   return (
     <t.Container>
       <t.InfoHead>
@@ -38,10 +70,15 @@ export default function CartOptionModal({ onClose }: TProps) {
             <span>{product && product.p_Cost}원</span>
           </t.ProdDesc>
         </t.ProdInfo>
-        <Option product={product} isCartModal={isCartModal} />
+        <Option
+          product={product}
+          isCartModal={true}
+          isCart={true}
+          qty={Number(qty)}
+        />
         <t.BtnWrapper>
-          <Button text="취소" {...btnStyle[0]} />
-          <Button text="변경" {...btnStyle[1]} />
+          <Button text="취소" {...btnStyle[0]} onClick={onClose} />
+          <Button text="변경" {...btnStyle[1]} onClick={handleCart} />
         </t.BtnWrapper>
       </t.Content>
     </t.Container>

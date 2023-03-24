@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import CartItem from '../components/CartItem';
 import Button from '../components/common/Button';
 import useViewport from '../hooks/useViewport';
@@ -12,6 +14,7 @@ import * as t from '../style/cartPage.style';
 export default function CartPage() {
   const viewport = useViewport();
   const query = useGetCartQuery();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [allChecked, setAllChecked] = useState<boolean>(false);
   const checkedItem = useAppSelector(state => state.cartSlice.checkedList);
@@ -53,6 +56,15 @@ export default function CartPage() {
         );
       },
     });
+  };
+
+  const handleBuy = () => {
+    const checkedProdNo = checkedItem.map(item => item.p_No);
+    if (checkedItem.length === 0) toast.error('주문하실 상품을 선택해주세요!');
+    else
+      navigate('/payment', {
+        state: { type: 'c', productNo: `${checkedProdNo}` },
+      });
   };
 
   return (
@@ -102,7 +114,7 @@ export default function CartPage() {
             </t.Price>
           </t.ReceiptPrice>
         </t.Receipt>
-        <Button {...btnStyle[1]} text="주문하기" />
+        <Button {...btnStyle[1]} text="주문하기" onClick={handleBuy} />
         <a href="/">계속 쇼핑하기</a>
       </t.ListWrap>
     </t.Container>
