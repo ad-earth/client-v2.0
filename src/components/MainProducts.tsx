@@ -1,10 +1,10 @@
 import React from 'react';
-import type { IProduct } from '../shared/types/types';
+import type { IProductCard } from '../shared/types/types';
 import * as t from '../style/mainProducts.style';
 import Card from './common/Card';
 
 type TProps = {
-  list: IProduct[];
+  list: IProductCard[];
   children: React.ReactNode;
 };
 

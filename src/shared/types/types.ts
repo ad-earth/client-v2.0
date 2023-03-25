@@ -1,16 +1,16 @@
 export type TMainResponse = {
-  Best: IProduct[];
-  New: IProduct[];
+  Best: IProductCard[];
+  New: IProductCard[];
 };
 
 export interface IListResponse {
   cnt: number;
-  products: IProduct[];
+  products: IProductCard[];
   userLike: number[];
 }
 
 export interface IAdResponse extends IListResponse {
-  adProducts: IProduct[];
+  adProducts: IProductCard[];
 }
 
 export interface IDetailResponse {
@@ -27,24 +27,27 @@ export interface IReviewsResponse {
 export type TError = { errorMessage: string };
 
 export interface IProduct {
+  a_Brand: string;
   p_No: number;
   p_Category: string;
-  p_Thumbnail: string[];
-  a_Brand: string;
-  p_Name: string;
   p_Cost: number;
+  p_Thumbnail: string[];
+  p_Name: string;
   p_Sale: boolean;
   p_Discount: number;
-  p_Option: TOption[];
-  p_Soldout?: boolean;
-  p_Best: boolean;
-  p_New: boolean;
-  p_Like?: number;
-  p_Review?: number;
-  p_Desc?: string;
 }
 
-export interface IProductDetail extends IProduct {
+export interface IProductCard extends IProduct {
+  p_Best: boolean;
+  p_Option: TOption[];
+  p_Soldout: boolean;
+  p_New: boolean;
+  p_Desc: string;
+  p_Like: number;
+  p_Review: number;
+}
+
+export interface IProductDetail extends IProductCard {
   p_Cnt: number;
   p_Content: string;
 }

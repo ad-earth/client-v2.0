@@ -30,6 +30,9 @@ export const getDetail = (productNo: number, keyword?: string) =>
 // 구매평 조회
 export const getReviews = (productNo: number, page: number) =>
   axiosInstance.get(`/reviews/${productNo}?page=${page}&maxpost=10`);
+// 구매평 삭제
+export const deleteReview = (reviewNo: number) =>
+  axiosInstance.delete(`/reviews/${reviewNo}`);
 // 구매하기 & 장바구니
 export const putCart = (
   type: string,

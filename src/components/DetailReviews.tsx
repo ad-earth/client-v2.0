@@ -1,9 +1,16 @@
 import type { Dispatch, SetStateAction } from 'react';
+import useDeleteReview from '../query/useDeleteReview';
 import type { TReviews } from '../shared/types/types';
 import * as t from '../style/detailReviews.style';
 import Pagination from './common/Pagination';
 
 function DetailReviews({ reviewQty, reviewList, page, setPage }: PropsType) {
+  const { mutate } = useDeleteReview();
+
+  const handleClick = (reviewNo: number) => {
+    mutate(reviewNo);
+  };
+
   return (
     <t.MainContainer>
       <t.List>
@@ -29,7 +36,7 @@ function DetailReviews({ reviewQty, reviewList, page, setPage }: PropsType) {
                 <br />
                 {review.createdAt}
                 <t.BtnWrapper>
-                  <button>삭제</button>
+                  <button onClick={() => handleClick(review.r_No)}>삭제</button>
                 </t.BtnWrapper>
               </t.WriterInfo>
             </t.ReviewWrapper>
