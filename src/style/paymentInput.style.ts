@@ -87,3 +87,8 @@ export const Text = styled.p`
 export const TextGray = styled(Text)`
   color: ${({ theme }) => theme.fc08};
 `;
+export const TextGreen = styled(Text)`
+  color: ${({ theme }) => theme.fc15};
+  font-weight: 500;
+  margin-top: 10px;
+`;

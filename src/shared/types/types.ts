@@ -117,10 +117,43 @@ export interface IProductTemp {
   p_Cost: number;
   p_Sale: boolean;
   p_Discount: number;
-  p_Price: number;
-  p_Cnt: number;
 }
+
 export interface IProductPayment extends IProductTemp {
   k_No: number;
   p_Option: TUserOption[];
+  p_Price: number;
+  p_Cnt: number;
+}
+
+type TUserInfo = {
+  u_Name: string;
+  u_Phone: string;
+  u_Address1: string;
+  u_Address2: string;
+  u_Address3: string;
+};
+type TAddressList = {
+  d_No: number;
+  u_Idx: number;
+  d_Name: string;
+  d_Phone: string;
+  d_Address1: string;
+  d_Address2: string;
+  d_Address3: string;
+};
+export interface IPaymentResponse {
+  userInfo: TUserInfo;
+  addressList: TAddressList[];
+  products: IProductPayment[];
+  o_Price: number;
+}
+export interface ICompleteResponse {
+  o_No: number;
+  d_Name: string;
+  d_Phone: string;
+  d_Address1: string;
+  d_Address2: string;
+  d_Address3: string;
+  cartStatus: number;
 }

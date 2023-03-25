@@ -1,7 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
-type TPaymentInput = {
+export type TPaymentInfo = {
   d_No: number;
   d_Name: string;
   d_Phone: string;
@@ -10,7 +10,7 @@ type TPaymentInput = {
   d_Address3: string;
   d_Memo?: string;
 };
-const initialState: TPaymentInput = {
+const initialState: TPaymentInfo = {
   d_No: null,
   d_Name: '',
   d_Phone: '',
@@ -24,7 +24,7 @@ const payInputSlice = createSlice({
   name: 'payInputSlice',
   initialState,
   reducers: {
-    setPayInfo: (state, action: PayloadAction<TPaymentInput>) => {
+    setPayInfo: (state, action: PayloadAction<TPaymentInfo>) => {
       return (state = action.payload);
     },
     setName: (state, action: PayloadAction<string>) => {
@@ -33,8 +33,32 @@ const payInputSlice = createSlice({
     setPhone: (state, action: PayloadAction<string>) => {
       state.d_Phone = action.payload;
     },
+    setDNumber: (state, action: PayloadAction<number>) => {
+      state.d_No = action.payload;
+    },
+    setAddress1: (state, action: PayloadAction<string>) => {
+      state.d_Address1 = action.payload;
+    },
+    setAddress2: (state, action: PayloadAction<string>) => {
+      state.d_Address2 = action.payload;
+    },
+    setAddress3: (state, action: PayloadAction<string>) => {
+      state.d_Address3 = action.payload;
+    },
+    setMemo: (state, action: PayloadAction<string>) => {
+      state.d_Memo = action.payload;
+    },
   },
 });
 
-export const { setPayInfo, setName, setPhone } = payInputSlice.actions;
+export const {
+  setPayInfo,
+  setName,
+  setPhone,
+  setDNumber,
+  setAddress1,
+  setAddress2,
+  setAddress3,
+  setMemo,
+} = payInputSlice.actions;
 export default payInputSlice.reducer;

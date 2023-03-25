@@ -1,4 +1,4 @@
-import type { TAddressInfo } from '../../query/usePostPaymentQuery';
+import type { TPaymentInfo } from '../../redux/reducer/payInputSlice';
 import type { IProductPayment } from '../types/types';
 import axiosInstance from './instance';
 
@@ -115,7 +115,7 @@ export const getPayment = (type: string, p_No: number) =>
 // 결제페이지 주문하기
 export const postPayment = (
   type: string,
-  address: TAddressInfo,
+  address: TPaymentInfo,
   products: IProductPayment[],
   o_Price: number
 ) => {
@@ -128,6 +128,9 @@ export const postPayment = (
 // 결제페이지 주소 삭제
 export const deleteAddress = (d_No: number) =>
   axiosInstance.delete(`/shipping-list/${d_No}`);
+
+// 주문완료 조회
+export const getComplete = () => axiosInstance.get('/payment/complete');
 
 //마이페이지
 export const getOrder = (query: number) =>

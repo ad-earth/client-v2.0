@@ -17,12 +17,13 @@ export default function SignUpPage() {
   const [state, setDispatch] = useReducer(inputReducer, signupInitial);
   const { id, pwd, pwdCheck, name, gender, phone } = state;
   const [formData, setFormData] = useState<SignUpDataType>();
-  const [imgUrl, setImgUrl] = useState('');
-  const [zipcode, setZipcode] = useState('');
-  const [address, setAddress] = useState('');
-  const [extraAddress, setExtraAddress] = useState('');
+  const [imgUrl, setImgUrl] = useState<string>('');
+  const [zipcode, setZipcode] = useState<string>('');
+  const [address, setAddress] = useState<string>('');
+  const [extraAddress, setExtraAddress] = useState<string>('');
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setDispatch({ type: e.target.name, payload: e.target.value });
+
   useEffect(() => {
     if (!state) return;
     setFormData({

@@ -1,19 +1,24 @@
-import { useEffect, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import toast from 'react-hot-toast';
+import { shallowEqual } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
 import PayDrop from '../components/common/PayDrop';
 import type { PropsType } from '../components/common/ProductCard';
 import ProductCard from '../components/common/ProductCard';
 import PaymentInput from '../components/PaymentInput';
-import useGetPaymentQuery from '../query/userGetPaymentQuery';
+import useGetPaymentQuery from '../query/useGetPaymentQuery';
+import usePostPaymentQuery from '../query/usePostPaymentQuery';
 import { setPayInfo } from '../redux/reducer/payInputSlice';
-import { useAppDispatch } from '../redux/store';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 import theme from '../shared/style/theme';
 import * as t from '../style/paymentPage.style';
 
 export default function PaymentPage() {
-  // 결제페이지 조회
+  const payInfo = useAppSelector(state => state.payInputSlice, shallowEqual);
+  const [drop, setDrop] = useState<string>('');
+  const [isCheck, setIsCheck] = useState<boolean>(false);
   const {
     state: { type, productNo },
   } = useLocation();
@@ -27,6 +32,35 @@ export default function PaymentPage() {
     }),
     [query]
   );
+
+  const cartStatus = localStorage.getItem('cartStatus');
+  const currStatus = Number(cartStatus) - products?.length;
+  const navigate = useNavigate();
+  const { mutate } = usePostPaymentQuery();
+  const handleBuy = () => {
+    if (!payInfo.d_Name && !payInfo.d_Phone)
+      toast.error('이름과 연락처를 확인해주세요!');
+    else if (!payInfo.d_Address1 && !payInfo.d_Address3)
+      toast.error('주소를 확인해주세요!');
+    else if (!(drop === '지구은행 123456789 (주)광고지구'))
+      toast.error('입금 계좌를 확인해주세요!');
+    else if (!isCheck) toast.error('구매동의 의사를 확인해주세요!');
+    else {
+      const data = {
+        type: 'c',
+        address: payInfo,
+        products: products,
+        o_Price: price,
+      };
+      mutate(data, {
+        onSuccess: () => {
+          toast.success('상품 구매에 성공하였습니다 😊');
+          localStorage.setItem('cartStatus', String(currStatus));
+          navigate('/complete', { state: { price: `${price}` } });
+        },
+      });
+    }
+  };
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -90,21 +124,31 @@ export default function PaymentPage() {
                 <t.Radio type="radio" defaultChecked />
                 <label>무통장입금</label>
               </t.CheckBox>
-              <PayDrop payment={payment} />
-              <Input {...inputStyle} />
+              <PayDrop payment={payment} drop={drop} setDrop={setDrop} />
+              <Input {...inputStyle} defaultValue={payInfo?.d_Name} />
               <h4>※ 주문 후 24시간동안 미입금시 자동취소됩니다.</h4>
             </article>
             <article>
               <t.CheckBox>
-                <t.CheckInput type="checkbox" id="agree" />
+                <t.CheckInput
+                  type="checkbox"
+                  id="agree"
+                  checked={isCheck}
+                  onChange={() => setIsCheck(!isCheck)}
+                />
                 <label htmlFor="agree">전체동의</label>
               </t.CheckBox>
               <t.CheckBox>
                 <p>↳</p>
-                <t.CheckInput type="checkbox" id="agreeCheck" />
+                <t.CheckInput
+                  type="checkbox"
+                  id="agreeCheck"
+                  checked={isCheck}
+                  readOnly
+                />
                 <label htmlFor="agreeCheck">구매조건 확인 및 결제에 동의</label>
               </t.CheckBox>
-              <Button {...btnStyle} />
+              <Button {...btnStyle} onClick={handleBuy} />
             </article>
           </section>
         </t.Section>

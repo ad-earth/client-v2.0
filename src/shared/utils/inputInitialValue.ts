@@ -6,7 +6,7 @@ interface State {
   genderCheck?: number;
 }
 
-interface SignupStateType {
+interface ISignupState {
   id: State;
   pwd: State;
   pwdCheck: State;
@@ -15,18 +15,23 @@ interface SignupStateType {
   phone: State;
 }
 
-interface InfoStateType {
+interface IInfoState {
   name: State;
   gender: State;
   phone: State;
 }
 
-interface PwdStateType {
+interface IPwdState {
   pwd: State;
   pwdCheck: State;
 }
 
-export const signupInitial: SignupStateType = {
+interface IPayInput {
+  name: State;
+  phone: State;
+}
+
+export const signupInitial: ISignupState = {
   id: {
     val: '',
     msg: '',
@@ -58,7 +63,7 @@ export const signupInitial: SignupStateType = {
   },
 };
 
-export const InfoInitial: InfoStateType = {
+export const InfoInitial: IInfoState = {
   name: {
     val: `${userInfo?.u_Name ? userInfo?.u_Name : ''}`,
     isCheck: false,
@@ -76,13 +81,26 @@ export const InfoInitial: InfoStateType = {
   },
 };
 
-export const NewPwdInitial: PwdStateType = {
+export const NewPwdInitial: IPwdState = {
   pwd: {
     val: '',
     msg: '',
     isCheck: false,
   },
   pwdCheck: {
+    val: '',
+    msg: '',
+    isCheck: false,
+  },
+};
+
+export const PayInputInitial: IPayInput = {
+  name: {
+    val: '',
+    msg: '',
+    isCheck: false,
+  },
+  phone: {
     val: '',
     msg: '',
     isCheck: false,

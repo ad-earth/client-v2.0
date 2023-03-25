@@ -17,6 +17,9 @@ export const Payment = styled.div`
     color: ${({ theme }) => theme.fc13};
     font-size: ${({ theme }) => theme.fs28};
   }
+  @media (max-width: 990px) {
+    width: 100%;
+  }
 `;
 export const Section = styled.div`
   width: 100%;

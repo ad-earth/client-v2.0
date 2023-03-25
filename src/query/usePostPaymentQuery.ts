@@ -1,20 +1,11 @@
 import { useMutation } from 'react-query';
+import type { TPaymentInfo } from '../redux/reducer/payInputSlice';
 import { postPayment } from '../shared/api/apis';
 import type { IProductPayment } from './../shared/types/types';
 
-export type TAddressInfo = {
-  d_No: number;
-  d_Name: string;
-  d_Phone: string;
-  d_Address1: string;
-  d_Address2: string;
-  d_Address3: string;
-  d_Memo: string;
-};
-
 type TData = {
   type: string;
-  address: TAddressInfo;
+  address: TPaymentInfo;
   products: IProductPayment[];
   o_Price: number;
 };

@@ -10,6 +10,9 @@ export const Complete = styled.div`
   flex-direction: column;
   margin: 0 auto;
   padding: 20px;
+  @media (max-width: 990px) {
+    width: 100%;
+  }
 `;
 export const Head = styled.section`
   width: 100%;
