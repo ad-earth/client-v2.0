@@ -36,7 +36,6 @@ export interface IProduct {
   p_Sale: boolean;
   p_Discount: number;
 }
-
 export interface IProductCard extends IProduct {
   p_Best: boolean;
   p_Option: TOption[];
@@ -65,7 +64,21 @@ export interface IReview {
 export type TReviews = IReview[];
 
 //마이페이지
-export interface IMyProduct extends IProduct {
+
+export interface Product {
+  p_No: number;
+  p_Category: string;
+  p_Thumbnail: string[];
+  a_Brand: string;
+  p_Name: string;
+  p_Cost: number;
+  p_Sale: boolean;
+  p_Discount: number;
+  p_Option: TUserOption[];
+  p_Best: boolean;
+  p_New: boolean;
+}
+export interface IMyProduct extends Product {
   o_Status: string;
   p_Cnt: number;
   p_Price: number;
@@ -84,12 +97,10 @@ export interface IAPIResOrder {
   cnt: number;
   orderList: IList[];
 }
-interface IAPIResCancel {
+export interface IAPIResCancel {
   cnt: number;
   cancelList: IList[];
 }
-//마이페이지 - 주문조회,취소조회
-export type TMyAPIResOrder = IAPIResOrder | IAPIResCancel;
 
 interface IUser {
   u_Name: string;
@@ -145,4 +156,22 @@ export interface IPaymentResponse {
   addressList: IAddressList[];
   products: IProductPayCart[];
   o_Price: number;
+}
+export type TResOrder = IAPIResOrder | IAPIResCancel;
+
+export interface IUserInfo {
+  u_Name: string;
+  u_Phone: number;
+}
+export interface IMyAddress extends IAddress {
+  d_Memo: string;
+}
+//마이페이지 - 주문 상세,취소 상세
+export interface IMyAPIResOrderDetail extends IList {
+  userInfo: IUserInfo;
+  address: IAddress;
+}
+export interface TResWish {
+  cnt: number;
+  wishList: IProductCard[];
 }

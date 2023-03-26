@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useViewport from '../hooks/useViewport';
 import * as t from '../style/myUserHeadSection.style';
 import GlobalModal from './common/GlobalModal';
-// import MyUserInfoModal from './MyUserInfoModal';
+import MyUserInfoModal from './MyUserInfoModal';
 
 interface IUser {
   u_Img: string;
@@ -17,7 +17,7 @@ export default function MyUserHeadSection() {
   /** 정보수정 모달 */
   const userModal = isModalOpen && (
     <GlobalModal onClose={() => setIsModalOpen(false)}>
-      {/* <MyUserInfoModal /> */}
+      <MyUserInfoModal onClose={() => setIsModalOpen(false)} />
     </GlobalModal>
   );
   return (

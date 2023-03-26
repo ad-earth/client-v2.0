@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useViewport from '../hooks/useViewport';
 import * as t from '../style/myAsideNavSection.style';
 import GlobalModal from './common/GlobalModal';
-// import MyUserInfoModal from './MyUserInfoModal';
+import MyUserInfoModal from './MyUserInfoModal';
 import MyWithdrawalModal from './MyWithdrawalModal';
 
 interface IList {
@@ -36,7 +36,9 @@ function Desktop() {
     <GlobalModal
       onClose={() => setIsModalOpen({ ...isModalOpen, withdrawal: false })}
     >
-      <MyWithdrawalModal />
+      <MyWithdrawalModal
+        onClose={() => setIsModalOpen({ ...isModalOpen, withdrawal: false })}
+      />
     </GlobalModal>
   );
   /** 정보수정 모달 */
@@ -44,7 +46,9 @@ function Desktop() {
     <GlobalModal
       onClose={() => setIsModalOpen({ ...isModalOpen, userInfo: false })}
     >
-      {/* <MyUserInfoModal /> */}
+      <MyUserInfoModal
+        onClose={() => setIsModalOpen({ ...isModalOpen, userInfo: false })}
+      />
     </GlobalModal>
   );
 
