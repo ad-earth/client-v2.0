@@ -8,7 +8,10 @@ const usePostLikeQuery = (productNo: number) => {
   return useMutation<AxiosResponse, AxiosError<TError>, any, unknown>(
     () => postLike(Number(productNo)),
     {
-      onSuccess: () => queryClient.invalidateQueries(['list']),
+      onSuccess: () => {
+        queryClient.invalidateQueries(['list']);
+        queryClient.invalidateQueries('wish');
+      },
     }
   );
 };
