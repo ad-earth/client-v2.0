@@ -18,7 +18,9 @@ export default function MyLayout() {
         <MyAsideNavSection />
         <t.MyPageSection>
           <MyUserHeadSection />
-          <Outlet />
+          <t.PageSection>
+            <Outlet />
+          </t.PageSection>
         </t.MyPageSection>
       </t.Main>
     )

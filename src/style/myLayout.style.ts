@@ -23,3 +23,6 @@ export const MyPageSection = styled.section`
     border-top: 1px solid ${({ theme }) => theme.ls03};
   }
 `;
+export const PageSection = styled.section`
+  min-height: 400px;
+`;
