@@ -1,62 +1,132 @@
-import { useState } from 'react';
-import theme from '../shared/style/theme';
+import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import useDeletePaymentAddressQuery from '../query/useDeletePaymentAddressQuery';
+import { setMemo, setPayInfo } from '../redux/reducer/payInputSlice';
+import { useAppDispatch } from '../redux/store';
 import * as t from '../style/paymentInput.style';
-import Address from './common/Address';
-import Input from './common/Input';
+import PayDrop from './common/PayDrop';
+import PaymentAddDefault from './PaymentAddDefault';
+import PaymentAddNew from './PaymentAddNew';
 
-export default function PaymentInput() {
-  const [zipcode, setZipcode] = useState('');
-  const [address, setAddress] = useState('');
-  const [extraAddress, setExtraAddress] = useState('');
-  const [isSelect, setIsSelect] = useState<boolean>(false);
-  const handleOpenSelect = () => setIsSelect(false);
-  const handleOpenInput = () => setIsSelect(true);
+type TAddressList = {
+  d_No: number;
+  u_Idx: number;
+  d_Name: string;
+  d_Phone: string;
+  d_Address1: string;
+  d_Address2: string;
+  d_Address3: string;
+  d_Memo?: string;
+};
+type TTab = {
+  id: string;
+  title: string;
+};
+
+export default function PaymentInput({
+  addressList,
+}: {
+  addressList: TAddressList[];
+}) {
+  const dispatch = useAppDispatch();
+  const [currentTab, setCurrentTab] = useState<string>('default');
+  const [drop, setDrop] = useState<string>('');
+
+  const handleOpenSelect = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (target.id === 'default') setCurrentTab(target.id);
+    if (target.id === 'before') setCurrentTab(target.id);
+    if (target.id === 'new') setCurrentTab(target.id);
+  };
+
+  const handleCheck = (checked: boolean, item: TAddressList) => {
+    if (checked) {
+      const data = {
+        d_No: item.d_No,
+        d_Name: item.d_Name,
+        d_Phone: item.d_Phone,
+        d_Address1: item.d_Address1,
+        d_Address2: item.d_Address2,
+        d_Address3: item.d_Address3,
+        d_Memo: drop && drop,
+      };
+      dispatch(setPayInfo(data));
+    }
+  };
+
+  const { mutate } = useDeletePaymentAddressQuery();
+  const handleDelete = (d_No: number) => {
+    mutate(d_No, {
+      onSuccess: () => {
+        toast.success('이전 배송지 정보를 삭제하였습니다.');
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (drop) dispatch(setMemo(drop));
+  }, [drop]);
+
   return (
-    <t.Container>
-      <t.Tap>
-        <p onClick={handleOpenSelect}>배송지 선택</p>
-        <p onClick={handleOpenInput}>신규 배송지 입력</p>
-      </t.Tap>
-      <hr />
-      {!isSelect ? (
-        <t.ShipList>
-          <input type="radio" id="shipping" />
-          <t.InfoWrap>
-            <label htmlFor="shipping">이름</label>
-            <p>010-1234-1234</p>
-            <p>기존 주소</p>
-            <p>추가 주소</p>
-          </t.InfoWrap>
-          <p>삭제</p>
-        </t.ShipList>
-      ) : (
-        <>
-          <t.InputArea>
-            <Input {...inputStyle[0]} />
-            <Input {...inputStyle[1]} />
-          </t.InputArea>
-          <Address
-            zipcode={zipcode}
-            address={address}
-            extraAddress={extraAddress}
-            setZipcode={setZipcode}
-            setAddress={setAddress}
-            setExtraAddress={setExtraAddress}
-          />
-        </>
-      )}
-    </t.Container>
+    <>
+      <t.Container>
+        <t.Content>
+          <t.Tab>
+            {tab.map((item, idx: number) => (
+              <t.Title
+                key={idx}
+                id={item.id}
+                className={currentTab === item.id ? 'isActive' : 'isNotActive'}
+                onClick={handleOpenSelect}
+              >
+                {item.title}
+              </t.Title>
+            ))}
+          </t.Tab>
+          {currentTab === 'default' && (
+            <PaymentAddDefault
+              isTabOpen={currentTab === 'default' ? true : false}
+            />
+          )}
+          {currentTab === 'before' && (
+            <>
+              {addressList.map(item => (
+                <t.ShipList key={item.d_No}>
+                  <input
+                    type="radio"
+                    id={String(item.d_No)}
+                    name="addressCheck"
+                    onClick={e => handleCheck(e.currentTarget.checked, item)}
+                  />
+                  <t.InfoWrap>
+                    <label htmlFor={String(item.d_No)}>{item.d_Name}</label>
+                    <p>{item.d_Phone}</p>
+                    <p>{item.d_Address2}</p>
+                    <p>{item.d_Address3}</p>
+                    <p>({item.d_Address1})</p>
+                  </t.InfoWrap>
+                  <p onClick={() => handleDelete(item.d_No)}>삭제</p>
+                </t.ShipList>
+              ))}
+            </>
+          )}
+          {currentTab === 'new' && (
+            <PaymentAddNew isTabOpen={currentTab === 'new' ? true : false} />
+          )}
+        </t.Content>
+      </t.Container>
+      <h4>배송메모</h4>
+      <PayDrop delivery={delivery} drop={drop} setDrop={setDrop} />
+    </>
   );
 }
-const inputStyle = [
-  {
-    holderName: '주문자명',
-    color: theme.fc08,
-    fontSize: theme.fs14,
-  },
-  {
-    holderName: '연락처',
-    color: theme.fc08,
-    fontSize: theme.fs14,
-  },
+const tab: TTab[] = [
+  { id: 'default', title: '기본 배송지' },
+  { id: 'before', title: '이전 배송지 선택' },
+  { id: 'new', title: '신규 배송지 입력' },
+];
+const delivery = [
+  { text: '배송 전에 미리 연락바랍니다.' },
+  { text: '부재시 경비실에 맡겨주세요.' },
+  { text: '부재시 문자나 전화를 남겨주세요.' },
 ];

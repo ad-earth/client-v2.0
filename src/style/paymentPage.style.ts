@@ -17,6 +17,9 @@ export const Payment = styled.div`
     color: ${({ theme }) => theme.fc13};
     font-size: ${({ theme }) => theme.fs28};
   }
+  @media (max-width: 990px) {
+    width: 100%;
+  }
 `;
 export const Section = styled.div`
   width: 100%;
@@ -61,10 +64,6 @@ export const Section = styled.div`
     }
   }
 `;
-export const Temp = styled.div`
-  width: 100%;
-  height: 100px;
-`;
 export const Content = styled.div`
   width: 100%;
   display: flex;
@@ -84,10 +83,10 @@ export const Text = styled.p`
 export const TextGray = styled(Text)`
   color: ${({ theme }) => theme.fc08};
 `;
-export const InputArea = styled.div`
+export const InputArea = styled.form`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  gap: 10px;
 `;
 export const Radio = styled.input`
   width: 20px;

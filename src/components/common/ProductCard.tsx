@@ -2,7 +2,7 @@
 import type { TUserOption } from '../../shared/types/types';
 import * as t from '../../style/productCard.style';
 
-type Tprops = {
+export type Tprops = {
   p_Thumbnail: string[];
   a_Brand: string;
   p_Name: string;

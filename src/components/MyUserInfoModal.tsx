@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useState } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
-import type { UserInfoDataType } from '../query/usePutMyUserInfoQuery';
+import type { TUserInfoData } from '../query/usePutMyUserInfoQuery';
 import usePutUserInfoQuery from '../query/usePutMyUserInfoQuery';
 import theme from '../shared/style/theme';
 import { InfoInitial } from '../shared/utils/inputInitialValue';
@@ -19,7 +19,7 @@ export default function MyUserInfoModal({ onClose }: TProps) {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   const [state, setDispatch] = useReducer(infoReducer, InfoInitial);
   const { name, gender, phone } = state;
-  const [formData, setFormData] = useState<UserInfoDataType>();
+  const [formData, setFormData] = useState<TUserInfoData>();
   const [imgUrl, setImgUrl] = useState<string>('');
   const [zipcode, setZipcode] = useState<string>('');
   const [address, setAddress] = useState<string>('');

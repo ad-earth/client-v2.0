@@ -1,11 +1,12 @@
 import React, { useEffect, useReducer, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import Address from '../components/common/Address';
 import Button from '../components/common/Button';
 import ErrMsg from '../components/common/ErrorMsg';
 import Input from '../components/common/Input';
 import Profile from '../components/common/Profile';
-import type { SignUpDataType } from '../query/usePostSignupQuery';
+import type { TSignUpData } from '../query/usePostSignupQuery';
 import usePostSignupQuery from '../query/usePostSignupQuery';
 import theme from '../shared/style/theme';
 import { signupInitial } from '../shared/utils/inputInitialValue';
@@ -16,25 +17,26 @@ export default function SignUpPage() {
   const navigate = useNavigate();
   const [state, setDispatch] = useReducer(inputReducer, signupInitial);
   const { id, pwd, pwdCheck, name, gender, phone } = state;
-  const [formData, setFormData] = useState<SignUpDataType>();
-  const [imgUrl, setImgUrl] = useState('');
-  const [zipcode, setZipcode] = useState('');
-  const [address, setAddress] = useState('');
-  const [extraAddress, setExtraAddress] = useState('');
+  const [formData, setFormData] = useState<TSignUpData>();
+  const [imgUrl, setImgUrl] = useState<string>('');
+  const [zipcode, setZipcode] = useState<string>('');
+  const [address, setAddress] = useState<string>('');
+  const [extraAddress, setExtraAddress] = useState<string>('');
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setDispatch({ type: e.target.name, payload: e.target.value });
+
   useEffect(() => {
     if (!state) return;
     setFormData({
       u_Id: id.val,
       u_Pw: pwd.val,
       u_Name: name.val,
-      u_Gender: gender.val,
+      u_Gender: gender.val ? gender.val : '남성',
       u_Phone: phone.val,
       u_Address1: zipcode,
       u_Address2: address,
       u_Address3: extraAddress,
-      u_Img: imgUrl,
+      u_Img: imgUrl ? imgUrl : 'null',
     });
   }, [
     id.val,
@@ -56,7 +58,7 @@ export default function SignUpPage() {
   const handleSignup = () => {
     mutate(formData, {
       onSuccess: () => {
-        alert(
+        toast.success(
           `${formData.u_Name}님 환영합니다. 지구샵은 로그인 후 이용해주세요!`
         );
         navigate('/');
@@ -164,7 +166,6 @@ export default function SignUpPage() {
               name.isCheck &&
               gender.isCheck &&
               phone.isCheck &&
-              imgUrl &&
               zipcode &&
               address &&
               extraAddress

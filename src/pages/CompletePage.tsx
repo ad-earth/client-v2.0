@@ -1,12 +1,23 @@
-import { useNavigate } from 'react-router-dom';
+import { useMemo } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
+import useGetCompleteQuery from '../query/useGetCompleteQuery';
 import * as t from '../style/completePage.style';
 
 export default function CompletePage() {
+  const {
+    state: { price },
+  } = useLocation();
+  const query = useGetCompleteQuery();
+  const { data } = useMemo(
+    () => ({
+      data: query.data?.data,
+    }),
+    [query]
+  );
+
   const navigate = useNavigate();
-  const routeToMain = () => {
-    navigate('/');
-  };
+  const routeToMain = () => navigate('/');
   return (
     <t.Container>
       <t.Complete>
@@ -22,9 +33,11 @@ export default function CompletePage() {
             <t.Title>입금계좌 안내</t.Title>
             <t.InfoWrap>
               <t.InfoText>지구은행</t.InfoText>
-              <t.InfoText>12309812</t.InfoText>
+              <t.InfoText>123456789</t.InfoText>
               <t.InfoText>(주)광고지구</t.InfoText>
-              <t.HighText>37,180원</t.HighText>
+              <t.HighText>
+                {price && parseInt(price).toLocaleString()}원
+              </t.HighText>
             </t.InfoWrap>
           </t.Wrap>
           <t.Wrap>
@@ -33,15 +46,17 @@ export default function CompletePage() {
           </t.Wrap>
           <t.Wrap>
             <t.Title>주문 번호</t.Title>
-            <t.InfoText>1678703670621</t.InfoText>
+            <t.InfoText>{data?.o_No}</t.InfoText>
           </t.Wrap>
           <t.Wrap>
             <t.Title>배송지</t.Title>
             <t.InfoWrap>
-              <t.InfoText>주문자 이름</t.InfoText>
-              <t.InfoText>010-1234-1232</t.InfoText>
-              <t.InfoText>49071부산 영도구 나눔길 1 (영선동2가)</t.InfoText>
-              <t.HighText>(40123)</t.HighText>
+              <t.InfoText>{data?.d_Name}</t.InfoText>
+              <t.InfoText>{data?.d_Phone}</t.InfoText>
+              <t.InfoText>
+                {data?.d_Address2} {data?.d_Address3}
+              </t.InfoText>
+              <t.HighText>({data?.d_Address1})</t.HighText>
             </t.InfoWrap>
           </t.Wrap>
           <t.Wrap>
