@@ -27,7 +27,7 @@ function Card({ product, isAd, likeList }: PropsType) {
             {isAd && <Badge type={'AD'} />}
           </t.ImgWrapper>
           <section>
-            {product.p_Option.map(opt =>
+            {product.p_Option?.map(opt =>
               opt[1] ? <t.Color key={opt[1]} code={opt[1]} /> : null
             )}
           </section>
