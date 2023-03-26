@@ -15,9 +15,10 @@ import DetailModal from './DetailModal';
 type TProps = {
   product: IProductDetail;
   keyNo: number;
+  isLike: boolean;
 };
 
-function DetailInfo({ product, keyNo }: TProps) {
+function DetailInfo({ product, keyNo, isLike }: TProps) {
   const { productNo } = useParams();
   const { price, discount, isOption } = useMemo(
     () => ({
@@ -89,10 +90,15 @@ function DetailInfo({ product, keyNo }: TProps) {
         {product?.p_Soldout && <Badge type={'SOLDOUT'} />}
       </t.Wrapper>
       <t.Wrapper className="bottom-line">
-        <p className="green">{price?.toLocaleString('ko-kr')}원</p>
+        <p className="green">
+          {discount
+            ? discount?.toLocaleString('ko-kr')
+            : price?.toLocaleString('ko-kr')}
+          원
+        </p>
         {price !== discount && (
           <p className="small discount">
-            {discount?.toLocaleString('ko-kr')}원
+            {discount && price.toLocaleString('ko-kr')}원
           </p>
         )}
       </t.Wrapper>
@@ -128,7 +134,11 @@ function DetailInfo({ product, keyNo }: TProps) {
           </>
         )}
         <Button {...props}>
-          <Heart likeCnt={product?.p_Like} productNo={product?.p_No} />
+          <Heart
+            likeCnt={product?.p_Like}
+            productNo={product?.p_No}
+            userLike={isLike}
+          />
         </Button>
       </t.Wrapper>
     </t.MainContainer>

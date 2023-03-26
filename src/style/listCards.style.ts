@@ -3,6 +3,7 @@ import theme from '../shared/style/theme';
 
 export const Container = styled.div`
   max-width: 1200px;
+  min-height: 800px;
   width: 100%;
   padding: 0 12px 80px 12px;
   margin: 0 auto;

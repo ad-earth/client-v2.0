@@ -66,8 +66,8 @@ function Card({ product, isAd, likeList }: PropsType) {
           )}
           {product.p_Like >= 0 && (
             <Heart
-              likeCnt={product.p_Like}
-              productNo={product.p_No}
+              likeCnt={product?.p_Like}
+              productNo={product?.p_No}
               likeList={likeList}
             />
           )}
