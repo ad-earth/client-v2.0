@@ -1,5 +1,5 @@
 import type { TPaymentInfo } from '../../redux/reducer/payInputSlice';
-import type { IProductPayment } from '../types/types';
+import type { IProductPayCart } from '../types/types';
 import axiosInstance from './instance';
 
 // 공통
@@ -49,7 +49,7 @@ export const putCart = (
 // 로그인 페이지
 export const postLogin = (u_Id: string, u_Pw: string) =>
   axiosInstance.post('/users/login', { u_Id, u_Pw });
-// 회원가입페이지
+// 회원가입 페이지
 export const postSignup = (
   u_Id: string,
   u_Pw: string,
@@ -119,7 +119,7 @@ export const getPayment = (type: string, p_No: number) =>
 export const postPayment = (
   type: string,
   address: TPaymentInfo,
-  products: IProductPayment[],
+  products: IProductPayCart[],
   o_Price: number
 ) => {
   axiosInstance.post(`/payment/${type}`, {
