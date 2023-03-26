@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
 import PayDrop from '../components/common/PayDrop';
-import type { PropsType } from '../components/common/ProductCard';
+import type { Tprops } from '../components/common/ProductCard';
 import ProductCard from '../components/common/ProductCard';
 import PaymentInput from '../components/PaymentInput';
 import useGetPaymentQuery from '../query/useGetPaymentQuery';
@@ -86,13 +86,15 @@ export default function PaymentPage() {
             <article>
               <h2>주문 상품 정보</h2>
               {products &&
-                products.map((item: PropsType, idx: number) => (
+                products.map((item: Tprops, idx: number) => (
                   <ProductCard
                     key={idx}
                     p_Thumbnail={item.p_Thumbnail}
                     a_Brand={item.a_Brand}
                     p_Name={item.p_Name}
                     p_Option={item.p_Option}
+                    p_Cost={item.p_Cost}
+                    p_Discount={item.p_Discount}
                   />
                 ))}
             </article>

@@ -169,7 +169,7 @@ export interface IMyAddress extends IAddress {
 //마이페이지 - 주문 상세,취소 상세
 export interface IMyAPIResOrderDetail extends IList {
   userInfo: IUserInfo;
-  address: IAddress;
+  address: IMyAddress;
 }
 export interface TResWish {
   cnt: number;
