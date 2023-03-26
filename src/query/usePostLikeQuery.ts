@@ -9,8 +9,9 @@ const usePostLikeQuery = (productNo: number) => {
     () => postLike(Number(productNo)),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(['list']);
-        queryClient.invalidateQueries('wish');
+        queryClient.invalidateQueries(['ad']);
+        queryClient.invalidateQueries(['wish']);
+        queryClient.invalidateQueries(['detail']);
       },
     }
   );
