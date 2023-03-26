@@ -13,7 +13,7 @@ import CompletePage from '../../pages/CompletePage';
 import DetailPage from '../../pages/DetailPage';
 import ListPage from '../../pages/ListPage';
 import LogInPage from '../../pages/LogInPage';
-// import MainPage from '../../pages/MainPage';
+import MainPage from '../../pages/MainPage';
 import MyCancelPage from '../../pages/MyCancelPage';
 import MyOrderDetailPage from '../../pages/MyOrderDetailPage';
 import MyOrderPage from '../../pages/MyOrderPage';
@@ -23,20 +23,11 @@ import PaymentPage from '../../pages/PaymentPage';
 import SearchPage from '../../pages/SearchPage';
 import SignUpPage from '../../pages/SignUpPage';
 
-const MainPage = lazy(() => import('../../pages/MainPage'));
-
 const Router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Layout />}>
-        <Route
-          index
-          element={
-            <Suspense fallback={<p>...loading</p>}>
-              <MainPage />
-            </Suspense>
-          }
-        />
+        <Route index element={<MainPage />}/>
         <Route path="/list/:category" element={<ListPage />} />
         <Route path="/search/:keyword" element={<SearchPage />} />
         <Route path="/detail/:productNo" element={<DetailPage />} />
