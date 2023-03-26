@@ -43,9 +43,6 @@ export interface IProduct {
   p_Review?: number;
   p_Desc?: string;
 }
-export interface IProductDetail extends IProduct {
-}
-
 export interface IProductCard extends IProduct {
   p_Best: boolean;
   p_Option: TOption[];
@@ -57,7 +54,6 @@ export interface IProductCard extends IProduct {
 }
 
 export interface IProductDetail extends IProductCard {
-
   p_Cnt: number;
   p_Content: string;
 }
@@ -154,5 +150,5 @@ export interface IMyAPIResOrderDetail extends IList {
 
 export interface TResWish {
   cnt: number;
-  wishList: IProduct[];
+  wishList: IProductCard[];
 }

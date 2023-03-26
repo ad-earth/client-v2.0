@@ -13,9 +13,6 @@ export default function MyOrderPage() {
   const pathPattern = useLocation();
   const [, path] = pathPattern.pathname.split('/');
 
-  const navigate = useNavigate();
-  const viewport = useViewport();
-
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const {
@@ -69,7 +66,6 @@ export default function MyOrderPage() {
               setIsModalOpen={setIsModalOpen}
               type="order"
             />
-
           </t.OrderList>
         ))}
       </t.Article>
