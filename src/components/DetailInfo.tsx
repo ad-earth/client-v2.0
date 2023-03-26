@@ -89,10 +89,15 @@ function DetailInfo({ product, keyNo }: TProps) {
         {product?.p_Soldout && <Badge type={'SOLDOUT'} />}
       </t.Wrapper>
       <t.Wrapper className="bottom-line">
-        <p className="green">{price?.toLocaleString('ko-kr')}원</p>
+        <p className="green">
+          {discount
+            ? discount?.toLocaleString('ko-kr')
+            : price?.toLocaleString('ko-kr')}
+          원
+        </p>
         {price !== discount && (
           <p className="small discount">
-            {discount?.toLocaleString('ko-kr')}원
+            {discount && price.toLocaleString('ko-kr')}원
           </p>
         )}
       </t.Wrapper>

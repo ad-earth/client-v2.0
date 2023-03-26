@@ -19,55 +19,66 @@ type TUserOption = (string | number)[];
 
 function Option({ product, isCart, qty }: TProps) {
   const [isDrop, setIsDrop] = useState<boolean>(false);
-  const [totalQty, setTotalQty] = useState<number>(0);
+  const [totalQty, setTotalQty] = useState<number>(1);
+  const [optTotalQty, setOptTotalQty] = useState<number>(0);
   const dispatch = useAppDispatch();
   const options = useAppSelector(state => state.optionSlice);
 
-  const { isOption, totalPrice } = useMemo(
-    () => ({
-      isOption:
-        product?.p_Option.length > 0
-          ? product?.p_Option[0][0] !== null || product?.p_Option[0][2] !== null
-          : false,
-      totalPrice: options.reduce(
-        (acc, cur) => acc + (product?.p_Cost + Number(cur[3])) * Number(cur[4]),
+  const price = useMemo(
+    () =>
+      product?.p_Discount
+        ? product?.p_Cost * (1 - product?.p_Discount / 100)
+        : product?.p_Cost,
+    [product]
+  );
+
+  const totalPrice = useMemo(
+    () =>
+      options.reduce(
+        (acc, cur) => acc + (price + Number(cur[3])) * Number(cur[4]),
         0
       ),
-    }),
-    [product, options]
+    [options, price]
+  );
+
+  const isOption = useMemo(
+    () =>
+      product?.p_Option.length > 0
+        ? product?.p_Option[0][0] !== null || product?.p_Option[0][2] !== null
+        : false,
+    [product]
   );
 
   useEffect(() => {
     if (isCart) setTotalQty(qty);
     if (!isCart && !isOption) {
-      setTotalQty(() => 1);
-      dispatch(setOptions([[null, null, null, 0, 1, product?.p_Cost]]));
+      dispatch(setOptions([[null, null, null, 0, 1, price]]));
       sessionStorage.setItem('total', '1');
     } else if (!isCart && isOption) {
-      setTotalQty(() => 0);
       dispatch(setOptions([]));
     }
-  }, [isCart, isOption]);
+  }, [isCart, isOption, price]);
 
   const handleAddOption = (option: TOption) => {
     const userOption = option.slice(0, -1);
     userOption.push(1);
-    userOption.push(product?.p_Cost + option[3]);
+    userOption.push(price + option[3]);
 
     const sameOption = options.filter(o =>
       o[0] ? o[0] === option[0] : o[2] === option[2]
     );
+
     if (sameOption.length) toast.error('이미 선택한 옵션입니다.');
     else {
       dispatch(addOption(userOption));
       setIsDrop(false);
-      setTotalQty(prev => prev + 1);
+      setOptTotalQty(prev => prev + 1);
     }
   };
 
   const handleDeleteOption = (option: TUserOption) => {
     dispatch(deleteOption(option));
-    setTotalQty(prev => prev - Number(option[4]));
+    setOptTotalQty(prev => prev - Number(option[4]));
   };
 
   const handleAddOptQty = (option: TUserOption) => {
@@ -75,7 +86,7 @@ function Option({ product, isCart, qty }: TProps) {
     const userOption = [...option];
     userOption.splice(4, 1, currentQty + 1);
     dispatch(updateOption(userOption));
-    setTotalQty(prev => prev + 1);
+    setOptTotalQty(prev => prev + 1);
   };
 
   const handleSubstractOptQty = (option: TUserOption) => {
@@ -85,21 +96,16 @@ function Option({ product, isCart, qty }: TProps) {
     else userOption.splice(4, 1, 1);
     dispatch(updateOption(userOption));
 
-    if (totalQty !== 1) setTotalQty(prev => prev - 1);
+    if (totalQty !== 1) setOptTotalQty(prev => prev - 1);
   };
 
-  const handleSubstractQty = () => {
-    setTotalQty(prev => prev - 1);
-    dispatch(
-      setOptions([[null, null, null, 0, totalQty, product?.p_Cost * totalQty]])
-    );
-  };
-  const handleAddQty = () => {
-    setTotalQty(prev => prev + 1);
-    dispatch(
-      setOptions([[null, null, null, 0, totalQty, product?.p_Cost * totalQty]])
-    );
-  };
+  useEffect(() => {
+    dispatch(setOptions([[null, null, null, 0, totalQty, price * totalQty]]));
+  }, [totalQty]);
+
+  const handleSubstractQty = () => setTotalQty(prev => prev - 1);
+
+  const handleAddQty = () => setTotalQty(prev => prev + 1);
 
   return (
     <t.Container>
@@ -170,10 +176,10 @@ function Option({ product, isCart, qty }: TProps) {
         </t.OptBox>
       )}
       <t.Wrapper className="price">
-        총 상품 금액({totalQty}개)
+        총 상품 금액({isOption ? optTotalQty : totalQty}개)
         <span>
           {isOption
-            ? totalPrice.toLocaleString('ko-kr')
+            ? totalPrice?.toLocaleString('ko-kr')
             : (product?.p_Cost * totalQty).toLocaleString('ko-kr')}
           원
         </span>
