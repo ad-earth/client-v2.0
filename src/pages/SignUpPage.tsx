@@ -18,9 +18,7 @@ export default function SignUpPage() {
   const [state, setDispatch] = useReducer(inputReducer, signupInitial);
   const { id, pwd, pwdCheck, name, gender, phone } = state;
   const [formData, setFormData] = useState<TSignUpData>();
-  console.log('formData: ', formData);
   const [imgUrl, setImgUrl] = useState<string>('');
-  console.log('imgUrl: ', imgUrl);
   const [zipcode, setZipcode] = useState<string>('');
   const [address, setAddress] = useState<string>('');
   const [extraAddress, setExtraAddress] = useState<string>('');
