@@ -13,6 +13,9 @@ export default function MyOrderPage() {
   const pathPattern = useLocation();
   const [, path] = pathPattern.pathname.split('/');
 
+  const navigate = useNavigate();
+  const viewport = useViewport();
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const {
@@ -28,6 +31,7 @@ export default function MyOrderPage() {
     if ('orderList' in list) return list.orderList;
     else return list.cancelList;
   };
+
   /** Data Filtering */
   const orderData = useMemo(
     () => data?.pages.map(page => getList(page?.data)).flat() || null,
@@ -65,6 +69,7 @@ export default function MyOrderPage() {
               setIsModalOpen={setIsModalOpen}
               type="order"
             />
+
           </t.OrderList>
         ))}
       </t.Article>

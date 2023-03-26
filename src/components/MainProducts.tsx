@@ -1,14 +1,14 @@
 import React from 'react';
-import type { IProduct } from '../shared/types/types';
+import type { IProductCard } from '../shared/types/types';
 import * as t from '../style/mainProducts.style';
 import Card from './common/Card';
 
-type PropsType = {
-  list: IProduct[];
+type TProps = {
+  list: IProductCard[];
   children: React.ReactNode;
 };
 
-function MainProducts({ list, children }: PropsType) {
+function MainProducts({ list, children }: TProps) {
   return (
     <t.Container>
       <t.TitleWrapper>

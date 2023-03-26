@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import {
   addOption,
   deleteOption,
-  resetOptions,
+  setOptions,
   updateOption,
 } from '../../redux/reducer/optionSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
@@ -12,10 +12,12 @@ import * as t from '../../style/option.style';
 
 type TProps = {
   product: IProductDetail;
+  isCart: boolean;
+  qty?: number;
 };
 type TUserOption = (string | number)[];
 
-function Option({ product }: TProps) {
+function Option({ product, isCart, qty }: TProps) {
   const [isDrop, setIsDrop] = useState<boolean>(false);
   const [totalQty, setTotalQty] = useState<number>(0);
   const dispatch = useAppDispatch();
@@ -36,13 +38,16 @@ function Option({ product }: TProps) {
   );
 
   useEffect(() => {
-    dispatch(resetOptions([]));
-  }, []);
-
-  useEffect(() => {
-    if (!isOption) setTotalQty(() => 1);
-    else setTotalQty(() => 0);
-  }, [isOption]);
+    if (isCart) setTotalQty(qty);
+    if (!isCart && !isOption) {
+      setTotalQty(() => 1);
+      dispatch(setOptions([[null, null, null, 0, 1, product?.p_Cost]]));
+      sessionStorage.setItem('total', '1');
+    } else if (!isCart && isOption) {
+      setTotalQty(() => 0);
+      dispatch(setOptions([]));
+    }
+  }, [isCart, isOption]);
 
   const handleAddOption = (option: TOption) => {
     const userOption = option.slice(0, -1);
@@ -85,9 +90,15 @@ function Option({ product }: TProps) {
 
   const handleSubstractQty = () => {
     setTotalQty(prev => prev - 1);
+    dispatch(
+      setOptions([[null, null, null, 0, totalQty, product?.p_Cost * totalQty]])
+    );
   };
   const handleAddQty = () => {
     setTotalQty(prev => prev + 1);
+    dispatch(
+      setOptions([[null, null, null, 0, totalQty, product?.p_Cost * totalQty]])
+    );
   };
 
   return (
