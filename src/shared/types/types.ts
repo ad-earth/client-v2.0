@@ -64,25 +64,6 @@ export interface IReview {
 }
 export type TReviews = IReview[];
 
-export interface ICartList {
-  p_No: number;
-  p_Category: string;
-  p_Thumbnail: string[];
-  a_Brand: string;
-  p_Name: string;
-  p_Cost: number;
-  p_Sale: boolean;
-  p_Discount: number;
-  p_Option: TUserOption[];
-  k_No: number;
-  p_Price: number;
-  p_Cnt: number;
-}
-export interface ICartResponse {
-  cartList: ICartList[];
-  o_Price: number;
-}
-
 //마이페이지
 export interface IMyProduct extends IProduct {
   o_Status: string;
@@ -110,53 +91,58 @@ interface IAPIResCancel {
 //마이페이지 - 주문조회,취소조회
 export type TMyAPIResOrder = IAPIResOrder | IAPIResCancel;
 
-// 임시로 사용하는 공통 프로덕트 타입
-export interface IProductTemp {
-  p_No: number;
-  p_Thumbnail: string[];
-  p_Category: string;
-  a_Brand: string;
-  p_Name: string;
-  p_Cost: number;
-  p_Sale: boolean;
-  p_Discount: number;
-}
-
-export interface IProductPayment extends IProductTemp {
-  k_No: number;
-  p_Option: TUserOption[];
-  p_Price: number;
-  p_Cnt: number;
-}
-
-type TUserInfo = {
+interface IUser {
   u_Name: string;
   u_Phone: string;
   u_Address1: string;
   u_Address2: string;
   u_Address3: string;
-};
-type TAddressList = {
+}
+export interface IUserLogin extends IUser {
+  u_Idx: number;
+  u_Id: string;
+  u_Gender: string;
+  u_Img: string;
+  token: string;
+}
+export interface ILoginResponse {
+  userInfo: IUserLogin;
+  cartStatus: number;
+}
+export interface IIdSearchResponse {
+  u_Id: string;
+}
+export interface IPwdSearchResponse {
+  u_Idx: number;
+}
+interface IAddress {
+  d_Name: string;
+  d_Phone: string;
+  d_Address1: string;
+  d_Address2: string;
+  d_Address3: string;
+}
+interface IAddressList extends IAddress {
   d_No: number;
   u_Idx: number;
-  d_Name: string;
-  d_Phone: string;
-  d_Address1: string;
-  d_Address2: string;
-  d_Address3: string;
-};
-export interface IPaymentResponse {
-  userInfo: TUserInfo;
-  addressList: TAddressList[];
-  products: IProductPayment[];
+}
+export interface ICompleteResponse extends IAddress {
+  o_No: number;
+  cartStatus: number;
+}
+export interface IProductPayCart extends IProduct {
+  p_Option: TUserOption[];
+  k_No: number;
+  p_Price: number;
+  p_Cnt: number;
+}
+export interface ICartResponse {
+  cartList: IProductPayCart[];
   o_Price: number;
 }
-export interface ICompleteResponse {
-  o_No: number;
-  d_Name: string;
-  d_Phone: string;
-  d_Address1: string;
-  d_Address2: string;
-  d_Address3: string;
-  cartStatus: number;
+export interface IPaymentResponse {
+  userInfo: IUser;
+  addressList: IAddressList[];
+  products: IProductPayCart[];
+  o_Price: number;
 }

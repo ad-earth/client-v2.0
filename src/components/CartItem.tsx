@@ -10,14 +10,14 @@ import {
 } from '../redux/reducer/cartSlice';
 import { useAppDispatch } from '../redux/store';
 import theme from '../shared/style/theme';
-import type { ICartList, TUserOption } from '../shared/types/types';
+import type { IProductPayCart, TUserOption } from '../shared/types/types';
 import * as t from '../style/cartItem.style';
 import CartOptionModal from './CartOptionModal';
 import Button from './common/Button';
 import GlobalModal from './common/GlobalModal';
 
 interface IProps {
-  cartList: ICartList[];
+  cartList: IProductPayCart[];
   allChecked: boolean;
 }
 
