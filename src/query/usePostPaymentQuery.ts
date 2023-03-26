@@ -1,6 +1,6 @@
 import { useMutation } from 'react-query';
 import type { TPaymentInfo } from '../redux/reducer/payInputSlice';
-import { postPayment } from '../shared/api/apis';
+import { postPayment } from './../shared/api/paymentApi';
 import type { IProductPayCart } from './../shared/types/types';
 
 type TData = {

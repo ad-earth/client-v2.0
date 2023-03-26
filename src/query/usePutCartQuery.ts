@@ -1,7 +1,7 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
-import { putCart } from '../shared/api/apis';
 import type { TError } from '../shared/types/types';
+import { putCart } from './../shared/api/paymentApi';
 
 type TData = {
   type: string;

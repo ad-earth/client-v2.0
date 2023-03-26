@@ -1,6 +1,6 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
-import { deleteCart } from '../shared/api/apis';
+import { deleteCart } from '../shared/api/paymentApi';
 import type { TError } from '../shared/types/types';
 
 type TData = {

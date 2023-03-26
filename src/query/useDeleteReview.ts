@@ -1,7 +1,7 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
-import { deleteReview } from '../shared/api/apis';
 import type { TError } from '../shared/types/types';
+import { deleteReview } from './../shared/api/productApi';
 
 const useDeleteReview = () => {
   const queryClient = useQueryClient();

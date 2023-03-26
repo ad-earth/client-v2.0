@@ -1,6 +1,7 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
-import { deleteAddress } from '../shared/api/apis';
+import { deleteAddress } from '../shared/api/paymentApi';
+
 import type { TError } from './../shared/types/types';
 
 const useDeletePaymentAddressQuery = () => {

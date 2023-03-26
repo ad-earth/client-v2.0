@@ -1,6 +1,6 @@
 import { toast } from 'react-hot-toast';
 import { useMutation } from 'react-query';
-import { putNewPwd } from '../shared/api/apis';
+import { putNewPwd } from './../shared/api/userApi';
 
 export type TNewPwd = {
   u_Idx: number;

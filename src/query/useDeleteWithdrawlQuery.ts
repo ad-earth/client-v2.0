@@ -1,7 +1,7 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { deleteUser } from '../shared/api/apis';
+import { deleteUser } from '../shared/api/userApi';
 
 export default function useDeleteWithdrawalQuery() {
   const navigate = useNavigate();

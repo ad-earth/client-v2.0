@@ -1,7 +1,7 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useMutation } from 'react-query';
 import type { LoginType } from '../pages/LogInPage';
-import { postLogin } from '../shared/api/apis';
+import { postLogin } from './../shared/api/userApi';
 import type { ILoginResponse, TError } from './../shared/types/types';
 
 const usePostLoginQuery = () => {

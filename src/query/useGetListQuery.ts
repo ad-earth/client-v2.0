@@ -1,7 +1,7 @@
 import type { AxiosResponse } from 'axios';
 import { useQuery } from 'react-query';
-import { getList } from '../shared/api/apis';
 import type { IListResponse } from '../shared/types/types';
+import { getList } from './../shared/api/productApi';
 
 const useGetListQuery = (category: string, sort: string, page: number) => {
   return useQuery<AxiosResponse<IListResponse>, Error>(

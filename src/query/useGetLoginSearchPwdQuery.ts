@@ -1,7 +1,7 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useQuery } from 'react-query';
 import type { IPwdSearchResponse, TError } from '../shared/types/types';
-import { getPwd } from './../shared/api/apis';
+import { getPwd } from './../shared/api/userApi';
 
 export type TSearchPwd = {
   u_Id: string;

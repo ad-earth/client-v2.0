@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 import { useQuery } from 'react-query';
-import { getComplete } from '../shared/api/apis';
+import { getComplete } from '../shared/api/paymentApi';
 import type { ICompleteResponse } from '../shared/types/types';
 
 const useGetCompleteQuery = () => {

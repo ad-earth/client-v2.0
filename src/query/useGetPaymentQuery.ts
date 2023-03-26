@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 import { useQuery } from 'react-query';
-import { getPayment } from '../shared/api/apis';
+import { getPayment } from './../shared/api/paymentApi';
 import type { IPaymentResponse } from './../shared/types/types';
 
 const useGetPaymentQuery = (type: string, p_No: number) => {

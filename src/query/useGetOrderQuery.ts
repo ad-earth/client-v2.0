@@ -1,7 +1,7 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useInfiniteQuery } from 'react-query';
-import { getCancel, getOrder } from '../shared/api/apis';
 import type { TResOrder } from '../shared/types/types';
+import { getCancel, getOrder } from './../shared/api/productApi';
 
 export default function useGetOrderQuery(path: string) {
   const order = useInfiniteQuery<AxiosResponse<TResOrder>, AxiosError>(

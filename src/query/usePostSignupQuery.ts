@@ -1,6 +1,6 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useMutation } from 'react-query';
-import { postSignup } from '../shared/api/apis';
+import { postSignup } from './../shared/api/userApi';
 import type { TError } from './../shared/types/types';
 
 export interface TSignUpData {

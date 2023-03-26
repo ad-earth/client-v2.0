@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 import { useQuery } from 'react-query';
-import { getCart } from './../shared/api/apis';
+import { getCart } from './../shared/api/paymentApi';
 import type { ICartResponse } from './../shared/types/types';
 
 const useGetCartQuery = () => {
