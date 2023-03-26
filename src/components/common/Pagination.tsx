@@ -11,7 +11,7 @@ function Pagination({ pageCnt, page, setPage }: PropsType) {
 
   return (
     <t.PaginationRoot
-      count={pageCount}
+      count={pageCount ? pageCount : 1}
       defaultPage={1}
       page={page}
       onChange={handleChange}
