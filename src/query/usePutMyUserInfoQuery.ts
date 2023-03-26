@@ -1,6 +1,6 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useMutation } from 'react-query';
-import { putUserInfoChange } from '../shared/api/apis';
+import { putUserInfoChange } from './../shared/api/userApi';
 import type { TError } from './../shared/types/types';
 
 export interface TUserInfoData {

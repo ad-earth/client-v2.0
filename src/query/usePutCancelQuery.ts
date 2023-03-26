@@ -1,7 +1,7 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { putCancel } from '../shared/api/apis';
+import { putCancel } from './../shared/api/productApi';
 
 type TCancel = {
   id: string;

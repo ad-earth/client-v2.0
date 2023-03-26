@@ -1,8 +1,7 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useInfiniteQuery } from 'react-query';
-
-import { getWish } from '../shared/api/apis';
 import type { TResWish } from '../shared/types/types';
+import { getWish } from './../shared/api/productApi';
 
 export default function useGetWishQuery() {
   const wishQuery = useInfiniteQuery<AxiosResponse<TResWish>, AxiosError>(

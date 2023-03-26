@@ -1,6 +1,6 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
-import { postReviews } from '../shared/api/apis';
+import { postReviews } from './../shared/api/productApi';
 
 type TReview = {
   id: number;
