@@ -1,16 +1,82 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import toast from 'react-hot-toast';
+import { shallowEqual } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
 import PayDrop from '../components/common/PayDrop';
+import type { Tprops } from '../components/common/ProductCard';
+import ProductCard from '../components/common/ProductCard';
 import PaymentInput from '../components/PaymentInput';
+import useGetPaymentQuery from '../query/useGetPaymentQuery';
+import usePostPaymentQuery from '../query/usePostPaymentQuery';
+import { setPayInfo } from '../redux/reducer/payInputSlice';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 import theme from '../shared/style/theme';
 import * as t from '../style/paymentPage.style';
 
 export default function PaymentPage() {
-  const [newUser, setNewUser] = useState<boolean>(false);
-  const [isOpenDelivery, setIsOpenDelivery] = useState<boolean>(false);
-  const handleNewUser = () => setNewUser(true);
-  const handleOpen = () => setIsOpenDelivery(true);
+  const payInfo = useAppSelector(state => state.payInputSlice, shallowEqual);
+  const [drop, setDrop] = useState<string>('');
+  const [isCheck, setIsCheck] = useState<boolean>(false);
+  const {
+    state: { type, productNo },
+  } = useLocation();
+  const query = useGetPaymentQuery(type, productNo);
+  const { userInfo, addressList, products, price } = useMemo(
+    () => ({
+      userInfo: query.data?.data.userInfo,
+      addressList: query.data?.data.addressList,
+      products: query.data?.data.products,
+      price: query.data?.data.o_Price,
+    }),
+    [query]
+  );
+
+  const cartStatus = localStorage.getItem('cartStatus');
+  const currStatus = Number(cartStatus) - products?.length;
+  const navigate = useNavigate();
+  const { mutate } = usePostPaymentQuery();
+  const handleBuy = () => {
+    if (!payInfo.d_Name && !payInfo.d_Phone)
+      toast.error('이름과 연락처를 확인해주세요!');
+    else if (!payInfo.d_Address1 && !payInfo.d_Address3)
+      toast.error('주소를 확인해주세요!');
+    else if (!(drop === '지구은행 123456789 (주)광고지구'))
+      toast.error('입금 계좌를 확인해주세요!');
+    else if (!isCheck) toast.error('구매동의 의사를 확인해주세요!');
+    else {
+      const data = {
+        type: 'c',
+        address: payInfo,
+        products: products,
+        o_Price: price,
+      };
+      mutate(data, {
+        onSuccess: () => {
+          toast.success('상품 구매에 성공하였습니다 😊');
+          localStorage.setItem('cartStatus', String(currStatus));
+          navigate('/complete', { state: { price: `${price}` } });
+        },
+      });
+    }
+  };
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(
+      setPayInfo({
+        d_No: null,
+        d_Name: userInfo?.u_Name,
+        d_Phone: userInfo?.u_Phone,
+        d_Address1: userInfo?.u_Address1,
+        d_Address2: userInfo?.u_Address2,
+        d_Address3: userInfo?.u_Address3,
+        d_Memo: '배송메모가 없습니다.',
+      })
+    );
+  }, [userInfo]);
+
   return (
     <t.Container>
       <t.Payment>
@@ -19,50 +85,22 @@ export default function PaymentPage() {
           <section>
             <article>
               <h2>주문 상품 정보</h2>
-              <t.Temp />
+              {products &&
+                products.map((item: Tprops, idx: number) => (
+                  <ProductCard
+                    key={idx}
+                    p_Thumbnail={item.p_Thumbnail}
+                    a_Brand={item.a_Brand}
+                    p_Name={item.p_Name}
+                    p_Option={item.p_Option}
+                    p_Cost={item.p_Cost}
+                    p_Discount={item.p_Discount}
+                  />
+                ))}
             </article>
             <article>
-              <h2>주문자 정보</h2>
-              <t.Content>
-                {!newUser ? (
-                  <>
-                    <t.TextArea>
-                      <t.Text>이름</t.Text>
-                      <t.TextGray>010-1234-1234</t.TextGray>
-                    </t.TextArea>
-                    <Button
-                      {...btnStyle[0]}
-                      text="수정"
-                      onClick={handleNewUser}
-                    />
-                  </>
-                ) : (
-                  <t.InputArea>
-                    <Input {...inputStyle[0]} />
-                    <Input {...inputStyle[1]} />
-                  </t.InputArea>
-                )}
-              </t.Content>
-            </article>
-            <article>
-              <h2>배송 정보</h2>
-              <t.Content>
-                {!isOpenDelivery ? (
-                  <>
-                    <t.TextArea>
-                      <t.Text>이름</t.Text>
-                      <t.TextGray>010-1234-1234</t.TextGray>
-                      <t.TextGray>기본 주소, 추가 주소</t.TextGray>
-                      <t.TextGray>(우편번호)</t.TextGray>
-                    </t.TextArea>
-                    <Button {...btnStyle[0]} text="변경" onClick={handleOpen} />
-                  </>
-                ) : (
-                  <PaymentInput />
-                )}
-              </t.Content>
-              <h4>배송메모</h4>
-              <PayDrop delivery={delivery} />
+              <h2>주문자 배송 정보</h2>
+              <PaymentInput addressList={addressList} />
             </article>
           </section>
           <section>
@@ -70,7 +108,7 @@ export default function PaymentPage() {
               <h2>주문 요약</h2>
               <t.Content>
                 <t.TextGray>상품가격</t.TextGray>
-                <t.Text>7,000원</t.Text>
+                <t.Text>{price && price.toLocaleString()}원</t.Text>
               </t.Content>
               <t.Content>
                 <t.TextGray>배송비</t.TextGray>
@@ -79,7 +117,7 @@ export default function PaymentPage() {
               <hr />
               <t.Content>
                 <t.TextGray>총 주문 금액</t.TextGray>
-                <t.Text>7,000원</t.Text>
+                <t.Text>{price && price.toLocaleString()}원</t.Text>
               </t.Content>
             </article>
             <article>
@@ -88,26 +126,31 @@ export default function PaymentPage() {
                 <t.Radio type="radio" defaultChecked />
                 <label>무통장입금</label>
               </t.CheckBox>
-              <PayDrop payment={payment} />
-              <Input {...inputStyle[2]} />
+              <PayDrop payment={payment} drop={drop} setDrop={setDrop} />
+              <Input {...inputStyle} defaultValue={payInfo?.d_Name} />
               <h4>※ 주문 후 24시간동안 미입금시 자동취소됩니다.</h4>
-              <hr />
-              <t.CheckBox>
-                <t.CheckInput type="checkbox" id="receipt" />
-                <label htmlFor="receipt">현금영수증 신청</label>
-              </t.CheckBox>
             </article>
             <article>
               <t.CheckBox>
-                <t.CheckInput type="checkbox" id="agree" />
+                <t.CheckInput
+                  type="checkbox"
+                  id="agree"
+                  checked={isCheck}
+                  onChange={() => setIsCheck(!isCheck)}
+                />
                 <label htmlFor="agree">전체동의</label>
               </t.CheckBox>
               <t.CheckBox>
                 <p>↳</p>
-                <t.CheckInput type="checkbox" id="agreeCheck" />
+                <t.CheckInput
+                  type="checkbox"
+                  id="agreeCheck"
+                  checked={isCheck}
+                  readOnly
+                />
                 <label htmlFor="agreeCheck">구매조건 확인 및 결제에 동의</label>
               </t.CheckBox>
-              <Button {...btnStyle[1]} />
+              <Button {...btnStyle} onClick={handleBuy} />
             </article>
           </section>
         </t.Section>
@@ -115,58 +158,22 @@ export default function PaymentPage() {
     </t.Container>
   );
 }
-const btnStyle = [
-  {
-    color: theme.fc01,
-    hBgColor: theme.fc15,
-    fontSize: theme.fs13,
-    fontWeight: '500',
-    padding: '6px 12px',
-    radius: '2px',
-    width: '50px',
-  },
-  {
-    color: theme.fc01,
-    hBgColor: theme.fc15,
-    fontSize: theme.fs16,
-    fontWeight: '600',
-    padding: '8px 12px',
-    radius: '2px',
-    width: '100%',
-    text: '결제하기',
-  },
-];
-const inputStyle = [
-  {
-    holderName: '이름',
-    color: theme.fc08,
-    fontSize: theme.fs14,
-    width: '49%',
-  },
-  {
-    holderName: '연락처',
-    color: theme.fc08,
-    fontSize: theme.fs14,
-    width: '49%',
-  },
-  {
-    holderName: '입금자명',
-    color: theme.fc08,
-    fontSize: theme.fs16,
-    width: '100%',
-    padding: '10px 20px',
-    marginTop: '10px',
-  },
-];
-const delivery = [
-  {
-    text: '배송 전에 미리 연락바랍니다.',
-  },
-  {
-    text: '부재시 경비실에 맡겨주세요.',
-  },
-  {
-    text: '부재시 문자나 전화를 남겨주세요.',
-  },
-];
+const btnStyle = {
+  color: theme.fc01,
+  hBgColor: theme.fc15,
+  fontSize: theme.fs16,
+  fontWeight: '600',
+  padding: '8px 12px',
+  radius: '2px',
+  width: '100%',
+  text: '결제하기',
+};
+const inputStyle = {
+  holderName: '입금자명',
+  color: theme.fc08,
+  fontSize: theme.fs16,
+  width: '100%',
+  padding: '10px 20px',
+  marginTop: '10px',
+};
 const payment = [{ text: '지구은행 123456789 (주)광고지구' }];

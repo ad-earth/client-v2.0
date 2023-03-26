@@ -27,6 +27,7 @@ export default function Header() {
   const { isDropped, dropRef, handleRemove } = useDropDown();
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const cartStatus = localStorage.getItem('cartStatus');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -34,9 +35,10 @@ export default function Header() {
       setIsLogin(true);
     } else setIsLogin(false);
   }, [isLogin]);
+
   const handleLogout = () => {
     localStorage.clear();
-    setIsLogin(false);
+    window.location.reload();
   };
   const routeToMain = () => navigate('/');
   const routeToMy = () => navigate('/mypage');
@@ -77,7 +79,7 @@ export default function Header() {
                     className="cartIcon"
                     onClick={routeToCart}
                   />
-                  <t.Badge>1</t.Badge>
+                  <t.Badge>{cartStatus ? cartStatus : 0}</t.Badge>
                 </t.CartStatus>
               </>
             ) : (

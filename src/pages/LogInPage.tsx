@@ -25,7 +25,7 @@ export default function LogInPage() {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
-  const { mutate, isSuccess } = usePostLoginQuery(form);
+  const { mutate, isSuccess } = usePostLoginQuery();
   useEffect(() => {
     if (isSuccess) {
       navigate('/');
@@ -33,7 +33,7 @@ export default function LogInPage() {
     }
   }, [isSuccess]);
   const loginClick = () => {
-    mutate();
+    mutate(form);
   };
   const routeToAdmin = () => {
     window.location.href = 'https://adearth-admin.shop/';

@@ -1,32 +1,23 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import CartItem from '../components/CartItem';
 import Button from '../components/common/Button';
 import useViewport from '../hooks/useViewport';
+import useDeleteCartQuery from '../query/useDeleteCartQuery';
 import useGetCartQuery from '../query/useGetCartQuery';
+import { setCheckedList } from '../redux/reducer/cartSlice';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 import theme from '../shared/style/theme';
-// import type { TOptionSet } from '../shared/types/types';
 import * as t from '../style/cartPage.style';
-
-// export interface IProps {
-//   cartList: {
-//     p_No: number;
-//     p_Category: string;
-//     p_Thumbnail: string[];
-//     a_Brand: string;
-//     p_Name: string;
-//     p_Cost: number;
-//     p_Sale: boolean;
-//     p_Discount: number;
-//     p_Option: TOptionSet[];
-//     k_No: number;
-//     p_Price: number;
-//     p_Cnt: number;
-//   };
-// }
 
 export default function CartPage() {
   const viewport = useViewport();
   const query = useGetCartQuery();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const [allChecked, setAllChecked] = useState<boolean>(false);
+  const checkedItem = useAppSelector(state => state.cartSlice.checkedList);
 
   const { cartList } = useMemo(
     () => ({
@@ -34,6 +25,47 @@ export default function CartPage() {
     }),
     [query]
   );
+
+  const handleCheck = () => {
+    setAllChecked(!allChecked);
+  };
+
+  const totalPrice = useMemo(() => {
+    if (checkedItem.length > 0) {
+      const sum = checkedItem
+        .map(item => item.p_Price)
+        .reduce((prev, curr) => prev + curr, 0);
+      return sum.toLocaleString();
+    }
+  }, [checkedItem]);
+
+  const { mutate } = useDeleteCartQuery();
+  const handleDelete = () => {
+    const productNo = checkedItem.map(item => item.p_No);
+    const data = {
+      type: 'c',
+      p_Nos: String(productNo.join()),
+    };
+    mutate(data, {
+      onSuccess: () => {
+        alert('상품을 삭제하였습니다.');
+        dispatch(setCheckedList([]));
+        localStorage.setItem(
+          'cartStatus',
+          String(cartList.length - checkedItem.length)
+        );
+      },
+    });
+  };
+
+  const handleBuy = () => {
+    const checkedProdNo = checkedItem.map(item => item.p_No);
+    if (checkedItem.length === 0) toast.error('주문하실 상품을 선택해주세요!');
+    else
+      navigate('/payment', {
+        state: { type: 'c', productNo: `${checkedProdNo}` },
+      });
+  };
 
   return (
     <t.Container>
@@ -43,7 +75,11 @@ export default function CartPage() {
       </t.CartHead>
       <t.ListWrap>
         <t.ListHead>
-          <t.CheckBox type="checkbox" />
+          <t.CheckBox
+            type="checkbox"
+            onChange={handleCheck}
+            checked={allChecked}
+          />
           <t.ListInfo className="large">
             {viewport >= 990 ? '상품정보' : '전체선택'}
           </t.ListInfo>
@@ -51,18 +87,22 @@ export default function CartPage() {
           <t.ListInfo className="mid">주문금액</t.ListInfo>
           <t.ListInfo className="small">배송정보</t.ListInfo>
         </t.ListHead>
-        <CartItem />
+        <CartItem cartList={cartList && cartList} allChecked={allChecked} />
         <t.BtnWrap>
-          <Button {...btnStyle[0]} text="선택상품 삭제" />
+          <Button
+            {...btnStyle[0]}
+            text="선택상품 삭제"
+            onClick={handleDelete}
+          />
           <Button {...btnStyle[0]} text="품절상품 삭제" />
         </t.BtnWrap>
         <t.Receipt>
           <t.ReceiptHead>
-            총 주문 상품 <span>2</span>개
+            총 주문 상품 <span>{checkedItem && checkedItem.length}</span>개
           </t.ReceiptHead>
           <t.ReceiptPrice>
             <t.Price>
-              16,400원<span>상품금액</span>
+              {totalPrice ? totalPrice : 0}원<span>상품금액</span>
             </t.Price>
             <t.Price>+</t.Price>
             <t.Price>
@@ -70,11 +110,11 @@ export default function CartPage() {
             </t.Price>
             <t.Price>=</t.Price>
             <t.Price className="total">
-              16,400원<span>총 주문금액</span>
+              {totalPrice ? totalPrice : 0}원<span>총 주문금액</span>
             </t.Price>
           </t.ReceiptPrice>
         </t.Receipt>
-        <Button {...btnStyle[1]} text="주문하기" />
+        <Button {...btnStyle[1]} text="주문하기" onClick={handleBuy} />
         <a href="/">계속 쇼핑하기</a>
       </t.ListWrap>
     </t.Container>

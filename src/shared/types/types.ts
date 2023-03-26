@@ -36,7 +36,6 @@ export interface IProduct {
   p_Sale: boolean;
   p_Discount: number;
 }
-
 export interface IProductCard extends IProduct {
   p_Best: boolean;
   p_Option: TOption[];
@@ -64,8 +63,9 @@ export interface IReview {
 }
 export type TReviews = IReview[];
 
-export type TOptionSet = [string, string, string, number, number, number];
-export interface ICartList {
+//마이페이지
+
+export interface Product {
   p_No: number;
   p_Category: string;
   p_Thumbnail: string[];
@@ -74,18 +74,11 @@ export interface ICartList {
   p_Cost: number;
   p_Sale: boolean;
   p_Discount: number;
-  p_Option: TOptionSet[];
-  k_No: number;
-  p_Price: number;
-  p_Cnt: number;
+  p_Option: TUserOption[];
+  p_Best: boolean;
+  p_New: boolean;
 }
-export interface ICartResponse {
-  cartList: ICartList[];
-  o_Price: number;
-}
-
-//마이페이지
-export interface IMyProduct extends IProduct {
+export interface IMyProduct extends Product {
   o_Status: string;
   p_Cnt: number;
   p_Price: number;
@@ -104,9 +97,81 @@ export interface IAPIResOrder {
   cnt: number;
   orderList: IList[];
 }
-interface IAPIResCancel {
+export interface IAPIResCancel {
   cnt: number;
   cancelList: IList[];
 }
-//마이페이지 - 주문조회,취소조회
-export type TMyAPIResOrder = IAPIResOrder | IAPIResCancel;
+
+interface IUser {
+  u_Name: string;
+  u_Phone: string;
+  u_Address1: string;
+  u_Address2: string;
+  u_Address3: string;
+}
+export interface IUserLogin extends IUser {
+  u_Idx: number;
+  u_Id: string;
+  u_Gender: string;
+  u_Img: string;
+  token: string;
+}
+export interface ILoginResponse {
+  userInfo: IUserLogin;
+  cartStatus: number;
+}
+export interface IIdSearchResponse {
+  u_Id: string;
+}
+export interface IPwdSearchResponse {
+  u_Idx: number;
+}
+interface IAddress {
+  d_Name: string;
+  d_Phone: string;
+  d_Address1: string;
+  d_Address2: string;
+  d_Address3: string;
+}
+interface IAddressList extends IAddress {
+  d_No: number;
+  u_Idx: number;
+}
+export interface ICompleteResponse extends IAddress {
+  o_No: number;
+  cartStatus: number;
+}
+export interface IProductPayCart extends IProduct {
+  p_Option: TUserOption[];
+  k_No: number;
+  p_Price: number;
+  p_Cnt: number;
+}
+export interface ICartResponse {
+  cartList: IProductPayCart[];
+  o_Price: number;
+}
+export interface IPaymentResponse {
+  userInfo: IUser;
+  addressList: IAddressList[];
+  products: IProductPayCart[];
+  o_Price: number;
+}
+export type TResOrder = IAPIResOrder | IAPIResCancel;
+
+export interface IUserInfo {
+  u_Name: string;
+  u_Phone: number;
+}
+export interface IMyAddress extends IAddress {
+  d_Memo: string;
+}
+//마이페이지 - 주문 상세,취소 상세
+export interface IMyAPIResOrderDetail extends IList {
+  userInfo: IUserInfo;
+  address: IMyAddress;
+}
+export interface TResWish {
+  cnt: number;
+  wishList: IProductCard[];
+}

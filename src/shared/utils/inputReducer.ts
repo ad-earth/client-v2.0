@@ -1,4 +1,9 @@
-import { InfoInitial, NewPwdInitial, signupInitial } from './inputInitialValue';
+import {
+  InfoInitial,
+  NewPwdInitial,
+  PayInputInitial,
+  signupInitial,
+} from './inputInitialValue';
 import { IdCheck, PhoneCheck, PwdCheck } from './regExp';
 
 type ActionType = { type: string; payload?: string; msg?: string };
@@ -270,6 +275,62 @@ export function PwdReducer(state: typeof NewPwdInitial, action: ActionType) {
           };
     case 'reset':
       return NewPwdInitial;
+    default:
+      throw new Error(`${action.type}`);
+  }
+}
+
+export function PayReducer(state: typeof PayInputInitial, action: ActionType) {
+  switch (action.type) {
+    case 'name':
+      return action.payload.length > 0
+        ? {
+            ...state,
+            [action.type]: {
+              val: action.payload,
+              isCheck: true,
+            },
+          }
+        : {
+            ...state,
+            [action.type]: {
+              val: action.payload,
+              msg: '성함을 입력해주세요.',
+              isCheck: false,
+            },
+          };
+
+    case 'phone':
+      if (action.payload === 'err') {
+        return {
+          ...state,
+          [action.type]: {
+            val: state.phone.val,
+            msg: '중복된 연락처입니다.',
+            isCheck: false,
+          },
+        };
+      } else {
+        return PhoneCheck(action.payload)
+          ? {
+              ...state,
+              [action.type]: {
+                val: action.payload,
+                msg: '올바른 연락처 입니다.',
+                isCheck: true,
+              },
+            }
+          : {
+              ...state,
+              [action.type]: {
+                val: action.payload,
+                msg: '연락처를 다시 확인해주세요.',
+                isCheck: false,
+              },
+            };
+      }
+    case 'reset':
+      return PayInputInitial;
     default:
       throw new Error(`${action.type}`);
   }

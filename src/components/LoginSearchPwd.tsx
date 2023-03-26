@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import type { SearchPwdType } from '../query/useGetLoginSearchPwdQuery';
+import type { TSearchPwd } from '../query/useGetLoginSearchPwdQuery';
 import { useGetLoginSearchPwdQuery } from '../query/useGetLoginSearchPwdQuery';
-import type { NewPwdType } from '../query/usePutLoginNewPwdQuery';
+import type { TNewPwd } from '../query/usePutLoginNewPwdQuery';
 import usePutLoginNewPwdQuery from '../query/usePutLoginNewPwdQuery';
 import theme from '../shared/style/theme';
 import { NewPwdInitial } from '../shared/utils/inputInitialValue';
@@ -12,7 +12,7 @@ import Input from './common/Input';
 
 export default function LoginSearchPwd() {
   // 비밀번호 찾기
-  const [form, setForm] = useState<SearchPwdType>({
+  const [form, setForm] = useState<TSearchPwd>({
     u_Id: '',
     u_Name: '',
     u_Phone: '',
@@ -31,7 +31,7 @@ export default function LoginSearchPwd() {
 
   // 비밀번호 변경
   const [isNewPwd, setIsNewPwd] = useState<boolean>(false);
-  const [newPwd, setNewPwd] = useState<NewPwdType>();
+  const [newPwd, setNewPwd] = useState<TNewPwd>();
   const [state, setDispatch] = useReducer(PwdReducer, NewPwdInitial);
   const { pwd, pwdCheck } = state;
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>

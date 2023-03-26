@@ -1,11 +1,11 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useInfiniteQuery } from 'react-query';
 import { getCancel, getOrder } from '../shared/api/apis';
-import type { TMyAPIResOrder } from '../shared/types/types';
+import type { TResOrder } from '../shared/types/types';
 
 export default function useGetOrderQuery(path: string) {
-  const order = useInfiniteQuery<AxiosResponse<TMyAPIResOrder>, AxiosError>(
-    [`${path}`],
+  const order = useInfiniteQuery<AxiosResponse<TResOrder>, AxiosError>(
+    'order',
     ({ pageParam = 1 }) => getOrder(pageParam),
     {
       getNextPageParam: (lastPage, allPages) => {
@@ -15,11 +15,12 @@ export default function useGetOrderQuery(path: string) {
       },
       enabled: Boolean(path === 'mypage'),
       staleTime: 10 * 1000,
+      // cacheTime: 10 * 1000,
       refetchOnWindowFocus: false,
     }
   );
-  const cancel = useInfiniteQuery<AxiosResponse<TMyAPIResOrder>, AxiosError>(
-    ['canceList'],
+  const cancel = useInfiniteQuery<AxiosResponse<TResOrder>, AxiosError>(
+    'cancel',
     ({ pageParam = 1 }) => getCancel(pageParam),
     {
       getNextPageParam: (lastPage, allPages) => {
