@@ -6,15 +6,16 @@ type TProps = {
   productNo: number;
   likeCnt: number;
   likeList?: number[];
+  userLike?: boolean;
 };
 
-function Heart({ likeCnt, productNo, likeList }: TProps) {
+function Heart({ likeCnt, productNo, likeList, userLike }: TProps) {
   const { mutate } = usePostLikeQuery(productNo);
   const [isLike, setIsLike] = useState<boolean>(false);
 
   useEffect(() => {
-    setIsLike(likeList?.includes(productNo));
-  }, [likeList, productNo]);
+    setIsLike(likeList ? likeList?.includes(productNo) : userLike);
+  }, [likeList, productNo, userLike]);
 
   const handleClick = () =>
     mutate(productNo, {

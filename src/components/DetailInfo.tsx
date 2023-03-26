@@ -15,9 +15,10 @@ import DetailModal from './DetailModal';
 type TProps = {
   product: IProductDetail;
   keyNo: number;
+  isLike: boolean;
 };
 
-function DetailInfo({ product, keyNo }: TProps) {
+function DetailInfo({ product, keyNo, isLike }: TProps) {
   const { productNo } = useParams();
   const { price, discount, isOption } = useMemo(
     () => ({
@@ -133,7 +134,11 @@ function DetailInfo({ product, keyNo }: TProps) {
           </>
         )}
         <Button {...props}>
-          <Heart likeCnt={product?.p_Like} productNo={product?.p_No} />
+          <Heart
+            likeCnt={product?.p_Like}
+            productNo={product?.p_No}
+            userLike={isLike}
+          />
         </Button>
       </t.Wrapper>
     </t.MainContainer>
