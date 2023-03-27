@@ -26,9 +26,6 @@ jobs:
         run: echo 'npm cache missed!'
       - run: npm ci
 
-      - name: Build
-        run: npm run build
-
       - name: Generate Environment Variables File for Production
         run: |
           echo "REACT_APP_SERVER_URL=$REACT_APP_SERVER_URL" >> .env.production
@@ -44,6 +41,9 @@ jobs:
           REACT_APP_ACCESS: ${{ secrets.REACT_APP_ACCESS }}
           REACT_APP_SECRET: ${{ secrets.REACT_APP_SECRET }}
           REACT_APP_BUCKET_URL: ${{ secrets.REACT_APP_BUCKET_URL }}
+
+      - name: Build
+        run: npm run build
 
       - name: deploy to s3
         uses: jakejarvis/s3-sync-action@master
