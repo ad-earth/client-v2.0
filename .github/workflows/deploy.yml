@@ -62,5 +62,5 @@ jobs:
 
       - name: CloudFront Invalidation
         env:
-          CLOUD_FRONT_ID: ${{ secrets.DISTRIBUTION_ID}}
+          CLOUD_FRONT_ID: ${{ secrets.S3_BUCKET_NAME}}
         run: aws cloudfront create-invalidation --distribution-id $CLOUD_FRONT_ID --paths "/*"
