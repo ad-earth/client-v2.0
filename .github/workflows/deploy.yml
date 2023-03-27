@@ -60,7 +60,10 @@ jobs:
           AWS_REGION: 'ap-northeast-2'
           SOURCE_DIR: 'build'
 
+
       - name: CloudFront Invalidation
         env:
           CLOUD_FRONT_ID: ${{ secrets.DISTRIBUTION_ID}}
-        run: aws cloudfront create-invalidation --distribution-id $CLOUD_FRONT_ID --paths "/*"
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id $CLOUD_FRONT_ID --paths "/*"
