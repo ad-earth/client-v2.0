@@ -29,6 +29,7 @@ function Card({ product, isAd, likeList }: PropsType) {
               }
               onMouseLeave={() => setImageIdx(0)}
               src={product.p_Thumbnail[imageIdx]}
+              alt="상품 사진"
             />
             {isAd && <Badge type={'AD'} />}
           </t.ImgWrapper>
