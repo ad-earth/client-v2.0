@@ -1,54 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { CATEGORYLIST } from '../../constants';
 import * as t from '../../style/listCategory.style';
 
-function ListCategory({ category }: PropsType) {
+type TProps = {
+  category: string;
+};
+
+function ListCategory({ category }: TProps) {
   const navigate = useNavigate();
-  const [current, setCurrent] = useState<string>(category);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [currentCategory, setCurrentCategory] = useState<string>(category);
 
   const handleClick = (e: React.FormEvent<HTMLButtonElement>) => {
-    let selectedCategory = e.currentTarget.value;
-    setCurrent(selectedCategory);
-    searchParams.set('sort', 'current');
-    setSearchParams(searchParams);
+    const selectedCategory = e.currentTarget.value;
+    setCurrentCategory(selectedCategory);
     navigate(`/list/${selectedCategory}`);
   };
+
+  useEffect(() => {
+    searchParams.set('sort', 'recent');
+    setSearchParams(searchParams);
+  }, [currentCategory]);
 
   return (
     <t.Category>
       <t.Wrapper>
-        {categoryList.map(val => {
-          return (
-            <t.Button
-              onClick={handleClick}
-              key={val}
-              value={val}
-              active={current === val}
-            >
-              {val}
-            </t.Button>
-          );
-        })}
+        {CATEGORYLIST.map(val => (
+          <t.Button
+            onClick={handleClick}
+            key={val}
+            value={val}
+            active={currentCategory === val}
+          >
+            {val}
+          </t.Button>
+        ))}
       </t.Wrapper>
       <t.Line />
     </t.Category>
   );
 }
-
-type PropsType = {
-  category: string;
-};
-
-const categoryList = [
-  '전체',
-  '욕실',
-  '주방',
-  '음료용품',
-  '생활',
-  '식품',
-  '화장품',
-  '문구',
-];
 
 export default ListCategory;

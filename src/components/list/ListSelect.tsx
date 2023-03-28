@@ -17,6 +17,8 @@ export default function ListSelect() {
     setSearchParams(searchParams);
   };
 
+  const toggle = () => setIsSelect(prev => !prev);
+
   return (
     <t.SelectWrap>
       <FormControl variant="standard" sx={{ m: 2, minWidth: 90 }} size="small">
@@ -24,8 +26,8 @@ export default function ListSelect() {
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
           open={isSelect}
-          onClose={() => setIsSelect(false)}
-          onOpen={() => setIsSelect(true)}
+          onClose={toggle}
+          onOpen={toggle}
           onChange={handleChange}
           value={sort}
           label="sort"

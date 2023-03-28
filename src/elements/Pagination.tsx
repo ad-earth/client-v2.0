@@ -3,7 +3,13 @@ import type { Dispatch, SetStateAction } from 'react';
 import React from 'react';
 import * as t from '../style/pagination.style';
 
-function Pagination({ pageCnt, page, setPage }: PropsType) {
+type PropsType = {
+  pageCnt: number;
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
+};
+
+export default function Pagination({ pageCnt, page, setPage }: PropsType) {
   const pageCount = Math.ceil(pageCnt / 20);
 
   const handleChange = (e: React.ChangeEvent<unknown>, value: number) =>
@@ -19,11 +25,3 @@ function Pagination({ pageCnt, page, setPage }: PropsType) {
     />
   );
 }
-
-type PropsType = {
-  pageCnt: number;
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>;
-};
-
-export default Pagination;

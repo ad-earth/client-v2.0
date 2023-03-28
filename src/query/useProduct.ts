@@ -7,7 +7,7 @@ import type { IListResponse } from '../shared/types/types';
 
 const useProduct = (category: string, sort: string, page: number) => {
   const { data: listData } = useQuery<AxiosResponse<IListResponse>, Error>(
-    [queryKeys.LIST, [category, sort, page]],
+    [queryKeys.LIST, category, sort, page],
     () => getList(category, sort, page),
     {
       refetchOnWindowFocus: false,
