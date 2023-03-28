@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import useDeletePaymentAddressQuery from '../query/useDeletePaymentAddressQuery';
-import { setMemo, setPayInfo } from '../redux/reducer/payInputSlice';
-import { useAppDispatch } from '../redux/store';
-import * as t from '../style/paymentInput.style';
-import PayDrop from './common/PayDrop';
+import useDeletePaymentAddressQuery from '../../query/useDeletePaymentAddressQuery';
+import { setMemo, setPayInfo } from '../../redux/reducer/payInputSlice';
+import { useAppDispatch } from '../../redux/store';
+import * as t from '../../style/paymentInput.style';
+import PayDrop from '../common/PayDrop';
 import PaymentAddDefault from './PaymentAddDefault';
 import PaymentAddNew from './PaymentAddNew';
 

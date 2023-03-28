@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Button from '../elements/Button';
-import ErrMsg from '../elements/ErrorMsg';
-import Input from '../elements/Input';
-import type { TSearchId } from '../query/useGetLoginSearchIdQuery';
-import useGetLoginSearchIdQuery from '../query/useGetLoginSearchIdQuery';
-import theme from '../shared/style/theme';
+import Button from '../../elements/Button';
+import ErrMsg from '../../elements/ErrorMsg';
+import Input from '../../elements/Input';
+import type { TSearchId } from '../../query/useGetLoginSearchIdQuery';
+import useGetLoginSearchIdQuery from '../../query/useGetLoginSearchIdQuery';
+import theme from '../../shared/style/theme';
 
 export default function LoginSearchId() {
   const [form, setForm] = useState<TSearchId>({ u_Name: '', u_Phone: '' });

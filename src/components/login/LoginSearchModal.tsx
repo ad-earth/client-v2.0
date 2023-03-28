@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
-import * as t from '../style/loginSearchModal.style';
+import * as t from '../../style/loginSearchModal.style';
 import LoginSearchId from './LoginSearchId';
 import LoginSearchPwd from './LoginSearchPwd';
 

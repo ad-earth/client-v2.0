@@ -1,14 +1,14 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import Button from '../elements/Button';
-import ErrMsg from '../elements/ErrorMsg';
-import Input from '../elements/Input';
-import type { TSearchPwd } from '../query/useGetLoginSearchPwdQuery';
-import { useGetLoginSearchPwdQuery } from '../query/useGetLoginSearchPwdQuery';
-import type { TNewPwd } from '../query/usePutLoginNewPwdQuery';
-import usePutLoginNewPwdQuery from '../query/usePutLoginNewPwdQuery';
-import theme from '../shared/style/theme';
-import { NewPwdInitial } from '../shared/utils/inputInitialValue';
-import { PwdReducer } from '../shared/utils/inputReducer';
+import Button from '../../elements/Button';
+import ErrMsg from '../../elements/ErrorMsg';
+import Input from '../../elements/Input';
+import type { TSearchPwd } from '../../query/useGetLoginSearchPwdQuery';
+import { useGetLoginSearchPwdQuery } from '../../query/useGetLoginSearchPwdQuery';
+import type { TNewPwd } from '../../query/usePutLoginNewPwdQuery';
+import usePutLoginNewPwdQuery from '../../query/usePutLoginNewPwdQuery';
+import theme from '../../shared/style/theme';
+import { NewPwdInitial } from '../../shared/utils/inputInitialValue';
+import { PwdReducer } from '../../shared/utils/inputReducer';
 
 export default function LoginSearchPwd() {
   // 비밀번호 찾기

@@ -1,14 +1,14 @@
 import React, { useEffect, useMemo } from 'react';
 import toast from 'react-hot-toast';
 import { IoCloseOutline } from 'react-icons/io5';
-import Button from '../elements/Button';
-import useGetDetailQuery from '../query/useGetDetailQuery';
-import usePutCartQuery from '../query/usePutCartQuery';
-import { setOptions } from '../redux/reducer/optionSlice';
-import { useAppDispatch, useAppSelector } from '../redux/store';
-import theme from '../shared/style/theme';
-import * as t from '../style/cartOptionModal.style';
-import Option from './common/Option';
+import Button from '../../elements/Button';
+import useGetDetailQuery from '../../query/useGetDetailQuery';
+import usePutCartQuery from '../../query/usePutCartQuery';
+import { setOptions } from '../../redux/reducer/optionSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import theme from '../../shared/style/theme';
+import * as t from '../../style/cartOptionModal.style';
+import Option from '../common/Option';
 
 type TProps = {
   onClose: () => void;

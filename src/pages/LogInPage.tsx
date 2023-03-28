@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import loginLogo from '../assets/logInLogo.jpeg';
 import GlobalModal from '../components/common/GlobalModal';
-import LoginSearchModal from '../components/LoginSearchModal';
+import LoginSearchModal from '../components/login/LoginSearchModal';
 import Button from '../elements/Button';
 import Input from '../elements/Input';
 import usePostLoginQuery from '../query/usePostLoginQuery';

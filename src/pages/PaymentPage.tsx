@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import PayDrop from '../components/common/PayDrop';
 import type { Tprops } from '../components/common/ProductCard';
 import ProductCard from '../components/common/ProductCard';
-import PaymentInput from '../components/PaymentInput';
+import PaymentInput from '../components/payment/PaymentInput';
 import Button from '../elements/Button';
 import Input from '../elements/Input';
 import useGetPaymentQuery from '../query/useGetPaymentQuery';

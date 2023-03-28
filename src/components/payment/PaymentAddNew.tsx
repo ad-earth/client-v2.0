@@ -1,9 +1,9 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import toast from 'react-hot-toast';
 import { shallowEqual } from 'react-redux';
-import Button from '../elements/Button';
-import ErrMsg from '../elements/ErrorMsg';
-import Input from '../elements/Input';
+import Button from '../../elements/Button';
+import ErrMsg from '../../elements/ErrorMsg';
+import Input from '../../elements/Input';
 import {
   setAddress1,
   setAddress2,
@@ -12,14 +12,14 @@ import {
   setName,
   setPayInfo,
   setPhone,
-} from '../redux/reducer/payInputSlice';
-import { useAppDispatch, useAppSelector } from '../redux/store';
+} from '../../redux/reducer/payInputSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 
-import theme from '../shared/style/theme';
-import { PayInputInitial } from '../shared/utils/inputInitialValue';
-import { PayReducer } from '../shared/utils/inputReducer';
-import * as t from '../style/paymentInput.style';
-import Address from './common/Address';
+import theme from '../../shared/style/theme';
+import { PayInputInitial } from '../../shared/utils/inputInitialValue';
+import { PayReducer } from '../../shared/utils/inputReducer';
+import * as t from '../../style/paymentInput.style';
+import Address from '../common/Address';
 import type { TUser } from './PaymentAddDefault';
 
 type TProps = {
