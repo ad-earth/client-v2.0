@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import loginLogo from '../assets/logInLogo.jpeg';
 import GlobalModal from '../components/common/GlobalModal';
 import LoginSearchModal from '../components/login/LoginSearchModal';
 import Button from '../elements/Button';
@@ -48,7 +47,7 @@ export default function LogInPage() {
     <>
       {searchModal}
       <t.Container>
-        <img src={loginLogo} alt="loginLogo" />
+        <img src="/assets/loginLogo.webp" alt="loginLogo" />
         <form onSubmit={handleSubmit}>
           <Input
             holderName="아이디"

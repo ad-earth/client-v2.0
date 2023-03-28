@@ -3,8 +3,6 @@ import { CgDetailsMore } from 'react-icons/cg';
 import { HiOutlineUser } from 'react-icons/hi';
 import { MdOutlineShoppingBag } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import headLogo from '../assets/headLogo.png';
-import whiteLogo from '../assets/whiteLogo.png';
 import { HEADCATEGORY } from '../constants';
 import useDropDown from '../hooks/useDropDown';
 import useScrHeader from '../hooks/useScrollHeader';
@@ -54,7 +52,11 @@ export default function Header() {
         <t.Nav isHeaderVisible={isHeaderVisible}>
           <t.LeftSection>
             <img
-              src={!isHeaderVisible ? `${headLogo}` : `${whiteLogo}`}
+              src={
+                !isHeaderVisible
+                  ? '/assets/headLogo.webp'
+                  : '/assets/whiteLogo.webp'
+              }
               alt="headLogo"
               onClick={routeToMain}
             />

@@ -1,4 +1,3 @@
-import defaultImage from '../assets/defaultImage.png';
 import * as t from '../style/profileImage.style';
 
 interface IProps {
@@ -14,7 +13,7 @@ export default function ProfileImage(props: IProps) {
   return (
     <t.Container>
       <t.UserImg
-        src={props.image ? props.image : defaultImage}
+        src={props.image ? props.image : '/assets/defaultImage.webp'}
         alt={props.name}
         {...props}
       />
