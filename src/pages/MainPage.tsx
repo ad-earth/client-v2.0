@@ -1,19 +1,10 @@
-import { useMemo } from 'react';
 import MainBanner from '../components/main/MainBanner';
 import MainLinks from '../components/main/MainLinks';
 import MainProducts from '../components/main/MainProducts';
-import useGetMainQuery from '../query/useGetMainQuery';
+import useMain from '../query/useMain';
 
 export default function MainPage() {
-  const query = useGetMainQuery();
-
-  const { bestList, newList } = useMemo(
-    () => ({
-      bestList: query.data?.data.Best,
-      newList: query.data?.data.New,
-    }),
-    [query]
-  );
+  const { bestList, newList } = useMain();
 
   return (
     <>
