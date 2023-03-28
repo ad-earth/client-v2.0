@@ -1,8 +1,8 @@
 import type { Dispatch, SetStateAction } from 'react';
-import useDeleteReview from '../query/useDeleteReview';
-import type { TReviews } from '../shared/types/types';
-import * as t from '../style/detailReviews.style';
-import Pagination from './common/Pagination';
+import Pagination from '../../elements/Pagination';
+import useDeleteReview from '../../query/useDeleteReview';
+import type { TReviews } from '../../shared/types/types';
+import * as t from '../../style/detailReviews.style';
 
 function DetailReviews({ reviewQty, reviewList, page, setPage }: PropsType) {
   const { mutate } = useDeleteReview();

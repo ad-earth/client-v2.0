@@ -1,10 +1,10 @@
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import type { ChangeEvent } from 'react';
 import { useRef, useState } from 'react';
+import Button from '../elements/Button';
 import usePostReviewQuery from '../query/usePostReviewQuery';
 import { useAppSelector } from '../redux/store';
 import * as t from '../style/myReviewModal.style';
-import Button from './common/Button';
 import ProductCard from './common/ProductCard';
 
 type TProps = {

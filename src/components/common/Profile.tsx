@@ -1,9 +1,9 @@
 import type { Dispatch, SetStateAction } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 import { AiOutlineCamera } from 'react-icons/ai';
+import ProfileImage from '../../elements/ProfileImage';
 import { imageUploader } from '../../shared/api/imageUploader';
 import * as t from '../../style/profile.style';
-import ProfileImage from './ProfileImage';
 interface IProp {
   imgUrl: string;
   setImgUrl: Dispatch<SetStateAction<string>>;

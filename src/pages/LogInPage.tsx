@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import loginLogo from '../assets/logInLogo.jpeg';
-import Button from '../components/common/Button';
 import GlobalModal from '../components/common/GlobalModal';
-import Input from '../components/common/Input';
 import LoginSearchModal from '../components/LoginSearchModal';
+import Button from '../elements/Button';
+import Input from '../elements/Input';
 import usePostLoginQuery from '../query/usePostLoginQuery';
 import theme from '../shared/style/theme';
 import * as t from '../style/loginPage.style';

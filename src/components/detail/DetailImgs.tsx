@@ -1,8 +1,8 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import type { IProductDetail } from '../shared/types/types';
-import * as t from '../style/detailImgs.style';
+import type { IProductDetail } from '../../shared/types/types';
+import * as t from '../../style/detailImgs.style';
 
 function DetailImgs({ product }: PropsType) {
   return (

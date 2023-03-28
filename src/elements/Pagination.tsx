@@ -1,7 +1,7 @@
 import { PaginationItem } from '@mui/material';
 import type { Dispatch, SetStateAction } from 'react';
 import React from 'react';
-import * as t from '../../style/pagination.style';
+import * as t from '../style/pagination.style';
 
 function Pagination({ pageCnt, page, setPage }: PropsType) {
   const pageCount = Math.ceil(pageCnt / 20);

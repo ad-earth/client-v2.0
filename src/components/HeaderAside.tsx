@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { CgMoreVerticalAlt } from 'react-icons/cg';
+import ProfileImage from '../elements/ProfileImage';
 import useDropDown from '../hooks/useDropDown';
 import theme from '../shared/style/theme';
 import * as t from '../style/headerAside.style';
 import GlobalModal from './common/GlobalModal';
 import { SideMenuDrop } from './common/MenuDrop';
-import ProfileImage from './common/ProfileImage';
 import type { CateType } from './Header';
 import { cateData } from './Header';
 import MyUserInfoModal from './MyUserInfoModal';

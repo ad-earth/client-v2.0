@@ -1,8 +1,8 @@
 import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import DetailContents from '../components/DetailContents';
-import DetailImgs from '../components/DetailImgs';
-import DetailInfo from '../components/DetailInfo';
+import DetailContents from '../components/detail/DetailContents';
+import DetailImgs from '../components/detail/DetailImgs';
+import DetailInfo from '../components/detail/DetailInfo';
 import useGetDetailQuery from '../query/useGetDetailQuery';
 import * as t from '../style/detailPage.style';
 

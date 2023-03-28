@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import CartItem from '../components/CartItem';
-import Button from '../components/common/Button';
+import Button from '../elements/Button';
 import useViewport from '../hooks/useViewport';
 import useDeleteCartQuery from '../query/useDeleteCartQuery';
 import useGetCartQuery from '../query/useGetCartQuery';

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as t from '../../style/button.style';
+import * as t from '../style/button.style';
 
 export interface BtnType {
   width?: string;

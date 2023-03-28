@@ -2,10 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import '../style/carousel.css';
-import useViewport from '../hooks/useViewport';
-import { banner } from '../shared/utils/imgUrls';
-import * as t from '../style/mainBanner.style';
+import '../../style/carousel.css';
+import useViewport from '../../hooks/useViewport';
+import { banner } from '../../shared/utils/imgUrls';
+import * as t from '../../style/mainBanner.style';
 
 function MainBanner() {
   const navigate = useNavigate();

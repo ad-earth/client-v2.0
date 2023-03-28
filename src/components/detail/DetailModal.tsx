@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import theme from '../shared/style/theme';
+import theme from '../../shared/style/theme';
 
 function DetailModal(props: { open: boolean }) {
   const navigate = useNavigate();

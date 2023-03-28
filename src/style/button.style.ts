@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import type { BtnType } from '../components/common/Button';
+import type { BtnType } from '../elements/Button';
 import theme from '../shared/style/theme';
 
 export const Btn = styled.button<BtnType>`

@@ -3,8 +3,8 @@ import {
   instagram,
   jigushopGrocery,
   plasticBag,
-} from '../shared/utils/imgUrls';
-import * as t from '../style/mainLinks.style';
+} from '../../shared/utils/imgUrls';
+import * as t from '../../style/mainLinks.style';
 
 function MainLinks() {
   const navigate = useNavigate();
