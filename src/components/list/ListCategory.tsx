@@ -1,16 +1,17 @@
-import type { Dispatch, SetStateAction } from 'react';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import * as t from '../../style/listCategory.style';
 
-function ListCategory({ category, setSort }: PropsType) {
+function ListCategory({ category }: PropsType) {
   const navigate = useNavigate();
   const [current, setCurrent] = useState<string>(category);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleClick = (e: React.FormEvent<HTMLButtonElement>) => {
     let selectedCategory = e.currentTarget.value;
     setCurrent(selectedCategory);
-    setSort('recent');
+    searchParams.set('sort', 'current');
+    setSearchParams(searchParams);
     navigate(`/list/${selectedCategory}`);
   };
 
@@ -37,7 +38,6 @@ function ListCategory({ category, setSort }: PropsType) {
 
 type PropsType = {
   category: string;
-  setSort: Dispatch<SetStateAction<string>>;
 };
 
 const categoryList = [

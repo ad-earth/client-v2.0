@@ -10,7 +10,6 @@ const useProduct = (category: string, sort: string, page: number) => {
     [queryKeys.LIST, [category, sort, page]],
     () => getList(category, sort, page),
     {
-      suspense: true,
       refetchOnWindowFocus: false,
     }
   );
