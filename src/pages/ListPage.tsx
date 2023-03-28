@@ -1,35 +1,30 @@
-import { useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
 import ListCards from '../components/list/ListCards';
 import ListCategory from '../components/list/ListCategory';
-import useGetListQuery from '../query/useGetListQuery';
+import useProduct from '../query/useProduct';
 
 function ListPage() {
   const { category } = useParams();
-  const [sort, setSort] = useState<string>('recent');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sort = searchParams.get('sort');
   const [page, setPage] = useState<number>(1);
 
-  const query = useGetListQuery(category, sort, page);
+  const { totalPages, products, likeList } = useProduct(category, sort, page);
 
-  const { pageCnt, products, likeList } = useMemo(
-    () => ({
-      pageCnt: query.data?.data.cnt,
-      products: query.data?.data.products,
-      likeList: query.data?.data.userLike,
-    }),
-    [query]
-  );
+  useEffect(() => {
+    searchParams.set('sort', 'recent');
+    setSearchParams(searchParams);
+  }, []);
 
   return (
     <>
-      <ListCategory category={category} setSort={setSort} />
+      <ListCategory category={category} />
       <ListCards
         products={products}
-        pageCnt={pageCnt}
+        totalPages={totalPages}
         likeList={likeList}
         page={page}
-        sort={sort}
-        setSort={setSort}
         setPage={setPage}
       />
     </>
