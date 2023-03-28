@@ -2,8 +2,8 @@ import React, { useEffect, useMemo } from 'react';
 import toast from 'react-hot-toast';
 import { IoCloseOutline } from 'react-icons/io5';
 import Button from '../../elements/Button';
+import useCart from '../../query/useCart';
 import useGetDetailQuery from '../../query/useGetDetailQuery';
-import usePutCartQuery from '../../query/usePutCartQuery';
 import { setOptions } from '../../redux/reducer/optionSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import theme from '../../shared/style/theme';
@@ -40,12 +40,12 @@ export default function CartOptionModal({ onClose }: TProps) {
     option: optionFromSlice,
     keyword: keywordNo,
   };
-  const { mutate: cartMutate } = usePutCartQuery();
+  const { updateCartItem } = useCart();
   const handleCart = () => {
     if (product && optionFromSlice.length === 0)
       toast.error('상품을 먼저 선택해주세요.');
     else {
-      cartMutate(cartData, {
+      updateCartItem.mutate(cartData, {
         onSuccess: () => {
           const acc = localStorage.getItem('cartStatus');
           const cur = Number(acc) + 1;

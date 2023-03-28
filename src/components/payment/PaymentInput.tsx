@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import useDeletePaymentAddressQuery from '../../query/useDeletePaymentAddressQuery';
+import usePayment from '../../query/usePayment';
 import { setMemo, setPayInfo } from '../../redux/reducer/payInputSlice';
 import { useAppDispatch } from '../../redux/store';
 import * as t from '../../style/paymentInput.style';
@@ -54,9 +54,9 @@ export default function PaymentInput({
     }
   };
 
-  const { mutate } = useDeletePaymentAddressQuery();
+  const { deletePayAddress } = usePayment();
   const handleDelete = (d_No: number) => {
-    mutate(d_No, {
+    deletePayAddress.mutate(d_No, {
       onSuccess: () => {
         toast.success('이전 배송지 정보를 삭제하였습니다.');
       },

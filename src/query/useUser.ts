@@ -1,5 +1,4 @@
 import type { AxiosError, AxiosResponse } from 'axios';
-import type { UseMutationResult } from 'react-query';
 import { useMutation } from 'react-query';
 import { putUserInfoChange } from './../shared/api/userApi';
 import type { TError } from './../shared/types/types';
@@ -14,30 +13,23 @@ export interface TUserInfoData {
   u_Img: string;
 }
 
-export default function useUser() {
-  const putUserInfo: UseMutationResult<
+const useUser = () => {
+  const putUserInfo = useMutation<
     AxiosResponse,
     AxiosError<TError>,
     TUserInfoData
-  > = useMutation<AxiosResponse, AxiosError<TError>, TUserInfoData>(
-    ({
-      u_Name,
-      u_Address1,
-      u_Address2,
-      u_Address3,
-      u_Gender,
-      u_Img,
-      u_Phone,
-    }) =>
-      putUserInfoChange(
-        u_Name,
-        u_Address1,
-        u_Address2,
-        u_Address3,
-        u_Gender,
-        u_Phone,
-        u_Img
-      )
+  >(data =>
+    putUserInfoChange(
+      data.u_Name,
+      data.u_Address1,
+      data.u_Address2,
+      data.u_Address3,
+      data.u_Gender,
+      data.u_Phone,
+      data.u_Img
+    )
   );
   return { putUserInfo };
-}
+};
+
+export default useUser;

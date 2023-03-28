@@ -1,20 +1,13 @@
-import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../elements/Button';
-import useGetCompleteQuery from '../query/useGetCompleteQuery';
+import usePayment from '../query/usePayment';
 import * as t from '../style/completePage.style';
 
 export default function CompletePage() {
   const {
     state: { price },
   } = useLocation();
-  const query = useGetCompleteQuery();
-  const { data } = useMemo(
-    () => ({
-      data: query.data?.data,
-    }),
-    [query]
-  );
+  const { completeInfo } = usePayment();
 
   const navigate = useNavigate();
   const routeToMain = () => navigate('/');
@@ -46,17 +39,17 @@ export default function CompletePage() {
           </t.Wrap>
           <t.Wrap>
             <t.Title>주문 번호</t.Title>
-            <t.InfoText>{data?.o_No}</t.InfoText>
+            <t.InfoText>{completeInfo?.o_No}</t.InfoText>
           </t.Wrap>
           <t.Wrap>
             <t.Title>배송지</t.Title>
             <t.InfoWrap>
-              <t.InfoText>{data?.d_Name}</t.InfoText>
-              <t.InfoText>{data?.d_Phone}</t.InfoText>
+              <t.InfoText>{completeInfo?.d_Name}</t.InfoText>
+              <t.InfoText>{completeInfo?.d_Phone}</t.InfoText>
               <t.InfoText>
-                {data?.d_Address2} {data?.d_Address3}
+                {completeInfo?.d_Address2} {completeInfo?.d_Address3}
               </t.InfoText>
-              <t.HighText>({data?.d_Address1})</t.HighText>
+              <t.HighText>({completeInfo?.d_Address1})</t.HighText>
             </t.InfoWrap>
           </t.Wrap>
           <t.Wrap>

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { shallowEqual } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -8,8 +8,7 @@ import ProductCard from '../components/common/ProductCard';
 import PaymentInput from '../components/payment/PaymentInput';
 import Button from '../elements/Button';
 import Input from '../elements/Input';
-import useGetPaymentQuery from '../query/useGetPaymentQuery';
-import usePostPaymentQuery from '../query/usePostPaymentQuery';
+import usePayment from '../query/usePayment';
 import { setPayInfo } from '../redux/reducer/payInputSlice';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import theme from '../shared/style/theme';
@@ -22,21 +21,15 @@ export default function PaymentPage() {
   const {
     state: { type, productNo },
   } = useLocation();
-  const query = useGetPaymentQuery(type, productNo);
-  const { userInfo, addressList, products, price } = useMemo(
-    () => ({
-      userInfo: query.data?.data.userInfo,
-      addressList: query.data?.data.addressList,
-      products: query.data?.data.products,
-      price: query.data?.data.o_Price,
-    }),
-    [query]
+  const { userInfo, addressList, products, price } = usePayment(
+    type,
+    productNo
   );
 
   const cartStatus = localStorage.getItem('cartStatus');
   const currStatus = Number(cartStatus) - products?.length;
   const navigate = useNavigate();
-  const { mutate } = usePostPaymentQuery();
+  const { postPay } = usePayment();
   const handleBuy = () => {
     if (!payInfo.d_Name && !payInfo.d_Phone)
       toast.error('이름과 연락처를 확인해주세요!');
@@ -52,7 +45,7 @@ export default function PaymentPage() {
         products: products,
         o_Price: price,
       };
-      mutate(data, {
+      postPay.mutate(data, {
         onSuccess: () => {
           toast.success('상품 구매에 성공하였습니다 😊');
           localStorage.setItem('cartStatus', String(currStatus));

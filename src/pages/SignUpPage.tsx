@@ -6,8 +6,8 @@ import Profile from '../components/common/Profile';
 import Button from '../elements/Button';
 import ErrMsg from '../elements/ErrorMsg';
 import Input from '../elements/Input';
-import type { TSignUpData } from '../query/usePostSignupQuery';
-import usePostSignupQuery from '../query/usePostSignupQuery';
+import type { TSignUpData } from '../query/useAuth';
+import useAuth from '../query/useAuth';
 import theme from '../shared/style/theme';
 import { signupInitial } from '../shared/utils/inputInitialValue';
 import { inputReducer } from '../shared/utils/inputReducer';
@@ -51,12 +51,12 @@ export default function SignUpPage() {
     imgUrl,
   ]);
 
-  const { mutate } = usePostSignupQuery(formData);
+  const { signup } = useAuth();
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
   const handleSignup = () => {
-    mutate(formData, {
+    signup.mutate(formData, {
       onSuccess: () => {
         toast.success(
           `${formData.u_Name}님 환영합니다. 지구샵은 로그인 후 이용해주세요!`

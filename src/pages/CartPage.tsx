@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import CartItem from '../components/cart/CartItem';
 import Button from '../elements/Button';
 import useViewport from '../hooks/useViewport';
-import useDeleteCartQuery from '../query/useDeleteCartQuery';
-import useGetCartQuery from '../query/useGetCartQuery';
+import useCart from '../query/useCart';
 import { setCheckedList } from '../redux/reducer/cartSlice';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import theme from '../shared/style/theme';
@@ -13,18 +12,12 @@ import * as t from '../style/cartPage.style';
 
 export default function CartPage() {
   const viewport = useViewport();
-  const query = useGetCartQuery();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [allChecked, setAllChecked] = useState<boolean>(false);
   const checkedItem = useAppSelector(state => state.cartSlice.checkedList);
 
-  const { cartList } = useMemo(
-    () => ({
-      cartList: query.data?.data.cartList,
-    }),
-    [query]
-  );
+  const { cartList } = useCart();
 
   const handleCheck = () => {
     setAllChecked(!allChecked);
@@ -39,16 +32,16 @@ export default function CartPage() {
     }
   }, [checkedItem]);
 
-  const { mutate } = useDeleteCartQuery();
+  const { removeCartItem } = useCart();
   const handleDelete = () => {
     const productNo = checkedItem.map(item => item.p_No);
     const data = {
       type: 'c',
       p_Nos: String(productNo.join()),
     };
-    mutate(data, {
+    removeCartItem.mutate(data, {
       onSuccess: () => {
-        alert('상품을 삭제하였습니다.');
+        toast.success('상품을 삭제하였습니다.');
         dispatch(setCheckedList([]));
         localStorage.setItem(
           'cartStatus',
