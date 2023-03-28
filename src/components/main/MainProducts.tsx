@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { IProductCard } from '../../shared/types/types';
 import * as t from '../../style/mainProducts.style';
-import Card from '../common/Card';
+import SkeletonCard from '../common/SkeletonCard';
+const MainCards = React.lazy(() => import('./MainCards'));
 
 type TProps = {
   list: IProductCard[];
@@ -19,11 +20,15 @@ export default function MainProducts({ list, children }: TProps) {
           <img src={productImg} alt="대표 상품" />
         </t.Image>
       </t.TitleWrapper>
-      <t.CardWrapper>
-        {list?.map(el => (
-          <Card key={el.p_No} product={el} isAd={false} />
-        ))}
-      </t.CardWrapper>
+      <Suspense
+        fallback={
+          <t.CardWrapper>
+            <SkeletonCard />
+          </t.CardWrapper>
+        }
+      >
+        <MainCards list={list} />
+      </Suspense>
     </t.Container>
   );
 }

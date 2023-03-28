@@ -11,7 +11,7 @@ type TProps = {
   isAd: boolean;
 };
 
-function Card({ product, likeList, isAd }: TProps) {
+export default function Card({ product, likeList, isAd }: TProps) {
   const navigate = useNavigate();
   const [imageIdx, setImageIdx] = useState<number>(0);
 
@@ -84,5 +84,3 @@ function Card({ product, likeList, isAd }: TProps) {
     </>
   );
 }
-
-export default Card;
