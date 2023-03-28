@@ -1,7 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as t from '../style/listCategory.style';
+import * as t from '../../style/listCategory.style';
 
 function ListCategory({ category, setSort }: PropsType) {
   const navigate = useNavigate();

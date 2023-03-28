@@ -1,7 +1,7 @@
 import React from 'react';
-import type { IProductCard } from '../shared/types/types';
-import * as t from '../style/mainProducts.style';
-import Card from './common/Card';
+import type { IProductCard } from '../../shared/types/types';
+import * as t from '../../style/mainProducts.style';
+import Card from '../common/Card';
 
 type TProps = {
   list: IProductCard[];

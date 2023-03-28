@@ -1,15 +1,15 @@
 import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
-import usePutCartQuery from '../query/usePutCartQuery';
-import { useAppSelector } from '../redux/store';
-import theme from '../shared/style/theme';
-import type { IProductDetail } from '../shared/types/types';
-import * as t from '../style/detailInfo.style';
-import Badge from './common/Badge';
-import Button from './common/Button';
-import Heart from './common/Heart';
-import Option from './common/Option';
+import Badge from '../../elements/Badge';
+import Button from '../../elements/Button';
+import Heart from '../../elements/Heart';
+import usePutCartQuery from '../../query/usePutCartQuery';
+import { useAppSelector } from '../../redux/store';
+import theme from '../../shared/style/theme';
+import type { IProductDetail } from '../../shared/types/types';
+import * as t from '../../style/detailInfo.style';
+import Option from '../common/Option';
 import DetailModal from './DetailModal';
 
 type TProps = {

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import ListCards from '../components/ListCards';
-import ListCategory from '../components/ListCategory';
+import ListCards from '../components/list/ListCards';
+import ListCategory from '../components/list/ListCategory';
 import useGetListQuery from '../query/useGetListQuery';
 
 function ListPage() {

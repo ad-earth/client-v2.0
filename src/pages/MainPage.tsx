@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import MainBanner from '../components/MainBanner';
-import MainLinks from '../components/MainLinks';
-import MainProducts from '../components/MainProducts';
+import MainBanner from '../components/main/MainBanner';
+import MainLinks from '../components/main/MainLinks';
+import MainProducts from '../components/main/MainProducts';
 import useGetMainQuery from '../query/useGetMainQuery';
 
 function MainPage() {

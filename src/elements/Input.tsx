@@ -1,4 +1,4 @@
-import * as t from '../../style/input.style';
+import * as t from '../style/input.style';
 
 export interface InputType {
   outline?: string;

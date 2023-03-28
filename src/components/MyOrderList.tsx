@@ -1,11 +1,11 @@
 import type { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from '../elements/Button';
 import { setReviewData } from '../redux/reducer/reviewSlice';
 import { useAppDispatch } from '../redux/store';
 import theme from '../shared/style/theme';
 import type { IMyProduct } from '../shared/types/types';
 import * as t from '../style/myOderList.style';
-import Button from './common/Button';
 import ProductCard from './common/ProductCard';
 
 type TProps = {

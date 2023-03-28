@@ -1,4 +1,4 @@
-import * as t from '../../style/badge.style';
+import * as t from '../style/badge.style';
 
 function Badge({ type }: BadgeType) {
   return (

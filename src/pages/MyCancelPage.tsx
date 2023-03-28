@@ -1,9 +1,9 @@
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import Button from '../components/common/Button';
 import ProductCard from '../components/common/ProductCard';
 import MyCancelAmount from '../components/MyCancelAmount';
+import Button from '../elements/Button';
 import useViewport from '../hooks/useViewport';
 import usePutCancelQuery from '../query/usePutCancelQuery';
 import type { Product } from '../shared/types/types';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import usePostLikeQuery from '../../query/usePostLikeQuery';
-import * as t from '../../style/heart.style';
+import usePostLikeQuery from '../query/usePostLikeQuery';
+import * as t from '../style/heart.style';
 
 type TProps = {
   productNo: number;

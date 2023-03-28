@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import type { InputType } from '../components/common/Input';
+import type { InputType } from '../elements/Input';
 import theme from '../shared/style/theme';
 
 export const MyInput = styled.input<InputType>`

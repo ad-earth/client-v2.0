@@ -1,10 +1,10 @@
 import type { Dispatch, SetStateAction } from 'react';
 import React, { useEffect, useState } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
+import Button from '../../elements/Button';
+import Input from '../../elements/Input';
 import theme from '../../shared/style/theme';
 import * as t from '../../style/address.style';
-import Button from './Button';
-import Input from './Input';
 
 export interface PropsType {
   zipcode: string;

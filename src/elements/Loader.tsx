@@ -1,8 +1,8 @@
 import React from 'react';
 import { useIsFetching, useIsMutating } from 'react-query';
 import { FadeLoader } from 'react-spinners';
-import theme from '../../shared/style/theme';
-import * as t from '../../style/loader.style';
+import theme from '../shared/style/theme';
+import * as t from '../style/loader.style';
 
 function Loader() {
   const isFetching = useIsFetching();

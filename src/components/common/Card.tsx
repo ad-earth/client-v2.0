@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Badge from '../../elements/Badge';
+import Heart from '../../elements/Heart';
 import type { IProductCard } from '../../shared/types/types';
 import * as t from '../../style/card.style';
-import Badge from './Badge';
-import Heart from './Heart';
 
 type PropsType = {
   isAd: boolean;

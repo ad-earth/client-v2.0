@@ -1,5 +1,8 @@
 import { useEffect, useReducer, useState } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
+import Button from '../elements/Button';
+import ErrMsg from '../elements/ErrorMsg';
+import Input from '../elements/Input';
 import type { TUserInfoData } from '../query/usePutMyUserInfoQuery';
 import usePutUserInfoQuery from '../query/usePutMyUserInfoQuery';
 import theme from '../shared/style/theme';
@@ -7,9 +10,6 @@ import { InfoInitial } from '../shared/utils/inputInitialValue';
 import { infoReducer } from '../shared/utils/inputReducer';
 import * as t from '../style/myUserInfoModal.style';
 import Address from './common/Address';
-import Button from './common/Button';
-import ErrMsg from './common/ErrorMsg';
-import Input from './common/Input';
 import Profile from './common/Profile';
 
 type TProps = {

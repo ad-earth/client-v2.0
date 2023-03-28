@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import theme from '../../shared/style/theme';
+import theme from '../shared/style/theme';
 
 interface PropsType {
   msg?: string;

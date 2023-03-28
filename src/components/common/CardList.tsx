@@ -4,11 +4,11 @@ import type { SelectChangeEvent } from '@mui/material/Select';
 import Select from '@mui/material/Select';
 import { useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
+import Pagination from '../../elements/Pagination';
 import theme from '../../shared/style/theme';
 import type { IProductCard } from '../../shared/types/types';
 import * as t from '../../style/cardList.style';
 import Card from './Card';
-import Pagination from './Pagination';
 
 type PropsType = {
   pageCnt: number;

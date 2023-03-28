@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Button from '../components/common/Button';
+import Button from '../elements/Button';
 import useGetCompleteQuery from '../query/useGetCompleteQuery';
 import * as t from '../style/completePage.style';
 
