@@ -1,10 +1,11 @@
 import { useEffect, useReducer, useState } from 'react';
+import toast from 'react-hot-toast';
 import { IoCloseOutline } from 'react-icons/io5';
 import Button from '../elements/Button';
 import ErrMsg from '../elements/ErrorMsg';
 import Input from '../elements/Input';
-import type { TUserInfoData } from '../query/usePutMyUserInfoQuery';
-import usePutUserInfoQuery from '../query/usePutMyUserInfoQuery';
+import type { TUserInfoData } from '../query/useUser';
+import useUser from '../query/useUser';
 import theme from '../shared/style/theme';
 import { InfoInitial } from '../shared/utils/inputInitialValue';
 import { infoReducer } from '../shared/utils/inputReducer';
@@ -38,14 +39,14 @@ export default function MyUserInfoModal({ onClose }: TProps) {
       u_Img: imgUrl,
     });
   }, [name.val, gender.val, phone.val, zipcode, address, extraAddress, imgUrl]);
-  const { mutate } = usePutUserInfoQuery(formData);
+  const { putUserInfo } = useUser();
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
   const handlePutUserInfo = () => {
-    mutate(formData, {
+    putUserInfo.mutate(formData, {
       onSuccess: () => {
-        alert(`${formData.u_Name}님의 정보를 수정하였습니다!`);
+        toast.success(`${formData.u_Name}님의 정보를 수정하였습니다!`);
         const editUserData = {
           u_Idx: userInfo.u_Idx,
           u_Id: userInfo.u_Id,
