@@ -8,7 +8,11 @@ import type { TMainResponse } from '../shared/types/types';
 const useMain = () => {
   const { data } = useQuery<AxiosResponse<TMainResponse>, Error>(
     queryKeys.MAIN,
-    getMain
+    getMain,
+    {
+      suspense: true,
+      refetchOnWindowFocus: false,
+    }
   );
 
   const { bestList, newList } = useMemo(
