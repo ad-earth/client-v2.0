@@ -11,12 +11,14 @@ export default function MainBanner() {
   const navigate = useNavigate();
   const viewport = useViewport();
 
+  const handleClick = (category: string) => navigate(`/list/${category}`);
+
   return (
-    <Slider {...carouselSetting}>
+    <Slider {...SETTING}>
       {BANNER.map(({ id, category, url1, url2 }) => (
         <t.BannerImg
           key={id}
-          onClick={() => navigate(`/list/${category}`)}
+          onClick={() => handleClick(category)}
           src={viewport > 990 ? url1 : url2}
           alt="배너"
         />
@@ -25,7 +27,7 @@ export default function MainBanner() {
   );
 }
 
-const carouselSetting = {
+const SETTING = {
   autoplaySpeed: 3000,
   autoplay: true,
   dotsClass: 'dotsCustom',

@@ -9,12 +9,14 @@ type TProps = {
 };
 
 export default function MainProducts({ list, children }: TProps) {
+  const productImg = list && list[0].p_Thumbnail[0];
+
   return (
     <t.Container>
       <t.TitleWrapper>
         <t.Title>{children}</t.Title>
         <t.Image>
-          <img src={list && list[0].p_Thumbnail[0]} alt="베스트 상품" />
+          <img src={productImg} alt="대표 상품" />
         </t.Image>
       </t.TitleWrapper>
       <t.CardWrapper>
