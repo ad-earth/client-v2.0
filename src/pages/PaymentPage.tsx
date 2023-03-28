@@ -6,6 +6,7 @@ import PayDrop from '../components/common/PayDrop';
 import type { Tprops } from '../components/common/ProductCard';
 import ProductCard from '../components/common/ProductCard';
 import PaymentInput from '../components/payment/PaymentInput';
+import { PAYMENTINFO } from '../constants';
 import Button from '../elements/Button';
 import Input from '../elements/Input';
 import usePayment from '../query/usePayment';
@@ -119,7 +120,7 @@ export default function PaymentPage() {
                 <t.Radio type="radio" defaultChecked />
                 <label>무통장입금</label>
               </t.CheckBox>
-              <PayDrop payment={payment} drop={drop} setDrop={setDrop} />
+              <PayDrop payment={PAYMENTINFO} drop={drop} setDrop={setDrop} />
               <Input {...inputStyle} defaultValue={payInfo?.d_Name} />
               <h4>※ 주문 후 24시간동안 미입금시 자동취소됩니다.</h4>
             </article>
@@ -169,4 +170,3 @@ const inputStyle = {
   padding: '10px 20px',
   marginTop: '10px',
 };
-const payment = [{ text: '지구은행 123456789 (주)광고지구' }];

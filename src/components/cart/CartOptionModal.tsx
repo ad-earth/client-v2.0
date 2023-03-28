@@ -9,12 +9,11 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import theme from '../../shared/style/theme';
 import * as t from '../../style/cartOptionModal.style';
 import Option from '../common/Option';
-
-type TProps = {
+interface IProps {
   onClose: () => void;
-};
+}
 
-export default function CartOptionModal({ onClose }: TProps) {
+export default function CartOptionModal({ onClose }: IProps) {
   const dispatch = useAppDispatch();
   const productNo = useAppSelector(state => state.cartSlice.productNo);
   const keywordNo = useAppSelector(state => state.cartSlice.keywordNo);

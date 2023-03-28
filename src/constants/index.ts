@@ -35,3 +35,36 @@ export const CATEGORYLIST = [
   '화장품',
   '문구',
 ];
+
+export const HEADCATEGORY = [
+  { id: 1, cate: '전체', path: '/list/전체' },
+  { id: 2, cate: '욕실', path: '/list/욕실' },
+  { id: 3, cate: '주방', path: '/list/주방' },
+  { id: 4, cate: '음료용품', path: '/list/음료용품' },
+  { id: 5, cate: '생활', path: '/list/생활' },
+  { id: 6, cate: '식품', path: '/list/식품' },
+  { id: 7, cate: '화장품', path: '/list/화장품' },
+  { id: 8, cate: '문구', path: '/list/문구' },
+];
+
+export const ASIDECATEGORY = [
+  { id: 1, cate: '마이페이지', path: '/mypage' },
+  { id: 2, cate: '장바구니', path: '/cart' },
+  { id: 3, cate: '주문배송', path: '/mypage' },
+  { id: 4, cate: '위시리스트', path: '/mypage' },
+];
+
+export const PAYINFOTAB = [
+  { id: 'default', title: '기본 배송지' },
+  { id: 'before', title: '이전 배송지 선택' },
+  { id: 'new', title: '신규 배송지 입력' },
+];
+export const DELIVERYINFO = [
+  { text: '배송 전에 미리 연락바랍니다.' },
+  { text: '부재시 경비실에 맡겨주세요.' },
+  { text: '부재시 문자나 전화를 남겨주세요.' },
+];
+export const PAYMENTINFO = [{ text: '지구은행 123456789 (주)광고지구' }];
+
+export const SCROLL_DELTA = 87;
+export const HEADER_HEIGHT = 87;

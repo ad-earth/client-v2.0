@@ -14,19 +14,17 @@ import {
   setPhone,
 } from '../../redux/reducer/payInputSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-
 import theme from '../../shared/style/theme';
 import { PayInputInitial } from '../../shared/utils/inputInitialValue';
 import { PayReducer } from '../../shared/utils/inputReducer';
 import * as t from '../../style/paymentInput.style';
 import Address from '../common/Address';
 import type { TUser } from './PaymentAddDefault';
-
-type TProps = {
+interface IProps {
   isTabOpen: boolean;
-};
+}
 
-export default function PaymentAddNew(isTabOpen: TProps) {
+export default function PaymentAddNew(isTabOpen: IProps) {
   const dispatch = useAppDispatch();
   const memo = useAppSelector(
     state => state.payInputSlice.d_Memo,

@@ -1,7 +1,7 @@
 import defaultImage from '../assets/defaultImage.png';
 import * as t from '../style/profileImage.style';
 
-interface IProp {
+interface IProps {
   image: string;
   name: string;
   id?: string;
@@ -10,7 +10,7 @@ interface IProp {
   onClick?: () => void;
 }
 
-export default function ProfileImage(props: IProp) {
+export default function ProfileImage(props: IProps) {
   return (
     <t.Container>
       <t.UserImg

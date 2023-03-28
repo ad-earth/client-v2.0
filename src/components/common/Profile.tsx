@@ -4,12 +4,12 @@ import { AiOutlineCamera } from 'react-icons/ai';
 import ProfileImage from '../../elements/ProfileImage';
 import { imageUploader } from '../../shared/api/imageUploader';
 import * as t from '../../style/profile.style';
-interface IProp {
+interface IProps {
   imgUrl: string;
   setImgUrl: Dispatch<SetStateAction<string>>;
 }
 
-function Profile({ imgUrl, setImgUrl }: IProp) {
+function Profile({ imgUrl, setImgUrl }: IProps) {
   const [isUser, setIsUser] = useState<boolean>(false);
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
