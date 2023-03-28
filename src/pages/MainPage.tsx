@@ -4,7 +4,7 @@ import MainLinks from '../components/main/MainLinks';
 import MainProducts from '../components/main/MainProducts';
 import useGetMainQuery from '../query/useGetMainQuery';
 
-function MainPage() {
+export default function MainPage() {
   const query = useGetMainQuery();
 
   const { bestList, newList } = useMemo(
@@ -36,5 +36,3 @@ function MainPage() {
     </>
   );
 }
-
-export default MainPage;

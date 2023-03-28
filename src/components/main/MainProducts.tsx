@@ -8,7 +8,7 @@ type TProps = {
   children: React.ReactNode;
 };
 
-function MainProducts({ list, children }: TProps) {
+export default function MainProducts({ list, children }: TProps) {
   return (
     <t.Container>
       <t.TitleWrapper>
@@ -25,5 +25,3 @@ function MainProducts({ list, children }: TProps) {
     </t.Container>
   );
 }
-
-export default MainProducts;

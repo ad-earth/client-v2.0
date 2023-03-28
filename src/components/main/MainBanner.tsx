@@ -3,17 +3,17 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../../style/carousel.css';
+import { BANNER } from '../../constants';
 import useViewport from '../../hooks/useViewport';
-import { banner } from '../../shared/utils/imgUrls';
 import * as t from '../../style/mainBanner.style';
 
-function MainBanner() {
+export default function MainBanner() {
   const navigate = useNavigate();
   const viewport = useViewport();
 
   return (
     <Slider {...carouselSetting}>
-      {banner.map(({ id, category, url1, url2 }) => (
+      {BANNER.map(({ id, category, url1, url2 }) => (
         <t.BannerImg
           key={id}
           onClick={() => navigate(`/list/${category}`)}
@@ -38,5 +38,3 @@ const carouselSetting = {
     </t.DotsWrapper>
   ),
 };
-
-export default MainBanner;
