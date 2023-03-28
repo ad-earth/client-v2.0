@@ -1,10 +1,15 @@
 import { useState } from 'react';
+import { DELIVERY } from '../../constants';
 import useGetReviewsQuery from '../../query/useGetReviewsQuery';
-import { delivery } from '../../shared/utils/imgUrls';
 import * as t from '../../style/detailContents.style';
 import DetailReviews from './DetailReviews';
 
-function DetailContents({ productNo, content }: PropsType) {
+type TProps = {
+  productNo: number;
+  content: string;
+};
+
+export default function DetailContents({ productNo, content }: TProps) {
   const [menuSwitch, setMenuSwitch] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const query = useGetReviewsQuery(productNo, page);
@@ -33,7 +38,7 @@ function DetailContents({ productNo, content }: PropsType) {
           <t.DescWrapper>
             <div dangerouslySetInnerHTML={createMarkup()}></div>
             <p className="title">배송정보</p>
-            <img src={delivery} alt="배송정보" />
+            <img src={DELIVERY} alt="배송정보" />
             <p>
               - 모든 제품의 배송은 Plastic Free 원칙으로 종이재질로 발송됩니다.
               (종이박스, 종이완충재, 종이테이프)
@@ -50,9 +55,3 @@ function DetailContents({ productNo, content }: PropsType) {
     </t.Container>
   );
 }
-
-type PropsType = {
-  productNo: number;
-  content: string;
-};
-export default DetailContents;
