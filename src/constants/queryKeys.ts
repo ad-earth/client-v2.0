@@ -6,6 +6,7 @@ const queryKeys = {
   COMPLETE: 'complete',
   FINDID: 'findId',
   FINDPWD: 'findPwd',
+  AD: 'ad',
 };
 
 export default queryKeys;

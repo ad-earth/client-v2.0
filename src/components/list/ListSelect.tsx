@@ -29,7 +29,7 @@ export default function ListSelect() {
           onClose={toggle}
           onOpen={toggle}
           onChange={handleChange}
-          value={sort}
+          defaultValue={sort}
           label="sort"
           style={{ fontSize: `${theme.fs15}`, color: `${theme.fc08}` }}
         >

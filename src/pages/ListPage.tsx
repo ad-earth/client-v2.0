@@ -10,7 +10,11 @@ function ListPage() {
   const sort = searchParams.get('sort');
   const [page, setPage] = useState<number>(1);
 
-  const { totalPages, products, likeList } = useProduct(category, sort, page);
+  const { totalPages, products, likeList } = useProduct({
+    page: page,
+    category: category,
+    sort: sort,
+  });
 
   useEffect(() => {
     searchParams.set('sort', 'recent');
