@@ -5,13 +5,14 @@ import ProductCard from '../components/common/ProductCard';
 import MyCancelAmount from '../components/MyCancelAmount';
 import Button from '../elements/Button';
 import useViewport from '../hooks/useViewport';
-import usePutCancelQuery from '../query/usePutCancelQuery';
+import useOrder from '../query/useOrder';
 import type { Product } from '../shared/types/types';
 import * as t from '../style/myCancelPage.style';
 
 type TLocation = {
   products: Product[];
 };
+
 export default function MyCancelPage() {
   const viewport = useViewport();
   const navigate = useNavigate();
@@ -22,7 +23,8 @@ export default function MyCancelPage() {
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
   const [checkPrice] = useState<number>(0);
 
-  const putProduct = usePutCancelQuery();
+  const { cancelProduct } = useOrder();
+
   const cancleClick = () => {
     switch (checkedItems.length === 0) {
       case true: {
@@ -30,8 +32,8 @@ export default function MyCancelPage() {
         break;
       }
       default: {
-        putProduct.mutate({
-          id: id,
+        cancelProduct.mutate({
+          p_Id: id,
           p_No: checkedItems,
         });
         break;
