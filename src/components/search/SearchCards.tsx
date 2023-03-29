@@ -13,14 +13,7 @@ type PropsType = {
   setPage: Dispatch<SetStateAction<number>>;
 };
 
-function SearchCards({
-  pageCnt,
-  ads,
-  products,
-  likeList,
-  page,
-  setPage,
-}: PropsType) {
+function SearchCards({ pageCnt, ads, products, likeList }: PropsType) {
   return (
     <t.Container>
       {ads?.length === 0 && products?.length === 0 ? (
@@ -35,7 +28,7 @@ function SearchCards({
           ))}
         </t.Wrapper>
       )}
-      <Pagination pageCnt={pageCnt} page={page} setPage={setPage} />
+      <Pagination pageCnt={pageCnt} />
     </t.Container>
   );
 }

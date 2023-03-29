@@ -1,4 +1,3 @@
-import type { Dispatch, SetStateAction } from 'react';
 import Pagination from '../../elements/Pagination';
 import type { IProductCard } from '../../shared/types/types';
 import * as t from '../../style/listCards.style';
@@ -9,11 +8,9 @@ type TProps = {
   totalPages: number;
   products: IProductCard[];
   likeList: number[];
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>;
 };
 
-function ListCards({ totalPages, products, likeList, page, setPage }: TProps) {
+function ListCards({ totalPages, products, likeList }: TProps) {
   return (
     <t.Container>
       <ListSelect />
@@ -22,7 +19,7 @@ function ListCards({ totalPages, products, likeList, page, setPage }: TProps) {
       ) : (
         <ListCardGrid products={products} likeList={likeList} />
       )}
-      <Pagination pageCnt={totalPages} page={page} setPage={setPage} />
+      <Pagination pageCnt={totalPages} />
     </t.Container>
   );
 }
