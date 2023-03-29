@@ -1,8 +1,8 @@
 import type { Dispatch, SetStateAction } from 'react';
-import Pagination from '../elements/Pagination';
-import type { IProductCard } from '../shared/types/types';
-import * as t from '../style/listCards.style';
-import Card from './common/Card';
+import Pagination from '../../elements/Pagination';
+import type { IProductCard } from '../../shared/types/types';
+import * as t from '../../style/listCards.style';
+import Card from '../common/Card';
 
 type PropsType = {
   pageCnt: number;

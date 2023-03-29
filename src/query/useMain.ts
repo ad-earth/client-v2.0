@@ -10,7 +10,6 @@ const useMain = () => {
     queryKeys.MAIN,
     getMain,
     {
-      suspense: true,
       refetchOnWindowFocus: false,
     }
   );

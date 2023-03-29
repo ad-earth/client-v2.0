@@ -1,24 +1,22 @@
-import React, { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import SearchCards from '../components/SearchCards';
-import useGetAdListQuery from '../query/useGetAdListQuery';
+import SearchCards from '../components/search/SearchCards';
+import useProduct from '../query/useProduct';
 import * as t from '../style/searchPage.style';
 
 function SearchPage() {
   const { keyword } = useParams();
   const [page, setPage] = useState<number>(1);
 
-  const query = useGetAdListQuery(keyword, page);
-
-  const { pageCnt, products, ads, likeList } = useMemo(
-    () => ({
-      pageCnt: query.data?.data.cnt,
-      products: query.data?.data.products,
-      ads: query.data?.data.adProducts,
-      likeList: query.data?.data.userLike,
-    }),
-    [query]
-  );
+  const {
+    pageCnt,
+    productList: products,
+    adProducts: ads,
+    likeProducts: likeList,
+  } = useProduct({
+    page: page,
+    keyword: keyword,
+  });
 
   return (
     <>
