@@ -43,6 +43,7 @@ export default function Card({ product, likeList, isAd }: TProps) {
               onMouseLeave={handleLeave}
               src={product.p_Thumbnail[imageIdx]}
               alt="상품 사진"
+              loading="lazy"
             />
             {isAd && <Badge type={'AD'} />}
           </t.ImgWrapper>
