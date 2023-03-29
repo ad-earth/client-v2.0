@@ -45,7 +45,7 @@ const useAuth = (idData?: ISearchIdData, pwdData?: TSearchPwdData) => {
   const searchId = useQuery<
     AxiosResponse<IIdSearchResponse>,
     AxiosError<TError>
-  >([queryKeys.FINDID], () => getId(idData.u_Name, idData.u_Phone), {
+  >([queryKeys.FINDID, idData], () => getId(idData.u_Name, idData.u_Phone), {
     enabled: false,
     retry: 0,
   });
@@ -54,7 +54,7 @@ const useAuth = (idData?: ISearchIdData, pwdData?: TSearchPwdData) => {
     AxiosResponse<IPwdSearchResponse>,
     AxiosError<TError>
   >(
-    [queryKeys.FINDPWD],
+    [queryKeys.FINDPWD, pwdData],
     () => getPwd(pwdData.u_Id, pwdData.u_Name, pwdData.u_Phone),
     {
       enabled: false,
