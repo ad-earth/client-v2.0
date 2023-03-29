@@ -4,7 +4,7 @@ import useDeleteReview from '../../query/useDeleteReview';
 import type { TReviews } from '../../shared/types/types';
 import * as t from '../../style/detailReviews.style';
 
-function DetailReviews({ reviewQty, reviewList, page, setPage }: PropsType) {
+function DetailReviews({ reviewQty, reviewList }: PropsType) {
   const { mutate } = useDeleteReview();
 
   const handleClick = (reviewNo: number) => {
@@ -43,11 +43,7 @@ function DetailReviews({ reviewQty, reviewList, page, setPage }: PropsType) {
           </t.CommentWrapper>
         ))}
         <t.Page>
-          <Pagination
-            pageCnt={Math.ceil(reviewQty / 5)}
-            page={page}
-            setPage={setPage}
-          />
+          <Pagination pageCnt={Math.ceil(reviewQty / 5)} />
         </t.Page>
       </t.List>
     </t.MainContainer>

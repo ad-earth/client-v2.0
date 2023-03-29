@@ -15,10 +15,8 @@ type PropsType = {
   ads?: IProductCard[];
   products: IProductCard[];
   likeList: number[];
-  page: number;
   sort?: string;
   setSort?: Dispatch<SetStateAction<string>>;
-  setPage: Dispatch<SetStateAction<number>>;
 };
 
 function CardList({
@@ -26,10 +24,8 @@ function CardList({
   ads,
   products,
   likeList,
-  page,
   sort,
   setSort,
-  setPage,
 }: PropsType) {
   const [select, setSelect] = useState<boolean>(false);
 
@@ -81,7 +77,7 @@ function CardList({
           ))}
         </t.Wrapper>
       )}
-      <Pagination pageCnt={pageCnt} page={page} setPage={setPage} />
+      <Pagination pageCnt={pageCnt} />
     </t.Container>
   );
 }

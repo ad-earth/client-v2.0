@@ -10,7 +10,6 @@ import * as t from '../../style/listCards.style';
 export default function ListSelect() {
   const [isSelect, setIsSelect] = useState<boolean>(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const sort = searchParams.get('sort');
 
   const handleChange = (e: SelectChangeEvent<string>) => {
     searchParams.set('sort', e.target.value);
@@ -29,7 +28,7 @@ export default function ListSelect() {
           onClose={toggle}
           onOpen={toggle}
           onChange={handleChange}
-          defaultValue={sort}
+          defaultValue={'recent'}
           label="sort"
           style={{ fontSize: `${theme.fs15}`, color: `${theme.fc08}` }}
         >
