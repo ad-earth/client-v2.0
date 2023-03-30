@@ -45,7 +45,7 @@ export default function useOrderProduct() {
     ({ p_No }) => putCancel(id, p_No),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('order');
+        queryClient.invalidateQueries(queryKeys.ORDER);
         alert('주문을 취소하였습니다.');
         navigate('/mypage');
       },
