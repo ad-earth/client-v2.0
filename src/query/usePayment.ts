@@ -44,7 +44,7 @@ const usePayment = (type?: string, p_No?: number) => {
   const { data: completeData } = useQuery<
     AxiosResponse<ICompleteResponse>,
     Error
-  >([queryKeys.COMPLETE], () => getComplete(), { refetchOnWindowFocus: false });
+  >([queryKeys.COMPLETE], () => getComplete());
   const { completeInfo } = useMemo(
     () => ({
       completeInfo: completeData?.data,
