@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ProfileImage from '../../elements/ProfileImage';
 import useViewport from '../../hooks/useViewport';
 import * as t from '../../style/myUserHeadSection.style';
 import GlobalModal from '../common/GlobalModal';
@@ -14,7 +15,6 @@ export default function MyUserHeadSection() {
   const viewport = useViewport();
   const userInfo: IUser = JSON.parse(localStorage.getItem('userInfo'));
 
-  /** 정보수정 모달 */
   const userModal = isModalOpen && (
     <GlobalModal onClose={() => setIsModalOpen(false)}>
       <MyUserInfoModal onClose={() => setIsModalOpen(false)} />
@@ -24,13 +24,11 @@ export default function MyUserHeadSection() {
     <t.Base>
       {userModal}
       <t.Section>
-        <t.AvatarImg
-          sx={
-            viewport <= 990
-              ? { width: 56, height: 56 }
-              : { width: 85, height: 85 }
-          }
-          src={`${userInfo?.u_Img ?? 'broken-image.jpg'}`}
+        <ProfileImage
+          image={userInfo?.u_Img}
+          name="userImage"
+          width={`${viewport <= 990 ? '56px' : '80px'}`}
+          height={`${viewport <= 990 ? '56px' : '80px'}`}
           onClick={() => setIsModalOpen(!isModalOpen)}
         />
         <t.Info>
