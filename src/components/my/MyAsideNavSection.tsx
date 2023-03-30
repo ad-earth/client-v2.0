@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import useViewport from '../hooks/useViewport';
-import * as t from '../style/myAsideNavSection.style';
-import GlobalModal from './common/GlobalModal';
-import MyUserInfoModal from './common/UserInfoModal';
+import useViewport from '../../hooks/useViewport';
+import * as t from '../../style/myAsideNavSection.style';
+import GlobalModal from '../common/GlobalModal';
+import MyUserInfoModal from '../common/UserInfoModal';
 import MyWithdrawalModal from './MyWithdrawalModal';
 
 interface IList {

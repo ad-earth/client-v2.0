@@ -1,7 +1,7 @@
-import Button from '../elements/Button';
-import useDeleteWithdrawalQuery from '../query/useDeleteWithdrawlQuery';
-import theme from '../shared/style/theme';
-import * as t from '../style/myWithdrawalModal.style';
+import Button from '../../elements/Button';
+import useDeleteWithdrawalQuery from '../../query/useDeleteWithdrawlQuery';
+import theme from '../../shared/style/theme';
+import * as t from '../../style/myWithdrawalModal.style';
 
 type TProps = {
   onClose: () => void;

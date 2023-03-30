@@ -1,5 +1,5 @@
-import useViewport from '../hooks/useViewport';
-import * as t from '../style/MyOrderAmount.style';
+import useViewport from '../../hooks/useViewport';
+import * as t from '../../style/MyOrderAmount.style';
 
 type Tprops = {
   price: number;

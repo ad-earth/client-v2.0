@@ -2,7 +2,7 @@ import type { ChangeEvent } from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../components/common/ProductCard';
-import MyCancelAmount from '../components/MyCancelAmount';
+import MyCancelAmount from '../components/my/MyCancelAmount';
 import Button from '../elements/Button';
 import useViewport from '../hooks/useViewport';
 import useOrderProduct from '../query/useOrderProduct';

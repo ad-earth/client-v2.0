@@ -1,11 +1,11 @@
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import type { ChangeEvent } from 'react';
 import { useRef, useState } from 'react';
-import Button from '../elements/Button';
-import useReview from '../query/useReview';
-import { useAppSelector } from '../redux/store';
-import * as t from '../style/myReviewModal.style';
-import ProductCard from './common/ProductCard';
+import Button from '../../elements/Button';
+import useReview from '../../query/useReview';
+import { useAppSelector } from '../../redux/store';
+import * as t from '../../style/myReviewModal.style';
+import ProductCard from '../common/ProductCard';
 
 type TProps = {
   onClose: () => void;

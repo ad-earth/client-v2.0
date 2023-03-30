@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import * as t from '../../style/myLayout.style';
-import MyAsideNavSection from '../MyAsideNavSection';
-import MyUserHeadSection from '../MyUserHeadSection';
+import MyAsideNavSection from '../my/MyAsideNavSection';
+import MyUserHeadSection from '../my/MyUserHeadSection';
 
 export default function MyLayout() {
   const navigate = useNavigate();

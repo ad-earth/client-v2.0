@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import GlobalModal from '../components/common/GlobalModal';
-import MyOrderInfo from '../components/MyOrderInfo';
-import MyOrderList from '../components/MyOrderList';
-import MyReviewModal from '../components/MyReviewModal';
+import MyOrderInfo from '../components/my/MyOrderInfo';
+import MyOrderList from '../components/my/MyOrderList';
+import MyReviewModal from '../components/my/MyReviewModal';
 import useIntersectHandler from '../hooks/useIntersectHandler';
 import useOrder from '../query/useOrder';
 import * as t from '../style/myOrderPage.style';

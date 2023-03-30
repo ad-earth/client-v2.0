@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GlobalModal from '../components/common/GlobalModal';
-import MyOrderAmount from '../components/MyOrderAmount';
-import MyOrderList from '../components/MyOrderList';
-import MyReviewModal from '../components/MyReviewModal';
+import MyOrderAmount from '../components/my/MyOrderAmount';
+import MyOrderList from '../components/my/MyOrderList';
+import MyReviewModal from '../components/my/MyReviewModal';
 import useOrderProduct from '../query/useOrderProduct';
 import * as t from '../style/myOrderDetailPage.style';
 
