@@ -42,16 +42,17 @@ export default function PaymentInput({
 
   const handleCheck = (checked: boolean, item: TAddressList) => {
     if (checked) {
-      const data = {
-        d_No: item.d_No,
-        d_Name: item.d_Name,
-        d_Phone: item.d_Phone,
-        d_Address1: item.d_Address1,
-        d_Address2: item.d_Address2,
-        d_Address3: item.d_Address3,
-        d_Memo: drop && drop,
-      };
-      dispatch(setPayInfo(data));
+      dispatch(
+        setPayInfo({
+          d_No: item.d_No,
+          d_Name: item.d_Name,
+          d_Phone: item.d_Phone,
+          d_Address1: item.d_Address1,
+          d_Address2: item.d_Address2,
+          d_Address3: item.d_Address3,
+          d_Memo: drop && drop,
+        })
+      );
     }
   };
 

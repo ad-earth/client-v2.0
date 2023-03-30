@@ -13,7 +13,7 @@ export default function ProfileImage(props: IProps) {
   return (
     <t.Container>
       <t.UserImg
-        src={props.image ? props.image : '/assets/defaultImage.webp'}
+        src={props.image !== 'null' ? props.image : '/assets/defaultImage.webp'}
         alt={props.name}
         {...props}
       />

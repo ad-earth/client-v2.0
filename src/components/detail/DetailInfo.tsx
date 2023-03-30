@@ -5,7 +5,8 @@ import Badge from '../../elements/Badge';
 import Button from '../../elements/Button';
 import Heart from '../../elements/Heart';
 import usePutCartQuery from '../../query/usePutCartQuery';
-import { useAppSelector } from '../../redux/store';
+import { setCartStatus } from '../../redux/reducer/cartSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import theme from '../../shared/style/theme';
 import type { IProductDetail } from '../../shared/types/types';
 import * as t from '../../style/detailInfo.style';
@@ -54,7 +55,7 @@ function DetailInfo({ product, keyNo, isLike }: TProps) {
       });
     }
   };
-
+  const dispatch = useAppDispatch();
   const cartData = {
     type: 'c',
     productNo: Number(productNo),
@@ -71,6 +72,7 @@ function DetailInfo({ product, keyNo, isLike }: TProps) {
           const acc = localStorage.getItem('cartStatus');
           const cur = Number(acc) + 1;
           localStorage.setItem('cartStatus', String(cur));
+          dispatch(setCartStatus(cur));
           setOpen(true);
         },
       });

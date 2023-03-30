@@ -5,7 +5,7 @@ import CartItem from '../components/cart/CartItem';
 import Button from '../elements/Button';
 import useViewport from '../hooks/useViewport';
 import useCart from '../query/useCart';
-import { setCheckedList } from '../redux/reducer/cartSlice';
+import { setCartStatus, setCheckedList } from '../redux/reducer/cartSlice';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import theme from '../shared/style/theme';
 import * as t from '../style/cartPage.style';
@@ -14,10 +14,9 @@ export default function CartPage() {
   const viewport = useViewport();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { cartList } = useCart();
   const [allChecked, setAllChecked] = useState<boolean>(false);
   const checkedItem = useAppSelector(state => state.cartSlice.checkedList);
-
-  const { cartList } = useCart();
 
   const handleCheck = () => {
     setAllChecked(!allChecked);
@@ -42,11 +41,10 @@ export default function CartPage() {
     removeCartItem.mutate(data, {
       onSuccess: () => {
         toast.success('상품을 삭제하였습니다.');
+        const cur = cartList.length - checkedItem.length;
+        localStorage.setItem('cartStatus', String(cur));
+        dispatch(setCartStatus(cur));
         dispatch(setCheckedList([]));
-        localStorage.setItem(
-          'cartStatus',
-          String(cartList.length - checkedItem.length)
-        );
       },
     });
   };
