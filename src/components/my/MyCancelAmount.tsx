@@ -1,4 +1,4 @@
-import * as t from '../style/myCancelAmount.style';
+import * as t from '../../style/myCancelAmount.style';
 
 export default function MyCancelAmount({ checkPrice }: { checkPrice: number }) {
   return (

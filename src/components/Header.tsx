@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '../redux/store';
 import * as t from '../style/header.style';
 import GlobalModal from './common/GlobalModal';
 import MenuDrop from './common/MenuDrop';
-import HeaderAside from './HeaderAside';
+import HeaderAside from './my/HeaderAside';
 import SearchBar from './SearchBar';
 
 export default function Header() {

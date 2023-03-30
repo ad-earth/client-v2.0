@@ -1,12 +1,13 @@
 import type { Dispatch, SetStateAction } from 'react';
+import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import Button from '../elements/Button';
-import { setReviewData } from '../redux/reducer/reviewSlice';
-import { useAppDispatch } from '../redux/store';
-import theme from '../shared/style/theme';
-import type { IMyProduct } from '../shared/types/types';
-import * as t from '../style/myOderList.style';
-import ProductCard from './common/ProductCard';
+import Button from '../../elements/Button';
+import { setReviewData } from '../../redux/reducer/reviewSlice';
+import { useAppDispatch } from '../../redux/store';
+import theme from '../../shared/style/theme';
+import type { IMyProduct } from '../../shared/types/types';
+import * as t from '../../style/myOderList.style';
+import ProductCard from '../common/ProductCard';
 
 type TProps = {
   products: IMyProduct[];
@@ -20,10 +21,8 @@ export default function MyOrderList(props: TProps) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const cancelBtnClick = () =>
-    navigate(`/mypage/cancel-call/${orderNo}`, {
-      state: { products: products },
-    });
+  const cancelBtnClick = () => navigate(`/mypage/cancel-call/${orderNo}`);
+
   const reviweBtnClick = (product: IMyProduct) => {
     dispatch(setReviewData(product));
     setIsModalOpen(!isModalOpen);
@@ -39,7 +38,7 @@ export default function MyOrderList(props: TProps) {
       case 'detail': {
         status
           ? navigate(`/detail/${p_No}`)
-          : alert('현재 판매하지 않는 상품입니다.');
+          : toast.error('현재 판매하지 않는 상품입니다.');
         break;
       }
     }
@@ -57,8 +56,6 @@ export default function MyOrderList(props: TProps) {
               a_Brand={product.a_Brand}
               p_Name={product.p_Name}
               p_Option={product.p_Option}
-              p_Cost={product.p_Cost}
-              p_Discount={product.p_Discount}
             />
             <t.ProductStatus>{product.o_Status}</t.ProductStatus>
           </t.ProductLink>

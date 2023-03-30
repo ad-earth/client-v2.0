@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { CgMoreVerticalAlt } from 'react-icons/cg';
-import { ASIDECATEGORY, HEADCATEGORY } from '../constants';
-import ProfileImage from '../elements/ProfileImage';
-import useDropDown from '../hooks/useDropDown';
-import theme from '../shared/style/theme';
-import * as t from '../style/headerAside.style';
-import GlobalModal from './common/GlobalModal';
-import { SideMenuDrop } from './common/MenuDrop';
-import MyUserInfoModal from './MyUserInfoModal';
+import { ASIDECATEGORY, HEADCATEGORY } from '../../constants';
+import ProfileImage from '../../elements/ProfileImage';
+import useDropDown from '../../hooks/useDropDown';
+import theme from '../../shared/style/theme';
+import * as t from '../../style/headerAside.style';
+import GlobalModal from '../common/GlobalModal';
+import { SideMenuDrop } from '../common/MenuDrop';
+import MyUserInfoModal from '../common/UserInfoModal';
 
 export default function HeaderAside() {
   const { isDropped, dropRef, handleRemove } = useDropDown();

@@ -1,37 +1,50 @@
 import type { ChangeEvent } from 'react';
-import { useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import ProductCard from '../components/common/ProductCard';
-import MyCancelAmount from '../components/MyCancelAmount';
+import MyCancelAmount from '../components/my/MyCancelAmount';
 import Button from '../elements/Button';
 import useViewport from '../hooks/useViewport';
-import usePutCancelQuery from '../query/usePutCancelQuery';
-import type { Product } from '../shared/types/types';
+import useOrderProduct from '../query/useOrderProduct';
+import type { IMyProduct } from '../shared/types/types';
 import * as t from '../style/myCancelPage.style';
 
-type TLocation = {
-  products: Product[];
-};
 export default function MyCancelPage() {
   const viewport = useViewport();
   const navigate = useNavigate();
-  const location = useLocation();
-  const { products } = location.state as TLocation;
-  const { id } = useParams<{ id: string }>();
+
+  const { isLoading, productData, productId, cancelProduct } =
+    useOrderProduct();
 
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
-  const [checkPrice] = useState<number>(0);
+  const [checkPrice, setCheckPrices] = useState<number>(0);
 
-  const putProduct = usePutCancelQuery();
+  useEffect(() => {
+    if (checkedItems.length === 0 && productData) return;
+
+    const newPrices = productData
+      ?.map((item, i) => (checkedItems.includes(item.p_No) ? item.p_Price : 0))
+      .reduce((acc, cur) => acc + cur);
+
+    setCheckPrices(newPrices);
+  }, [checkedItems, productData]);
+
+  const handleCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    target.checked
+      ? setCheckedItems([...checkedItems, Number(target.value)])
+      : setCheckedItems(checkedItems.filter(el => el !== Number(target.value)));
+  };
+
   const cancleClick = () => {
     switch (checkedItems.length === 0) {
       case true: {
-        alert('취소상품을 선택해 주세요');
+        toast.error('취소상품을 선택해 주세요');
         break;
       }
       default: {
-        putProduct.mutate({
-          id: id,
+        cancelProduct.mutate({
           p_No: checkedItems,
         });
         break;
@@ -39,19 +52,13 @@ export default function MyCancelPage() {
     }
   };
 
-  const handleCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
-    const target = e.target;
-    target.checked
-      ? setCheckedItems([...checkedItems, Number(target.value)])
-      : setCheckedItems(checkedItems.filter(el => el !== Number(target.value)));
-  };
-
+  if (isLoading) return <p>Loading...</p>;
   return (
     <t.Base>
       <t.Title>
         <span onClick={() => navigate('..')}></span>
         주문 취소요청
-        <t.OrderNumber>{id}</t.OrderNumber>
+        <t.OrderNumber>{productId}</t.OrderNumber>
       </t.Title>
       <t.Contents>
         <t.ContentsBox>
@@ -74,7 +81,7 @@ export default function MyCancelPage() {
         <t.ContentsBox>
           <t.CancelListBox>
             <t.Title>취소 상품 선택</t.Title>
-            {products.map((product: Product, i: number) => (
+            {productData.map((product: IMyProduct, i: number) => (
               <t.CancelList key={i}>
                 <t.Checkbox
                   type="checkbox"
@@ -87,8 +94,6 @@ export default function MyCancelPage() {
                   a_Brand={product.a_Brand}
                   p_Name={product.p_Name}
                   p_Option={product.p_Option}
-                  p_Cost={product.p_Cost}
-                  p_Discount={product.p_Discount}
                 />
               </t.CancelList>
             ))}

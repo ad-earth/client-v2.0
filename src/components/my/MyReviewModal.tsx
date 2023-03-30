@@ -1,11 +1,11 @@
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import type { ChangeEvent } from 'react';
 import { useRef, useState } from 'react';
-import Button from '../elements/Button';
-import usePostReviewQuery from '../query/usePostReviewQuery';
-import { useAppSelector } from '../redux/store';
-import * as t from '../style/myReviewModal.style';
-import ProductCard from './common/ProductCard';
+import Button from '../../elements/Button';
+import useReview from '../../query/useReview';
+import { useAppSelector } from '../../redux/store';
+import * as t from '../../style/myReviewModal.style';
+import ProductCard from '../common/ProductCard';
 
 type TProps = {
   onClose: () => void;
@@ -15,6 +15,8 @@ interface ReviewType {
   r_Score: number;
 }
 export default function MyReviewModal({ onClose }: TProps) {
+  const { addReview } = useReview();
+
   const reviewData = useAppSelector(state => state.reviewSlice.review);
 
   const [reviewState, setReviewState] = useState<ReviewType>({
@@ -24,12 +26,9 @@ export default function MyReviewModal({ onClose }: TProps) {
   const handleState = (event: ChangeEvent, newValue: number) =>
     setReviewState({ ...reviewState, r_Score: newValue });
 
-  // textarea
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const textAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) =>
     setReviewState({ ...reviewState, r_Content: event.target.value });
-
-  const addReview = usePostReviewQuery();
 
   const handleReview = () => {
     addReview.mutate({
@@ -53,8 +52,6 @@ export default function MyReviewModal({ onClose }: TProps) {
             a_Brand={reviewData.a_Brand}
             p_Name={reviewData.p_Name}
             p_Option={reviewData.p_Option}
-            p_Cost={reviewData.p_Cost}
-            p_Discount={reviewData.p_Discount}
           />
         </t.ProductInfo>
         <t.StarRateBox>
