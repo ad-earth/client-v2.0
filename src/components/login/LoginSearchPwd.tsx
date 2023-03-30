@@ -1,18 +1,16 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import Button from '../elements/Button';
-import ErrMsg from '../elements/ErrorMsg';
-import Input from '../elements/Input';
-import type { TSearchPwd } from '../query/useGetLoginSearchPwdQuery';
-import { useGetLoginSearchPwdQuery } from '../query/useGetLoginSearchPwdQuery';
-import type { TNewPwd } from '../query/usePutLoginNewPwdQuery';
-import usePutLoginNewPwdQuery from '../query/usePutLoginNewPwdQuery';
-import theme from '../shared/style/theme';
-import { NewPwdInitial } from '../shared/utils/inputInitialValue';
-import { PwdReducer } from '../shared/utils/inputReducer';
+import Button from '../../elements/Button';
+import ErrMsg from '../../elements/ErrorMsg';
+import Input from '../../elements/Input';
+import type { TNewPwdData, TSearchPwdData } from '../../query/useAuth';
+import useAuth from '../../query/useAuth';
+import theme from '../../shared/style/theme';
+import { NewPwdInitial } from '../../shared/utils/inputInitialValue';
+import { PwdReducer } from '../../shared/utils/inputReducer';
 
 export default function LoginSearchPwd() {
   // 비밀번호 찾기
-  const [form, setForm] = useState<TSearchPwd>({
+  const [form, setForm] = useState<TSearchPwdData>({
     u_Id: '',
     u_Name: '',
     u_Phone: '',
@@ -24,14 +22,16 @@ export default function LoginSearchPwd() {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
-  const { data, refetch, isSuccess, isError } = useGetLoginSearchPwdQuery(form);
+  const {
+    searchPwd: { data, refetch, isSuccess, isError },
+  } = useAuth(form);
   const handleSearch = () => {
     refetch();
   };
 
   // 비밀번호 변경
   const [isNewPwd, setIsNewPwd] = useState<boolean>(false);
-  const [newPwd, setNewPwd] = useState<TNewPwd>();
+  const [newPwd, setNewPwd] = useState<TNewPwdData>();
   const [state, setDispatch] = useReducer(PwdReducer, NewPwdInitial);
   const { pwd, pwdCheck } = state;
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -43,12 +43,12 @@ export default function LoginSearchPwd() {
       u_Pw: pwd.val,
     });
   }, [data?.data.u_Idx, pwd.val]);
-  const { mutate } = usePutLoginNewPwdQuery(newPwd);
+  const { updatePwd } = useAuth();
   const handlePwdSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
   const handleNewPwd = () => {
-    mutate();
+    updatePwd.mutate(newPwd);
   };
 
   return (

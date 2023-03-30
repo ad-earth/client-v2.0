@@ -37,9 +37,8 @@ export const getPwd = (u_Id: string, u_Name: string, u_Phone: string) =>
     params: { u_Id, u_Name, u_Phone },
   });
 // auth-newPwd
-export const putNewPwd = (u_Idx: number, u_Pw: string) => {
+export const putNewPwd = (u_Idx: number, u_Pw: string) =>
   axiosInstance.put('/users/reset-password', { u_Idx, u_Pw });
-};
 
 // user-info
 export const putUserInfoChange = (

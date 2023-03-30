@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { CgMoreVerticalAlt } from 'react-icons/cg';
+import { ASIDECATEGORY, HEADCATEGORY } from '../constants';
 import ProfileImage from '../elements/ProfileImage';
 import useDropDown from '../hooks/useDropDown';
 import theme from '../shared/style/theme';
@@ -7,8 +8,6 @@ import * as t from '../style/headerAside.style';
 import GlobalModal from './common/GlobalModal';
 import { SideMenuDrop } from './common/MenuDrop';
 import MyUserInfoModal from './common/UserInfoModal';
-import type { CateType } from './Header';
-import { cateData } from './Header';
 
 export default function HeaderAside() {
   const { isDropped, dropRef, handleRemove } = useDropDown();
@@ -55,7 +54,7 @@ export default function HeaderAside() {
                   />
                   <SideMenuDrop isDropped={isDropped} {...dropStyle}>
                     <ul>
-                      {dropList.map(item => (
+                      {ASIDECATEGORY.map(item => (
                         <a key={item.id} href={item.path}>
                           <li>{item.cate}</li>
                         </a>
@@ -68,7 +67,7 @@ export default function HeaderAside() {
             </t.Top>
             <t.bottom>
               <ul>
-                {cateData.map(val => (
+                {HEADCATEGORY.map(val => (
                   <a key={val.id} href={val.path}>
                     <li>{val.cate}</li>
                   </a>
@@ -90,10 +89,3 @@ const dropStyle = {
   fcColor: `${theme.fc10}`,
   bgColor: `${theme.bg01}`,
 };
-
-const dropList: CateType[] = [
-  { id: 1, cate: '마이페이지', path: '/mypage' },
-  { id: 2, cate: '장바구니', path: '/cart' },
-  { id: 3, cate: '주문배송', path: '/mypage' },
-  { id: 4, cate: '위시리스트', path: '/mypage' },
-];

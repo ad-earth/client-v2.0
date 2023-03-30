@@ -29,13 +29,13 @@ export const postPayment = (
   address: TPaymentInfo,
   products: IProductPayCart[],
   o_Price: number
-) => {
+) =>
   axiosInstance.post(`/payment/${type}`, {
     address,
     products,
     o_Price,
   });
-};
+
 // payment-delete
 export const deleteAddress = (d_No: number) =>
   axiosInstance.delete(`/shipping-list/${d_No}`);

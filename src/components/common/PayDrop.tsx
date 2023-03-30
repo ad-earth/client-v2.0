@@ -6,15 +6,15 @@ import * as t from '../../style/payDrop.style';
 type TList = {
   text: string;
 };
-type TProp = {
+interface IProps {
   delivery?: TList[];
   payment?: TList[];
   drop?: string;
   setDrop?: Dispatch<SetStateAction<string>>;
   onClick?: () => void;
-};
+}
 
-export default function PayDrop({ delivery, payment, drop, setDrop }: TProp) {
+export default function PayDrop({ delivery, payment, drop, setDrop }: IProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleClick = useCallback((e: React.MouseEvent) => {

@@ -1,23 +1,24 @@
 import * as t from '../../style/menuDrop.style';
 
-export interface MenuDropType {
+type TCategory = {
+  id: number;
+  cate: string;
+  path: string;
+};
+export interface IProps {
   width?: string;
   top?: string;
   left?: string;
   radius?: string;
   fcColor?: string;
   bgColor?: string;
-  cateData?: {
-    id: number;
-    cate: string;
-    path: string;
-  }[];
+  cateData?: TCategory[];
   isDropped?: boolean;
   onClick?: () => void;
   children?: React.ReactNode;
 }
 
-function MenuDrop(props: MenuDropType) {
+function MenuDrop(props: IProps) {
   return (
     <t.MenuContainer {...props}>
       <ul>
@@ -33,6 +34,6 @@ function MenuDrop(props: MenuDropType) {
 
 export default MenuDrop;
 
-export function SideMenuDrop(props: MenuDropType) {
+export function SideMenuDrop(props: IProps) {
   return <t.MenuContainer {...props}>{props.children}</t.MenuContainer>;
 }
