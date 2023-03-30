@@ -1,5 +1,5 @@
 import Button from '../../elements/Button';
-import useDeleteWithdrawalQuery from '../../query/useDeleteWithdrawlQuery';
+import useUser from '../../query/useUser';
 import theme from '../../shared/style/theme';
 import * as t from '../../style/myWithdrawalModal.style';
 
@@ -8,7 +8,7 @@ type TProps = {
 };
 
 export default function MyWithdrawalModal({ onClose }: TProps) {
-  const { removeUser } = useDeleteWithdrawalQuery();
+  const { removeUser } = useUser();
 
   const handleLogout = () => {
     removeUser.mutate();

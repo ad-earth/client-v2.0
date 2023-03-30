@@ -1,6 +1,7 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useMutation } from 'react-query';
-import { putUserInfoChange } from './../shared/api/userApi';
+import { useNavigate } from 'react-router-dom';
+import { deleteUser, putUserInfoChange } from './../shared/api/userApi';
 import type { TError } from './../shared/types/types';
 
 export interface TUserInfoData {
@@ -14,6 +15,8 @@ export interface TUserInfoData {
 }
 
 const useUser = () => {
+  const navigate = useNavigate();
+
   const putUserInfo = useMutation<
     AxiosResponse,
     AxiosError<TError>,
@@ -29,7 +32,15 @@ const useUser = () => {
       data.u_Img
     )
   );
-  return { putUserInfo };
+
+  const removeUser = useMutation<AxiosResponse, AxiosError>(deleteUser, {
+    onSuccess: () => {
+      alert('탈퇴 성공!');
+      localStorage.clear();
+      navigate('/');
+    },
+  });
+  return { putUserInfo, removeUser };
 };
 
 export default useUser;
