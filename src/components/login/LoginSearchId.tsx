@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import Button from '../elements/Button';
-import ErrMsg from '../elements/ErrorMsg';
-import Input from '../elements/Input';
-import type { TSearchId } from '../query/useGetLoginSearchIdQuery';
-import useGetLoginSearchIdQuery from '../query/useGetLoginSearchIdQuery';
-import theme from '../shared/style/theme';
+import Button from '../../elements/Button';
+import ErrMsg from '../../elements/ErrorMsg';
+import Input from '../../elements/Input';
+import type { ISearchIdData } from '../../query/useAuth';
+import useAuth from '../../query/useAuth';
+import theme from '../../shared/style/theme';
 
 export default function LoginSearchId() {
-  const [form, setForm] = useState<TSearchId>({ u_Name: '', u_Phone: '' });
+  const [form, setForm] = useState<ISearchIdData>({ u_Name: '', u_Phone: '' });
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -15,7 +15,9 @@ export default function LoginSearchId() {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
-  const { data, refetch, isSuccess, isError } = useGetLoginSearchIdQuery(form);
+  const {
+    searchId: { data, refetch, isSuccess, isError },
+  } = useAuth(form);
   const handleSearch = () => {
     refetch();
   };

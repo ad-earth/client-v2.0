@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import useDeletePaymentAddressQuery from '../query/useDeletePaymentAddressQuery';
-import { setMemo, setPayInfo } from '../redux/reducer/payInputSlice';
-import { useAppDispatch } from '../redux/store';
-import * as t from '../style/paymentInput.style';
-import PayDrop from './common/PayDrop';
+import { DELIVERYINFO, PAYINFOTAB } from '../../constants';
+import usePayment from '../../query/usePayment';
+import { setMemo, setPayInfo } from '../../redux/reducer/payInputSlice';
+import { useAppDispatch } from '../../redux/store';
+import * as t from '../../style/paymentInput.style';
+import PayDrop from '../common/PayDrop';
 import PaymentAddDefault from './PaymentAddDefault';
 import PaymentAddNew from './PaymentAddNew';
 
@@ -54,9 +55,9 @@ export default function PaymentInput({
     }
   };
 
-  const { mutate } = useDeletePaymentAddressQuery();
+  const { deletePayAddress } = usePayment();
   const handleDelete = (d_No: number) => {
-    mutate(d_No, {
+    deletePayAddress.mutate(d_No, {
       onSuccess: () => {
         toast.success('이전 배송지 정보를 삭제하였습니다.');
       },
@@ -72,7 +73,7 @@ export default function PaymentInput({
       <t.Container>
         <t.Content>
           <t.Tab>
-            {tab.map((item, idx: number) => (
+            {PAYINFOTAB.map((item: TTab, idx: number) => (
               <t.Title
                 key={idx}
                 id={item.id}
@@ -116,17 +117,7 @@ export default function PaymentInput({
         </t.Content>
       </t.Container>
       <h4>배송메모</h4>
-      <PayDrop delivery={delivery} drop={drop} setDrop={setDrop} />
+      <PayDrop delivery={DELIVERYINFO} drop={drop} setDrop={setDrop} />
     </>
   );
 }
-const tab: TTab[] = [
-  { id: 'default', title: '기본 배송지' },
-  { id: 'before', title: '이전 배송지 선택' },
-  { id: 'new', title: '신규 배송지 입력' },
-];
-const delivery = [
-  { text: '배송 전에 미리 연락바랍니다.' },
-  { text: '부재시 경비실에 맡겨주세요.' },
-  { text: '부재시 문자나 전화를 남겨주세요.' },
-];

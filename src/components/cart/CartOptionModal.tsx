@@ -1,20 +1,19 @@
 import React, { useEffect, useMemo } from 'react';
 import toast from 'react-hot-toast';
 import { IoCloseOutline } from 'react-icons/io5';
-import Button from '../elements/Button';
-import useGetDetailQuery from '../query/useGetDetailQuery';
-import usePutCartQuery from '../query/usePutCartQuery';
-import { setOptions } from '../redux/reducer/optionSlice';
-import { useAppDispatch, useAppSelector } from '../redux/store';
-import theme from '../shared/style/theme';
-import * as t from '../style/cartOptionModal.style';
-import Option from './common/Option';
-
-type TProps = {
+import Button from '../../elements/Button';
+import useCart from '../../query/useCart';
+import useGetDetailQuery from '../../query/useGetDetailQuery';
+import { setOptions } from '../../redux/reducer/optionSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import theme from '../../shared/style/theme';
+import * as t from '../../style/cartOptionModal.style';
+import Option from '../common/Option';
+interface IProps {
   onClose: () => void;
-};
+}
 
-export default function CartOptionModal({ onClose }: TProps) {
+export default function CartOptionModal({ onClose }: IProps) {
   const dispatch = useAppDispatch();
   const productNo = useAppSelector(state => state.cartSlice.productNo);
   const keywordNo = useAppSelector(state => state.cartSlice.keywordNo);
@@ -40,12 +39,12 @@ export default function CartOptionModal({ onClose }: TProps) {
     option: optionFromSlice,
     keyword: keywordNo,
   };
-  const { mutate: cartMutate } = usePutCartQuery();
+  const { updateCartItem } = useCart();
   const handleCart = () => {
     if (product && optionFromSlice.length === 0)
       toast.error('상품을 먼저 선택해주세요.');
     else {
-      cartMutate(cartData, {
+      updateCartItem.mutate(cartData, {
         onSuccess: () => {
           const acc = localStorage.getItem('cartStatus');
           const cur = Number(acc) + 1;

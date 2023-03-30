@@ -5,8 +5,7 @@ import Button from '../../elements/Button';
 import Input from '../../elements/Input';
 import theme from '../../shared/style/theme';
 import * as t from '../../style/address.style';
-
-export interface PropsType {
+interface IProps {
   zipcode: string;
   address: string;
   extraAddress: string;
@@ -24,7 +23,7 @@ function Address({
   setAddress,
   setExtraAddress,
   isNewAddress,
-}: PropsType) {
+}: IProps) {
   const [isUser, setIsUser] = useState<boolean>(false);
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   const open = useDaumPostcodePopup();
