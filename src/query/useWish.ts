@@ -1,12 +1,13 @@
 import type { AxiosResponse } from 'axios';
 import { useMemo } from 'react';
 import { useInfiniteQuery } from 'react-query';
+import queryKeys from '../constants/queryKeys';
 import { getWish } from '../shared/api/productApi';
 import type { TResWish } from '../shared/types/types';
 
 export default function useWish() {
   const wishQuery = useInfiniteQuery(
-    'wish',
+    queryKeys.WISH,
     ({ pageParam = 1 }) => getWish(pageParam),
     {
       getNextPageParam: (lastPage, allPages) => {

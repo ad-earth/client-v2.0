@@ -2,6 +2,7 @@ import type { AxiosError, AxiosResponse } from 'axios';
 import { useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
+import queryKeys from '../constants/queryKeys';
 import { getOrderDetail, putCancel } from '../shared/api/productApi';
 import type { IMyAPIResOrderDetail } from '../shared/types/types';
 
@@ -18,7 +19,7 @@ export default function useOrderProduct() {
   const { data: detailQuery, isLoading } = useQuery<
     AxiosResponse<IMyAPIResOrderDetail>,
     AxiosError
-  >(['orderProduct', id], () => getOrderDetail(id), {
+  >([queryKeys.ORDERPRODUCT, id], () => getOrderDetail(id), {
     enabled: !!id,
     staleTime: 10 * 1000,
     refetchOnWindowFocus: false,
