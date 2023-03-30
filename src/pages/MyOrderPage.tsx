@@ -9,13 +9,11 @@ import * as t from '../style/myOrderPage.style';
 
 export default function MyOrderPage() {
   const {
-    orderQuery: {
-      isLoading,
-      isFetching,
-      isFetchingNextPage,
-      fetchNextPage,
-      hasNextPage,
-    },
+    isLoading,
+    isFetching,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
     orderData,
   } = useOrder();
 
