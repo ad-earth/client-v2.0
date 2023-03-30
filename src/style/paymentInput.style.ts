@@ -39,7 +39,7 @@ export const ShipList = styled.div`
   width: 100%;
   display: flex;
   align-items: flex-start;
-  gap: 20px;
+  gap: 10px;
   padding: 20px 5px 20px 5px;
   border-bottom: 1px solid ${({ theme }) => theme.ls10};
   input {
@@ -54,6 +54,7 @@ export const ShipList = styled.div`
     color: ${({ theme }) => theme.fc08};
     font-size: ${({ theme }) => theme.fs16};
     line-height: ${({ theme }) => theme.fs24};
+    min-width: 30px;
     cursor: pointer;
   }
   label {

@@ -37,7 +37,7 @@ export default function HeaderAside() {
               <div>
                 {token ? (
                   <ProfileImage
-                    image={userInfo?.u_Img && userInfo?.u_Img}
+                    image={userInfo?.u_Img && userInfo.u_Img}
                     name={userInfo?.u_Name && userInfo.u_Name}
                     id={userInfo?.u_Id && userInfo.u_Id}
                     onClick={() => setIsModalOpen(!isModalOpen)}
