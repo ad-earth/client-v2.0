@@ -8,6 +8,7 @@ import useDropDown from '../hooks/useDropDown';
 import useScrHeader from '../hooks/useScrollHeader';
 import useViewport from '../hooks/useViewport';
 import { setAuth } from '../redux/reducer/authSlice';
+import { setCartStatus } from '../redux/reducer/cartSlice';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import * as t from '../style/header.style';
 import GlobalModal from './common/GlobalModal';
@@ -22,12 +23,16 @@ export default function Header() {
   const { isHeaderVisible } = useScrHeader();
   const { isDropped, dropRef, handleRemove } = useDropDown();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const cartStatus = localStorage.getItem('cartStatus');
   const isAuth = useAppSelector(state => state.authSlice.isAuth);
+  const cartNo = useAppSelector(state => state.cartSlice.cartStatus);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) dispatch(setAuth({ isAuth: true }));
+    const cartStatus = localStorage.getItem('cartStatus');
+    if (token) {
+      dispatch(setAuth({ isAuth: true }));
+      dispatch(setCartStatus(Number(cartStatus)));
+    }
   }, []);
 
   const handleLogout = () => {
@@ -77,7 +82,7 @@ export default function Header() {
                     className="cartIcon"
                     onClick={routeToCart}
                   />
-                  <t.Badge>{cartStatus ? cartStatus : 0}</t.Badge>
+                  <t.Badge>{cartNo ? cartNo : 0}</t.Badge>
                 </t.CartStatus>
               </>
             ) : (

@@ -10,12 +10,15 @@ import { PAYMENTINFO } from '../constants';
 import Button from '../elements/Button';
 import Input from '../elements/Input';
 import usePayment from '../query/usePayment';
+import { setCartStatus } from '../redux/reducer/cartSlice';
 import { setPayInfo } from '../redux/reducer/payInputSlice';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import theme from '../shared/style/theme';
 import * as t from '../style/paymentPage.style';
 
 export default function PaymentPage() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const payInfo = useAppSelector(state => state.payInputSlice, shallowEqual);
   const [drop, setDrop] = useState<string>('');
   const [isCheck, setIsCheck] = useState<boolean>(false);
@@ -27,9 +30,6 @@ export default function PaymentPage() {
     productNo
   );
 
-  const cartStatus = localStorage.getItem('cartStatus');
-  const currStatus = Number(cartStatus) - products?.length;
-  const navigate = useNavigate();
   const { postPay } = usePayment();
   const handleBuy = () => {
     if (!payInfo.d_Name && !payInfo.d_Phone)
@@ -49,14 +49,25 @@ export default function PaymentPage() {
       postPay.mutate(data, {
         onSuccess: () => {
           toast.success('상품 구매에 성공하였습니다 😊');
-          localStorage.setItem('cartStatus', String(currStatus));
-          navigate('/complete', { state: { price: `${price}` } });
+          const cartStatus = localStorage.getItem('cartStatus');
+          const cur = Number(cartStatus) - products?.length;
+          if (cur >= 0) {
+            localStorage.setItem('cartStatus', String(cur));
+            navigate('/complete', {
+              state: { price: `${price}` },
+            });
+            dispatch(setCartStatus(cur));
+          } else {
+            dispatch(setCartStatus(0));
+            navigate('/complete', {
+              state: { price: `${price}` },
+            });
+          }
         },
       });
     }
   };
 
-  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(
       setPayInfo({
