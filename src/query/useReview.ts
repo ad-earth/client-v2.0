@@ -1,6 +1,6 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
-import { postReviews } from './../shared/api/productApi';
+import { postReviews } from '../shared/api/productApi';
 
 type TReview = {
   id: number;
@@ -9,8 +9,10 @@ type TReview = {
     r_Score: number;
   };
 };
-export default function usePostReviewQuery() {
+
+export default function useReview() {
   const queryClient = useQueryClient();
+
   const addReview = useMutation<AxiosResponse, AxiosError, TReview>(
     ({ id, review }) => postReviews(id, review.r_Content, review.r_Score),
     {
@@ -22,5 +24,5 @@ export default function usePostReviewQuery() {
     }
   );
 
-  return addReview;
+  return { addReview };
 }
