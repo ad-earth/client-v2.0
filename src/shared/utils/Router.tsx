@@ -4,6 +4,7 @@ import {
   Outlet,
   Route,
 } from 'react-router-dom';
+import styled from 'styled-components';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import ProtectedRoute from '../../pages/ProtectedRoute';
@@ -61,8 +62,14 @@ function Layout() {
   return (
     <>
       <Header />
-      <Outlet />
+      <Container>
+        <Outlet />
+      </Container>
       <Footer />
     </>
   );
 }
+
+const Container = styled.div`
+  min-height: 850px;
+`;

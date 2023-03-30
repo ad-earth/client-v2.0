@@ -59,6 +59,7 @@ export default function MyUserInfoModal({ onClose }: TProps) {
           u_Phone: formData.u_Phone,
         };
         localStorage.setItem('userInfo', JSON.stringify(editUserData));
+        onClose();
       },
       onError: error => {
         const errMsg = error.response.data.errorMessage;
