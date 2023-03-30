@@ -7,6 +7,9 @@ import { HEADCATEGORY } from '../constants';
 import useDropDown from '../hooks/useDropDown';
 import useScrHeader from '../hooks/useScrollHeader';
 import useViewport from '../hooks/useViewport';
+import { setAuth } from '../redux/reducer/authSlice';
+import { setCartStatus } from '../redux/reducer/cartSlice';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 import * as t from '../style/header.style';
 import GlobalModal from './common/GlobalModal';
 import MenuDrop from './common/MenuDrop';
@@ -16,22 +19,25 @@ import SearchBar from './SearchBar';
 export default function Header() {
   const viewport = useViewport();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { isHeaderVisible } = useScrHeader();
   const { isDropped, dropRef, handleRemove } = useDropDown();
-  const [isLogin, setIsLogin] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const cartStatus = localStorage.getItem('cartStatus');
+  const isAuth = useAppSelector(state => state.authSlice.isAuth);
+  const cartNo = useAppSelector(state => state.cartSlice.cartStatus);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    const cartStatus = localStorage.getItem('cartStatus');
     if (token) {
-      setIsLogin(true);
-    } else setIsLogin(false);
-  }, [isLogin]);
+      dispatch(setAuth({ isAuth: true }));
+      dispatch(setCartStatus(Number(cartStatus)));
+    }
+  }, []);
 
   const handleLogout = () => {
     localStorage.clear();
-    window.location.reload();
+    dispatch(setAuth({ isAuth: false }));
   };
   const routeToMain = () => navigate('/');
   const routeToMy = () => navigate('/mypage');
@@ -67,7 +73,7 @@ export default function Header() {
           </t.LeftSection>
           <t.RightSection>
             {!isHeaderVisible ? <SearchBar /> : null}
-            {isLogin ? (
+            {isAuth ? (
               <>
                 <p onClick={handleLogout}>로그아웃</p>
                 <HiOutlineUser className="userIcon" onClick={routeToMy} />
@@ -76,7 +82,7 @@ export default function Header() {
                     className="cartIcon"
                     onClick={routeToCart}
                   />
-                  <t.Badge>{cartStatus ? cartStatus : 0}</t.Badge>
+                  <t.Badge>{cartNo ? cartNo : 0}</t.Badge>
                 </t.CartStatus>
               </>
             ) : (

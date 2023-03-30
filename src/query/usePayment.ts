@@ -27,9 +27,9 @@ const usePayment = (type?: string, p_No?: number) => {
   const queryClient = useQueryClient();
 
   const { data: payData } = useQuery<AxiosResponse<IPaymentResponse>, Error>(
-    [queryKeys.PAYMENT],
+    [queryKeys.PAYMENT, type, p_No],
     () => getPayment(type, p_No),
-    { refetchOnWindowFocus: false }
+    { enabled: !!type, refetchOnWindowFocus: false }
   );
   const { userInfo, addressList, products, price } = useMemo(
     () => ({
@@ -44,7 +44,7 @@ const usePayment = (type?: string, p_No?: number) => {
   const { data: completeData } = useQuery<
     AxiosResponse<ICompleteResponse>,
     Error
-  >([queryKeys.COMPLETE], () => getComplete(), { refetchOnWindowFocus: false });
+  >([queryKeys.COMPLETE], () => getComplete());
   const { completeInfo } = useMemo(
     () => ({
       completeInfo: completeData?.data,

@@ -10,6 +10,10 @@ export type TPaymentInfo = {
   d_Address3: string;
   d_Memo?: string;
 };
+type TUserInfo = {
+  d_Name: string;
+  d_Phone: string;
+};
 const initialState: TPaymentInfo = {
   d_No: null,
   d_Name: '',
@@ -25,25 +29,17 @@ const payInputSlice = createSlice({
   initialState,
   reducers: {
     setPayInfo: (state, action: PayloadAction<TPaymentInfo>) => {
-      return (state = action.payload);
+      state.d_Name = action.payload.d_Name;
+      state.d_Phone = action.payload.d_Phone;
+      state.d_No = action.payload.d_No;
+      state.d_Address1 = action.payload.d_Address1;
+      state.d_Address2 = action.payload.d_Address2;
+      state.d_Address3 = action.payload.d_Address3;
+      state.d_Memo = action.payload.d_Memo;
     },
-    setName: (state, action: PayloadAction<string>) => {
-      state.d_Name = action.payload;
-    },
-    setPhone: (state, action: PayloadAction<string>) => {
-      state.d_Phone = action.payload;
-    },
-    setDNumber: (state, action: PayloadAction<number>) => {
-      state.d_No = action.payload;
-    },
-    setAddress1: (state, action: PayloadAction<string>) => {
-      state.d_Address1 = action.payload;
-    },
-    setAddress2: (state, action: PayloadAction<string>) => {
-      state.d_Address2 = action.payload;
-    },
-    setAddress3: (state, action: PayloadAction<string>) => {
-      state.d_Address3 = action.payload;
+    setUserInfo: (state, action: PayloadAction<TUserInfo>) => {
+      state.d_Name = action.payload.d_Name;
+      state.d_Phone = action.payload.d_Phone;
     },
     setMemo: (state, action: PayloadAction<string>) => {
       state.d_Memo = action.payload;
@@ -51,14 +47,5 @@ const payInputSlice = createSlice({
   },
 });
 
-export const {
-  setPayInfo,
-  setName,
-  setPhone,
-  setDNumber,
-  setAddress1,
-  setAddress2,
-  setAddress3,
-  setMemo,
-} = payInputSlice.actions;
+export const { setPayInfo, setUserInfo, setMemo } = payInputSlice.actions;
 export default payInputSlice.reducer;

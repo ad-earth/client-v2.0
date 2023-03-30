@@ -1,15 +1,15 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { shallowEqual } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../elements/Button';
 import useViewport from '../../hooks/useViewport';
 import usePutCartQuery from '../../query/usePutCartQuery';
-import type { TCartList } from '../../redux/reducer/cartSlice';
 import {
   setCheckedList,
   setKeywordNo,
   setProductNo,
 } from '../../redux/reducer/cartSlice';
-import { useAppDispatch } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import theme from '../../shared/style/theme';
 import type { IProductPayCart, TUserOption } from '../../shared/types/types';
 import * as t from '../../style/cartItem.style';
@@ -22,11 +22,15 @@ interface IProps {
 }
 
 function CartItem(props: IProps) {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [checkedItem, setCheckedItem] = useState<TCartList[]>([]);
   const viewport = useViewport();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isAllChecked, setIsAllChecked] = useState<boolean>(false);
+  const checkedItem = useAppSelector(
+    state => state.cartSlice.checkedList,
+    shallowEqual
+  );
 
   const optionModal = isModalOpen && (
     <GlobalModal onClose={() => setIsModalOpen(false)}>
@@ -34,7 +38,6 @@ function CartItem(props: IProps) {
     </GlobalModal>
   );
 
-  // 옵션모달 오픈 & 디스패치
   const handleOption = (
     productNo: number,
     opt: TUserOption[],
@@ -48,46 +51,39 @@ function CartItem(props: IProps) {
     setIsModalOpen(!isModalOpen);
   };
 
-  // 개별 상품 선택 | 해제
   const handleCheck = useCallback(
     (checked: boolean, id: number, value: number) => {
       if (checked) {
-        setCheckedItem([
-          ...checkedItem,
-          {
-            p_No: id,
-            p_Price: value,
-          },
-        ]);
+        dispatch(
+          setCheckedList([
+            ...checkedItem,
+            {
+              p_No: id,
+              p_Price: value,
+            },
+          ])
+        );
       } else {
         const delCheckedItem = checkedItem.filter(item => item.p_No !== id);
-        setCheckedItem(delCheckedItem);
+        dispatch(setCheckedList(delCheckedItem));
       }
     },
     [checkedItem]
   );
 
-  // 전체 선택 | 해제
-  const allCheckedItem = useMemo(() => {
+  useEffect(() => {
     if (props.allChecked) {
-      const allcheckedList = props.cartList?.map(el => ({
+      const allCheckedList = props.cartList?.map(el => ({
         p_No: el.p_No,
         p_Price: el.p_Price,
       }));
-      setCheckedItem(allcheckedList);
-      return <t.CheckBox type="checkbox" defaultChecked={true} />;
+      dispatch(setCheckedList(allCheckedList));
+      setIsAllChecked(true);
     } else {
-      setCheckedItem([]);
-      return <t.CheckBox type="checkbox" defaultChecked={false} />;
+      dispatch(setCheckedList([]));
+      setIsAllChecked(false);
     }
   }, [props.allChecked]);
-
-  // 선택상품 배열 저장
-  useEffect(() => {
-    if (checkedItem) {
-      dispatch(setCheckedList(checkedItem));
-    }
-  }, [checkedItem]);
 
   const { mutate: payMutate } = usePutCartQuery();
   const handleBuy = (
@@ -117,7 +113,13 @@ function CartItem(props: IProps) {
           <t.Container key={item.p_No}>
             <t.ProdInfo>
               {props.allChecked ? (
-                <>{allCheckedItem}</>
+                <>
+                  {isAllChecked ? (
+                    <t.CheckBox type="checkbox" defaultChecked={true} />
+                  ) : (
+                    <t.CheckBox type="checkbox" defaultChecked={true} />
+                  )}
+                </>
               ) : (
                 <t.CheckBox
                   type="checkbox"
