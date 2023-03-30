@@ -1,5 +1,5 @@
 import type { ChangeEvent } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../components/common/ProductCard';
 import MyCancelAmount from '../components/MyCancelAmount';
@@ -17,7 +17,24 @@ export default function MyCancelPage() {
     useOrderProduct();
 
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
-  const [checkPrice] = useState<number>(0);
+  const [checkPrice, setCheckPrices] = useState<number>(0);
+
+  useEffect(() => {
+    if (checkedItems.length === 0 && productData) return;
+
+    const newPrices = productData
+      ?.map((item, i) => (checkedItems.includes(item.p_No) ? item.p_Price : 0))
+      .reduce((acc, cur) => acc + cur);
+
+    setCheckPrices(newPrices);
+  }, [checkedItems, productData]);
+
+  const handleCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    target.checked
+      ? setCheckedItems([...checkedItems, Number(target.value)])
+      : setCheckedItems(checkedItems.filter(el => el !== Number(target.value)));
+  };
 
   const cancleClick = () => {
     switch (checkedItems.length === 0) {
@@ -32,13 +49,6 @@ export default function MyCancelPage() {
         break;
       }
     }
-  };
-
-  const handleCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
-    const target = e.target;
-    target.checked
-      ? setCheckedItems([...checkedItems, Number(target.value)])
-      : setCheckedItems(checkedItems.filter(el => el !== Number(target.value)));
   };
 
   if (isLoading) return <p>Loading...</p>;
