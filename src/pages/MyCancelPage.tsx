@@ -83,8 +83,6 @@ export default function MyCancelPage() {
                   a_Brand={product.a_Brand}
                   p_Name={product.p_Name}
                   p_Option={product.p_Option}
-                  p_Cost={product.p_Cost}
-                  p_Discount={product.p_Discount}
                 />
               </t.CancelList>
             ))}

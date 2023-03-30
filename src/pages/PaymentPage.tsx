@@ -93,8 +93,6 @@ export default function PaymentPage() {
                     a_Brand={item.a_Brand}
                     p_Name={item.p_Name}
                     p_Option={item.p_Option}
-                    p_Cost={item.p_Cost}
-                    p_Discount={item.p_Discount}
                   />
                 ))}
             </article>

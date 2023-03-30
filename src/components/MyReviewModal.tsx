@@ -52,8 +52,6 @@ export default function MyReviewModal({ onClose }: TProps) {
             a_Brand={reviewData.a_Brand}
             p_Name={reviewData.p_Name}
             p_Option={reviewData.p_Option}
-            p_Cost={reviewData.p_Cost}
-            p_Discount={reviewData.p_Discount}
           />
         </t.ProductInfo>
         <t.StarRateBox>
