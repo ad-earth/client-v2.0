@@ -10,7 +10,7 @@ export type Tprops = {
 export default function ProductCard(props: Tprops) {
   return (
     <t.ProductInfoBox>
-      <t.ProductImg src={props.p_Thumbnail[0]} />
+      <t.ProductImg src={props.p_Thumbnail[0]} alt="제품" />
       <t.ProductInfo>
         <t.ProducName>
           [{props.a_Brand}] {props.p_Name}
