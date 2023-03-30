@@ -3,11 +3,7 @@ import { shallowEqual } from 'react-redux';
 import Button from '../../elements/Button';
 import ErrMsg from '../../elements/ErrorMsg';
 import Input from '../../elements/Input';
-import {
-  setName,
-  setPayInfo,
-  setPhone,
-} from '../../redux/reducer/payInputSlice';
+import { setPayInfo, setUserInfo } from '../../redux/reducer/payInputSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import theme from '../../shared/style/theme';
 import { PayInputInitial } from '../../shared/utils/inputInitialValue';
@@ -23,8 +19,8 @@ export default function PaymentAddDefault(isTabOpen: TProps) {
   const dispatch = useAppDispatch();
   const payInfo = useAppSelector(state => state.payInputSlice, shallowEqual);
   const user = JSON.parse(localStorage.getItem('userInfo'));
-  const [state, setDispatch] = useReducer(PayReducer, PayInputInitial);
-  const { name, phone } = state;
+  const [states, setDispatch] = useReducer(PayReducer, PayInputInitial);
+  const { name, phone } = states;
   const [resetUser, setResetUser] = useState<TUser>();
   const [isResetUser, setIsResetUser] = useState<boolean>(false);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -38,13 +34,14 @@ export default function PaymentAddDefault(isTabOpen: TProps) {
     setIsResetUser(!isResetUser);
     if (!resetUser.d_Name && !resetUser.d_Phone) setDispatch({ type: 'reset' });
     else {
-      dispatch(setName(resetUser?.d_Name));
-      dispatch(setPhone(resetUser?.d_Phone));
+      dispatch(
+        setUserInfo({ d_Name: resetUser?.d_Name, d_Phone: resetUser?.d_Phone })
+      );
     }
   };
 
   useEffect(() => {
-    if (!state) return;
+    if (!states) return;
     setResetUser({
       d_Name: name.val,
       d_Phone: phone.val,

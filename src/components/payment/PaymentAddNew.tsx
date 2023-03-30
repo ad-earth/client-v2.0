@@ -4,15 +4,7 @@ import { shallowEqual } from 'react-redux';
 import Button from '../../elements/Button';
 import ErrMsg from '../../elements/ErrorMsg';
 import Input from '../../elements/Input';
-import {
-  setAddress1,
-  setAddress2,
-  setAddress3,
-  setDNumber,
-  setName,
-  setPayInfo,
-  setPhone,
-} from '../../redux/reducer/payInputSlice';
+import { setPayInfo } from '../../redux/reducer/payInputSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import theme from '../../shared/style/theme';
 import { PayInputInitial } from '../../shared/utils/inputInitialValue';
@@ -48,12 +40,17 @@ export default function PaymentAddNew(isTabOpen: IProps) {
   const handleClick = () => {
     if (!newUser.d_Name && !newUser.d_Phone) setDispatch({ type: 'reset' });
     else if (zipcode && address && extraAddress) {
-      dispatch(setName(newUser?.d_Name));
-      dispatch(setPhone(newUser?.d_Phone));
-      dispatch(setDNumber(0));
-      dispatch(setAddress1(zipcode));
-      dispatch(setAddress2(address));
-      dispatch(setAddress3(extraAddress));
+      dispatch(
+        setPayInfo({
+          d_Name: newUser.d_Name,
+          d_Phone: newUser.d_Phone,
+          d_No: 0,
+          d_Address1: zipcode,
+          d_Address2: address,
+          d_Address3: extraAddress,
+          d_Memo: memo && memo,
+        })
+      );
       setAllChecked(true);
     } else toast.error('입력칸을 모두 채워주세요!');
   };
