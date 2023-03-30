@@ -1,5 +1,6 @@
 import type { ChangeEvent } from 'react';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../components/common/ProductCard';
 import MyCancelAmount from '../components/my/MyCancelAmount';
@@ -39,7 +40,7 @@ export default function MyCancelPage() {
   const cancleClick = () => {
     switch (checkedItems.length === 0) {
       case true: {
-        alert('취소상품을 선택해 주세요');
+        toast.error('취소상품을 선택해 주세요');
         break;
       }
       default: {

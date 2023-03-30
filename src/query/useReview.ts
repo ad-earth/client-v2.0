@@ -1,4 +1,5 @@
 import type { AxiosError, AxiosResponse } from 'axios';
+import { toast } from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 import { postReviews } from '../shared/api/productApi';
 
@@ -19,7 +20,7 @@ export default function useReview() {
       onSuccess: () => {
         queryClient.invalidateQueries('order');
         queryClient.invalidateQueries('orderDetail');
-        alert('리뷰등록이 완료되었습니다!');
+        toast.success('리뷰등록이 완료되었습니다!');
       },
     }
   );

@@ -1,4 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react';
+import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../elements/Button';
 import { setReviewData } from '../../redux/reducer/reviewSlice';
@@ -37,7 +38,7 @@ export default function MyOrderList(props: TProps) {
       case 'detail': {
         status
           ? navigate(`/detail/${p_No}`)
-          : alert('현재 판매하지 않는 상품입니다.');
+          : toast.error('현재 판매하지 않는 상품입니다.');
         break;
       }
     }

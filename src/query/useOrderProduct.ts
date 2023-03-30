@@ -1,5 +1,6 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useMemo } from 'react';
+import { toast } from 'react-hot-toast';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import queryKeys from '../constants/queryKeys';
@@ -46,7 +47,7 @@ export default function useOrderProduct() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(queryKeys.ORDER);
-        alert('주문을 취소하였습니다.');
+        toast.success('주문을 취소하였습니다.');
         navigate('/mypage');
       },
     }
