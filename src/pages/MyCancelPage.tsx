@@ -6,11 +6,11 @@ import MyCancelAmount from '../components/MyCancelAmount';
 import Button from '../elements/Button';
 import useViewport from '../hooks/useViewport';
 import useOrder from '../query/useOrder';
-import type { Product } from '../shared/types/types';
+import type { IMyProduct } from '../shared/types/types';
 import * as t from '../style/myCancelPage.style';
 
 type TLocation = {
-  products: Product[];
+  products: IMyProduct[];
 };
 
 export default function MyCancelPage() {
@@ -76,7 +76,7 @@ export default function MyCancelPage() {
         <t.ContentsBox>
           <t.CancelListBox>
             <t.Title>취소 상품 선택</t.Title>
-            {products.map((product: Product, i: number) => (
+            {products.map((product: IMyProduct, i: number) => (
               <t.CancelList key={i}>
                 <t.Checkbox
                   type="checkbox"
