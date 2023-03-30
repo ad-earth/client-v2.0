@@ -1,21 +1,21 @@
 import { useEffect, useReducer, useState } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
-import Button from '../elements/Button';
-import ErrMsg from '../elements/ErrorMsg';
-import Input from '../elements/Input';
-import type { TUserInfoData } from '../query/usePutMyUserInfoQuery';
-import usePutUserInfoQuery from '../query/usePutMyUserInfoQuery';
-import theme from '../shared/style/theme';
-import { InfoInitial } from '../shared/utils/inputInitialValue';
-import { infoReducer } from '../shared/utils/inputReducer';
-import * as t from '../style/myUserInfoModal.style';
-import Address from './common/Address';
-import Profile from './common/Profile';
+import Button from '../../elements/Button';
+import ErrMsg from '../../elements/ErrorMsg';
+import Input from '../../elements/Input';
+import type { TUserInfoData } from '../../query/usePutMyUserInfoQuery';
+import usePutUserInfoQuery from '../../query/usePutMyUserInfoQuery';
+import theme from '../../shared/style/theme';
+import { InfoInitial } from '../../shared/utils/inputInitialValue';
+import { infoReducer } from '../../shared/utils/inputReducer';
+import * as t from '../../style/myUserInfoModal.style';
+import Address from './Address';
+import Profile from './Profile';
 
 type TProps = {
   onClose: () => void;
 };
-export default function MyUserInfoModal({ onClose }: TProps) {
+export default function UserInfoModal({ onClose }: TProps) {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   const [state, setDispatch] = useReducer(infoReducer, InfoInitial);
   const { name, gender, phone } = state;

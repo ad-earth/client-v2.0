@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useViewport from '../hooks/useViewport';
 import * as t from '../style/myUserHeadSection.style';
 import GlobalModal from './common/GlobalModal';
-import MyUserInfoModal from './MyUserInfoModal';
+import MyUserInfoModal from './common/UserInfoModal';
 
 interface IUser {
   u_Img: string;
