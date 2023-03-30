@@ -20,10 +20,8 @@ export default function MyOrderList(props: TProps) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const cancelBtnClick = () =>
-    navigate(`/mypage/cancel-call/${orderNo}`, {
-      state: { products: products },
-    });
+  const cancelBtnClick = () => navigate(`/mypage/cancel-call/${orderNo}`);
+
   const reviweBtnClick = (product: IMyProduct) => {
     dispatch(setReviewData(product));
     setIsModalOpen(!isModalOpen);
