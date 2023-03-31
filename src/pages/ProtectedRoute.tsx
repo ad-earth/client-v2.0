@@ -1,26 +1,31 @@
-import React, { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
 import { setAuth } from '../redux/reducer/authSlice';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 
 interface IProps {
   children: React.ReactNode;
+  redirectPath?: string;
 }
 
-export default function ProtectedRoute({ children }: IProps) {
+const getLocalStorage = (name: string): string | null =>
+  localStorage.getItem(name);
+
+const getIsToken = () => !!getLocalStorage('token');
+
+export function ProtectedRoute({ children, redirectPath }: IProps) {
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(state => state.authSlice.isAuth);
-  const token = localStorage.getItem('token');
+  const isToken = getIsToken();
 
   useEffect(() => {
-    if (!isAuth && token) {
+    if (isToken) {
       dispatch(setAuth({ isAuth: true }));
     } else return;
-  }, []);
+  }, [isToken]);
 
-  if (!isAuth) {
-    return <Navigate to="/" replace />;
+  if (!isAuth && !isToken) {
+    return <Navigate to={redirectPath} replace />;
   }
-
-  return <>{children}</>;
+  return children ? <>{children}</> : <Outlet />;
 }
