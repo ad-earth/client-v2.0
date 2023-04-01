@@ -5,12 +5,10 @@ import queryKeys from '../constants/queryKeys';
 import type { TPaymentInfo } from '../redux/reducer/payInputSlice';
 import {
   deleteAddress,
-  getComplete,
   getPayment,
   postPayment,
 } from './../shared/api/paymentApi';
 import type {
-  ICompleteResponse,
   IPaymentResponse,
   IProductPayCart,
   TError,
@@ -41,17 +39,6 @@ const usePayment = (type?: string, p_No?: number) => {
     [payData]
   );
 
-  const { data: completeData } = useQuery<
-    AxiosResponse<ICompleteResponse>,
-    Error
-  >([queryKeys.COMPLETE], () => getComplete());
-  const { completeInfo } = useMemo(
-    () => ({
-      completeInfo: completeData?.data,
-    }),
-    [completeData]
-  );
-
   const postPay = useMutation<AxiosResponse, AxiosError<TError>, TPayData>(
     data => postPayment(data.type, data.address, data.products, data.o_Price)
   );
@@ -70,7 +57,6 @@ const usePayment = (type?: string, p_No?: number) => {
     addressList,
     products,
     price,
-    completeInfo,
     postPay,
     deletePayAddress,
   };
