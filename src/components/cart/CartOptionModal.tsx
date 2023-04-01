@@ -33,24 +33,19 @@ export default function CartOptionModal({ onClose }: IProps) {
     [query]
   );
 
-  const cartData = {
-    type: 'c',
-    productNo: productNo,
-    option: optionFromSlice,
-    keyword: keywordNo,
-  };
   const { updateCartItem } = useCart();
   const handleCart = () => {
+    const cartData = {
+      type: 'c',
+      productNo: productNo,
+      option: optionFromSlice,
+      keyword: keywordNo,
+    };
     if (product && optionFromSlice.length === 0)
       toast.error('상품을 먼저 선택해주세요.');
     else {
       updateCartItem.mutate(cartData, {
-        onSuccess: () => {
-          const acc = localStorage.getItem('cartStatus');
-          const cur = Number(acc) + 1;
-          localStorage.setItem('cartStatus', String(cur));
-          onClose();
-        },
+        onSuccess: () => onClose(),
       });
     }
   };
