@@ -1,6 +1,6 @@
-import useViewport from '../hooks/useViewport';
-import type { IList } from '../shared/types/types';
-import * as t from '../style/myOrderInfo.style';
+import useViewport from '../../hooks/useViewport';
+import type { IList } from '../../shared/types/types';
+import * as t from '../../style/myOrderInfo.style';
 
 export default function MyOrderInfo({ list }: { list: IList }) {
   const viewport = useViewport();

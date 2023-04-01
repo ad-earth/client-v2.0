@@ -1,38 +1,27 @@
-import { useMemo, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
 import GlobalModal from '../components/common/GlobalModal';
-import MyOrderInfo from '../components/MyOrderInfo';
-import MyOrderList from '../components/MyOrderList';
-import MyReviewModal from '../components/MyReviewModal';
+import MyOrderInfo from '../components/my/MyOrderInfo';
+import MyOrderList from '../components/my/MyOrderList';
+import MyReviewModal from '../components/my/MyReviewModal';
 import useIntersectHandler from '../hooks/useIntersectHandler';
-import useGetOrderQuery from '../query/useGetOrderQuery';
-import type { IList, TResOrder } from '../shared/types/types';
+import useOrder from '../query/useOrder';
 import * as t from '../style/myOrderPage.style';
 
 export default function MyOrderPage() {
-  const pathPattern = useLocation();
-  const [, path] = pathPattern.pathname.split('/');
-
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
   const {
     isLoading,
-    data,
     isFetching,
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
-  } = useGetOrderQuery(path);
+    orderData,
+  } = useOrder();
 
-  const getList = (list: TResOrder): IList[] => {
-    if ('orderList' in list) return list.orderList;
-    else return list.cancelList;
-  };
-
-  /** Data Filtering */
-  const orderData = useMemo(
-    () => data?.pages.map(page => getList(page?.data)).flat() || null,
-    [data]
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const reviewModal = isModalOpen && (
+    <GlobalModal onClose={() => setIsModalOpen(false)}>
+      <MyReviewModal onClose={() => setIsModalOpen(false)} />
+    </GlobalModal>
   );
 
   /** Browser IntersectionObserver */
@@ -41,22 +30,16 @@ export default function MyOrderPage() {
     fetchNextPage();
   });
 
-  const reviewModal = isModalOpen && (
-    <GlobalModal onClose={() => setIsModalOpen(false)}>
-      <MyReviewModal onClose={() => setIsModalOpen(false)} />
-    </GlobalModal>
-  );
-
   if (isLoading) return <p>Loading...</p>;
   return (
     <t.Base>
       {reviewModal}
       <t.Title>주문조회</t.Title>
       <t.Article>
-        {orderData.length === 0 && (
+        {orderData?.length === 0 && (
           <t.DataNull>주문 내역이 없습니다.</t.DataNull>
         )}
-        {orderData.map((list, i) => (
+        {orderData?.map((list, i) => (
           <t.OrderList key={i}>
             <MyOrderInfo list={list} />
             <MyOrderList

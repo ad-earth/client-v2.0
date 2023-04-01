@@ -1,5 +1,5 @@
-import useViewport from '../hooks/useViewport';
-import * as t from '../style/MyOrderAmount.style';
+import useViewport from '../../hooks/useViewport';
+import * as t from '../../style/MyOrderAmount.style';
 
 type Tprops = {
   price: number;
@@ -54,19 +54,6 @@ export default function MyOrderAmount(props: Tprops) {
                 : `${cancelPrice.toLocaleString('ko-KR')}원`}
             </t.Text>
           </t.Box>
-          <t.ItemBox className="webItemBox">
-            {/* {!cancelPrice && (
-              <t.Box>
-                <span>
-                  <strong>무통장입금</strong>
-                  <br />
-                  지구은행 0123456789
-                  <br />
-                  예금주 광고지구
-                </span>
-              </t.Box>
-            )} */}
-          </t.ItemBox>
         </t.Section>
       </t.Contents>
     </t.OrderAmountBox>
