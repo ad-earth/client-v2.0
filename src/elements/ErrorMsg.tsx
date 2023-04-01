@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import theme from '../shared/style/theme';
 
-interface PropsType {
+interface IProps {
   msg?: string;
 }
 
-function ErrMsg(props: PropsType) {
+function ErrMsg(props: IProps) {
   return (
     <Container>
       <Message>{props.msg}</Message>

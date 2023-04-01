@@ -10,7 +10,7 @@ export interface IProduct {
 }
 export interface IProductCard extends IProduct {
   p_Best: boolean;
-  p_Option: TOption[];
+  p_Option?: TOption[];
   p_Soldout: boolean;
   p_New: boolean;
   p_Desc: string;
@@ -27,13 +27,24 @@ export interface IProductDetail extends IProductCard {
   p_Cnt: number;
   p_Content: string;
 }
-export interface IMyProduct extends Product {
+export interface IMyProduct extends IProduct {
+  p_Option: TUserOption[];
   o_Status: string;
   p_Cnt: number;
   p_Price: number;
   r_Status: boolean;
   p_Status: boolean;
   k_No: null;
+}
+export interface IMyWish extends IProduct {
+  p_Best: boolean;
+  p_Cnt: number;
+  p_Content: string;
+  p_Desc: string;
+  p_Like: number;
+  p_New: boolean;
+  p_Review: number;
+  p_Soldout: boolean;
 }
 
 export type TOption = [string, string, string, number, number];
@@ -115,20 +126,6 @@ export interface IReviewsResponse {
   p_review: number;
   reviews: TReviews;
 }
-// 곧 없어질 컴포
-export interface Product {
-  p_No: number;
-  p_Category: string;
-  p_Thumbnail: string[];
-  a_Brand: string;
-  p_Name: string;
-  p_Cost: number;
-  p_Sale: boolean;
-  p_Discount: number;
-  p_Option: TUserOption[];
-  p_Best: boolean;
-  p_New: boolean;
-}
 export interface ILoginResponse {
   userInfo: IUserLogin;
   cartStatus: number;
@@ -158,7 +155,8 @@ export interface IMyAPIResOrderDetail extends IList {
   userInfo: IUserInfo;
   address: IMyAddress;
 }
+
 export interface TResWish {
   cnt: number;
-  wishList: IProductCard[];
+  wishList: IMyWish[];
 }

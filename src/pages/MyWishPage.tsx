@@ -1,7 +1,6 @@
-import { useMemo } from 'react';
 import Card from '../components/common/Card';
 import useIntersectHandler from '../hooks/useIntersectHandler';
-import useGetWishQuery from '../query/useGetWishQuery';
+import useWish from '../query/useWish';
 import * as t from '../style/myWishPage.style';
 
 export default function MyWishPage() {
@@ -12,19 +11,11 @@ export default function MyWishPage() {
       isFetchingNextPage,
       fetchNextPage,
       isFetching,
-      data,
     },
-  } = useGetWishQuery();
-
-  const cnt = useMemo(() => data?.pages[0].data.cnt || 0, [data]);
-  const wishData = useMemo(
-    () => data?.pages.map(page => page?.data?.wishList).flat() || null,
-    [data]
-  );
-  const likeList = useMemo(
-    () => wishData?.map(list => list.p_No) || [],
-    [wishData]
-  );
+    wishCnt,
+    wishData,
+    wishLike,
+  } = useWish();
 
   const target = useIntersectHandler(() => {
     if (!hasNextPage || isFetchingNextPage) return;
@@ -35,14 +26,14 @@ export default function MyWishPage() {
   return (
     <t.Base>
       <t.Title>
-        위시리스트 <t.WishCnt>{cnt}</t.WishCnt>
+        위시리스트 <t.WishCnt>{wishCnt}</t.WishCnt>
       </t.Title>
       <t.CardContent>
-        {cnt === 0 && <t.DataNull>위시리스트가 없습니다.</t.DataNull>}
+        {wishCnt === 0 && <t.DataNull>위시리스트가 없습니다.</t.DataNull>}
         {wishData &&
-          wishData.map((list, i: number) => (
+          wishData?.map((list, i: number) => (
             <t.List key={i}>
-              <Card isAd={false} product={list} likeList={likeList} />
+              <Card isAd={false} product={list} likeList={wishLike} />
             </t.List>
           ))}
       </t.CardContent>

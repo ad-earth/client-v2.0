@@ -1,30 +1,22 @@
 import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import CartItem from '../components/CartItem';
+import CartItem from '../components/cart/CartItem';
 import Button from '../elements/Button';
 import useViewport from '../hooks/useViewport';
-import useDeleteCartQuery from '../query/useDeleteCartQuery';
-import useGetCartQuery from '../query/useGetCartQuery';
-import { setCheckedList } from '../redux/reducer/cartSlice';
+import useCart from '../query/useCart';
+import { setCartStatus, setCheckedList } from '../redux/reducer/cartSlice';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import theme from '../shared/style/theme';
 import * as t from '../style/cartPage.style';
 
 export default function CartPage() {
   const viewport = useViewport();
-  const query = useGetCartQuery();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { cartList } = useCart();
   const [allChecked, setAllChecked] = useState<boolean>(false);
   const checkedItem = useAppSelector(state => state.cartSlice.checkedList);
-
-  const { cartList } = useMemo(
-    () => ({
-      cartList: query.data?.data.cartList,
-    }),
-    [query]
-  );
 
   const handleCheck = () => {
     setAllChecked(!allChecked);
@@ -39,21 +31,20 @@ export default function CartPage() {
     }
   }, [checkedItem]);
 
-  const { mutate } = useDeleteCartQuery();
+  const { removeCartItem } = useCart();
   const handleDelete = () => {
     const productNo = checkedItem.map(item => item.p_No);
     const data = {
       type: 'c',
       p_Nos: String(productNo.join()),
     };
-    mutate(data, {
+    removeCartItem.mutate(data, {
       onSuccess: () => {
-        alert('상품을 삭제하였습니다.');
+        toast.success('상품을 삭제하였습니다.');
+        const cur = cartList.length - checkedItem.length;
+        localStorage.setItem('cartStatus', String(cur));
+        dispatch(setCartStatus(cur));
         dispatch(setCheckedList([]));
-        localStorage.setItem(
-          'cartStatus',
-          String(cartList.length - checkedItem.length)
-        );
       },
     });
   };
