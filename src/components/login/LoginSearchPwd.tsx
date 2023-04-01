@@ -1,20 +1,20 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useState } from 'react';
 import Button from '../../elements/Button';
 import ErrMsg from '../../elements/ErrorMsg';
 import Input from '../../elements/Input';
-import type { TNewPwdData, TSearchPwdData } from '../../query/useAuth';
-import useAuth from '../../query/useAuth';
+import type { ISearchPwdData } from '../../query/useAuthSearch';
+import useAuthSearch from '../../query/useAuthSearch';
 import theme from '../../shared/style/theme';
-import { NewPwdInitial } from '../../shared/utils/inputInitialValue';
-import { PwdReducer } from '../../shared/utils/inputReducer';
+import LoginSetNewPwd from './LoginSetNewPwd';
 
 export default function LoginSearchPwd() {
-  // 비밀번호 찾기
-  const [form, setForm] = useState<TSearchPwdData>({
+  const [form, setForm] = useState<ISearchPwdData>({
     u_Id: '',
     u_Name: '',
     u_Phone: '',
   });
+  const [isNewPwd, setIsNewPwd] = useState<boolean>(false);
+
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -22,33 +22,12 @@ export default function LoginSearchPwd() {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
+
   const {
     searchPwd: { data, refetch, isSuccess, isError },
-  } = useAuth(form);
+  } = useAuthSearch(form);
   const handleSearch = () => {
     refetch();
-  };
-
-  // 비밀번호 변경
-  const [isNewPwd, setIsNewPwd] = useState<boolean>(false);
-  const [newPwd, setNewPwd] = useState<TNewPwdData>();
-  const [state, setDispatch] = useReducer(PwdReducer, NewPwdInitial);
-  const { pwd, pwdCheck } = state;
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setDispatch({ type: e.target.name, payload: e.target.value });
-  useEffect(() => {
-    if (!state) return;
-    setNewPwd({
-      u_Idx: data?.data.u_Idx,
-      u_Pw: pwd.val,
-    });
-  }, [data?.data.u_Idx, pwd.val]);
-  const { updatePwd } = useAuth();
-  const handlePwdSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
-  const handleNewPwd = () => {
-    updatePwd.mutate(newPwd);
   };
 
   return (
@@ -91,37 +70,13 @@ export default function LoginSearchPwd() {
         <>
           {isSuccess && (
             <p>
-              <strong>{form.u_Id}</strong> 님의 비밀번호가 기억나지 않으시면
+              <strong>{form?.u_Id}</strong> 님의 비밀번호가 기억나지 않으시면
               <br />
               비밀번호를 재설정해주세요.
             </p>
           )}
           {isNewPwd ? (
-            <form onSubmit={handlePwdSubmit}>
-              <Input
-                {...inputStyle[0]}
-                type="password"
-                holderName="비밀번호 (영문,숫자,특수문자 포함(8~20자)"
-                name="pwd"
-                value={pwd.val}
-                onChange={onChange}
-              />
-              {!pwd.isCheck && <ErrMsg msg={pwd.msg} />}
-              <Input
-                {...inputStyle[1]}
-                type="password"
-                holderName="비밀번호 확인"
-                name="pwdCheck"
-                value={pwdCheck.val}
-                onChange={onChange}
-              />
-              {!pwdCheck.isCheck && <ErrMsg msg={pwdCheck.msg} />}
-              <Button
-                text="비밀번호 재설정"
-                margin="30px 0 0 0"
-                onClick={handleNewPwd}
-              />
-            </form>
+            <LoginSetNewPwd idx={data?.data.u_Idx} />
           ) : (
             <Button
               text="비밀번호 재설정"
