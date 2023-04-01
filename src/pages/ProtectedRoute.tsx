@@ -22,7 +22,7 @@ export function ProtectedRoute({ children, redirectPath }: IProps) {
     if (isToken) {
       dispatch(setAuth({ isAuth: true }));
     } else return;
-  }, [isToken]);
+  }, []);
 
   if (!isAuth && !isToken) {
     return <Navigate to={redirectPath} replace />;
