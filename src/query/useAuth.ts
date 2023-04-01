@@ -84,6 +84,9 @@ const useAuth = (idData?: ISearchIdData, pwdData?: TSearchPwdData) => {
         localStorage.setItem('cartStatus', JSON.stringify(res.data.cartStatus));
       }
     },
+    onError: () => {
+      toast.error('아이디 또는 비밀번호를 잘못 입력했습니다.');
+    },
   });
 
   const signup = useMutation<AxiosResponse, AxiosError<TError>, TSignUpData>(
