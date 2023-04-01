@@ -1,13 +1,13 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../elements/Button';
-import usePayment from '../query/usePayment';
+import useComplete from '../query/useComplete';
 import * as t from '../style/completePage.style';
 
 export default function CompletePage() {
   const {
     state: { price },
   } = useLocation();
-  const { completeInfo } = usePayment();
+  const { completeInfo } = useComplete();
 
   const navigate = useNavigate();
   const routeToMain = () => navigate('/');
