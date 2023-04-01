@@ -4,13 +4,11 @@ import useComplete from '../query/useComplete';
 import * as t from '../style/completePage.style';
 
 export default function CompletePage() {
+  const navigate = useNavigate();
   const {
     state: { price },
   } = useLocation();
   const { completeInfo } = useComplete();
-
-  const navigate = useNavigate();
-  const routeToMain = () => navigate('/');
 
   const now = new Date();
   const due = new Date(now.setDate(now.getDate() + 1));
@@ -22,6 +20,8 @@ export default function CompletePage() {
     year: 'numeric',
     weekday: 'short',
   });
+
+  const routeToMain = () => navigate('/');
 
   return (
     <t.Container>
