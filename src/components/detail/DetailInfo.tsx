@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import Badge from '../../elements/Badge';
 import Button from '../../elements/Button';
 import Heart from '../../elements/Heart';
-import useGetCartQuery from '../../query/useCart';
+import useCart from '../../query/useCart';
 import { setCartStatus } from '../../redux/reducer/cartSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import theme from '../../shared/style/theme';
@@ -41,7 +41,7 @@ export default function DetailInfo({ product, keyNo, isLike }: TProps) {
   const [open, setOpen] = useState<boolean>(false);
   const options = useAppSelector(state => state.optionSlice);
 
-  const { updateCartItem } = useGetCartQuery();
+  const { updateCartItem } = useCart();
 
   const payData = {
     type: 'd',

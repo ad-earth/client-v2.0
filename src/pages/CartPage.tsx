@@ -5,6 +5,7 @@ import CartItem from '../components/cart/CartItem';
 import Button from '../elements/Button';
 import useViewport from '../hooks/useViewport';
 import useCart from '../query/useCart';
+import useGetCart from '../query/useGetCart';
 import { setCartStatus, setCheckedList } from '../redux/reducer/cartSlice';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import theme from '../shared/style/theme';
@@ -14,7 +15,7 @@ export default function CartPage() {
   const viewport = useViewport();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { cartList } = useCart();
+  const { cartList } = useGetCart();
   const [allChecked, setAllChecked] = useState<boolean>(false);
   const checkedItem = useAppSelector(state => state.cartSlice.checkedList);
 

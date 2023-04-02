@@ -24,6 +24,10 @@ export const GROCERY = `${CLIENTIMG}/post1.webp`;
 export const INSTA = `${CLIENTIMG}/post2.webp`;
 export const PLASTIC = `${CLIENTIMG}/post3.webp`;
 export const DELIVERY = `${CLIENTIMG}/shippinginfo.webp`;
+export const HEADLOGO = `${CLIENTIMG}/headLogo.webp`;
+export const WHITELOGO = `${CLIENTIMG}/whiteLogo.webp`;
+export const LOGINLOGO = `${CLIENTIMG}/logInLogo.webp`;
+export const DEFAULTIMAGE = `${CLIENTIMG}/defaultImage.webp`;
 
 export const CATEGORYLIST = [
   '전체',
