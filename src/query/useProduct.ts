@@ -1,12 +1,18 @@
-import type { AxiosResponse } from 'axios';
+import type { AxiosError, AxiosResponse } from 'axios';
 import { useMemo } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import queryKeys from '../constants/queryKeys';
-import { getAdList, getDetail, getList } from '../shared/api/productApi';
+import {
+  getAdList,
+  getDetail,
+  getList,
+  postLike,
+} from '../shared/api/productApi';
 import type {
   IAdResponse,
   IDetailResponse,
   IListResponse,
+  TError,
 } from '../shared/types/types';
 
 type TParameter = {
@@ -77,6 +83,20 @@ const useProduct = ({
     [detailData]
   );
 
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation<
+    AxiosResponse,
+    AxiosError<TError>,
+    any,
+    unknown
+  >(productNumber => postLike(productNumber), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['ad']);
+      queryClient.invalidateQueries(['wish']);
+      queryClient.invalidateQueries(['detail']);
+    },
+  });
+
   return {
     totalPages,
     products,
@@ -88,6 +108,7 @@ const useProduct = ({
     product,
     keyNo,
     isLike,
+    mutate,
   };
 };
 export default useProduct;
