@@ -7,7 +7,7 @@ import {
 import styled from 'styled-components';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import ProtectedRoute from '../../pages/ProtectedRoute';
+import { ProtectedRoute } from '../../pages/ProtectedRoute';
 import { myRouteData, routerData } from './RouteList';
 
 const Router = createBrowserRouter(
@@ -19,7 +19,11 @@ const Router = createBrowserRouter(
             <Route
               key={router.id}
               path={router.path}
-              element={<ProtectedRoute>{router.element}</ProtectedRoute>}
+              element={
+                <ProtectedRoute redirectPath={router.redirectPath}>
+                  {router.element}
+                </ProtectedRoute>
+              }
             >
               {myRouteData.map(myRouter => {
                 return (

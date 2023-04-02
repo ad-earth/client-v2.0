@@ -20,6 +20,7 @@ interface RouterBase {
   index?: boolean;
   element?: React.ReactNode;
   withAuth?: boolean;
+  redirectPath?: string;
 }
 interface NestedRouterBase {
   id: number;
@@ -69,18 +70,21 @@ export const routerData: RouterBase[] = [
     id: 6,
     element: <MyLayout />,
     withAuth: true,
+    redirectPath: '/',
   },
   {
     id: 7,
     path: 'cart',
     element: <CartPage />,
     withAuth: true,
+    redirectPath: '/',
   },
   {
     id: 8,
     path: 'payment',
     element: <PaymentPage />,
     withAuth: true,
+    redirectPath: '/',
   },
   {
     id: 9,
