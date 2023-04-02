@@ -8,10 +8,6 @@ export const Container = styled.div`
   position: relative;
   p {
     font-size: ${theme.fs13};
-    &.bold {
-      font-size: ${theme.fs13};
-      font-weight: 800;
-    }
   }
 `;
 
@@ -27,6 +23,7 @@ export const DropDown = styled.div<{ isDrop: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
   padding: 8px 12px;
   box-sizing: border-box;
   border: ${props =>

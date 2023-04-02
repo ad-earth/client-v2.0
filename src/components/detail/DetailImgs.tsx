@@ -1,13 +1,18 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { CAROUSEL } from '../../constants';
 import type { IProductDetail } from '../../shared/types/types';
 import * as t from '../../style/detailImgs.style';
 
-function DetailImgs({ product }: PropsType) {
+type TProps = {
+  product: IProductDetail;
+};
+
+function DetailImgs({ product }: TProps) {
   return (
     <t.MainContainer>
-      <Slider {...carouselSetting}>
+      <Slider {...CAROUSEL}>
         {product?.p_Thumbnail.map((img, idx) => (
           <div key={idx}>
             <t.ProdImg src={img} alt="상품 이미지" />
@@ -20,17 +25,5 @@ function DetailImgs({ product }: PropsType) {
     </t.MainContainer>
   );
 }
-
-type PropsType = {
-  product: IProductDetail;
-};
-
-const carouselSetting = {
-  autoplaySpeed: 3000,
-  autoplay: true,
-  dots: false,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-};
 
 export default DetailImgs;

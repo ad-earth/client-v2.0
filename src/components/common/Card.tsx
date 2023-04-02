@@ -7,15 +7,21 @@ import * as t from '../../style/card.style';
 
 type TProps = {
   product: IProductCard;
-  likeList?: number[];
   isAd: boolean;
+  likeList?: number[];
+  keyword?: string;
 };
 
-export default function Card({ product, likeList, isAd }: TProps) {
+export default function Card({ product, isAd, likeList, keyword }: TProps) {
   const navigate = useNavigate();
   const [imageIdx, setImageIdx] = useState<number>(0);
 
-  const handleClick = (productNo: number) => navigate(`/detail/${productNo}`);
+  const handleClick = (productNo: number) => {
+    navigate(`/detail/${productNo}`, {
+      replace: true,
+      state: { keyword: keyword ? keyword : null },
+    });
+  };
 
   const handleEnter = () =>
     product.p_Thumbnail.length > 1 ? setImageIdx(1) : setImageIdx(0);

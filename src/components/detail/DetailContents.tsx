@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { DELIVERY } from '../../constants';
-import useGetReviewsQuery from '../../query/useGetReviewsQuery';
+import useReview from '../../query/useReview';
 import * as t from '../../style/detailContents.style';
 import DetailReviews from './DetailReviews';
 
@@ -12,25 +12,23 @@ type TProps = {
 export default function DetailContents({ productNo, content }: TProps) {
   const [menuSwitch, setMenuSwitch] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
-  const query = useGetReviewsQuery(productNo, page);
+  const { data } = useReview(productNo, page);
 
-  function createMarkup() {
-    return { __html: content };
-  }
+  const createMarkup = () => ({ __html: content });
 
   return (
     <t.Container>
       <t.MenuWrapper>
         <t.Menu onClick={() => setMenuSwitch(false)}>상세정보</t.Menu>
         <t.Menu onClick={() => setMenuSwitch(true)} className="right">
-          구매평 ({query.data?.data.p_review})
+          구매평 ({data?.data.p_review})
         </t.Menu>
       </t.MenuWrapper>
       <t.ContentsWrapper>
         {menuSwitch ? (
           <DetailReviews
-            reviewQty={query.data?.data.p_review}
-            reviewList={query.data?.data.reviews}
+            reviewQty={data?.data.p_review}
+            reviewList={data?.data.reviews}
             page={page}
             setPage={setPage}
           />

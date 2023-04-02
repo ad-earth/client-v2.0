@@ -27,7 +27,7 @@ export const CommentWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  border-top: 1px solid ${theme.ls13};
+  border-bottom: 1px solid ${theme.ls13};
 `;
 
 export const Page = styled.div`
@@ -43,7 +43,6 @@ export const ReviewWrapper = styled.div`
   align-items: center;
   padding: 15px 10px;
   box-sizing: border-box;
-  border-bottom: 1px solid ${theme.ls13};
   color: ${theme.fc09};
 `;
 

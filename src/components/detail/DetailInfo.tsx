@@ -10,7 +10,8 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import theme from '../../shared/style/theme';
 import type { IProductDetail } from '../../shared/types/types';
 import * as t from '../../style/detailInfo.style';
-import Option from '../common/Option';
+import OptionBox from '../common/OptionBox';
+import SingleBox from '../common/SingleBox';
 import DetailModal from './DetailModal';
 
 type TProps = {
@@ -19,7 +20,7 @@ type TProps = {
   isLike: boolean;
 };
 
-function DetailInfo({ product, keyNo, isLike }: TProps) {
+export default function DetailInfo({ product, keyNo, isLike }: TProps) {
   const { productNo } = useParams();
   const { price, discount, isOption } = useMemo(
     () => ({
@@ -55,6 +56,7 @@ function DetailInfo({ product, keyNo, isLike }: TProps) {
       });
     }
   };
+
   const dispatch = useAppDispatch();
   const cartData = {
     type: 'c',
@@ -114,7 +116,11 @@ function DetailInfo({ product, keyNo, isLike }: TProps) {
       <p className="small">
         <span>배송비</span> 전 품목 무료배송
       </p>
-      <Option product={product} isCart={false} />
+      {isOption ? (
+        <OptionBox product={product} isCart={false} />
+      ) : (
+        <SingleBox product={product} isCart={false} />
+      )}
       <t.Wrapper className="button-wrap">
         {product?.p_Soldout ? (
           <Button
@@ -146,8 +152,6 @@ function DetailInfo({ product, keyNo, isLike }: TProps) {
     </t.MainContainer>
   );
 }
-
-export default DetailInfo;
 
 const propsSoldout = {
   width: '200%',

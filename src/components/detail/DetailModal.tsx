@@ -9,21 +9,23 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import theme from '../../shared/style/theme';
 
-function DetailModal(props: { open: boolean }) {
+type TProps = {
+  open: boolean;
+};
+
+export default function DetailModal({ open }: TProps) {
   const navigate = useNavigate();
-  const [open, setOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    setOpen(props.open);
-  }, [props.open]);
+    setIsOpen(open);
+  }, [open]);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClose = () => setIsOpen(false);
 
   return (
     <div>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={isOpen} onClose={handleClose}>
         <DialogContent>
           <DialogContentText
             id="alert-dialog-description"
@@ -50,5 +52,3 @@ function DetailModal(props: { open: boolean }) {
     </div>
   );
 }
-
-export default DetailModal;

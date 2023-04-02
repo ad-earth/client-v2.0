@@ -4,7 +4,7 @@ import SearchCards from '../components/search/SearchCards';
 import useProduct from '../query/useProduct';
 import * as t from '../style/searchPage.style';
 
-function SearchPage() {
+export default function SearchPage() {
   const { keyword } = useParams();
   const [page, setPage] = useState<number>(1);
 
@@ -32,5 +32,3 @@ function SearchPage() {
     </>
   );
 }
-
-export default SearchPage;

@@ -1,7 +1,13 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-hot-toast';
-import { useMutation, useQueryClient } from 'react-query';
-import { postReviews } from '../shared/api/productApi';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import queryKeys from '../constants/queryKeys';
+import {
+  deleteReview,
+  getReviews,
+  postReviews,
+} from '../shared/api/productApi';
+import type { IReviewsResponse, TError } from '../shared/types/types';
 
 type TReview = {
   id: number;
@@ -11,7 +17,15 @@ type TReview = {
   };
 };
 
-export default function useReview() {
+export default function useReview(productNo?: number, page?: number) {
+  const { data } = useQuery<AxiosResponse<IReviewsResponse>, Error>(
+    queryKeys.REVIEW,
+    () => getReviews(productNo, page),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
   const queryClient = useQueryClient();
 
   const addReview = useMutation<AxiosResponse, AxiosError, TReview>(
@@ -25,5 +39,14 @@ export default function useReview() {
     }
   );
 
-  return { addReview };
+  const { mutate } = useMutation<
+    AxiosResponse,
+    AxiosError<TError>,
+    any,
+    unknown
+  >((reviewNo: number) => deleteReview(reviewNo), {
+    onSuccess: () => queryClient.invalidateQueries('review'),
+  });
+
+  return { data, addReview, mutate };
 }

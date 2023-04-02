@@ -11,6 +11,8 @@ const queryKeys = {
   CANCEL: 'cancel',
   ORDERPRODUCT: 'orderProduct',
   WISH: 'wish',
+  DETAIL: 'detail',
+  REVIEW: 'review',
 };
 
 export default queryKeys;
