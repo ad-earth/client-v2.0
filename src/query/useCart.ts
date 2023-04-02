@@ -44,9 +44,10 @@ const useGetCartQuery = () => {
       queryClient.invalidateQueries([queryKeys.CART]);
       const type = res.config.url.split('/')[2];
       const result = JSON.parse(res.config.data);
-      navigate('/payment', {
-        state: { type: type, productNo: result.p_No },
-      });
+      if (type === 'd')
+        navigate('/payment', {
+          state: { type: type, productNo: result.p_No },
+        });
     },
   });
 

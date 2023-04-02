@@ -5,27 +5,23 @@ import {
   DialogContent,
   DialogContentText,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 import theme from '../../shared/style/theme';
 
 type TProps = {
   open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function DetailModal({ open }: TProps) {
+export default function DetailModal({ open, setOpen }: TProps) {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    setIsOpen(open);
-  }, [open]);
-
-  const handleClose = () => setIsOpen(false);
+  const handleClose = () => setOpen(false);
 
   return (
     <div>
-      <Dialog open={isOpen} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose}>
         <DialogContent>
           <DialogContentText
             id="alert-dialog-description"

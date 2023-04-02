@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Badge from '../../elements/Badge';
 import Button from '../../elements/Button';
 import Heart from '../../elements/Heart';
-import usePutCartQuery from '../../query/usePutCartQuery';
+import useGetCartQuery from '../../query/useCart';
 import { setCartStatus } from '../../redux/reducer/cartSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import theme from '../../shared/style/theme';
@@ -22,10 +22,16 @@ type TProps = {
 
 export default function DetailInfo({ product, keyNo, isLike }: TProps) {
   const { productNo } = useParams();
+
+  const token = useMemo(() => localStorage.getItem('token'), []);
+
   const { price, discount, isOption } = useMemo(
     () => ({
-      price: product?.p_Cost,
-      discount: product?.p_Cost * (1 - product?.p_Discount / 100),
+      price: product?.p_Cost.toLocaleString('ko-kr'),
+      discount: (
+        product?.p_Cost *
+        (1 - product?.p_Discount / 100)
+      ).toLocaleString('ko-kr'),
       isOption:
         product?.p_Option.length > 0
           ? product?.p_Option[0][0] !== null || product?.p_Option[0][2] !== null
@@ -36,24 +42,24 @@ export default function DetailInfo({ product, keyNo, isLike }: TProps) {
   const [open, setOpen] = useState<boolean>(false);
   const options = useAppSelector(state => state.optionSlice);
 
+  const { updateCartItem } = useGetCartQuery();
+
   const payData = {
     type: 'd',
     productNo: Number(productNo),
     option: options,
     keyword: keyNo,
   };
-  const { mutate: payMutate } = usePutCartQuery();
-  const navigate = useNavigate();
+
   const handleBuy = () => {
+    if (!token) {
+      toast.error('로그인 먼저 해주세요.');
+      return;
+    }
     if (product && isOption && options.length === 0)
       toast.error('상품을 먼저 선택해주세요.');
     else {
-      payMutate(payData, {
-        onSuccess: () =>
-          navigate('/payment', {
-            state: { type: 'd', productNo: `${productNo}` },
-          }),
-      });
+      updateCartItem.mutate(payData);
     }
   };
 
@@ -64,12 +70,16 @@ export default function DetailInfo({ product, keyNo, isLike }: TProps) {
     option: options,
     keyword: keyNo,
   };
-  const { mutate: cartMutate } = usePutCartQuery();
+
   const handleCart = () => {
+    if (!token) {
+      toast.error('로그인 먼저 해주세요.');
+      return;
+    }
     if (product && isOption && options.length === 0)
       toast.error('상품을 먼저 선택해주세요.');
     else {
-      cartMutate(cartData, {
+      updateCartItem.mutate(cartData, {
         onSuccess: () => {
           const acc = localStorage.getItem('cartStatus');
           const cur = Number(acc) + 1;
@@ -83,7 +93,7 @@ export default function DetailInfo({ product, keyNo, isLike }: TProps) {
 
   return (
     <t.MainContainer>
-      <DetailModal open={open} />
+      <DetailModal open={open} setOpen={setOpen} />
       <t.Wrapper>
         <p>
           [{product?.a_Brand}] {product?.p_Name}
@@ -94,16 +104,9 @@ export default function DetailInfo({ product, keyNo, isLike }: TProps) {
         {product?.p_Soldout && <Badge type={'SOLDOUT'} />}
       </t.Wrapper>
       <t.Wrapper className="bottom-line">
-        <p className="green">
-          {discount
-            ? discount?.toLocaleString('ko-kr')
-            : price?.toLocaleString('ko-kr')}
-          원
-        </p>
+        <p className="green">{discount ? discount : price}원</p>
         {price !== discount && (
-          <p className="small discount">
-            {discount && price.toLocaleString('ko-kr')}원
-          </p>
+          <p className="small discount">{discount && price}원</p>
         )}
       </t.Wrapper>
       <p>{product?.p_Desc}</p>
