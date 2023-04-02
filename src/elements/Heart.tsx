@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import usePostLikeQuery from '../query/usePostLikeQuery';
+import useProduct from '../query/useProduct';
 import * as t from '../style/heart.style';
 
 type TProps = {
@@ -10,7 +10,7 @@ type TProps = {
 };
 
 function Heart({ likeCnt, productNo, likeList, userLike }: TProps) {
-  const { mutate } = usePostLikeQuery(productNo);
+  const { mutate } = useProduct({});
   const [isLike, setIsLike] = useState<boolean>(false);
 
   useEffect(() => {
