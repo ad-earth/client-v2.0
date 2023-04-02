@@ -3,7 +3,7 @@ import { shallowEqual } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../elements/Button';
 import useViewport from '../../hooks/useViewport';
-import usePutCartQuery from '../../query/usePutCartQuery';
+import useCart from '../../query/useCart';
 import {
   setCheckedList,
   setKeywordNo,
@@ -85,7 +85,7 @@ function CartItem(props: IProps) {
     }
   }, [props.allChecked]);
 
-  const { mutate: payMutate } = usePutCartQuery();
+  const { updateCartItem } = useCart();
   const handleBuy = (
     prodNo: number,
     option: (string | number)[][],
@@ -97,12 +97,7 @@ function CartItem(props: IProps) {
       option: option,
       keyword: keyNo,
     };
-    payMutate(payData, {
-      onSuccess: () =>
-        navigate('/payment', {
-          state: { type: 'c', productNo: `${prodNo}` },
-        }),
-    });
+    updateCartItem.mutate(payData);
   };
 
   return (

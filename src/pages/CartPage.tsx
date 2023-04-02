@@ -31,16 +31,17 @@ export default function CartPage() {
     }
   }, [checkedItem]);
 
-  const { removeCartItem } = useCart();
+  const {
+    removeCartItem: { mutate },
+  } = useCart();
   const handleDelete = () => {
     const productNo = checkedItem.map(item => item.p_No);
     const data = {
       type: 'c',
       p_Nos: String(productNo.join()),
     };
-    removeCartItem.mutate(data, {
+    mutate(data, {
       onSuccess: () => {
-        toast.success('상품을 삭제하였습니다.');
         const cur = cartList.length - checkedItem.length;
         localStorage.setItem('cartStatus', String(cur));
         dispatch(setCartStatus(cur));

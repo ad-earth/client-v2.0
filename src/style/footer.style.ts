@@ -17,6 +17,7 @@ export const Wrap = styled.div`
   margin: 30px auto;
   img {
     width: 20%;
+    height: auto;
     margin: auto;
     object-fit: contain;
   }
@@ -24,6 +25,7 @@ export const Wrap = styled.div`
     width: 100%;
     img {
       width: 18%;
+      height: auto;
     }
   }
   @media (max-width: 990px) {

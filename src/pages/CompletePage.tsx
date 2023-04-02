@@ -4,13 +4,25 @@ import useComplete from '../query/useComplete';
 import * as t from '../style/completePage.style';
 
 export default function CompletePage() {
+  const navigate = useNavigate();
   const {
     state: { price },
   } = useLocation();
   const { completeInfo } = useComplete();
 
-  const navigate = useNavigate();
+  const now = new Date();
+  const due = new Date(now.setDate(now.getDate() + 1));
+  const dueDate = due.toLocaleDateString('ko', {
+    minute: 'numeric',
+    hour: 'numeric',
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    weekday: 'short',
+  });
+
   const routeToMain = () => navigate('/');
+
   return (
     <t.Container>
       <t.Complete>
@@ -35,7 +47,7 @@ export default function CompletePage() {
           </t.Wrap>
           <t.Wrap>
             <t.Title>입금 기간</t.Title>
-            <t.InfoText>2023-03-14 19:34까지</t.InfoText>
+            <t.InfoText>{dueDate} 까지</t.InfoText>
           </t.Wrap>
           <t.Wrap>
             <t.Title>주문 번호</t.Title>

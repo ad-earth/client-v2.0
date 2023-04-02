@@ -1,5 +1,4 @@
 import { useEffect, useReducer, useState } from 'react';
-import toast from 'react-hot-toast';
 import { IoCloseOutline } from 'react-icons/io5';
 import Button from '../../elements/Button';
 import ErrMsg from '../../elements/ErrorMsg';
@@ -17,7 +16,6 @@ type TProps = {
   onClose: () => void;
 };
 export default function UserInfoModal({ onClose }: TProps) {
-  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   const [state, setDispatch] = useReducer(infoReducer, InfoInitial);
   const { name, gender, phone } = state;
   const [formData, setFormData] = useState<TUserInfoData>();
@@ -25,8 +23,13 @@ export default function UserInfoModal({ onClose }: TProps) {
   const [zipcode, setZipcode] = useState<string>('');
   const [address, setAddress] = useState<string>('');
   const [extraAddress, setExtraAddress] = useState<string>('');
+
+  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setDispatch({ type: e.target.name, payload: e.target.value });
+
   useEffect(() => {
     if (!state) return;
     setFormData({
@@ -38,29 +41,21 @@ export default function UserInfoModal({ onClose }: TProps) {
       u_Address3: extraAddress,
       u_Img: imgUrl,
     });
-  }, [name.val, gender.val, phone.val, zipcode, address, extraAddress, imgUrl]);
+  }, [
+    name.val,
+    gender.val,
+    phone.val,
+    zipcode,
+    address,
+    extraAddress,
+    imgUrl,
+    state,
+  ]);
+
   const { putUserInfo } = useUser();
-  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
   const handlePutUserInfo = () => {
     putUserInfo.mutate(formData, {
-      onSuccess: () => {
-        toast.success(`${formData.u_Name}님의 정보를 수정하였습니다!`);
-        const editUserData = {
-          u_Idx: userInfo.u_Idx,
-          u_Id: userInfo.u_Id,
-          u_Address1: formData.u_Address1,
-          u_Address2: formData.u_Address2,
-          u_Address3: formData.u_Address3,
-          u_Gender: formData.u_Gender,
-          u_Img: formData.u_Img,
-          u_Name: formData.u_Name,
-          u_Phone: formData.u_Phone,
-        };
-        localStorage.setItem('userInfo', JSON.stringify(editUserData));
-        onClose();
-      },
+      onSuccess: () => onClose(),
       onError: error => {
         const errMsg = error.response.data.errorMessage;
         if (errMsg === '중복된 연락처입니다.') {
@@ -69,6 +64,7 @@ export default function UserInfoModal({ onClose }: TProps) {
       },
     });
   };
+
   return (
     <t.Container>
       <t.InfoHead>

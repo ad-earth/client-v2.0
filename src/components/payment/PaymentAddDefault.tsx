@@ -23,6 +23,7 @@ export default function PaymentAddDefault(isTabOpen: TProps) {
   const { name, phone } = states;
   const [resetUser, setResetUser] = useState<TUser>();
   const [isResetUser, setIsResetUser] = useState<boolean>(false);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
