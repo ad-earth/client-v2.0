@@ -1,4 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react';
+import { useParams } from 'react-router-dom';
 import Pagination from '../../elements/Pagination';
 import type { IProductCard } from '../../shared/types/types';
 import * as t from '../../style/listCards.style';
@@ -13,14 +14,14 @@ type PropsType = {
   setPage: Dispatch<SetStateAction<number>>;
 };
 
-function SearchCards({
+export default function SearchCards({
   pageCnt,
   ads,
   products,
   likeList,
-  page,
-  setPage,
 }: PropsType) {
+  const { keyword } = useParams();
+
   return (
     <t.Container>
       {ads?.length === 0 && products?.length === 0 ? (
@@ -28,16 +29,20 @@ function SearchCards({
       ) : (
         <t.Wrapper>
           {ads?.map(el => (
-            <Card key={el.p_No} isAd={true} product={el} likeList={likeList} />
+            <Card
+              key={el.p_No}
+              isAd={true}
+              product={el}
+              likeList={likeList}
+              keyword={keyword}
+            />
           ))}
           {products?.map(el => (
             <Card key={el.p_No} isAd={false} product={el} likeList={likeList} />
           ))}
         </t.Wrapper>
       )}
-      <Pagination pageCnt={pageCnt} page={page} setPage={setPage} />
+      <Pagination pageCnt={pageCnt} />
     </t.Container>
   );
 }
-
-export default SearchCards;

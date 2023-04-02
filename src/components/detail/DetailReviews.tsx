@@ -1,15 +1,30 @@
 import type { Dispatch, SetStateAction } from 'react';
+import { useMemo } from 'react';
+import { REVIEW_PER_PAGE } from '../../constants';
 import Pagination from '../../elements/Pagination';
-import useDeleteReview from '../../query/useDeleteReview';
+import useReview from '../../query/useReview';
 import type { TReviews } from '../../shared/types/types';
 import * as t from '../../style/detailReviews.style';
 
-function DetailReviews({ reviewQty, reviewList, page, setPage }: PropsType) {
-  const { mutate } = useDeleteReview();
+type TProps = {
+  reviewQty: number;
+  reviewList: TReviews;
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
+};
 
-  const handleClick = (reviewNo: number) => {
-    mutate(reviewNo);
-  };
+export default function DetailReviews({ reviewQty, reviewList }: TProps) {
+  const { mutate } = useReview();
+
+  const handleClick = (reviewNo: number) => mutate(reviewNo);
+
+  const totalPage = useMemo(
+    () => Math.ceil(reviewQty / REVIEW_PER_PAGE),
+    [reviewQty]
+  );
+
+  const maskingName = (userID: string) =>
+    userID.substring(0, userID.length - 3) + '***';
 
   return (
     <t.MainContainer>
@@ -25,14 +40,14 @@ function DetailReviews({ reviewQty, reviewList, page, setPage }: PropsType) {
             <t.ReviewWrapper>
               <t.CommentText>
                 <t.StarWrapper>
-                  {Array.from({ length: review.r_Score }, (star, idx) => (
+                  {Array.from({ length: review.r_Score }, (_, idx) => (
                     <t.IcStar key={idx} />
                   ))}
                 </t.StarWrapper>
                 {review.r_Content}
               </t.CommentText>
               <t.WriterInfo>
-                {review.u_Id.substring(0, review.u_Id.length - 3) + '***'}
+                {maskingName(review.u_Id)}
                 <br />
                 {review.createdAt}
                 <t.BtnWrapper>
@@ -43,22 +58,9 @@ function DetailReviews({ reviewQty, reviewList, page, setPage }: PropsType) {
           </t.CommentWrapper>
         ))}
         <t.Page>
-          <Pagination
-            pageCnt={Math.ceil(reviewQty / 5)}
-            page={page}
-            setPage={setPage}
-          />
+          <Pagination pageCnt={totalPage} />
         </t.Page>
       </t.List>
     </t.MainContainer>
   );
 }
-
-type PropsType = {
-  reviewQty: number;
-  reviewList: TReviews;
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>;
-};
-
-export default DetailReviews;

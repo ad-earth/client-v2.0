@@ -49,16 +49,26 @@ function Option({ product, isCartModal, isCart, qty }: TProps) {
         : false,
     [product]
   );
-
+  console.log(options);
+  console.log(isOption);
   useEffect(() => {
-    if (isCart) setTotalQty(qty);
-    if (!isCart && !isOption) {
-      dispatch(setOptions([[null, null, null, 0, 1, price]]));
-      sessionStorage.setItem('total', '1');
-    } else if (!isCart && isOption) {
+    isOption
+      ? dispatch(setOptions([]))
+      : dispatch(setOptions([[null, null, null, 0, 1, price]]));
+    return () => {
       dispatch(setOptions([]));
-    }
-  }, [isCart, isOption, price]);
+    };
+  }, [isOption]);
+
+  // useEffect(() => {
+  //   if (isCart) setTotalQty(qty);
+  //   if (!isCart && !isOption) {
+  //     dispatch(setOptions([[null, null, null, 0, 1, price]]));
+  //     sessionStorage.setItem('total', '1');
+  //   } else if (!isCart && isOption) {
+  //     dispatch(setOptions([]));
+  //   }
+  // }, [isCart, isOption, price]);
 
   const handleAddOption = (option: TOption) => {
     const userOption = option.slice(0, -1);
@@ -181,7 +191,7 @@ function Option({ product, isCartModal, isCart, qty }: TProps) {
         <span>
           {isOption
             ? totalPrice?.toLocaleString('ko-kr')
-            : (product?.p_Cost * totalQty).toLocaleString('ko-kr')}
+            : (price * totalQty).toLocaleString('ko-kr')}
           원
         </span>
       </t.Wrapper>

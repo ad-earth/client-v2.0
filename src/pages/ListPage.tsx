@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import ListCards from '../components/list/ListCards';
 import ListCategory from '../components/list/ListCategory';
 import useProduct from '../query/useProduct';
+import { useAppSelector } from '../redux/store';
 
 function ListPage() {
   const { category } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get('sort');
-  const [page, setPage] = useState<number>(1);
+  const page = useAppSelector(state => state.pageSlice);
 
   const { totalPages, products, likeList } = useProduct({
     page: page,
@@ -28,8 +29,6 @@ function ListPage() {
         products={products}
         totalPages={totalPages}
         likeList={likeList}
-        page={page}
-        setPage={setPage}
       />
     </>
   );

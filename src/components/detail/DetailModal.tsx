@@ -5,21 +5,19 @@ import {
   DialogContent,
   DialogContentText,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 import theme from '../../shared/style/theme';
 
-function DetailModal(props: { open: boolean }) {
+type TProps = {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+export default function DetailModal({ open, setOpen }: TProps) {
   const navigate = useNavigate();
-  const [open, setOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    setOpen(props.open);
-  }, [props.open]);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClose = () => setOpen(false);
 
   return (
     <div>
@@ -50,5 +48,3 @@ function DetailModal(props: { open: boolean }) {
     </div>
   );
 }
-
-export default DetailModal;

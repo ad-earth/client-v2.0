@@ -68,3 +68,13 @@ export const PAYMENTINFO = [{ text: '지구은행 123456789 (주)광고지구' }
 
 export const SCROLL_DELTA = 87;
 export const HEADER_HEIGHT = 87;
+
+export const CAROUSEL = {
+  autoplaySpeed: 3000,
+  autoplay: true,
+  dots: false,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+};
+
+export const REVIEW_PER_PAGE = 5;

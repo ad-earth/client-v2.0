@@ -1,19 +1,20 @@
 import { PaginationItem } from '@mui/material';
-import type { Dispatch, SetStateAction } from 'react';
 import React from 'react';
+import { setPage } from '../redux/reducer/pageSlice';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 import * as t from '../style/pagination.style';
 
 type PropsType = {
   pageCnt: number;
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>;
 };
 
-export default function Pagination({ pageCnt, page, setPage }: PropsType) {
+export default function Pagination({ pageCnt }: PropsType) {
+  const dispatch = useAppDispatch();
   const pageCount = Math.ceil(pageCnt / 20);
+  const page = useAppSelector(state => state.pageSlice);
 
   const handleChange = (e: React.ChangeEvent<unknown>, value: number) =>
-    setPage(value);
+    dispatch(setPage(value));
 
   return (
     <t.PaginationRoot
