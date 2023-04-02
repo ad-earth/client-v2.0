@@ -98,7 +98,7 @@ export const OptBox = styled.div`
 export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  font-size: ${theme.fs15};
+  font-size: ${theme.fs13};
   color: ${theme.fc09};
   span {
     color: ${theme.fc15};
