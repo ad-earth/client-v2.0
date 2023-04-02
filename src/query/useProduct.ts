@@ -71,6 +71,7 @@ const useProduct = ({
     () => getDetail(productNo, keyword),
     {
       refetchOnWindowFocus: false,
+      enabled: !!productNo,
     }
   );
 
@@ -91,9 +92,9 @@ const useProduct = ({
     unknown
   >(productNumber => postLike(productNumber), {
     onSuccess: () => {
-      queryClient.invalidateQueries(['ad']);
-      queryClient.invalidateQueries(['wish']);
-      queryClient.invalidateQueries(['detail']);
+      queryClient.invalidateQueries(queryKeys.LIST);
+      queryClient.invalidateQueries(queryKeys.WISH);
+      queryClient.invalidateQueries(queryKeys.DETAIL);
     },
   });
 
