@@ -7,7 +7,7 @@ import {
 import styled from 'styled-components';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import { ProtectedRoute } from '../../pages/ProtectedRoute';
+import ProtectedRoute from '../../pages/ProtectedRoute';
 import { myRouteData, routerData } from './RouteList';
 
 const Router = createBrowserRouter(
