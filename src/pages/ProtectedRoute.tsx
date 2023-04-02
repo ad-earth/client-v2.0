@@ -13,7 +13,7 @@ const getLocalStorage = (name: string): string | null =>
 
 const getIsToken = () => !!getLocalStorage('token');
 
-export function ProtectedRoute({ children, redirectPath }: IProps) {
+export default function ProtectedRoute({ children, redirectPath }: IProps) {
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(state => state.authSlice.isAuth);
   const isToken = getIsToken();

@@ -2,18 +2,8 @@ import type { AxiosError, AxiosResponse } from 'axios';
 import { useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import queryKeys from '../constants/queryKeys';
-import {
-  getAdList,
-  getDetail,
-  getList,
-  postLike,
-} from '../shared/api/productApi';
-import type {
-  IAdResponse,
-  IDetailResponse,
-  IListResponse,
-  TError,
-} from '../shared/types/types';
+import { getAdList, getList, postLike } from '../shared/api/productApi';
+import type { IAdResponse, IListResponse, TError } from '../shared/types/types';
 
 type TParameter = {
   page?: number;
@@ -66,23 +56,6 @@ const useProduct = ({
     [adData]
   );
 
-  const { data: detailData } = useQuery<AxiosResponse<IDetailResponse>, Error>(
-    queryKeys.DETAIL,
-    () => getDetail(productNo, keyword),
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
-
-  const { product, keyNo, isLike } = useMemo(
-    () => ({
-      product: detailData?.data.product,
-      keyNo: detailData?.data.k_No,
-      isLike: detailData?.data.userLike,
-    }),
-    [detailData]
-  );
-
   const queryClient = useQueryClient();
   const { mutate } = useMutation<
     AxiosResponse,
@@ -91,9 +64,9 @@ const useProduct = ({
     unknown
   >(productNumber => postLike(productNumber), {
     onSuccess: () => {
-      queryClient.invalidateQueries(['ad']);
-      queryClient.invalidateQueries(['wish']);
-      queryClient.invalidateQueries(['detail']);
+      queryClient.invalidateQueries(queryKeys.LIST);
+      queryClient.invalidateQueries(queryKeys.WISH);
+      queryClient.invalidateQueries(queryKeys.DETAIL);
     },
   });
 
@@ -105,9 +78,6 @@ const useProduct = ({
     productList,
     adProducts,
     likeProducts,
-    product,
-    keyNo,
-    isLike,
     mutate,
   };
 };

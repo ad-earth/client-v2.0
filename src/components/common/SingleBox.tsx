@@ -39,9 +39,7 @@ export default function SingleBox({ product, isCart, qty }: TProps) {
   return (
     <t.Container>
       <t.OptBox>
-        <t.Wrapper>
-          <p>수량</p>
-        </t.Wrapper>
+        <t.Wrapper>수량</t.Wrapper>
         <t.BtnWrapper>
           <t.Button onClick={substractQty}>-</t.Button>
           <t.Qty>{totalQty}</t.Qty>

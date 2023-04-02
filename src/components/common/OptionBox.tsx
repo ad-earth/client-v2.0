@@ -122,7 +122,7 @@ export default function OptionBox({ product, isCart, qty }: TProps) {
       {options.map((opt, idx) => (
         <t.OptBox key={idx}>
           <t.Wrapper>
-            <p>{opt[0] ? opt[0] : opt[2]}</p>
+            {opt[0] ? opt[0] : opt[2]}
             <button onClick={() => deleteOpt(opt)}>𝖷</button>
           </t.Wrapper>
           <t.BtnWrapper>
