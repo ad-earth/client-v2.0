@@ -33,9 +33,8 @@ export default function DetailInfo({ product, keyNo, isLike }: TProps) {
         (1 - product?.p_Discount / 100)
       ).toLocaleString('ko-kr'),
       isOption:
-        product?.p_Option.length > 0
-          ? product?.p_Option[0][0] !== null || product?.p_Option[0][2] !== null
-          : false,
+        (product?.p_Option.length > 0 && product?.p_Option[0][0] !== null) ||
+        product?.p_Option[0][2] !== null,
     }),
     [product]
   );
