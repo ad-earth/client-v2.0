@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { shallowEqual } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PayDrop from '../components/common/PayDrop';
 import type { Tprops } from '../components/common/ProductCard';
 import ProductCard from '../components/common/ProductCard';
@@ -10,14 +10,12 @@ import { PAYMENTINFO } from '../constants';
 import Button from '../elements/Button';
 import Input from '../elements/Input';
 import usePayment from '../query/usePayment';
-import { setCartStatus } from '../redux/reducer/cartSlice';
 import { setPayInfo } from '../redux/reducer/payInputSlice';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import theme from '../shared/style/theme';
 import * as t from '../style/paymentPage.style';
 
 export default function PaymentPage() {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const payInfo = useAppSelector(state => state.payInputSlice, shallowEqual);
   const [drop, setDrop] = useState<string>('');
@@ -30,7 +28,9 @@ export default function PaymentPage() {
     productNo
   );
 
-  const { postPay } = usePayment();
+  const {
+    postPay: { mutate },
+  } = usePayment();
   const handleBuy = () => {
     if (!payInfo.d_Name && !payInfo.d_Phone)
       toast.error('이름과 연락처를 확인해주세요!');
@@ -41,30 +41,12 @@ export default function PaymentPage() {
     else if (!isCheck) toast.error('구매동의 의사를 확인해주세요!');
     else {
       const data = {
-        type: 'c',
+        type: type,
         address: payInfo,
         products: products,
         o_Price: price,
       };
-      postPay.mutate(data, {
-        onSuccess: () => {
-          toast.success('상품 구매에 성공하였습니다 😊');
-          const cartStatus = localStorage.getItem('cartStatus');
-          const cur = Number(cartStatus) - products?.length;
-          if (cur >= 0) {
-            localStorage.setItem('cartStatus', String(cur));
-            navigate('/complete', {
-              state: { price: `${price}` },
-            });
-            dispatch(setCartStatus(cur));
-          } else {
-            dispatch(setCartStatus(0));
-            navigate('/complete', {
-              state: { price: `${price}` },
-            });
-          }
-        },
-      });
+      mutate(data);
     }
   };
 

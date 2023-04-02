@@ -28,6 +28,7 @@ export const Nav = styled.div<Type>`
   box-sizing: border-box;
   img {
     width: 150px;
+    height: auto;
     object-fit: contain;
     margin-right: 10px;
     :hover {
@@ -43,6 +44,7 @@ export const Nav = styled.div<Type>`
   @media (max-width: 778px) {
     img {
       width: 60%;
+      height: auto;
     }
   }
   @media (max-width: 990px) {

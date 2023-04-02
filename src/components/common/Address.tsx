@@ -27,11 +27,11 @@ function Address({
   const [isUser, setIsUser] = useState<boolean>(false);
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   const open = useDaumPostcodePopup();
+
   const handleComplete = (data: any) => {
     let fullAddress = data.address;
     let plusAddress = '';
     let code = data.zonecode;
-
     if (data.addressType === 'R') {
       if (data.bname !== '') {
         plusAddress += data.bname;
@@ -50,13 +50,11 @@ function Address({
     e.preventDefault();
     open({ onComplete: handleComplete });
   };
-
-  const changeHandler = (value: string) => {
+  const handleChange = (value: string) => {
     setZipcode(value);
     setAddress(value);
   };
-
-  const extraHandler = (value: string) => {
+  const handleExtra = (value: string) => {
     setExtraAddress(value);
   };
 
@@ -77,7 +75,7 @@ function Address({
           holderName="우편번호"
           width="30%"
           color={theme.fc14}
-          onChange={e => changeHandler(e.target.value)}
+          onChange={e => handleChange(e.target.value)}
         />
         <Button {...btnProps} onClick={handleClick} />
       </t.PostWrap>
@@ -85,13 +83,13 @@ function Address({
         value={address}
         holderName="주소"
         color={theme.fc14}
-        onChange={e => changeHandler(e.target.value)}
+        onChange={e => handleChange(e.target.value)}
       />
       <Input
         value={extraAddress}
         holderName="상세주소"
         color={theme.fc14}
-        onChange={e => extraHandler(e.target.value)}
+        onChange={e => handleExtra(e.target.value)}
       />
     </t.Container>
   );

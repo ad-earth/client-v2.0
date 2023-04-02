@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GlobalModal from '../components/common/GlobalModal';
 import LoginSearchModal from '../components/login/LoginSearchModal';
 import Button from '../elements/Button';
 import Input from '../elements/Input';
-import type { TLoginData } from '../query/useAuth';
+import type { ILoginData } from '../query/useAuth';
 import useAuth from '../query/useAuth';
 import theme from '../shared/style/theme';
 import * as t from '../style/loginPage.style';
@@ -12,7 +12,8 @@ import * as t from '../style/loginPage.style';
 export default function LogInPage() {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [form, setForm] = useState<TLoginData>({ u_Id: '', u_Pw: '' });
+  const [form, setForm] = useState<ILoginData>({ u_Id: '', u_Pw: '' });
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -20,22 +21,17 @@ export default function LogInPage() {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
-  const { login } = useAuth();
-  useEffect(() => {
-    if (login.isSuccess) {
-      navigate('/');
-      window.location.href = '/';
-    }
-  }, [login.isSuccess]);
+
+  const {
+    login: { mutate },
+  } = useAuth();
   const loginClick = () => {
-    login.mutate(form);
+    mutate(form);
   };
-  const routeToAdmin = () => {
-    window.location.href = 'https://adearth-admin.shop/';
-  };
-  const routeToSignup = () => {
-    navigate('/signup');
-  };
+
+  const routeToSignup = () => navigate('/signup');
+  const routeToAdmin = () =>
+    (window.location.href = 'https://adearth-admin.shop/');
 
   const searchModal = isModalOpen && (
     <GlobalModal onClose={() => setIsModalOpen(false)}>

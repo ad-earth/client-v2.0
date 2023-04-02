@@ -8,6 +8,7 @@ import theme from '../../shared/style/theme';
 
 export default function LoginSearchId() {
   const [form, setForm] = useState<ISearchIdData>({ u_Name: '', u_Phone: '' });
+
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -15,12 +16,14 @@ export default function LoginSearchId() {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
+
   const {
     searchId: { data, refetch, isSuccess, isError },
   } = useAuth(form);
   const handleSearch = () => {
     refetch();
   };
+
   const routeToLogin = () => {
     window.location.reload();
   };

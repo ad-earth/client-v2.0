@@ -1,12 +1,10 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 import Address from '../components/common/Address';
 import Profile from '../components/common/Profile';
 import Button from '../elements/Button';
 import ErrMsg from '../elements/ErrorMsg';
 import Input from '../elements/Input';
-import type { TSignUpData } from '../query/useAuth';
+import type { ISignUpData } from '../query/useAuth';
 import useAuth from '../query/useAuth';
 import theme from '../shared/style/theme';
 import { signupInitial } from '../shared/utils/inputInitialValue';
@@ -14,14 +12,17 @@ import { inputReducer } from '../shared/utils/inputReducer';
 import * as t from '../style/signUpPage.style';
 
 export default function SignUpPage() {
-  const navigate = useNavigate();
   const [state, setDispatch] = useReducer(inputReducer, signupInitial);
   const { id, pwd, pwdCheck, name, gender, phone } = state;
-  const [formData, setFormData] = useState<TSignUpData>();
+  const [formData, setFormData] = useState<ISignUpData>();
   const [imgUrl, setImgUrl] = useState<string>('');
   const [zipcode, setZipcode] = useState<string>('');
   const [address, setAddress] = useState<string>('');
   const [extraAddress, setExtraAddress] = useState<string>('');
+
+  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setDispatch({ type: e.target.name, payload: e.target.value });
 
@@ -49,21 +50,15 @@ export default function SignUpPage() {
     address,
     extraAddress,
     imgUrl,
+    state,
   ]);
 
-  const { signup } = useAuth();
-  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
+  const {
+    signup: { mutate },
+  } = useAuth();
   const handleSignup = () => {
-    signup.mutate(formData, {
-      onSuccess: () => {
-        toast.success(
-          `${formData.u_Name}님 환영합니다. 지구샵은 로그인 후 이용해주세요!`
-        );
-        navigate('/');
-        setDispatch({ type: 'reset' });
-      },
+    mutate(formData, {
+      onSuccess: () => setDispatch({ type: 'reset' }),
       onError: error => {
         const errMsg = error.response.data.errorMessage;
         if (errMsg === '중복된 연락처입니다.') {
