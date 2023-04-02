@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import type { BadgeType } from '../components/common/Badge';
+import type { BadgeType } from '../elements/Badge';
 import theme from '../shared/style/theme';
 
 export const Container = styled.div`

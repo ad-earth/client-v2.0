@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import type { MenuDropType } from '../components/common/MenuDrop';
+import type { IProps } from '../components/common/MenuDrop';
 
-export const MenuContainer = styled.div<MenuDropType>`
+export const MenuContainer = styled.div<IProps>`
   width: ${props => (props.width ? props.width : '120px')};
   position: absolute;
   top: ${props => (props.top ? props.top : '60px')};

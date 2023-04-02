@@ -1,23 +1,28 @@
-import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Button from '../components/common/Button';
-import useGetCompleteQuery from '../query/useGetCompleteQuery';
+import Button from '../elements/Button';
+import useComplete from '../query/useComplete';
 import * as t from '../style/completePage.style';
 
 export default function CompletePage() {
+  const navigate = useNavigate();
   const {
     state: { price },
   } = useLocation();
-  const query = useGetCompleteQuery();
-  const { data } = useMemo(
-    () => ({
-      data: query.data?.data,
-    }),
-    [query]
-  );
+  const { completeInfo } = useComplete();
 
-  const navigate = useNavigate();
+  const now = new Date();
+  const due = new Date(now.setDate(now.getDate() + 1));
+  const dueDate = due.toLocaleDateString('ko', {
+    minute: 'numeric',
+    hour: 'numeric',
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    weekday: 'short',
+  });
+
   const routeToMain = () => navigate('/');
+
   return (
     <t.Container>
       <t.Complete>
@@ -42,21 +47,21 @@ export default function CompletePage() {
           </t.Wrap>
           <t.Wrap>
             <t.Title>입금 기간</t.Title>
-            <t.InfoText>2023-03-14 19:34까지</t.InfoText>
+            <t.InfoText>{dueDate} 까지</t.InfoText>
           </t.Wrap>
           <t.Wrap>
             <t.Title>주문 번호</t.Title>
-            <t.InfoText>{data?.o_No}</t.InfoText>
+            <t.InfoText>{completeInfo?.o_No}</t.InfoText>
           </t.Wrap>
           <t.Wrap>
             <t.Title>배송지</t.Title>
             <t.InfoWrap>
-              <t.InfoText>{data?.d_Name}</t.InfoText>
-              <t.InfoText>{data?.d_Phone}</t.InfoText>
+              <t.InfoText>{completeInfo?.d_Name}</t.InfoText>
+              <t.InfoText>{completeInfo?.d_Phone}</t.InfoText>
               <t.InfoText>
-                {data?.d_Address2} {data?.d_Address3}
+                {completeInfo?.d_Address2} {completeInfo?.d_Address3}
               </t.InfoText>
-              <t.HighText>({data?.d_Address1})</t.HighText>
+              <t.HighText>({completeInfo?.d_Address1})</t.HighText>
             </t.InfoWrap>
           </t.Wrap>
           <t.Wrap>

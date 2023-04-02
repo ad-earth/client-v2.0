@@ -1,32 +1,24 @@
-import { useEffect, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
-import DetailContents from '../components/DetailContents';
-import DetailImgs from '../components/DetailImgs';
-import DetailInfo from '../components/DetailInfo';
-import useGetDetailQuery from '../query/useGetDetailQuery';
+import { ScrollRestoration, useLocation, useParams } from 'react-router-dom';
+import DetailContents from '../components/detail/DetailContents';
+import DetailImgs from '../components/detail/DetailImgs';
+import DetailInfo from '../components/detail/DetailInfo';
+import useProduct from '../query/useProduct';
 import * as t from '../style/detailPage.style';
 
 function DetailPage() {
+  const location = useLocation();
+  const { keyword } = location.state as { keyword: string | null };
   const { productNo } = useParams();
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  const query = useGetDetailQuery(parseInt(productNo), null);
-
-  const { product, keyNo, isLike } = useMemo(
-    () => ({
-      product: query.data?.data.product,
-      keyNo: query.data?.data.k_No,
-      isLike: query.data?.data.userLike,
-    }),
-    [query]
-  );
+  const { product, keyNo, isLike } = useProduct({
+    keyword: keyword,
+    productNo: Number(productNo),
+  });
 
   return (
     <>
       <t.InfoContainer>
+        <ScrollRestoration />
         <DetailImgs product={product} />
         <DetailInfo product={product} keyNo={keyNo} isLike={isLike} />
       </t.InfoContainer>

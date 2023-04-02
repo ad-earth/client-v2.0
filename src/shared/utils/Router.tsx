@@ -4,62 +4,76 @@ import {
   Outlet,
   Route,
 } from 'react-router-dom';
-import MyLayout from '../../components/common/MyLayout';
+import styled from 'styled-components';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import CartPage from '../../pages/CartPage';
-import CompletePage from '../../pages/CompletePage';
-import DetailPage from '../../pages/DetailPage';
-import ListPage from '../../pages/ListPage';
-import LogInPage from '../../pages/LogInPage';
-import MainPage from '../../pages/MainPage';
-import MyCancelPage from '../../pages/MyCancelPage';
-import MyOrderDetailPage from '../../pages/MyOrderDetailPage';
-import MyOrderPage from '../../pages/MyOrderPage';
-import MyWishPage from '../../pages/MyWishPage';
-import NotFoundPage from '../../pages/NotFoundPage';
-import PaymentPage from '../../pages/PaymentPage';
-import SearchPage from '../../pages/SearchPage';
-import SignUpPage from '../../pages/SignUpPage';
+import { ProtectedRoute } from '../../pages/ProtectedRoute';
+import { myRouteData, routerData } from './RouteList';
 
 const Router = createBrowserRouter(
   createRoutesFromElements(
-    <>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<MainPage />} />
-        <Route path="/list/:category" element={<ListPage />} />
-        <Route path="/search/:keyword" element={<SearchPage />} />
-        <Route path="/detail/:productNo" element={<DetailPage />} />
-        <Route path="login" element={<LogInPage />} />
-        <Route path="signup" element={<SignUpPage />} />
-        <Route element={<MyLayout />}>
-          <Route path="mypage">
-            <Route index element={<MyOrderPage />} />
-            <Route path=":id" element={<MyOrderDetailPage />} />
-            <Route path="cancel-call/:id" element={<MyCancelPage />} />
-          </Route>
-          <Route path="wish" element={<MyWishPage />} />
-          <Route path="cancel">
-            <Route index element={<MyOrderPage />} />
-            <Route path=":id" element={<MyOrderDetailPage />} />
-          </Route>
-        </Route>
-        <Route path="cart" element={<CartPage />} />
-        <Route path="payment" element={<PaymentPage />} />
-        <Route path="complete" element={<CompletePage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    </>
+    <Route path="/" element={<Layout />}>
+      {routerData.map(router => {
+        if (router.withAuth) {
+          return (
+            <Route
+              key={router.id}
+              path={router.path}
+              element={
+                <ProtectedRoute redirectPath={router.redirectPath}>
+                  {router.element}
+                </ProtectedRoute>
+              }
+            >
+              {myRouteData.map(myRouter => {
+                return (
+                  <Route
+                    key={myRouter.id}
+                    path={myRouter.path}
+                    element={myRouter.element}
+                  >
+                    {myRouter.children &&
+                      myRouter.children.map(item => (
+                        <Route
+                          index={item.index}
+                          key={item.id}
+                          path={item.path}
+                          element={item.element}
+                        />
+                      ))}
+                  </Route>
+                );
+              })}
+            </Route>
+          );
+        } else {
+          return (
+            <Route
+              key={router.id}
+              path={router.path}
+              element={router.element}
+            />
+          );
+        }
+      })}
+    </Route>
   )
 );
+
 export default Router;
 
 function Layout() {
   return (
     <>
       <Header />
-      <Outlet />
+      <Container>
+        <Outlet />
+      </Container>
       <Footer />
     </>
   );
 }
+
+const Container = styled.div`
+  min-height: 850px;
+`;

@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import loginLogo from '../assets/logInLogo.jpeg';
-import Button from '../components/common/Button';
 import GlobalModal from '../components/common/GlobalModal';
-import Input from '../components/common/Input';
-import LoginSearchModal from '../components/LoginSearchModal';
-import usePostLoginQuery from '../query/usePostLoginQuery';
+import LoginSearchModal from '../components/login/LoginSearchModal';
+import Button from '../elements/Button';
+import Input from '../elements/Input';
+import type { ILoginData } from '../query/useAuth';
+import useAuth from '../query/useAuth';
 import theme from '../shared/style/theme';
 import * as t from '../style/loginPage.style';
-
-export type LoginType = {
-  u_Id: string;
-  u_Pw: string;
-};
 
 export default function LogInPage() {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [form, setForm] = useState<LoginType>({ u_Id: '', u_Pw: '' });
+  const [form, setForm] = useState<ILoginData>({ u_Id: '', u_Pw: '' });
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -25,22 +21,17 @@ export default function LogInPage() {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
-  const { mutate, isSuccess } = usePostLoginQuery();
-  useEffect(() => {
-    if (isSuccess) {
-      navigate('/');
-      window.location.href = '/';
-    }
-  }, [isSuccess]);
+
+  const {
+    login: { mutate },
+  } = useAuth();
   const loginClick = () => {
     mutate(form);
   };
-  const routeToAdmin = () => {
-    window.location.href = 'https://adearth-admin.shop/';
-  };
-  const routeToSignup = () => {
-    navigate('/signup');
-  };
+
+  const routeToSignup = () => navigate('/signup');
+  const routeToAdmin = () =>
+    (window.location.href = 'https://adearth-admin.shop/');
 
   const searchModal = isModalOpen && (
     <GlobalModal onClose={() => setIsModalOpen(false)}>
@@ -52,7 +43,7 @@ export default function LogInPage() {
     <>
       {searchModal}
       <t.Container>
-        <img src={loginLogo} alt="loginLogo" />
+        <img src="/assets/loginLogo.webp" alt="loginLogo" />
         <form onSubmit={handleSubmit}>
           <Input
             holderName="아이디"

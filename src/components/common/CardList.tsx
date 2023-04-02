@@ -4,21 +4,19 @@ import type { SelectChangeEvent } from '@mui/material/Select';
 import Select from '@mui/material/Select';
 import { useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
+import Pagination from '../../elements/Pagination';
 import theme from '../../shared/style/theme';
 import type { IProductCard } from '../../shared/types/types';
 import * as t from '../../style/cardList.style';
 import Card from './Card';
-import Pagination from './Pagination';
 
 type PropsType = {
   pageCnt: number;
   ads?: IProductCard[];
   products: IProductCard[];
   likeList: number[];
-  page: number;
   sort?: string;
   setSort?: Dispatch<SetStateAction<string>>;
-  setPage: Dispatch<SetStateAction<number>>;
 };
 
 function CardList({
@@ -26,10 +24,8 @@ function CardList({
   ads,
   products,
   likeList,
-  page,
   sort,
   setSort,
-  setPage,
 }: PropsType) {
   const [select, setSelect] = useState<boolean>(false);
 
@@ -81,7 +77,7 @@ function CardList({
           ))}
         </t.Wrapper>
       )}
-      <Pagination pageCnt={pageCnt} page={page} setPage={setPage} />
+      <Pagination pageCnt={pageCnt} />
     </t.Container>
   );
 }

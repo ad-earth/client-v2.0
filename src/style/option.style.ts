@@ -9,6 +9,7 @@ export const Container = styled.div`
   p {
     font-size: ${theme.fs13};
     &.bold {
+      font-size: ${theme.fs13};
       font-weight: 800;
     }
   }

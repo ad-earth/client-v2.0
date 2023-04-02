@@ -1,28 +1,27 @@
-import { useMemo, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import GlobalModal from '../components/common/GlobalModal';
-import MyOrderAmount from '../components/MyOrderAmount';
-import MyOrderList from '../components/MyOrderList';
-import MyReviewModal from '../components/MyReviewModal';
-import useGetOrderDetail from '../query/useGetOrderDetail';
+import MyOrderAmount from '../components/my/MyOrderAmount';
+import MyOrderList from '../components/my/MyOrderList';
+import MyReviewModal from '../components/my/MyReviewModal';
+import useOrderProduct from '../query/useOrderProduct';
 import * as t from '../style/myOrderDetailPage.style';
 
 export default function MyOrderDetailPage() {
-  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  // const viewport = useViewport();
-  const { isLoading, data } = useGetOrderDetail(id);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  /** Data Filtering */
-  const products = useMemo(() => data?.data.products || [], [data]);
-  const cancelPrice = useMemo(
-    () =>
-      data?.data.products
-        .map(el => el.o_Status === '취소완료' && el.p_Price)
-        .reduce((prev, curr) => prev + curr, 0),
-    [data?.data.products]
-  );
+  const {
+    isLoading,
+    date,
+    no,
+    price,
+    address,
+    userInfo,
+    productData,
+    cancelPrice,
+  } = useOrderProduct();
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const reviewModal = isModalOpen && (
     <GlobalModal onClose={() => setIsModalOpen(false)}>
@@ -42,11 +41,11 @@ export default function MyOrderDetailPage() {
         <t.OrderNumerArticle>
           <t.OrderDate>
             <t.Label>주문일자 </t.Label>
-            <t.Strong>{data?.data.o_Date}</t.Strong>
+            <t.Strong>{date}</t.Strong>
           </t.OrderDate>
           <t.OrderNumberInfo>
             <t.Label>주문번호</t.Label>
-            <t.Strong>{data?.data.o_No}</t.Strong>
+            <t.Strong>{no}</t.Strong>
           </t.OrderNumberInfo>
         </t.OrderNumerArticle>
 
@@ -56,8 +55,8 @@ export default function MyOrderDetailPage() {
             <t.ListTh>주문 상태</t.ListTh>
           </t.ListHead>
           <MyOrderList
-            products={products}
-            orderNo={data?.data.o_No}
+            products={productData}
+            orderNo={no}
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
             type="detail"
@@ -69,11 +68,11 @@ export default function MyOrderDetailPage() {
           <t.Contents>
             <t.Item>
               <t.Label>주문자</t.Label>
-              {data?.data.userInfo.u_Name}
+              {userInfo.u_Name}
             </t.Item>
             <t.Item>
               <t.Label>연락처</t.Label>
-              {data?.data.userInfo.u_Phone}
+              {userInfo.u_Phone}
             </t.Item>
           </t.Contents>
         </t.OrderUserArticle>
@@ -83,21 +82,21 @@ export default function MyOrderDetailPage() {
           <t.Contents>
             <t.Item>
               <t.Label>수령인</t.Label>
-              {data?.data.address.d_Name}
+              {address.d_Name}
             </t.Item>
             <t.Item>
               <t.Label>연락처</t.Label>
-              {data?.data.address.d_Phone}
+              {address.d_Phone}
             </t.Item>
             <t.Item>
               <t.Label>배송지</t.Label>
-              {data?.data.address.d_Address1}
+              {address.d_Address1}
               <br />
-              {data?.data.address.d_Address2}
+              {address.d_Address2}
             </t.Item>
             <t.Item>
               <t.Label>베송메모</t.Label>
-              {data?.data.address.d_Memo}
+              {address.d_Memo}
             </t.Item>
           </t.Contents>
         </t.OrderAddressArticle>
@@ -105,12 +104,9 @@ export default function MyOrderDetailPage() {
         <t.OrderPriceArticle></t.OrderPriceArticle>
 
         <t.OrderPriceArticle>
-          <MyOrderAmount price={data.data.o_Price} />
+          <MyOrderAmount price={price} />
           {cancelPrice > 0 && (
-            <MyOrderAmount
-              price={data.data.o_Price}
-              cancelPrice={cancelPrice}
-            />
+            <MyOrderAmount price={price} cancelPrice={cancelPrice} />
           )}
         </t.OrderPriceArticle>
       </>
