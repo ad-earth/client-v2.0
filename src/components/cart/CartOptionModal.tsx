@@ -1,36 +1,41 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import toast from 'react-hot-toast';
 import { IoCloseOutline } from 'react-icons/io5';
 import Button from '../../elements/Button';
 import useCart from '../../query/useCart';
-import useGetDetailQuery from '../../query/useGetDetailQuery';
-import { setOptions } from '../../redux/reducer/optionSlice';
-import { useAppDispatch, useAppSelector } from '../../redux/store';
+import useProduct from '../../query/useProduct';
+import { useAppSelector } from '../../redux/store';
 import theme from '../../shared/style/theme';
 import * as t from '../../style/cartOptionModal.style';
-import Option from '../common/Option';
+import OptionBox from '../common/OptionBox';
+import SingleBox from '../common/SingleBox';
 interface IProps {
   onClose: () => void;
 }
 
 export default function CartOptionModal({ onClose }: IProps) {
-  const dispatch = useAppDispatch();
   const productNo = useAppSelector(state => state.cartSlice.productNo);
   const keywordNo = useAppSelector(state => state.cartSlice.keywordNo);
   const optionFromSlice = useAppSelector(state => state.optionSlice);
-  const options = JSON.parse(localStorage.getItem('option'));
   const qty = localStorage.getItem('qty');
 
-  useEffect(() => {
-    dispatch(setOptions(options));
-  }, []);
+  const { product } = useProduct({
+    keyword: null,
+    productNo: productNo,
+  });
 
-  const query = useGetDetailQuery(productNo, null);
-  const { product } = useMemo(
+  const { discount, isOption } = useMemo(
     () => ({
-      product: query.data?.data.product,
+      discount: (
+        product?.p_Cost *
+        (1 - product?.p_Discount / 100)
+      ).toLocaleString('ko-kr'),
+      isOption:
+        product?.p_Option.length > 0
+          ? product?.p_Option[0][0] !== null || product?.p_Option[0][2] !== null
+          : false,
     }),
-    [query]
+    [product]
   );
 
   const { updateCartItem } = useCart();
@@ -61,15 +66,22 @@ export default function CartOptionModal({ onClose }: IProps) {
           <img src={product && product.p_Thumbnail[0]} alt="thumbnail" />
           <t.ProdDesc>
             [{product && product.a_Brand}] {product && product.p_Name}
-            <span>{product && product.p_Cost}원</span>
+            <span>{product && discount}원</span>
           </t.ProdDesc>
         </t.ProdInfo>
-        <Option
-          product={product}
-          isCartModal={true}
-          isCart={true}
-          qty={Number(qty)}
-        />
+        {isOption ? (
+          <OptionBox
+            product={product && product}
+            isCart={true}
+            qty={Number(qty)}
+          />
+        ) : (
+          <SingleBox
+            product={product && product}
+            isCart={true}
+            qty={Number(qty)}
+          />
+        )}
         <t.BtnWrapper>
           <Button text="취소" {...btnStyle[0]} onClick={onClose} />
           <Button text="변경" {...btnStyle[1]} onClick={handleCart} />

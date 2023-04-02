@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
+import { shallowEqual } from 'react-redux';
 import {
   addOption,
   deleteOption,
@@ -21,14 +22,18 @@ export default function OptionBox({ product, isCart, qty }: TProps) {
   const dispatch = useAppDispatch();
   const [isDrop, setIsDrop] = useState<boolean>(false);
   const [totalQty, setTotalQty] = useState<number>(0);
-  const options = useAppSelector(state => state.optionSlice);
+  const options = useAppSelector(state => state.optionSlice, shallowEqual);
 
   useEffect(() => {
-    if (isCart) setTotalQty(qty);
+    if (isCart) {
+      setTotalQty(qty);
+      const option = JSON.parse(localStorage.getItem('option'));
+      dispatch(setOptions(option));
+    }
   }, [isCart]);
 
   useEffect(() => {
-    dispatch(setOptions([]));
+    if (!isCart) dispatch(setOptions([]));
   }, []);
 
   const price = useMemo(
