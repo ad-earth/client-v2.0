@@ -1,3 +1,4 @@
+import { WHITELOGO } from '../constants';
 import * as t from '../style/footer.style';
 
 function Footer() {
@@ -5,7 +6,7 @@ function Footer() {
     <t.Container>
       <t.Footer>
         <t.Wrap>
-          <img src="/assets/whiteLogo.webp" alt="footLogo" />
+          <img src={WHITELOGO} alt="footLogo" />
           <t.Service>
             <a href="https://adearth-admin.shop/">⇤ 광고주 솔루션 바로가기</a>
             <span>• 회사명 : 주식회사 광고지구 | 대표자 : 광고지구</span>
