@@ -1,5 +1,6 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
+import queryKeys from '../constants/queryKeys';
 import type { TError } from '../shared/types/types';
 import { postLike } from './../shared/api/productApi';
 
@@ -9,9 +10,9 @@ const usePostLikeQuery = (productNo: number) => {
     () => postLike(Number(productNo)),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(['ad']);
-        queryClient.invalidateQueries(['wish']);
-        queryClient.invalidateQueries(['detail']);
+        queryClient.invalidateQueries(queryKeys.AD);
+        queryClient.invalidateQueries(queryKeys.WISH);
+        queryClient.invalidateQueries(queryKeys.DETAIL);
       },
     }
   );

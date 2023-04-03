@@ -1,6 +1,6 @@
 import Card from '../components/common/Card';
 import useIntersectHandler from '../hooks/useIntersectHandler';
-import useWish from '../query/useWish';
+import useProduct from '../query/useProduct';
 import * as t from '../style/myWishPage.style';
 
 export default function MyWishPage() {
@@ -15,7 +15,7 @@ export default function MyWishPage() {
     wishCnt,
     wishData,
     wishLike,
-  } = useWish();
+  } = useProduct({});
 
   const target = useIntersectHandler(() => {
     if (!hasNextPage || isFetchingNextPage) return;

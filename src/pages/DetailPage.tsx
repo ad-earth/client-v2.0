@@ -2,18 +2,15 @@ import { ScrollRestoration, useLocation, useParams } from 'react-router-dom';
 import DetailContents from '../components/detail/DetailContents';
 import DetailImgs from '../components/detail/DetailImgs';
 import DetailInfo from '../components/detail/DetailInfo';
-import useProduct from '../query/useProduct';
+import useDetail from '../query/useDetail';
 import * as t from '../style/detailPage.style';
 
-function DetailPage() {
+export default function DetailPage() {
   const location = useLocation();
   const { keyword } = location.state as { keyword: string | null };
   const { productNo } = useParams();
 
-  const { product, keyNo, isLike } = useProduct({
-    keyword: keyword,
-    productNo: Number(productNo),
-  });
+  const { product, keyNo, isLike } = useDetail(Number(productNo), keyword);
 
   return (
     <>
@@ -29,5 +26,3 @@ function DetailPage() {
     </>
   );
 }
-
-export default DetailPage;

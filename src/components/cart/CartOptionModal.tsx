@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { IoCloseOutline } from 'react-icons/io5';
 import Button from '../../elements/Button';
 import useCart from '../../query/useCart';
-import useProduct from '../../query/useProduct';
+import useDetail from '../../query/useDetail';
 import { useAppSelector } from '../../redux/store';
 import theme from '../../shared/style/theme';
 import * as t from '../../style/cartOptionModal.style';
@@ -19,10 +19,7 @@ export default function CartOptionModal({ onClose }: IProps) {
   const optionFromSlice = useAppSelector(state => state.optionSlice);
   const qty = localStorage.getItem('qty');
 
-  const { product } = useProduct({
-    keyword: null,
-    productNo: productNo,
-  });
+  const { product } = useDetail(productNo, null);
 
   const { discount, isOption } = useMemo(
     () => ({
