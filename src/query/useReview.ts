@@ -32,8 +32,8 @@ export default function useReview(productNo?: number, page?: number) {
     ({ id, review }) => postReviews(id, review.r_Content, review.r_Score),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('order');
-        queryClient.invalidateQueries('orderDetail');
+        queryClient.invalidateQueries(queryKeys.ORDER);
+        queryClient.invalidateQueries(queryKeys.ORDERPRODUCT);
         toast.success('리뷰등록이 완료되었습니다!');
       },
     }
