@@ -1,11 +1,10 @@
 import type { AxiosError, AxiosResponse } from 'axios';
-import { useMemo } from 'react';
 import toast from 'react-hot-toast';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import queryKeys from '../constants/queryKeys';
-import { deleteCart, getCart, putCart } from './../shared/api/paymentApi';
-import type { ICartResponse, TError } from './../shared/types/types';
+import { deleteCart, putCart } from './../shared/api/paymentApi';
+import type { TError } from './../shared/types/types';
 interface IUpdateData {
   type: string;
   productNo: number;
@@ -17,23 +16,9 @@ interface IRemoveData {
   p_Nos: string;
 }
 
-const useGetCartQuery = () => {
+const useCart = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-
-  const { data: cartData } = useQuery<AxiosResponse<ICartResponse>, Error>(
-    [queryKeys.CART],
-    () => getCart(),
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
-  const { cartList } = useMemo(
-    () => ({
-      cartList: cartData?.data.cartList,
-    }),
-    [cartData]
-  );
 
   const updateCartItem = useMutation<
     AxiosResponse,
@@ -62,7 +47,7 @@ const useGetCartQuery = () => {
     },
   });
 
-  return { cartList, updateCartItem, removeCartItem };
+  return { updateCartItem, removeCartItem };
 };
 
-export default useGetCartQuery;
+export default useCart;

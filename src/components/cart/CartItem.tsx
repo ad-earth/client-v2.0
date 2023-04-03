@@ -97,7 +97,13 @@ function CartItem(props: IProps) {
       option: option,
       keyword: keyNo,
     };
-    updateCartItem.mutate(payData);
+    updateCartItem.mutate(payData, {
+      onSuccess: () => {
+        navigate('/payment', {
+          state: { type: 'c', productNo: prodNo },
+        });
+      },
+    });
   };
 
   return (
