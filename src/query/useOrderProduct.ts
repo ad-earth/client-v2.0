@@ -47,6 +47,7 @@ export default function useOrderProduct() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(queryKeys.ORDER);
+        queryClient.invalidateQueries(queryKeys.ORDERPRODUCT);
         toast.success('주문을 취소하였습니다.');
         navigate('/mypage');
       },
