@@ -5,6 +5,7 @@ import CompletePage from '../../pages/CompletePage';
 import DetailPage from '../../pages/DetailPage';
 import ListPage from '../../pages/ListPage';
 import LogInPage from '../../pages/LogInPage';
+import MainPage from '../../pages/MainPage';
 import MyCancelPage from '../../pages/MyCancelPage';
 import MyOrderDetailPage from '../../pages/MyOrderDetailPage';
 import MyOrderPage from '../../pages/MyOrderPage';
@@ -13,7 +14,6 @@ import NotFoundPage from '../../pages/NotFoundPage';
 import PaymentPage from '../../pages/PaymentPage';
 import SearchPage from '../../pages/SearchPage';
 import SignUpPage from '../../pages/SignUpPage';
-const MainPage = React.lazy(() => import('../../pages/MainPage'));
 
 interface RouterBase {
   id: number;
