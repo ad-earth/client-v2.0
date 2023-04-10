@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import Address from '../components/common/Address';
 import Profile from '../components/common/Profile';
+import { DEFAULTIMAGE } from '../constants';
 import Button from '../elements/Button';
 import ErrMsg from '../elements/ErrorMsg';
 import Input from '../elements/Input';
@@ -15,6 +16,7 @@ export default function SignUpPage() {
   const [state, setDispatch] = useReducer(inputReducer, signupInitial);
   const { id, pwd, pwdCheck, name, gender, phone } = state;
   const [formData, setFormData] = useState<ISignUpData>();
+  console.log('formData: ', formData);
   const [imgUrl, setImgUrl] = useState<string>('');
   const [zipcode, setZipcode] = useState<string>('');
   const [address, setAddress] = useState<string>('');
@@ -37,7 +39,7 @@ export default function SignUpPage() {
       u_Address1: zipcode,
       u_Address2: address,
       u_Address3: extraAddress,
-      u_Img: imgUrl ? imgUrl : 'null',
+      u_Img: imgUrl ? imgUrl : DEFAULTIMAGE,
     });
   }, [
     id.val,
@@ -159,7 +161,6 @@ export default function SignUpPage() {
               pwd.isCheck &&
               pwdCheck.isCheck &&
               name.isCheck &&
-              gender.isCheck &&
               phone.isCheck &&
               zipcode &&
               address &&

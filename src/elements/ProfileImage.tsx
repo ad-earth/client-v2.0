@@ -14,7 +14,7 @@ export default function ProfileImage(props: IProps) {
   return (
     <t.Container>
       <t.UserImg
-        src={props.image !== 'null' ? props.image : `${DEFAULTIMAGE}`}
+        src={props.image ? props.image : `${DEFAULTIMAGE}`}
         alt={props.name}
         {...props}
       />
