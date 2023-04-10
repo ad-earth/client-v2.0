@@ -17,10 +17,7 @@ export default function Card({ product, isAd, likeList, keyword }: TProps) {
   const [imageIdx, setImageIdx] = useState<number>(0);
 
   const handleClick = (productNo: number) => {
-    navigate(`/detail/${productNo}`, {
-      replace: true,
-      state: { keyword: keyword ? keyword : null },
-    });
+    navigate(`/detail/${productNo}?keyword=${keyword}`);
   };
 
   const handleEnter = () =>
