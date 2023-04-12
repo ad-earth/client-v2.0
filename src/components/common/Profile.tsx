@@ -22,7 +22,7 @@ function Profile({ imgUrl, setImgUrl }: IProps) {
   };
 
   useEffect(() => {
-    if (!isUser && userInfo) {
+    if (!isUser && userInfo !== null) {
       setImgUrl(userInfo?.u_Img);
     }
     setIsUser(true);

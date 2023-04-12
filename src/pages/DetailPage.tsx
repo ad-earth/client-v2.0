@@ -1,4 +1,8 @@
-import { ScrollRestoration, useLocation, useParams } from 'react-router-dom';
+import {
+  ScrollRestoration,
+  useParams,
+  useSearchParams,
+} from 'react-router-dom';
 import DetailContents from '../components/detail/DetailContents';
 import DetailImgs from '../components/detail/DetailImgs';
 import DetailInfo from '../components/detail/DetailInfo';
@@ -6,11 +10,14 @@ import useDetail from '../query/useDetail';
 import * as t from '../style/detailPage.style';
 
 export default function DetailPage() {
-  const location = useLocation();
-  const { keyword } = location.state as { keyword: string | null };
+  const [searchParams] = useSearchParams();
+  const keyword = searchParams.get('keyword');
   const { productNo } = useParams();
 
-  const { product, keyNo, isLike } = useDetail(Number(productNo), keyword);
+  const { product, keyNo, isLike } = useDetail(
+    Number(productNo),
+    keyword !== 'undefined' ? keyword : null
+  );
 
   return (
     <>
