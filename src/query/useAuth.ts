@@ -74,7 +74,7 @@ const useAuth = (idData?: ISearchIdData) => {
         toast.success(
           `${result.u_Name}님 환영합니다. 지구샵은 로그인 후 이용해주세요!`
         );
-        navigate('/');
+        navigate('/login');
       },
     }
   );
