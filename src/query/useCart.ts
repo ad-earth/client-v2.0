@@ -9,7 +9,7 @@ interface IUpdateData {
   type: string;
   productNo: number;
   option: (string | number)[][];
-  key?: number;
+  keyword?: number;
 }
 interface IRemoveData {
   type: string;
@@ -24,7 +24,7 @@ const useCart = () => {
     AxiosResponse,
     AxiosError<TError>,
     IUpdateData
-  >(data => putCart(data.type, data.productNo, data.option, data.key), {
+  >(data => putCart(data.type, data.productNo, data.option, data.keyword), {
     onSuccess: res => {
       queryClient.invalidateQueries([queryKeys.CART]);
       const type = res.config.url.split('/')[2];
