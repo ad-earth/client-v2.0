@@ -118,6 +118,8 @@ export const CancelListBox = styled.div`
 export const CancelList = styled.div`
   display: flex;
   align-items: flex-start;
+`;
+export const CancelListItem = styled.div`
   margin-bottom: 24px;
 `;
 
