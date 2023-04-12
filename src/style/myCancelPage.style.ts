@@ -105,7 +105,6 @@ export const MobileButtomBox = styled.div`
   padding: 0 10px;
 `;
 
-//ContentsBox-CancelListBox
 export const CancelListBox = styled.div`
   border: 1px solid ${({ theme }) => theme.rgba06};
   padding: 20px;
@@ -118,6 +117,9 @@ export const CancelListBox = styled.div`
 export const CancelList = styled.div`
   display: flex;
   align-items: flex-start;
+`;
+export const CancelListItem = styled.div`
+  display: flex;
   margin-bottom: 24px;
 `;
 

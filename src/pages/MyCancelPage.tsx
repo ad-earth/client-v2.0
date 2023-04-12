@@ -83,18 +83,24 @@ export default function MyCancelPage() {
             <t.Title>취소 상품 선택</t.Title>
             {productData.map((product: IMyProduct, i: number) => (
               <t.CancelList key={i}>
-                <t.Checkbox
-                  type="checkbox"
-                  value={product.p_No}
-                  onChange={handleCheckBox}
-                  checked={checkedItems.includes(product.p_No) ? true : false}
-                />
-                <ProductCard
-                  p_Thumbnail={product.p_Thumbnail}
-                  a_Brand={product.a_Brand}
-                  p_Name={product.p_Name}
-                  p_Option={product.p_Option}
-                />
+                {product?.o_Status === '주문완료' && (
+                  <t.CancelListItem>
+                    <t.Checkbox
+                      type="checkbox"
+                      value={product.p_No}
+                      onChange={handleCheckBox}
+                      checked={
+                        checkedItems.includes(product.p_No) ? true : false
+                      }
+                    />
+                    <ProductCard
+                      p_Thumbnail={product.p_Thumbnail}
+                      a_Brand={product.a_Brand}
+                      p_Name={product.p_Name}
+                      p_Option={product.p_Option}
+                    />
+                  </t.CancelListItem>
+                )}
               </t.CancelList>
             ))}
           </t.CancelListBox>
