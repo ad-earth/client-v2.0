@@ -55,7 +55,10 @@ export default function UserInfoModal({ onClose }: TProps) {
   const { putUserInfo } = useUser();
   const handlePutUserInfo = () => {
     putUserInfo.mutate(formData, {
-      onSuccess: () => onClose(),
+      onSuccess: () => {
+        onClose();
+        window.location.reload();
+      },
       onError: error => {
         const errMsg = error.response.data.errorMessage;
         if (errMsg === '중복된 연락처입니다.') {
