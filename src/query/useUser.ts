@@ -2,6 +2,8 @@ import type { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-hot-toast';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { setAuth } from '../redux/reducer/authSlice';
+import { useAppDispatch } from './../redux/store';
 import { deleteUser, putUserInfoChange } from './../shared/api/userApi';
 import type { TError } from './../shared/types/types';
 
@@ -16,6 +18,7 @@ export interface TUserInfoData {
 }
 
 const useUser = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   const putUserInfo = useMutation<
@@ -57,6 +60,7 @@ const useUser = () => {
     onSuccess: () => {
       toast.success('탈퇴 성공!');
       localStorage.clear();
+      dispatch(setAuth({ isAuth: false }));
       navigate('/');
     },
   });
