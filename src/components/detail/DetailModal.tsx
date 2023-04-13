@@ -7,6 +7,9 @@ import {
 } from '@mui/material';
 import type { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { setOptions } from '../../redux/reducer/optionSlice';
+import { setQty } from '../../redux/reducer/qtySlice';
+import { useAppDispatch } from '../../redux/store';
 import theme from '../../shared/style/theme';
 
 type TProps = {
@@ -16,8 +19,13 @@ type TProps = {
 
 export default function DetailModal({ open, setOpen }: TProps) {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    dispatch(setOptions([]));
+    dispatch(setQty(0));
+  };
 
   return (
     <div>

@@ -6,6 +6,7 @@ import cartSlice from './reducer/cartSlice';
 import optionSlice from './reducer/optionSlice';
 import pageSlice from './reducer/pageSlice';
 import payInputSlice from './reducer/payInputSlice';
+import qtySlice from './reducer/qtySlice';
 import reviewSlice from './reducer/reviewSlice';
 
 const store = configureStore({
@@ -16,6 +17,7 @@ const store = configureStore({
     reviewSlice: reviewSlice,
     pageSlice: pageSlice,
     authSlice: authSlice,
+    qtySlice: qtySlice,
   },
 });
 

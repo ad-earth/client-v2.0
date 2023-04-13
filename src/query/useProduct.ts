@@ -84,6 +84,7 @@ const useProduct = ({
   >(productNumber => postLike(productNumber), {
     onSuccess: () => {
       queryClient.invalidateQueries(queryKeys.LIST);
+      queryClient.invalidateQueries(queryKeys.AD);
       queryClient.invalidateQueries(queryKeys.WISH);
       queryClient.invalidateQueries(queryKeys.DETAIL);
     },

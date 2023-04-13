@@ -7,6 +7,7 @@ import {
   setOptions,
   updateOption,
 } from '../../redux/reducer/optionSlice';
+import { setQty } from '../../redux/reducer/qtySlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import type { IProductDetail, TOption } from '../../shared/types/types';
 import * as t from '../../style/box.style';
@@ -21,20 +22,20 @@ type TProps = {
 export default function OptionBox({ product, isCart, qty }: TProps) {
   const dispatch = useAppDispatch();
   const [isDrop, setIsDrop] = useState<boolean>(false);
-  const [totalQty, setTotalQty] = useState<number>(0);
+  const totalQty = useAppSelector(state => state.qtySlice);
   const options = useAppSelector(state => state.optionSlice, shallowEqual);
 
   useEffect(() => {
     if (isCart) {
-      setTotalQty(qty);
+      dispatch(setQty(qty));
       const option = JSON.parse(localStorage.getItem('option'));
       dispatch(setOptions(option));
     }
-  }, [isCart]);
+  }, [isCart, dispatch, qty]);
 
   useEffect(() => {
     if (!isCart) dispatch(setOptions([]));
-  }, []);
+  }, [isCart, dispatch]);
 
   const price = useMemo(
     () =>
@@ -70,13 +71,13 @@ export default function OptionBox({ product, isCart, qty }: TProps) {
     else {
       dispatch(addOption(userOption));
       setIsDrop(false);
-      setTotalQty(prev => prev + 1);
+      dispatch(setQty(totalQty + 1));
     }
   };
 
   const deleteOpt = (option: TUserOption) => {
     dispatch(deleteOption(option));
-    setTotalQty(prev => prev - Number(option[4]));
+    dispatch(setQty(totalQty - Number(option[4])));
   };
 
   const addQty = (option: TUserOption) => {
@@ -84,7 +85,7 @@ export default function OptionBox({ product, isCart, qty }: TProps) {
     const userOption = [...option];
     userOption.splice(4, 1, currentQty + 1);
     dispatch(updateOption(userOption));
-    setTotalQty(prev => prev + 1);
+    dispatch(setQty(totalQty + 1));
   };
 
   const substractQty = (option: TUserOption) => {
@@ -94,7 +95,7 @@ export default function OptionBox({ product, isCart, qty }: TProps) {
     else userOption.splice(4, 1, 1);
     dispatch(updateOption(userOption));
 
-    if (totalQty !== 1) setTotalQty(prev => prev - 1);
+    if (totalQty !== 1) dispatch(setQty(totalQty - 1));
   };
 
   return (
