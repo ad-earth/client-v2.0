@@ -20,7 +20,9 @@ export default function SearchPage() {
 
   return (
     <>
-      <t.Container>"{keyword}" 검색 결과 0개</t.Container>
+      <t.Container>
+        "{keyword}" 검색 결과 {products?.length + ads?.length}개
+      </t.Container>
       <SearchCards
         pageCnt={pageCnt}
         ads={ads}
