@@ -24,6 +24,11 @@ npm start
 
 ## v2.0.0 주요 개선 사항
 #### 기능적 개선
+- 에러 및 알림 메시지를 공통 Toast UI로 처리하여 인터페이스의 일관성 유지
+- Skeleton UI를 적용해 유저 반응성 향상
+- 유저 편의성을 고려해 회원가입 시, 기본 프로필 이미지 제공
+- React-router-dom의 ScrollRestoration 컴포넌트를 사용한 scroll top 처리로 사용성 개선
+
 #### 기술적 개선
 
 ## 페이지 주요 기능
