@@ -75,6 +75,6 @@ npm start
 
 
 ## 기타
-- [🤝 Convention](https://solwork.notion.site/Convention-2b9c45bbb9f5458a8e6a10a34cb88c00)
+- [🤝 Convention](https://github.com/ad-earth/client-v2.0/issues/73)
 - [🧩 IA](https://www.figma.com/file/0cxWFuPwV5h23dWp4idH5k/%EA%B5%AC%EB%A7%A4%EC%9E%90-IA?node-id=0%3A1)
 - [📄 API](https://documenter.getpostman.com/view/18707207/2s7Z7ZnZDy)
