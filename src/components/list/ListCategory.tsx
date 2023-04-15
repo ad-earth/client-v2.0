@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { CATEGORYLIST } from '../../constants';
-import { setPage } from '../../redux/reducer/pageSlice';
-import { useAppDispatch } from '../../redux/store';
 import * as t from '../../style/listCategory.style';
 
 type TProps = {
@@ -11,7 +9,6 @@ type TProps = {
 
 function ListCategory({ category }: TProps) {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentCategory, setCurrentCategory] = useState<string>(category);
 
@@ -23,8 +20,8 @@ function ListCategory({ category }: TProps) {
 
   useEffect(() => {
     searchParams.set('sort', 'recent');
+    searchParams.set('page', '1');
     setSearchParams(searchParams);
-    dispatch(setPage(1));
   }, [currentCategory]);
 
   return (

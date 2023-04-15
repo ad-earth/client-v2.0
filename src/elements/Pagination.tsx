@@ -1,7 +1,6 @@
 import { PaginationItem } from '@mui/material';
 import React from 'react';
-import { setPage } from '../redux/reducer/pageSlice';
-import { useAppDispatch, useAppSelector } from '../redux/store';
+import { useSearchParams } from 'react-router-dom';
 import * as t from '../style/pagination.style';
 
 type PropsType = {
@@ -9,18 +8,20 @@ type PropsType = {
 };
 
 export default function Pagination({ pageCnt }: PropsType) {
-  const dispatch = useAppDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
   const pageCount = Math.ceil(pageCnt / 20);
-  const page = useAppSelector(state => state.pageSlice);
+  const page = searchParams.get('page');
 
-  const handleChange = (e: React.ChangeEvent<unknown>, value: number) =>
-    dispatch(setPage(value));
+  const handleChange = (e: React.ChangeEvent<unknown>, value: number) => {
+    searchParams.set('page', String(value));
+    setSearchParams(searchParams);
+  };
 
   return (
     <t.PaginationRoot
       count={pageCount ? pageCount : 1}
       defaultPage={1}
-      page={page}
+      page={Number(page)}
       onChange={handleChange}
       renderItem={item => <PaginationItem {...item} />}
     />

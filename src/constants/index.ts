@@ -41,14 +41,14 @@ export const CATEGORYLIST = [
 ];
 
 export const HEADCATEGORY = [
-  { id: 1, cate: '전체', path: '/list/전체' },
-  { id: 2, cate: '욕실', path: '/list/욕실' },
-  { id: 3, cate: '주방', path: '/list/주방' },
-  { id: 4, cate: '음료용품', path: '/list/음료용품' },
-  { id: 5, cate: '생활', path: '/list/생활' },
-  { id: 6, cate: '식품', path: '/list/식품' },
-  { id: 7, cate: '화장품', path: '/list/화장품' },
-  { id: 8, cate: '문구', path: '/list/문구' },
+  { id: 1, cate: '전체', path: '/list/전체?sort=recent&page=1' },
+  { id: 2, cate: '욕실', path: '/list/욕실?sort=recent&page=1' },
+  { id: 3, cate: '주방', path: '/list/주방?sort=recent&page=1' },
+  { id: 4, cate: '음료용품', path: '/list/음료용품?sort=recent&page=1' },
+  { id: 5, cate: '생활', path: '/list/생활?sort=recent&page=1' },
+  { id: 6, cate: '식품', path: '/list/식품?sort=recent&page=1' },
+  { id: 7, cate: '화장품', path: '/list/화장품?sort=recent&page=1' },
+  { id: 8, cate: '문구', path: '/list/문구?sort=recent&page=1' },
 ];
 
 export const ASIDECATEGORY = [
