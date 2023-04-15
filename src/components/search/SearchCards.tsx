@@ -1,4 +1,3 @@
-import type { Dispatch, SetStateAction } from 'react';
 import { useParams } from 'react-router-dom';
 import Pagination from '../../elements/Pagination';
 import type { IProductCard } from '../../shared/types/types';
@@ -10,8 +9,6 @@ type PropsType = {
   ads: IProductCard[];
   products: IProductCard[];
   likeList: number[];
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>;
 };
 
 export default function SearchCards({

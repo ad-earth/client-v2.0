@@ -1,6 +1,7 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-hot-toast';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useParams, useSearchParams } from 'react-router-dom';
 import queryKeys from '../constants/queryKeys';
 import {
   deleteReview,
@@ -17,10 +18,14 @@ type TReview = {
   };
 };
 
-export default function useReview(productNo?: number, page?: number) {
+export default function useReview() {
+  const [searchParams] = useSearchParams();
+  const { productNo } = useParams();
+  const page = searchParams.get('page');
+
   const { data } = useQuery<AxiosResponse<IReviewsResponse>, Error>(
     queryKeys.REVIEW,
-    () => getReviews(productNo, page),
+    () => getReviews(Number(productNo), Number(page)),
     {
       refetchOnWindowFocus: false,
     }

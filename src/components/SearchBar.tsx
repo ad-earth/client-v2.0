@@ -9,7 +9,7 @@ export default function SearchBar() {
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate(`/search/${keyword}`);
+    navigate(`/search/${keyword}?page=1`);
     setKeyword('');
   };
 

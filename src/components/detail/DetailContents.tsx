@@ -5,14 +5,13 @@ import * as t from '../../style/detailContents.style';
 import DetailReviews from './DetailReviews';
 
 type TProps = {
-  productNo: number;
   content: string;
 };
 
-export default function DetailContents({ productNo, content }: TProps) {
+export default function DetailContents({ content }: TProps) {
   const [menuSwitch, setMenuSwitch] = useState<boolean>(false);
-  const [page, setPage] = useState<number>(1);
-  const { data } = useReview(productNo, page);
+
+  const { data } = useReview();
 
   const createMarkup = () => ({ __html: content });
 
@@ -29,8 +28,6 @@ export default function DetailContents({ productNo, content }: TProps) {
           <DetailReviews
             reviewQty={data?.data.p_review}
             reviewList={data?.data.reviews}
-            page={page}
-            setPage={setPage}
           />
         ) : (
           <t.DescWrapper>

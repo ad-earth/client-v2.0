@@ -1,4 +1,3 @@
-import type { Dispatch, SetStateAction } from 'react';
 import { useMemo } from 'react';
 import { REVIEW_PER_PAGE } from '../../constants';
 import Pagination from '../../elements/Pagination';
@@ -9,8 +8,6 @@ import * as t from '../../style/detailReviews.style';
 type TProps = {
   reviewQty: number;
   reviewList: TReviews;
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>;
 };
 
 export default function DetailReviews({ reviewQty, reviewList }: TProps) {

@@ -26,10 +26,7 @@ export default function DetailPage() {
         <DetailImgs product={product} />
         <DetailInfo product={product} keyNo={keyNo} isLike={isLike} />
       </t.InfoContainer>
-      <DetailContents
-        productNo={parseInt(productNo)}
-        content={product?.p_Content}
-      />
+      <DetailContents content={product?.p_Content} />
     </>
   );
 }

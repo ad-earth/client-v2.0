@@ -1,12 +1,16 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import {
+  ScrollRestoration,
+  useParams,
+  useSearchParams,
+} from 'react-router-dom';
 import SearchCards from '../components/search/SearchCards';
 import useProduct from '../query/useProduct';
 import * as t from '../style/searchPage.style';
 
 export default function SearchPage() {
   const { keyword } = useParams();
-  const [page, setPage] = useState<number>(1);
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get('page');
 
   const {
     pageCnt,
@@ -14,12 +18,13 @@ export default function SearchPage() {
     adProducts: ads,
     likeProducts: likeList,
   } = useProduct({
-    page: page,
+    page: Number(page),
     keyword: keyword,
   });
 
   return (
     <>
+      <ScrollRestoration />
       <t.Container>
         "{keyword}" 검색 결과 {products?.length + ads?.length}개
       </t.Container>
@@ -28,8 +33,6 @@ export default function SearchPage() {
         ads={ads}
         products={products}
         likeList={likeList}
-        page={page}
-        setPage={setPage}
       />
     </>
   );
