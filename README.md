@@ -28,6 +28,7 @@ npm start
 - Skeleton UI를 적용해 유저 반응성 향상
 - 유저 편의성을 고려해 회원가입 시, 기본 프로필 이미지 제공
 - React-router-dom의 ScrollRestoration 컴포넌트를 사용한 scroll top 처리로 사용성 개선
+- 정렬과 페이지 처리를 query string으로 변경하여 뒤로 가기 시에도 유저가 선택한 필터가 유지되도록 개선
 
 #### 기술적 개선
 - 동일한 QueryKey로 받아온 데이터를 custom hook으로 모듈화해 데이터 관리와 유지보수가 용이하도록 개선
@@ -35,7 +36,7 @@ npm start
 - Axios Response Type을 미리 지정해 데이터 타입 사전 체크
 - 유저 권한 속성을 추가한 라우터 정보를 목록화하고 선택적 렌더링을 적용해 유저 권한별 접근이 제어되는 웹으로 개선
 - 이미지를 lazy loading 하고 압축률이 높은 이미지 형식(WebP)으로 변환하여 웹 성능을 최적화
-- 상품 목록 정렬 처리를 state에서 query string으로 변경
+- 상품 목록 정렬과 pagination의 페이지 처리를 state에서 query string으로 변경
 - React Portal을 사용해 독립적인 Modal DOM 선언
 
 ## 페이지 주요 기능
