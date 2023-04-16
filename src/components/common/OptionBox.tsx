@@ -34,7 +34,10 @@ export default function OptionBox({ product, isCart, qty }: TProps) {
   }, [isCart, dispatch, qty]);
 
   useEffect(() => {
-    if (!isCart) dispatch(setOptions([]));
+    if (!isCart) {
+      dispatch(setOptions([]));
+      dispatch(setQty(0));
+    }
   }, [isCart, dispatch]);
 
   const price = useMemo(
