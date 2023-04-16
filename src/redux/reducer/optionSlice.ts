@@ -20,7 +20,13 @@ const optionSlice = createSlice({
 
     updateOption: (state, action: PayloadAction<(string | number)[]>) => {
       const newState = state.map(item =>
-        item[0] === action.payload[0] ? [...action.payload] : item
+        item[0]
+          ? item[0] === action.payload[0]
+            ? [...action.payload]
+            : item
+          : item[2] === action.payload[2]
+          ? [...action.payload]
+          : item
       );
       return newState;
     },

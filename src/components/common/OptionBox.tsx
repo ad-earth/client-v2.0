@@ -70,8 +70,10 @@ export default function OptionBox({ product, isCart, qty }: TProps) {
       o[0] ? o[0] === option[0] : o[2] === option[2]
     );
 
-    if (sameOption.length) toast.error('이미 선택한 옵션입니다.');
-    else {
+    if (sameOption.length) {
+      toast.error('이미 선택한 옵션입니다.');
+      setIsDrop(false);
+    } else {
       dispatch(addOption(userOption));
       setIsDrop(false);
       dispatch(setQty(totalQty + 1));
