@@ -71,7 +71,7 @@ npm start
 
 ## 기술 스택
 - React, TypeScript
-- React Query, Redux TK, Axios
+- React-Query, ReduxTK, Axios
 - Styled-Components
 
 
