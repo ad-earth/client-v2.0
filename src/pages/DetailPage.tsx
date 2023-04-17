@@ -1,8 +1,4 @@
-import {
-  ScrollRestoration,
-  useParams,
-  useSearchParams,
-} from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import DetailContents from '../components/detail/DetailContents';
 import DetailImgs from '../components/detail/DetailImgs';
 import DetailInfo from '../components/detail/DetailInfo';
@@ -22,7 +18,6 @@ export default function DetailPage() {
   return (
     <>
       <t.InfoContainer>
-        <ScrollRestoration />
         <DetailImgs product={product} />
         <DetailInfo product={product} keyNo={keyNo} isLike={isLike} />
       </t.InfoContainer>
