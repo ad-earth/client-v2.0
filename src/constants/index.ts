@@ -82,3 +82,4 @@ export const CAROUSEL = {
 };
 
 export const REVIEW_PER_PAGE = 5;
+export const SPACE_VALIDATION = /\s/g;
