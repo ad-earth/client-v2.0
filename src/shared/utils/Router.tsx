@@ -3,6 +3,7 @@ import {
   createRoutesFromElements,
   Outlet,
   Route,
+  ScrollRestoration,
 } from 'react-router-dom';
 import styled from 'styled-components';
 import Footer from '../../components/Footer';
@@ -21,6 +22,7 @@ const Router = createBrowserRouter(
               path={router.path}
               element={
                 <ProtectedRoute redirectPath={router.redirectPath}>
+                  <ScrollRestoration />
                   {router.element}
                 </ProtectedRoute>
               }
@@ -51,7 +53,12 @@ const Router = createBrowserRouter(
             <Route
               key={router.id}
               path={router.path}
-              element={router.element}
+              element={
+                <>
+                  <ScrollRestoration />
+                  {router.element}
+                </>
+              }
             />
           );
         }
