@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GlobalModal from '../components/common/GlobalModal';
 import LoginSearchModal from '../components/login/LoginSearchModal';
-import { LOGINLOGO } from '../constants';
+import { LOGINLOGO, SPACE_VALIDATION } from '../constants';
 import Button from '../elements/Button';
 import Input from '../elements/Input';
 import type { ILoginData } from '../query/useAuth';
@@ -20,7 +20,7 @@ export default function LogInPage() {
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    setForm({ ...form, [name]: value.replace(SPACE_VALIDATION, '') });
   };
 
   const {
