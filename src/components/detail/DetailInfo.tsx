@@ -79,11 +79,9 @@ export default function DetailInfo({ product, keyNo, isLike }: TProps) {
       toast.error('상품을 먼저 선택해주세요.');
     else {
       updateCartItem.mutate(cartData, {
-        onSuccess: () => {
-          const acc = localStorage.getItem('cartStatus');
-          const cur = Number(acc) + 1;
-          localStorage.setItem('cartStatus', String(cur));
-          dispatch(setCartStatus(cur));
+        onSuccess: res => {
+          localStorage.setItem('cartStatus', String(res.data.cartStatus));
+          dispatch(setCartStatus(res.data.cartStatus));
           setOpen(true);
         },
       });
