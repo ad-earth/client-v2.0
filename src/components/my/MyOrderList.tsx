@@ -37,7 +37,7 @@ export default function MyOrderList(props: TProps) {
       }
       case 'detail': {
         status
-          ? navigate(`/detail/${p_No}`)
+          ? navigate(`/detail/${p_No}?keyword=undefined&page=1`)
           : toast.error('현재 판매하지 않는 상품입니다.');
         break;
       }

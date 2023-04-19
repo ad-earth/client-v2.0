@@ -136,10 +136,16 @@ function CartItem(props: IProps) {
               <img
                 src={item.p_Thumbnail[0]}
                 alt="thumbnail"
-                onClick={() => navigate(`/detail/${item.p_No}`)}
+                onClick={() =>
+                  navigate(`/detail/${item.p_No}?keyword=undefined&page=1`)
+                }
               />
               <t.InfoWrap>
-                <p onClick={() => navigate(`/detail/${item.p_No}`)}>
+                <p
+                  onClick={() =>
+                    navigate(`/detail/${item.p_No}?keyword=undefined&page=1`)
+                  }
+                >
                   [{item.a_Brand}] {item.p_Name}
                 </p>
                 {item.p_Option.map(
