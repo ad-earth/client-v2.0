@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CATEGORYLIST } from '../../constants';
 import * as t from '../../style/listCategory.style';
 
@@ -7,22 +7,15 @@ type TProps = {
   category: string;
 };
 
-function ListCategory({ category }: TProps) {
+export default function ListCategory({ category }: TProps) {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
   const [currentCategory, setCurrentCategory] = useState<string>(category);
 
   const handleClick = (e: React.FormEvent<HTMLButtonElement>) => {
     const selectedCategory = e.currentTarget.value;
     setCurrentCategory(selectedCategory);
-    navigate(`/list/${selectedCategory}`);
+    navigate(`/list/${selectedCategory}?sort=recent&page=1`);
   };
-
-  useEffect(() => {
-    searchParams.set('sort', 'recent');
-    searchParams.set('page', '1');
-    setSearchParams(searchParams);
-  }, [currentCategory]);
 
   return (
     <t.Category>
@@ -42,5 +35,3 @@ function ListCategory({ category }: TProps) {
     </t.Category>
   );
 }
-
-export default ListCategory;
