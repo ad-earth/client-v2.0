@@ -53,9 +53,12 @@
 <br/>
 
 ## 페이지 주요 기능
-### 회원가입 및 로그인 
-<img alt="회원가입 및 로그인 페이지" 
-  src="https://user-images.githubusercontent.com/105091138/231611197-778c05c4-ffc0-4099-b21e-861bcf7a8add.gif" />
+### 회원가입 및 로그인
+<kbd>
+<img alt="회원가입 및 로그인" 
+  src="https://user-images.githubusercontent.com/105091138/231611197-778c05c4-ffc0-4099-b21e-861bcf7a8add.gif" />    
+</kbd>
+
 
 [회원가입]
 - 가입할 때는 필수 정보를 모두 기입하고 검증을 거쳐야 가입할 수 있어요.
@@ -71,9 +74,11 @@
 
 <br/>
 
-### 메인 
-<img alt="메인 페이지"
+### 메인
+<kbd >
+<img alt="메인"
 src="https://user-images.githubusercontent.com/105091138/231608589-842124e8-0c00-4100-926e-70fad42525f4.gif"/>
+</kbd>
 
 - 메인 홈 상단에는 상품의 홍보 배너를 슬라이드 형태로 제공해요.
 - 누적 판매량이 6순위에 드는 베스트 상품을 구경할 수 있어요.
@@ -81,10 +86,12 @@ src="https://user-images.githubusercontent.com/105091138/231608589-842124e8-0c00
 
 <br/>
 
- ### 상품 목록 
-<img alt="" 
+### 상품 목록 
+<kbd>
+<img alt="상품 목록" 
   src="https://user-images.githubusercontent.com/105091138/231609516-ad1f46ae-e9b5-4fd4-b7cd-1f77bafb7cba.gif" />
-  
+</kbd>
+
 - 상단의 네비게이션 바의 장보기 버튼으로 커서를 옮기면 상품 카테고리를 드롭다운 메뉴로 확인할 수 있고, 클릭하면 상품 카테고리별로 상품 목록을 구경할 수 있어요.
 - 상품 목록은 인기순, 등록순으로 정렬할 수 있어요.
 - 상품마다 리뷰와 좋아요 개수를 확인할 수 있고, 마음에 드는 상품은 ‘좋아요’를 클릭해두고 마이페이지에서 확인도 가능해요.
@@ -93,17 +100,21 @@ src="https://user-images.githubusercontent.com/105091138/231608589-842124e8-0c00
 <br />
 
 ### 상품 검색 목록
-<img alt="" 
+<kbd>
+<img alt="상품 검색 목록" 
   src="https://user-images.githubusercontent.com/105091138/232265920-aca2f3ce-4dcd-418f-9ff8-5a47a8ed165b.gif" />
-  
+</kbd>
+
 - 상단의 네비게이션 바의 검색 창에 원하는 상품이나 키워드를 입력하면 검색 결과 페이지로 넘어가요.
 - 검색 결과 중 광고 키워드가 등록된 상품은 광고 배지가 붙어 있고, 입찰 순위대로 상품 목록을 확인할 수 있어요.
 
 <br/>
 
-### 상품 상세 
-<img alt="" 
+### 상품 상세
+<kbd>
+<img alt="상품 상세" 
   src="https://user-images.githubusercontent.com/105091138/231612055-86e68d3a-7c1e-4a59-9ce3-dbbcf5c8a732.gif" />
+</kbd>
   
 - 상품에 대한 상세 정보와 다른 고객이 등록한 리뷰를 확인할 수 있어요.
 - 상품의 옵션이나 수량을 설정한 후 상품을 구매하거나 장바구니에 담아둘 수 있어요.(단, 상품 수량이나 옵션이 선택되지 않은 상태에서는 구매나 장바구니 담아두기가 불가능해요.)
@@ -112,19 +123,23 @@ src="https://user-images.githubusercontent.com/105091138/231608589-842124e8-0c00
 <br />
 
 ### 장바구니
-<img alt="" 
+<kbd>
+<img alt="장바구니" 
   src="https://user-images.githubusercontent.com/105091138/231612433-1660c955-10fe-4fba-a3ba-6cdb6657867f.gif" />
-  
+</kbd>
+
 - 장바구니에 담긴 상품의 수량을 변경하거나 옵션을 수정할 수 있어요.
 - 원하지 않은 상품은 선택해서 장바구니에서 삭제할 수 있어요.
 - 상품 개별 주문을 할 수 있고, 여러 상품을 선택해 총 주문 금액을 바로 확인하고 주문할 수도 있어요.
 
 <br />
 
-### 결제   
-<img alt="" 
+### 결제
+<kbd>
+<img alt="결제" 
   src="https://user-images.githubusercontent.com/105091138/231612934-9036cd3e-749b-44bf-bc23-8874ccfd9e85.gif" >
-  
+</kbd>
+
 - 결제할 상품의 정보와 총 주문 금액, 배송지 정보, 결제 수단 등을 확인할 수 있어요.
 - 배송정보는 기본 배송지, 이전에 주문했던 배송지, 신규 배송지 중 선택해서 이용할 수 있어요.
 - 결제에 필요한 정보를 모두 입력하고, 전체 동의 후 결제하기 버튼을 누르면 상단의 토스트 메세지와 함께 결제 완료 페이지로 넘어가요.
@@ -132,8 +147,10 @@ src="https://user-images.githubusercontent.com/105091138/231608589-842124e8-0c00
 <br />
 
 ###  결제 제품 주문배송 확인 및 취소 
-<img alt="" 
+<kbd>
+<img alt="결제 제품 주문배송 확인 및 취소 " 
   src="https://user-images.githubusercontent.com/105091138/231613382-c3bc49c9-290d-49e4-b65f-6bac2fc31fc0.gif"/>
+</kbd>
 
 [주문조회]
 - 사용자가 주문한 정보를 간편하게 확인할 수 있어요
@@ -149,8 +166,10 @@ src="https://user-images.githubusercontent.com/105091138/231608589-842124e8-0c00
 <br />
   
 ###  위시리스트
-<img alt="" 
+<kbd>
+<img alt="위시리스트" 
   src="https://user-images.githubusercontent.com/105091138/231614054-bff7551b-041c-4431-a4d9-545c3fb481f0.gif"/>
+</kbd>
 
 - 상품을 둘러보며 좋아요한 상품을 한눈에 확인할 수 있어요.
 - 위시리스트 삭제가 바로 가능해요.
@@ -160,8 +179,10 @@ src="https://user-images.githubusercontent.com/105091138/231608589-842124e8-0c00
 <br />
 
 ### 주문취소 확인
-<img alt="" 
+<kbd>
+<img alt="주문취소 확인" 
   src="https://user-images.githubusercontent.com/105091138/231614032-d5718ac4-e047-483c-9742-d61dfda084ef.gif" />
+</kbd>
 
 - 주문취소한 내역을 한번에 확인할수 있어요.
 - 취소상품의 상세내역에서 주문했던내역과 취소내역을 함께 확인할 수 있어요.
